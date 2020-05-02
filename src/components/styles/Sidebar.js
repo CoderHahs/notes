@@ -21,8 +21,8 @@ export const Sidebar = styled('aside')`
     text-transform: uppercase;
     letter-spacing: 1.2px;
     padding: 7px 24px 7px 16px;
-    border-left: 1px solid #e6ecf1;
-    border-left-color: rgb(230, 236, 241);
+    border-left: 1px solid #e98074;
+    border-left-color: #e98074;
 
     color: ${props => props.theme.colors.text};
   }
@@ -33,8 +33,8 @@ export const Sidebar = styled('aside')`
 
   .rightSideBarUL li {
     list-style-type: none;
-    border-left: 1px solid #e6ecf1;
-    border-left-color: rgb(230, 236, 241);
+    border-left: 1px solid #8d0101;
+    border-left-color: #8d0101;
   }
 
   .rightSideBarUL li a {
@@ -72,13 +72,13 @@ export const ListItem = styled(({ className, active, level, ...props }) => {
     position: relative;
 
     &:hover {
-      color: #1ed3c6 !important;
+      color: #e98074 !important;
     }
 
     ${props =>
       props.active &&
       `
-      color: #1ED3C6;
+      color: #e85a4f;
       border-color: rgb(230,236,241) !important;
       border-style: solid none solid solid;
       border-width: 1px 0px 1px 1px;

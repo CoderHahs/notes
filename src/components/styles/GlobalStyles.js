@@ -257,7 +257,7 @@ export const baseStyles = injectGlobal`
     padding: 0 !important;
   }
   .navBarDefault {
-    background-color: #001934;
+    background-color: #d5212e;
     border-radius: 0;
     border-top: 0;
     margin-bottom: 0;
@@ -319,6 +319,7 @@ export const baseStyles = injectGlobal`
   pre {
     border: 0 !important;
     background-color: rgb(245, 247, 249); /* !important; */
+    // box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   }
 
   blockquote {
@@ -369,7 +370,7 @@ export const baseStyles = injectGlobal`
   /* Header section ends here */
   .sidebarTitle {
     /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16); */
-    background-color: #f8f8f8;
+    background-color: #e98074;
     padding: 18px 16px;
     font-family: 'Poppins';
     font-size: 18px;
@@ -384,7 +385,7 @@ export const baseStyles = injectGlobal`
   }
 
   .sidebarTitle a {
-    color: #001934;
+    color: #e98074;
   }
 
   .greenCircle {
@@ -450,7 +451,7 @@ export const baseStyles = injectGlobal`
   }
 
   .hideFrontLine .active > a {
-    background-color: #1ed3c6;
+    background-color: #e98074;
     color: #fff !important;
   }
   .firstLevel ul li .collapser svg path {
@@ -470,7 +471,7 @@ export const baseStyles = injectGlobal`
   }
 
   .sideBarUL .item > a {
-    color: #1ED3C6;
+    color: #e98074;
     text-decoration: none;
     display: flex;
     align-items: center;

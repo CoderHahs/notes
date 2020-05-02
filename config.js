@@ -7,9 +7,9 @@ const config = {
   },
   header: {
     logo: 'https://raw.githubusercontent.com/GearHost/docs/master/Images/Professortocat_v2.png',
-    logoLink: '/introduction',
+    logoLink: '/',
     title:
-      "<a href='https://hrithiks-notes.netlify.app'>Hrithik's Notes</a>",
+      "<a href='/'>Hrithik's Notes</a>",
     githubUrl: 'https://github.com/CoderHahs/notes',
     helpUrl: '',
     tweetText: '',
@@ -38,7 +38,7 @@ const config = {
     //   "<a href='https://hrithikshah.com'>Hrithik's </a><div class='greenCircle'></div><a href='https://hrithiks-notes.netlify.app'>Notes</a>",
   },
   siteMetadata: {
-    title: 'Hrithik\'s notes',
+    title: "Hrithik's notes",
     description: 'A place for my learnings over the years',
     ogImage: null,
     docsLocation: 'https://github.com/CoderHahs/notes/tree/master/content',
