@@ -9,7 +9,7 @@ const config = {
     logo: 'https://raw.githubusercontent.com/GearHost/docs/master/Images/Professortocat_v2.png',
     logoLink: '/introduction',
     title:
-      "<a href='https://hrithiks-notes.netlify.app'><img class='img-responsive' src='https://graphql-engine-cdn.hasura.io/learn-hasura/assets/homepage/learn-logo.svg' alt='Learn logo' /></a>",
+      "<a href='https://hrithiks-notes.netlify.app'>Hrithik's Notes</a>",
     githubUrl: 'https://github.com/CoderHahs/notes',
     helpUrl: '',
     tweetText: '',

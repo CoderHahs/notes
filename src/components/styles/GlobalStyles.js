@@ -223,12 +223,12 @@ export const baseStyles = injectGlobal`
   }
   .headerTitle {
     height: auto;
-    font-size: 16px;
+    font-size: 35px;
     line-height: 1.5;
-    font-weight: 300;
-    color: #fff !important;
-    margin-top: 16px;
-    text-transform: uppercase;
+    font-weight: 1000;
+    color: #fff important;
+    // margin-top: 16px;
+    // text-transform: uppercase;
   }
   .headerTitle a {
     color: #fff;
@@ -286,7 +286,7 @@ export const baseStyles = injectGlobal`
   }
 
   .navBarBrand img {
-    width: 120px;
+    width: 80px;
     margin-right: 6px;
     display: inline-block;
   }
@@ -320,7 +320,7 @@ export const baseStyles = injectGlobal`
     border: 0 !important;
     background-color: rgb(245, 247, 249); /* !important; */
   }
-  
+
   blockquote {
     color: rgb(116, 129, 141);
     margin: 0px 0px 24px;
@@ -753,7 +753,7 @@ export const baseStyles = injectGlobal`
       padding-bottom: 20px;
       border-top: 1px solid #fff;
     }
-    .headerTitle {
+    .le {
       padding-right: 50px;
       font-size: 16px;
     }
