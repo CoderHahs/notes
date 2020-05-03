@@ -154,7 +154,7 @@ export const baseStyles = injectGlobal`
     border: none;
   }
   .formElement svg path {
-    fill: #2fd2c5;
+    fill: #fff;
   }
   .searchInput {
     width: 100%;
