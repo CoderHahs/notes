@@ -29,7 +29,7 @@ const config = {
       '/codeblock',
     ],
     collapsedNav: [
-      '/codeblock', // add trailing slash if enabled above
+      '/lin_alg', // add trailing slash if enabled above
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
