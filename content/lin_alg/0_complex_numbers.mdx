@@ -12,13 +12,15 @@ metaDescription: "Linear Algebra - Complex Numbers"
 
 # Introduction
 
-Real numbers, ${\rm I\!R}$, are any numbers that make sense as a displacement. Ex. ($-2, \pi$).
+Real numbers, $\mathbb{R}$, are any numbers that make sense as a displacement. Ex. ($-2, \pi$).
 Some expressions are meaningless; $2/0$, $\sqrt{-7}$
 
 To express them a new variable/value is introduced: $i$.
 The unit for an **Imaginary Number** can be defined as: $i = \sqrt{-1}$ and $\sqrt{-7} = 7i$
 
-## Properties of the Imaginary Number
+All all algebraic properties of $\mathbb{R}$ also hold true in $\mathbb{C}$ ex. (commutativity, associativity) except order ($\leq$)
+
+### Properties of the Imaginary Number
 
 1. $i^2 = -1$
 2. $i^3 = -i$
@@ -27,3 +29,39 @@ The unit for an **Imaginary Number** can be defined as: $i = \sqrt{-1}$ and $\sq
 5. repeat
 
 # Definition of Complex Numbers
+
+$\mathbb{C} = \{ a + bi | a,b \in \mathbb{R}, i = \sqrt{-1}\}$, which translates to "set of things like $a+bi$ satisfying $a,b$ are in the set of $\mathbb{R}$ and $i = \sqrt{-1}$"
+
+### Some notation
+
+> $z \in \mathbb{C}, z = a + bi$
+
+- $a = \textbf{Re}(z)$ where $Re$ is real part
+- $b = \textbf{Im}(z)$ where $Im$ is imaginary part
+
+If $\textbf{Im}(z) = 0, z = a = \mathbb{R}$, then every real number is complex
+
+# Modulus, Argument and Complex Conjugate
+
+> ![Image](https://upload.wikimedia.org/wikipedia/commons/7/7a/Complex_number_illustration_modarg.svg)
+
+The modulus of a complex number can be referred to as the magintude and is illustrated as $r$ the above graph. Hence, $r = |z| = \sqrt{a^2+b^2}$
+
+The argument is the represented by the angle in the graph above.
+
+The complex conjugate of a complex number is the number with an equal real part and an imaginary part equal in magnitude but opposite in sign. For example, if
+$z = a + bi$ then $z$'s complex conjugate is $z' = \overline{z} = a - bi$
+
+# Polar Form
+
+> $z \in \mathbb{C} \Rightarrow z = rcos\theta + irsin\theta = r cis\theta$
+
+- $\theta$ is the argument of $z$, $r = |z|$
+- $z = a + bi \Rightarrow cos\theta = \frac{a}{r}, sin\theta = \frac{b}{r}$
+
+# Euler Form
+
+> $z = e^{i\theta}$
+
+- $\overline{z} = e^{-i\theta}$
+- Multiplication $\Rightarrow 2e^{i\frac{\pi}{2}}*(\frac{1}{3}e^{\frac{3\pi}{4}}) = \frac{2}{3}e^{i\frac{5\pi}{4}}$ 

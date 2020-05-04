@@ -326,8 +326,8 @@ export const baseStyles = injectGlobal`
     color: rgb(116, 129, 141);
     margin: 0px 0px 24px;
     padding: 0px 0px 0px 12px;
-    border-left: 4px solid rgb(230, 236, 241);
-    border-color: rgb(230, 236, 241);
+    border-left: 4px solid #e98074;
+    border-color: #e98074;
   }
   .socialWrapper {
     display: flex;

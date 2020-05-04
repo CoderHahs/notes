@@ -30,7 +30,8 @@ const plugins = [
           options: {
             maxWidth: 1035,
             sizeByPixelDensity: true,
-          }
+          },
+          plugins: [require(`gatsby-remark-images`)],
         },
         {
           resolve: 'gatsby-remark-copy-linked-files'
