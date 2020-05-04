@@ -323,11 +323,11 @@ export const baseStyles = injectGlobal`
   }
 
   blockquote {
-    color: #000;
+    color:  rgb(116, 129, 141);
     font: 14px;
-    margin: 0px 0px 24px;
+    margin: 0px 0px 20px;
     padding: 0px 0px 0px 12px;
-    border-left: 4px solid #e98074;
+    border-left: 2px solid #e98074;
     border-color: #e98074;
   }
   .socialWrapper {
