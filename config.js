@@ -1,3 +1,4 @@
+
 const config = {
   gatsby: {
     pathPrefix: '/',

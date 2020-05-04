@@ -22,20 +22,22 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-mdx',
     options: {
-      gatsbyRemarkPlugins: [
+        remarkPlugins: [require(`remark-math`)],
+        rehypePlugins: [require(`rehype-katex`)],
+        gatsbyRemarkPlugins: [
         {
           resolve: "gatsby-remark-images",
           options: {
             maxWidth: 1035,
-            sizeByPixelDensity: true
+            sizeByPixelDensity: true,
           }
         },
         {
           resolve: 'gatsby-remark-copy-linked-files'
-        }
+        },
       ],
       extensions: [".mdx", ".md"]
-    }
+    },
   },
   {
     resolve: `gatsby-plugin-gtag`,

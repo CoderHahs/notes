@@ -517,7 +517,7 @@ export const baseStyles = injectGlobal`
     display: flex;
     align-items: center;
     padding-bottom: 40px;
-    border-bottom: 1px solid rgb(230, 236, 241);
+    border-bottom: 1px solid #8d0101;
     margin-bottom: 32px;
   }
 
