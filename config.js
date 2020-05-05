@@ -30,6 +30,12 @@ const config = {
     collapsedNav: [
       '/lin_alg', // add trailing slash if enabled above
       '/web_programming_cs50w',
+      '/stats_prob',
+      '/analysis_design_ui',
+      '/discrete_structures',
+      '/eng_mech',
+      '/operating_systems',
+      '/quality_assurance',
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
