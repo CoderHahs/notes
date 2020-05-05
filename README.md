@@ -7,4 +7,4 @@ Made using gatsby-gitbook-starter repo by Hasura
 Here's a [live demo](https://hrithiks-notes.netlify.app)
 
 ## Status
-[![Netlify Status](https://api.netlify.com/api/v1/badges/671a93b4-2476-420a-a726-9e8ba7c6cd59/deploy-status)](https://app.netlify.com/sites/hrithiks-notes/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/548496c3-2610-469c-b401-6655e0989b72/deploy-status)](https://app.netlify.com/sites/hrithiks-notes/deploys)
