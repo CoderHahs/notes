@@ -319,7 +319,7 @@ export const baseStyles = injectGlobal`
   pre {
     border: 0 !important;
     background-color: rgb(245, 247, 249); /* !important; */
-    // box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   }
 
   blockquote {

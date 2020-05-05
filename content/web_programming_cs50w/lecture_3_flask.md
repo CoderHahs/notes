@@ -8,7 +8,7 @@ metaDescription: "Topics in Flask"
 
 - already know the basics
 
-### Importing from other files
+## Importing from other files
 ```Python
 from functions import square
 ```
@@ -20,7 +20,7 @@ if __name__ == "_main_":
 ```
 if currently running this particular file, run the 'main' function
 
-### Python Classes
+## Python Classes
 ```Python
 class Point:
   def __init__(self, x, y):
@@ -28,9 +28,9 @@ class Point:
     self.y = y
 ```
 
-## Flask
+# Flask
 
-### Configuration
+## Configuration
 **application.py**
 ```Python
 from flask import flask
@@ -46,7 +46,7 @@ To run the program and create a server:
 1. go to directory of application.py
 2. run ```$ flask run```
 
-### Routing
+## Routing
 ```Python
 from flask import flask
 
@@ -61,7 +61,7 @@ def hrithik():
   return "Hello, Hrithik!"
 ```
 
-### Smart Routing
+## Smart Routing
 ```Python
 from flask import flask
 
@@ -76,7 +76,7 @@ def hello(name):
   return "Hello " + name + "!"
 ```
 
-### render_template
+## render_template
 ```Python
 from flask import Flask, render_template
 
@@ -88,7 +88,7 @@ def index():
 ```
 flask will only look for 'index.html' under a folder called templates
 
-### Passing variables
+## Passing variables
 ```Python
 from flask import Flask, render_template
 
@@ -112,7 +112,7 @@ def index():
 ```
 {{}}  comes from Jinja2 syntax, a templating language used by Flask
 
-### If statements in HTML files
+## If statements in HTML files
 ```html
 <!DOCTYPE html>
 <html>
@@ -129,7 +129,7 @@ def index():
 ```
 this is very similar to Ruby on Rails
 
-### for loops
+## for loops
 ```HTML
 <html>
   ...
@@ -142,7 +142,7 @@ this is very similar to Ruby on Rails
 </html>
 ```
 
-### links for urls
+## links for urls
 ```HTML
 <html>
   ...
@@ -152,7 +152,7 @@ this is very similar to Ruby on Rails
 ```
 renders the page returned by the 'index' function
 
-## Template Inheritance
+# Template Inheritance
 have a layout.html file in templates folder
 
 ```HTML
@@ -171,7 +171,7 @@ have a layout.html file in templates folder
 ```
 That block code tells the program that some html code could go between that.
 
-### Post Requests
+## Post Requests
 ```html
 {% extends "layout.html" %}
 
@@ -202,7 +202,7 @@ def hello():
 ```
 methods["POST"] makes it so that the method can only be called through POST Requests
 
-### Get Requests
+## Get Requests
 ```Python
 from flask import Flask, render_template, request
 
@@ -221,7 +221,7 @@ def hello():
     return render_template("hello.html", name=name)
 ```
 
-### Sessions
+## Sessions
 ```Python
 from flask import Flask, render_template, request, session
 from flask_session import Session
