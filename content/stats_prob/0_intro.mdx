@@ -1,0 +1,69 @@
+---
+title: "Introduction to Probability"
+metaTitle: "Introduction to Probability"
+metaDescription: "Stats & Probability - Introduction"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+
+# Sample Spaces
+
+Any action with a random outcome is defined as **random experiment**
+
+The **sample space** for this action is the set of all possible outcomes. Denoted as $S$.
+
+A sample space can be **discrete** or **continuous**. Ex. flipping a coin, measuring weight $(0, \infty)$
+
+For any events $A$ and $B$ in $S$:
+- The union of $A \cup B$ are all outcomes from $S$ in either $A$ or $B$;
+- The intersection of $A \cap B$ are all outcomes in both of $A$ and $B$;
+- The complement of A(sometimes denoted as $\overline{A}$ or $-A$) is the set of all outcomes in $S$ that are not in $A$;
+
+If $A$ and $B$ don't have any common outcomes, they are **mutually exclusive**. $A \cap B$ is the empty set.
+
+# Counting Techniques
+
+## Addition Rule
+
+Consider a job that can be done with 2 independent machine; first machine OR second machine. The first machine does the job in $m_1$ ways and the second machine does the job in $m_2$ ways. Then, the job can be done in $m_1 + m_2$ ways.
+
+## Multiplication Rule
+
+A job that can be done in a **k-stage procedure** would be modeled as having $k$ bags, with $m_1$ items in the first bag,..., $m_k$ items in $k$-th bag. A $k$-stage process is a process for which:
+- there are $m_1$ possibilities at stage 1;
+- regardless of the 1st outcome there are $m_2$ possibilities of stage 2
+- regardless of the previous outcomes, there are $m_k$ choices at stage $k$
+
+Then there are $m_1\cdot m_2\cdot ...\cdot m_k$ total ways the process can turn out.
+
+# Ordered and Unordered Samples
+
+## Ordered Samples
+
+Two different scenarios: **with replacement** or **without replacement**.
+
+Sampling With Replacement (order important):
+
+- If $n$ outcomes and $r$ repetitions then $n^r$
+
+Sampling Without Replacement (order important):
+
+- This results in $nP_r = \frac{n!}{(n-r)!}$
+
+## Unordered Samples
+
+In this case we would use $nC_r = \frac{n!}{{(n-r)!r!}}$ = $n \choose r$
+
+
+# Axioms of Probability
+
+# Conditional Probabilities and Independent Events
+
+# Law of Total Probability
+
+# Bayes Theorem
