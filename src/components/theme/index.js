@@ -12,7 +12,6 @@ const lightTheme = {
     text: '#3B454E',
     preFormattedText: '#eae7dc',
     link: '#1000EE',
-    blockquote: '#000'
   },
 };
 
@@ -24,7 +23,6 @@ const darkTheme = {
     text: '#fff',
     preFormattedText: '#1c1c1c',
     link: '#1ED3C6',
-    blockquote: '#fff'
   },
 };
 

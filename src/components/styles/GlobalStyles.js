@@ -610,6 +610,14 @@ export const baseStyles = injectGlobal`
   }
   /* end - tables.css */
 
+  .css-pysaby code {
+    border: 1px solid #e85a4f;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.9375em;
+    background: #eae7dc;
+}
+
   /* Image styling */
   img {
     max-width: 100%;
