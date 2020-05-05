@@ -26,11 +26,10 @@ const config = {
   },
   sidebar: {
     forcedNavOrder: [
-      '/introduction', // add trailing slash if enabled above
-      '/codeblock',
     ],
     collapsedNav: [
       '/lin_alg', // add trailing slash if enabled above
+      '/web_programming_cs50w',
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
