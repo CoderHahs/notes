@@ -463,7 +463,7 @@ export const baseStyles = injectGlobal`
   }
 
   .firstLevel ul .item ul .item {
-    border-left: 1px solid #e6ecf1;
+    border-left: 1px solid #8d0101;
   }
 
   .sideBarUL .item {
