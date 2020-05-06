@@ -24,7 +24,7 @@ For any events $A$ and $B$ in $S$:
 - The intersection of $A \cap B$ are all outcomes in both of $A$ and $B$;
 - The complement of A(sometimes denoted as $\overline{A}$ or $-A$) is the set of all outcomes in $S$ that are not in $A$;
 
-If $A$ and $B$ don't have any common outcomes, they are **mutually exclusive**. $A \cap B$ is the empty set.
+If $A$ and $B$ don't have any common outcomes, they are **mutually exclusive**. $A \cap B$ is $\varnothing$, or the empty set.
 
 # Counting Techniques
 
@@ -59,8 +59,27 @@ Sampling Without Replacement (order important):
 
 In this case we would use $nC_r = \frac{n!}{{(n-r)!r!}}$ = $n \choose r$
 
+# Probability of an Event
+
+For situations where we have a random experiment which has exactly $N$ possible **mutually exclusive, equally likely outcomes, we can assign a probability to an event $A$ by counting the number of outcomes that correspond to $A$. If the count is $a$ then: $P(A) = \frac{a}{N}$.
+> The probability of each individual outcome is thus $1/N$
 
 # Axioms of Probability
+1. For any event $A$, $1 \geq P(A) \geq 0$.
+2. For the complete sample space $S$, $P(S) = 1$.
+3. For the empty event $\varnothing, P(\varnothing) = 0$.
+4. For two **mutually exclusive events** $A$ and $B$, the probability that $A$ or $B$ occurs is $P(A \cup B) = P(A) + P(B)$
+
+Since $S = A \cup \overline{A}$, and since $A$ and $\overline{A}$ are mutually exclusive then, $1 = P(S) = P(A \cup \overline{A}) = P(A) + P(\overline{A}) \Rightarrow P(\overline{A}) = 1 - P(A)$.
+
+## General Addition Rule
+
+> $(A \cup B) = P(A) + P(B) - P(A \cup B)
+
+When $A$ and $B$ are mutually exclusive, $P(A \cap B) = P(\varnothing) = 0$ and $P(A \cup B) = P(A) + P(B)$
+
+If there are more than two events, the rule expands as follows:
+> $P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P (A \cap B \cap C)$ 
 
 # Conditional Probabilities and Independent Events
 
