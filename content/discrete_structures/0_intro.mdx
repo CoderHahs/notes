@@ -1,0 +1,30 @@
+---
+title: "Introduction to Discrete Structures"
+metaTitle: "Intro to Discrete Structures"
+metaDescription: "Discrete Structures - Introduction"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# How to approach problems
+
+Place $n$ points on a circle, and connect each pair of points by a line segment. What is the maximum number of regions we obtain inside the circle?
+
+### Start by stating and thinking about some examples.
+
+- 1 point $\Rightarrow$ 1 region
+- 2 points $\Rightarrow$ 2 regions
+- 3 points $\Rightarrow$ 4 regions
+- 4 points $\Rightarrow$ 8 regions
+
+With this pattern we notice that $R$ being the number of regions given by $n$ points on a circle, we get the relation: $R(n) = 2^{n-1}$
+
+### Once you see a pattern, try to prove it
+
+If we go for $n=6$ we see that $R(n) = 31$. Therefore, our hypothesis is incorrect. There actually isn't a function to describe the above problem.
+
+Remember to try using small numbers as examples to confirm your intuition.
