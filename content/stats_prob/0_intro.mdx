@@ -83,6 +83,25 @@ If there are more than two events, the rule expands as follows:
 
 # Conditional Probabilities and Independent Events
 
+Any two events $A$ and $B$ satisfying $P(A \cap B) = P(A) \times P(B)$ are said to be **independent**; this is a purely mathematical definition, but it agrees with the intuitive notion of independence in simple examples.
+
+When events are not independent, we say that they are **dependent** or **conditional**.
+
+### Conditional Probability
+
+The conditional probability of an event $B$ given that another event $A$ has occurred as $P(B|A) = \frac{P(A \cap B)}{P(A)}$.
+
 # Law of Total Probability
 
+if $A_1, ...A_k$ are **mutually exclusive** and **exhaustive** (i.e. $A_i \cap A_j = \varnothing$ **forall** $i \neq j$ **and** $A_1 \cup ... \cup A_k = S$), then for any event $B$
+> $P(B) = \sum_{j=1}^{k} P(B|A_j)P(A_j) = P(B|A_1)P(A_1)+ ... + P(B|A_k)P(A_k)$.
+
 # Bayes Theorem
+
+> $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$
+
+### Terminology
+
+- $P$(hypothesis) is the probability of the hypothesis being true prior to the experiment (called the **prior**)
+- $P$(hypothesis|data) is the probability of the hypothesis being true once the experimental data is taken into account (called the **posterior**)
+- $P$(data|hypothesis) is the probability of the experimental data being observed assuming that the hypothesis is true (called the **likelihood**)
