@@ -12,10 +12,10 @@ metaDescription: "Linear Algebra - Vectors"
 
 # Definition
 
-A vector is an object that has both a magnitude and a direction. Geometrically, we can picture a vector as a directed line segment, whose length is the magnitude of the vector and with an arrow indicating the direction. A unit vector is a vector with magnitude 1 and any argument value.
+A vector is an object that has both a magnitude and a direction. Geometrically, we can picture a vector as a directed line segment, whose length is the magnitude of the vector and with an arrow indicating the direction. A unit vector is a vector with magnitude 1 and any argument value. A vector is denoted as $\overline{u}$ or $\overrightarrow{u}$.
 
 # Dot Product
-> $\overrightarrow{u} \cdot \overrightarrow{v} = u_1v_1+u_2v_2 + ... + u_nv_n = |\overrightarrow{u}||\overrightarrow{v}|cos\theta$
+> $\overrightarrow{u} \cdot \overrightarrow{v} = u_1v_1+u_2v_2 + ... + u_nv_n = |\overrightarrow{u}||\overrightarrow{v}|\cos\theta$
 
 - dot product only works with two vectors
 
@@ -31,3 +31,14 @@ If $\overrightarrow{u} \cdot \overrightarrow{v} =$
 
 # Projection
 > $proj_{\overrightarrow{u}}^{\overrightarrow{v}} = \frac{\overrightarrow{u} \cdot \overrightarrow{v}}{\overrightarrow{u} \cdot \overrightarrow{v}}\overrightarrow{u}$
+
+# Cross Product
+- $||\overline{v} \times \overline{w}|| = |\overline{v}||\overline{w}|\sin\theta$
+- $\overline{u} \times \overline{v} = -\overline{v} \times \overline{u}$
+- $\overline{u} \times \overline{v} \perp \overline{u}$ and $\overline{v}$
+
+# Parallelepiped
+- volume = $|\overline{u}\cdot(\overline{v}\times\overline{w})|$
+
+# Distance
+- point to plane $\Rightarrow ||proj_{\overline{p}}\overrightarrow{PQ}|| =$ $|\frac{\overrightarrow{PQ}\cdot\overline{p}}{||\overline{p}||}$
