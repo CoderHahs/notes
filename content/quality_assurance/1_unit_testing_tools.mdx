@@ -1,0 +1,72 @@
+---
+title: "Unit Testing Tools - Junit & PyUnit"
+metaTitle: "Unit Testing Tools"
+metaDescription: "Software QA - Unit Testing Tools - Junit & PyUnit"
+---
+
+# Unit Testing
+
+- Runtime examination of “small” unit of a system code
+    - typically: function, method, class
+- Low level access to unit under test (UUT)
+    - typically: procedure call
+- Generally performed as part of the implementation of the unit
+    - essential in TDD approaches
+
+
+# A Junit Test case
+
+```java
+/** Test of setName() method, of class Value */
+ @Test
+ public void createAndSetName()
+ {
+    Value v1 = new Value( );
+    v1.setName( "Y" );
+    String expected = "Y";
+    String actual = v1.getName( );
+    Assert.assertEquals( expected, actual );
+ }
+```
+
+## Assertion Methods
+- Boolean conditions are true or false
+    - ```assertTrue(condition)```
+    - ```assertFalse(condition)```
+- Objects are null or non-null
+    - `assertNull(object)`
+    - `assertNotNull(object)`
+- Objects are identical (i.e. two references to the same object), or not identical.
+    - `assertSame(expected, actual)`
+        - true if: expected == actual
+    - `assertNotSame(expected, actual)`
+- “Equality” of objects:
+    - `assertEquals(expected, actual)`
+        - Valid if: expected.equals( actual )
+- “Equality” of arrays:
+    - `assertArrayEquals(expected, actual)`
+        - Parameters are either arrays of primitive types, or Object[].
+- Unconditional failure assertion
+    - fail() - always results in a fail verdict
+
+# A PyUnit Testcase
+```Python
+import unittest # test framework module import
+from valueMod import Value # unit under test import
+# test case definition
+class MyTestCase(unittest.TestCase):
+ # test method name start with “test”
+    def test_createAndSetName(self):
+    v1 = Value()
+    print(v1.getName())
+    v1.setName("Y")
+    expected = "Y"
+    self.assertEqual(expected, v1.getName())
+
+# test runner invocation
+if __name__ == '__main__':
+ unittest.main()
+```
+
+## Assertion Methods
+> ![Pyunit_assertion](..\images\pyunit_assertion.png)
