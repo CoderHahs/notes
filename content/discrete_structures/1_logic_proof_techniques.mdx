@@ -30,3 +30,33 @@ We can combine propositions to obtain a new proposition. In order to do that, we
 
 - $\neg(\forall x P(x)) \equiv \exists x \neg P(x)$<br/>
 - $\neg(\exists x P(x)) \equiv \forall x \neg P(x)$
+
+# Examples
+
+For each of the following examples, write the expression with the help of quantifiers and logical operators. Determine if the expression is true of false. Indicate the method of proof used and ... prove it!
+
+### 1. Prove or disprove: The sum of two odd integers is an even integer.
+
+Written as quantifiers: $\forall x \  \forall y \in \Z \ (I(x) \wedge I(y) \to \neg I(x+y))$, where $I(x)$ means "x is odd"
+
+Here is a direct proof. An arbitrary odd integer, $n$, has the formula $n= 2k+1$, where $k \in \Z$. Hence if we take 2 odd integers, $a$ & $b$, we get $a+b = (2k+1) + (2k+1) = 4k+2 = 2(2k+1)$ (I know the middle step is useless, but I kept it just for the sake of it). Now we are left with $2(2k+1)$ where $(2k+1)$ can be thought as any integer, say $x$. So $2x$ is clearly divisible by $2$, hence it must be even. This proves that the sum of two odd integers is an even integer.
+
+### 2. Prove or disprove: The equation below admits a real-numbered solution.
+
+> $x^2 + 3x + 3 = 0$
+
+Written as quantifiers: $\exists x \in \R \ (x^2+3x+3 = 0)$
+
+This proof is straightforward. If you use the quadratic formula you'll get roots $\frac{-3+3i}{2}$ and $\frac{-3-3i}{2}$. As you can none of the roots belong to \R. Hence disproving the statement.
+
+### 3. Prove or disprove: Let x be an integer. If the square of x is an even integer, then x is even.
+
+Written as quantifiers: $\forall x \in \Z \ (P(x^2) \to P(x))$ where $P(x)$ means "x is even."
+
+This can be proved using a proof by contraposition. Here we are trying to prove that $\neg P(x) \to \neg P(x^2)$. If $x$ is not even, then $x = 2k+1$, where $k \in \Z$. Hence $x^2$ will be $4k^2 +4k+1 = (2k^2+2k) + 1$, where the part in the parentheses can be thought of as $k \in \Z$. Hence we have proved that if $x$ is not even, then its square is also not even, which in turn proves our initial statement.
+
+### 4. Prove or disprove: Let m and n be two integers. If the product of the two is even, then m is even or n is even.
+
+Written as quantifiers: $\forall m \ \forall n \in \Z (P(m \cdot n) \to P(m) \wedge P(n))$
+
+Similarly, this can be proved by contraposition. So we are trying to prove $\neg (P(m) \wedge P(n)) \to \neg P(m \cdot n)$ which can be simplified to $\neg P(m) \vee \neg P(n) \to \neg P(m \cdot n)$. Let $m = 2k + 1, n = 2x + 1$, where $k,x \in \Z$. Thus we get $(2k+1)(2x+1) = 4kx + 2k + 2x + 1 = 2(2kx + k +x) + 1 \equiv 2k+1$. Hence we proved that if $m$ and $n$ are both odd, then their product is odd as well. This proves the initial statement.
