@@ -61,4 +61,19 @@ Written as quantifiers: $\forall m \ \forall n \in \Z (P(m \cdot n) \to P(m) \we
 
 Similarly, this can be proved by contraposition. So we are trying to prove $\neg (P(m) \wedge P(n)) \to \neg P(m \cdot n)$ which can be simplified to $\neg P(m) \vee \neg P(n) \to \neg P(m \cdot n)$. Let $m = 2k + 1, n = 2x + 1$, where $k,x \in \Z$. Thus we get $(2k+1)(2x+1) = 4kx + 2k + 2x + 1 = 2(2kx + k +x) + 1 \equiv 2k+1$. Hence we proved that if $m$ and $n$ are both odd, then their product is odd as well. This proves the initial statement.
 
-### 5.
+### 5. Prove or disprove: If x & y are multiples of 3, then 3x+2y is odd.
+
+Written as quantifiers: $\forall x \ \forall y \in \Z (M(x) \wedge M(y) \to I(3x+2y))$ where $M(x)$ means "x is a multiple of 3".
+
+This statement is false, because if we take $x = 0, y = 9$ then we get $18$ which is not odd.
+
+
+### 6. Prove or disprove: The square root of 2 is irrational.
+
+This statement is true. Here is a proof by contradiction. We want to prove that $\sqrt{2}$ is not irrational, in other words it is rational. Suppose that $\sqrt{2}$ is ratonal, i.e. $\sqrt(2) \in \mathbb{Q}$. If a number is rational, it can be written as a fraction. Hence, that means that $\sqrt{2} = \frac{m}{n}$ for some integers $m,n$ not equal to $0$ and this fraction is reduced. $\sqrt{2} = \frac{m}{n} \Rightarrow m^2 = 2n^2$. This means $m^2$ is even and we proved in an earlier proof that $m$ is also even. Therefore, $m=2k \Rightarrow 4k^2 = 2n^2 \Rightarrow 2k^2 = n^2$. This means that $n^2$ is also even, and so is $n$. Let $n=2l$. Hence we get $\frac{m}{n} = \frac{2k}{2l}$ which is not reduced. Hence we have a contradiction.
+
+### 7. Prove or disprove: If x is a positive real number, then the root of x is less than x.
+
+Written as quantifiers: $\forall x  \in \R^+ (\sqrt{x} < x)$.
+
+This statement is false. If we take $x=1/4 \Rightarrow \sqrt{1/4} = 1/2 \Rightarrow 1/2 > 1/4 \Rightarrow \sqrt{x} > x$
