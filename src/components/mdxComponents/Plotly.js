@@ -9,7 +9,7 @@ const Plotly = Loadable({
         timedOut ? (
             <blockquote>Error: Loading Plotly timed out.</blockquote>
         ) : (
-                <FoldingSpinner />
+                <blockquote>Loading</blockquote>
             ),
     timeout: 10000,
 })
@@ -21,7 +21,7 @@ export const LazyPlot = withTheme(({ theme, ...rest }) => (
             paper_bgcolor: `rgba(0, 0, 0, 0)`,
             plot_bgcolor: `rgba(0, 0, 0, 0)`,
             font: {
-                color: theme.textColor,
+                color: '#e98074',
                 size: 16,
             },
             // The next 3 directives make the plot responsive.
