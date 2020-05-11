@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FoldingDiv } from '.'
+import { FoldingDiv } from './styles.js'
 
 export const FoldingSpinner = props => {
     const [active, setActive] = useState(true)

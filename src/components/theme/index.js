@@ -12,6 +12,8 @@ const lightTheme = {
     text: '#3B454E',
     preFormattedText: '#eae7dc',
     link: '#1000EE',
+    spinner: '#e98074',
+    plotlyText: '#000',
   },
 };
 
@@ -23,6 +25,8 @@ const darkTheme = {
     text: '#fff',
     preFormattedText: '#1c1c1c',
     link: '#1ED3C6',
+    spinner: '#fff',
+    plotlyText: '#fff',
   },
 };
 

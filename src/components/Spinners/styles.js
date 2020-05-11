@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled';
 
 // Adapted from https://tobiasahlin.com/spinkit.
 export const FoldingDiv = styled.div`
@@ -20,7 +20,7 @@ export const FoldingDiv = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: ${({ color, theme }) => theme[color] || theme.textColor};
+    background: ${props => props.theme.colors.spinner};
     ${props => props.active && `animation: foldCube 2.4s infinite linear both`};
     transform-origin: 100% 100%;
   }
