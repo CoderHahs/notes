@@ -36,6 +36,7 @@ const config = {
       '/eng_mech',
       '/operating_systems',
       '/quality_assurance',
+      '/discrete_math',
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
