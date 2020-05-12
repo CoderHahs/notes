@@ -5,6 +5,13 @@ const plugins = [
   'gatsby-plugin-sitemap',
   'gatsby-plugin-sharp',
   {
+    resolve: `gatsby-plugin-google-analytics`,
+    options: {
+      // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+      trackingId: config.gatsby.gaTrackingId,
+    },
+  },
+  {
     resolve: `gatsby-plugin-layout`,
     options: {
         component: require.resolve(`./src/templates/docs.js`)
@@ -40,17 +47,17 @@ const plugins = [
       extensions: [".mdx", ".md"]
     },
   },
-  {
-    resolve: `gatsby-plugin-gtag`,
-    options: {
-      // your google analytics tracking id
-      trackingId: config.gatsby.gaTrackingId,
-      // Puts tracking script in the head instead of the body
-      head: true,
-      // enable ip anonymization
-      anonymize: false,
-    },
-  },
+  // {
+  //   resolve: `gatsby-plugin-gtag`,
+  //   options: {
+  //     // your google analytics tracking id
+  //     trackingId: config.gatsby.gaTrackingId,
+  //     // Puts tracking script in the head instead of the body
+  //     head: true,
+  //     // enable ip anonymization
+  //     anonymize: false,
+  //   },
+  // },
 ];
 // check and add algolia
 if (config.header.search && config.header.search.enabled && config.header.search.algoliaAppId && config.header.search.algoliaAdminKey) {
