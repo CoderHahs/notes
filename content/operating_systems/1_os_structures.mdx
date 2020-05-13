@@ -1,0 +1,33 @@
+---
+title: "Operating System Structures"
+metaTitle: "OS Structures"
+metaDescription: "Operating Systems - Structures"
+---
+
+
+
+# Role of the Operating System
+- Bridging the hardware/user gap
+    - Hide the complexity of directly dealing with hardware devices, e.g.
+        - disk storage: file system
+        - IO devices: monitor/keyboard/mouse
+        - CPU: compilers, multiprogramming, etc 
+    - Provide abstraction of hardware devices
+        - Provide a simple API (interface) to users
+        - Provide a unified interface – for similar devices 
+    - Provide virtualization of devices
+        - Create virtual devices (services) using existing ones
+
+### The OS as a resource manager
+- basically refers to the OS being like a time manager where each program uses the processor at different times
+- multiprogramming and multitasking (Time-sharing)
+- multiprogramming increases CPU utilization by organizing jobs (code and data) so that the CPU always has one to execute
+- time-sharing the CPU executes multiple jobs by switching among them, but the switches occur so frequently that the users can interact with each program while it is running.
+
+# Dual-Mode operation
+- a user mode or a non-privileged mode
+- a kernel mode or a priveleged mode
+
+The **kernel** of an OS is the minimal set of functions necessary to manage the system resources safely and efficiently.
+
+This identification is handled by a mode bit, and it lets the system determine what programs are crucial and need to be run without violating the integrity of the system.
