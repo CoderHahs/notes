@@ -1,0 +1,161 @@
+---
+title: "Evaluation of User Interfaces"
+metaTitle: "Evaluation of UI"
+metaDescription: "Analysis & Design of UI - Evaluation of UI"
+---
+
+# Problem Report Monitoring
+
+### Goal 
+Allow users encountering a problem while using software to report it to the company
+
+### Implementation
+- Users should have a way of submitting complaints, frustrations and suggestions during use
+- The submission should be part of the software
+- requires realistic use of the system
+
+### Advantages/Disadvantages
+- This type of assessment "waits" for problems to arise and does not actively seek them out during the testing phase
+- Uncommon (but possibly serious) problems may not be found
+- Users will become frustrated with the repition of problems
+- Less resources at test time
+
+# Log Analysis
+
+### Goal
+Backup(in the background) of the usage data in order to observe user behavior and infer errors in the UI.
+
+### Implementation
+- Requires realistic use of the system
+- Requires a capture of the operations carried out by the user
+- Requires analysis tools to extract from logs:
+    - Frequency of use of commands
+    - Patterns (sequences) leading to errors
+    - Reverse operations (undo), often a sign of problems
+
+### Advantages/Disadvantages
+- it is possible to obtain data aimed at improving the UI without having to "disturb" the user
+- Privacy is a concern
+    - not everyone should be "watched"
+- log analysis requires expertise in data science (or related field)
+- log storage requires a lot of resources
+
+# Scientific Experiments
+
+### Goal
+Follow the scientic method to demonstrate that a property of a user interface would be favorable (or not) to user productivity.
+
+### Implementation
+The stages of the scientific process are as follows:
+- State an hypothesis to be proven
+- Choose the variables to measure
+    - Independendent variables (controlled)
+    - Dependent variables
+- Choose a set of subjects
+    - Number should be large enough to obtain statisically significant results
+    - Sample should be representation of the overall population
+- Perform the experiment 
+- Analyze the results
+    - Using statistical significance tests
+- Decide on actions to take to improve usablity
+
+### Advantages/Disadvantages
+- A correct scientific approach is very long and very costly to set up
+- Even important results can quickly become obselete with rapidly changing technologies
+- More suitable for studies on human behavior and cognitive skills
+
+# User Observation
+
+### Goal
+During dedicated session, the software engineer (or other team member) studies users who actively use the UI in order to better understand the problems they encounter during their tasks.
+
+### Implementation
+- Schedule observation sessions with users:
+    - Environment: in-vivo (their home/workplace) or in in-vitro (bring to a lab/room)
+- Define the course of a session by a set of tasks:
+    - We give the user a set of tasks to accomplish
+    - the user defines his own goals
+- Do the observation sessions:
+    - "Think aloud" protocol (thinking aloud)
+    - Recording of actions (long analysis process thereafter)
+- Use video annotation software to segment and label vide sections
+    - Allos to return to it later by indexing sections with specific observation
+
+### Advantages/Disadvantages
+- The video recording allows a memory of a session, and it is possible to return the user from various angles
+- Setting up and analyzing sessions is very expensive
+- In-vitro environment might feel constrained, but in-vivo experiments might be difficult to organize
+- A good choice of tasks to perform can give a very good idea of the strenghts and weaknesses of the UI in terms of user productiviy for the accomplishment of these tasks
+
+# Surveys
+
+### Goal 
+Obtain, using questionnaires, information and feedback from users.
+
+### Implementation
+
+- Design a questionnaire:
+    - Decide on the type and content of questions 
+        - Open / closed questions
+        - What aspects of the UI do we want information about
+- Administer the questionnaire
+- Analyze the respondents' responses to draw conclusions aimed at improving the UI
+
+### Advantages/Disadvantages
+
+- Useful to obtain statisical data from a large number of users
+    - Proper statisical analysis is needed
+    - Population sampling might not be obvious to do
+- Careful
+    - Closed questions are easier to analyze automatically
+    - Open questions can reveal more interesting information
+    - Difficult to phrase questions well
+
+# Usability Testing
+
+### Goal 
+A process to identify whether the UI meets the usability requirements previously established.
+
+### Implementation
+*Method*
+1. Select key tasks to be evaluated
+2. Pic usability metrics
+3. Set planned levels of usability
+4. Design initial UI using the established usability criteria
+5. Evaluate the design using by measuring the usability metrics
+6. If usability goal attained, stop.
+7. If not, include the user's comment in the redesign. Back to step 4
+
+*Examples of metrics:*
+
+- Time necessary to complete a task
+- Percentage of tasks completed per unit of time
+- Rate of success versus failure of planned tasks
+- Number of times wrong commands are repeated
+- Number of times the user canceled an action (undo).
+- Nunmber of times the user did not use the expected method to accomplish the task.
+- Thinking time required to complete a task. (cognitive load)
+
+### Advantages/Disadvantages
+- Compromise less rigid than tradition methods like scientific experimentation, but still using a well-defined methodology
+    - Partly engineering
+        - design-evaluate-redesign
+    - Partly science
+        - measuring variables
+        - specific methodology
+
+# Comparison
+
+| Approach                   | Resources                                            | Starting Point | Stage of Dev                    | Timeline |
+|----------------------------|------------------------------------------------------|----------------|---------------------------------|----------|
+| Problem Report Monitoring  | Not that costly                                      | User           | In production                   | Long     |
+| Log Analysis               | Needs data science expertise                         | Researcher     | Anytime                         | Long     |
+| Scientific Experimentation | Needs a lot of time, needs                           | Researcher     | Anytime                         | Long     |
+| User Observation           | Could be costly based on how testing is implemented  | UI engineer    | Anytime (usually prototype)     | Short    |
+| Surveys                    | Cost affective, needs experts                        | User           | Anytime (usually in production) | short    |
+| Usability Testing          | Need experts                                         | UI engineer    | Anytime                         | Short    |
+
+### Other Criteria
+- In what environment will the evaluatin be conducted?
+- What kind of results are going to be achieved?
+- How soon are results expected?
