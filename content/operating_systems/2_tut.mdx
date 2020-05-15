@@ -4,20 +4,24 @@ metaTitle: "Guiding Questions"
 metaDescription: "Operating Systems - Knowledge Guiding Questions"
 ---
 
-## What are three main purposes of an operating system?
+**What are three main purposes of an operating system?**
+
 - Hardware abstraction: To provide an environment for a computer user to execute programs on computer hardware in a convenient and efficient manner.
 - Resource allocation: To allocate the spearate resources of the computer as needed to run programs. The allocation process should be as fair and efficient as possible.
 - Control program: As a control program it serves two major functions: supervision of the excecution of user programs to prevent errors and improper use of the computer, and management of the operation and control of I/O devices.
 
-## Consider the various definitions of operating systems. Consider whether the operating system should include applications such as Web browsers and mail programs.  Argue both that it should and that it should not, and support your answer.
+**Consider the various definitions of operating systems. Consider whether the operating system should include applications such as Web browsers and mail programs.  Argue both that it should and that it should not, and support your answer.**
+
 Point: Applications such as WEB browsers and email tools are performing an increasingly important role in modern desktop computer systems. To fulfill this role, they should be incorporated as part of the operation system. By doing so, the can provide better performance and better integration with the rest of the system. In addition, these important applications can have the same look-and-fell as the operating system software.
 
 Counterpoint: The fundamental role of the operating system is to manage system resources such as the CPU, memory, I/O devices, etc. In addition, its role is to run software applications such as WEB browsers and email applications. By incorporating such application into the operating system, we burden it with additional functionally. Such a burden may result in the operating system performing a less-than-satisfactory job at managing system resources.  In addition, we increase the size of the operating system thereby increasing the likelihood of system crashes and security violations
 
-## How does the distinction between kernel mode and user mode function as a rudimentary form of protection (security) system?
+**How does the distinction between kernel mode and user mode function as a rudimentary form of protection (security) system?**
+
 The distinction between kernel mode and user mode provides a rudimentary form of protection in the following manner.  Certain instructions could be executed only when the CPU is in kernel mode. Similarly, hardware devices could only be accessed only when the program is executing in kernel mode. Control over when interruptscould only be enabled or disabled is also possible only when the CPU is in kernel mode.  Consequently, the CPU has very limited capability when executing in user mode, thereby enforcing protection of the critical resources.
 
-## Which of the following instructions should be privileged? (Answers in bold)
+**Which of the following instructions should be privileged? (Answers in bold)**
+
 1. **Set value of timer.**
 2. Read the clock.
 3. **Clear memory.**
@@ -27,42 +31,52 @@ The distinction between kernel mode and user mode provides a rudimentary form of
 7. Switch from user to kernel mode.
 8. **Access I/O device.**
 
-## Timers could be used to compute the current time. Provide a short description of how this could be accomplished.
+**Timers could be used to compute the current time. Provide a short description of how this could be accomplished.**
+
 A program can use the following approach to compute current time using timer interrupts. The program could set a timer for some time in the future and go to sleep. When it is awakened by the interrupt, it could update its local variable whose value reflects the number of interrupts it has received thus far.  It could then repeat this process of continually setting timer interrupts and updating the variable when interrupts are actually raised. The variable can then be used to keep track of time, particularly if initialized to some significant value. UNIX uses such an approach by keeping a count of the number of seconds since Jan 1, 1970 in a 32 bit counter (overflow happens on Jan 19, 2038).
 
-## What is the purpose of system calls?
+**What is the purpose of system calls?**
+
 System calls allow user-level processes to request services of the operating system.  Note that system calls are implemented using software interrupts. Realize that the OS is interrupt driven and that interrupts are received both from the hardware and software (i.e. user programs) as requests to perform some action
 
-## What are five major activities of an operating system in regard to process management?
+**What are five major activities of an operating system in regard to process management?**
+
 1. The creation and deletion of both user and system processes.
 2. The suspension and resumption of processes.
 3. The provision of mechanisms for process synchronization.
 4. The provision of mechanisms for process communication.
 5. The provision of mechanisms for handling deadlock.
 
-## What are three major activities of an operating system in regard to memory management?
+**What are three major activities of an operating system in regard to memory management?**
+
 1. Keep track of which parts of memory are currently being used and by whom.
 2. Decide which processes are to be loaded into memory when memory space becomes available.
 3. Allocate and deallocate memory space as needed
 
-## What are three major activities of an operating system in regard to secondary-storage management?
+**What are three major activities of an operating system in regard to secondary-storage management?**
+
 1. Free-space management
 2. Storage allocations
 3. Disk scheduling
 
-## What is the purpose of the command interpreter?
+**What is the purpose of the command interpreter?**
+
 It reads commands from the user or from a file of commands and executes either directly or by spawning another process to execute a separate program.
 
-## What system calls in the UNIX system, have to be executed by a command interpreter or shell in order to start a new process?
+**What system calls in the UNIX system, have to be executed by a command interpreter or shell in order to start a new process?**
+
 In the UNIX system, the fork system call followed by an exec call need to be performed to start a new process. The fork call clones the currently executing process, while the exec call overlays a new program onto the new process. This is a tricky concept – the idea here is to keep in mind that the fork is executed in the original process, while the exec is executed in the spawned process. We shall study this next week.
 
-## What is the purpose of system programs?
+**What is the purpose of system programs?**
+
 System programs can be thought of as bundles of system calls.  They provide basic functionality to users so that they do not need to write their own programs to solve common problems.  Common system programs include utilities to manipulate files and directories, command interpreters to execute programs (including system utilities), utilities to monitor the user base and network (UNIX who, rwho show who is logged into the local machine and in remote machines), process management, etc.
 
-## What is the main advantage of the layered approach to system design? What are the disadvantages of using the layered approach?
+**What is the main advantage of the layered approach to system design? What are the disadvantages of using the layered approach?**
+
 As in all cases of modular design, designing an operating system in a modular way has several advantages. The system is easier to debug and modify because changes affect only limited sections of the system rather than touching all sections of the operating system. Information is kept only where it is needed and is accessible only within a defined and restricted area, so any bugs affecting that data must be limited to a specific module or layer.
 
-## Fore each of the following five services offered by the operating system, explain how each providesconvenience to the users.  Explain also in which cases it would be impossible for user-level programs to provide these services.
+**For each of the following five services offered by the operating system, explain how each providesconvenience to the users.  Explain also in which cases it would be impossible for user-level programs to provide these services.**
+
 - **Program execution**. The operating system loads the contents (or sections) of an executable file into memory and begins its execution. It will allocate resources to the program during its execution (e.g. CPU). Auser-level program could not be trusted to properly allocate CPU time. 
 - **I/O operations**. Disks, tapes, serial lines, and other devices must be communicated with at a very low level. The user need only specify the device (most often treated as a file) and the operation to perform on it, while the system converts that request into device-or controller-specific commands. User-level programs cannot betrusted to access only devices they should have access to and to access them only when they are otherwise unused. 
 - **File-system** manipulation. There are many details in file creation, deletion, allocation, and naming that users should not have to perform. Blocks of disk space are used by files and must be tracked. Deleting a file requires removing the name file information and freeing the allocated blocks. Protections must also be checked to assure proper file access. User programs could neither ensure adherence to protection methods nor be trusted to allocate only free blocks and deallocate blocks on file deletion.

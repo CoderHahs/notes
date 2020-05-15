@@ -8,7 +8,9 @@ An **operating system** is a program that **manages the computer hardware**. It 
 
 # What Operating Systems Do 
 
-A computer system has four main components: *hardware*, *operating system*, application programs, and the users. The **operating system** provides the means for proper use of these resources in the operation of the computer system. 
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_1_SystemComponents.jpg)
+
+A computer system has four main components: *hardware*, *operating system*, *application programs*, and *users*. The **operating system** provides the means for proper use of these resources in the operation of the computer system. 
 
 ## User View
 
@@ -23,4 +25,39 @@ A different view of an operating system emphasizes the need to control the vario
 
 A common definition is that the **operating system is the one program running at all times on the computer-usually called the *kernel***
 
-# C
+# Computer System Organization
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_2_ModernSystem.jpg)
+
+A modern computer system consists of one or more CPUs and several device controllers connected through a common bus that provides access to shared memory. 
+
+When a computer first boots up it runs a bootstrap program, which is typically stored in the ROM. This bootstrap program initializes all aspects of the computer system. For that it loads up the **kernel**. 
+
+The occurrence of an event is signaled by an **interrupt** from either the hardware or the software. Hardware can trigger an interrupt at anytime by sending a signal to the CPU using the system bus. However, for software, an interrupt is triggered by executing a special operation called a **system call** (also called **monitor call**).
+
+## Storage Structure
+
+CPUs only load instructions from memory. Most computers store their instructions in the RAM also known as the main memory. Static programs are stored in ROM. Interactions between the storage devices are done through a sequence of ```load``` and ```store``` instructions. The ```load``` instruction moves a word from main memory to an internal register within the CPU, whereas the ```store``` instruction moves the content of a register to main memory. Aside from this, the CPU automatically loads instructions from the main memory.
+
+Most computers also use **secondary storage** because the main memory is too small, and it loses its contents on power loss. 
+
+Examples of storage can be found below, where storage devices underneath 'electronic disk' are secondary and above it are examples of main memory. 
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_4_StorageDeviceHierarchy.jpg)
+
+## I/O Structure
+
+A large portion of the OS-code is dedicated to I/O, both because of its importance to the reliability and performance of a system and because of the varying nature of the devices.
+
+A computer system consists of CPUs and multiple device controllers that are connected through a common bus. The device controller is in charge of moving data between the peripheral devices that it controls and its local buffer storage. An operating system has a **device driver** for each device controller.
+
+To start an I/O operation, 
+1. the device driver loads the appropriate registers within the device controller
+2. Using this the controller determines what action to take. 
+3. The controller then starts the transfer of data from the device to its local buffer. 
+4. Once the data has been transferred, the controller informs the device driver using an interrupt that it has finished its operation. 
+5. The device driver then returns control to the operating system. Sometimes it returns the data back or a pointer is created if the operation was read. 
+
+This form of I/O is fine for moving small amounts of data, but it can produce high overhead when used for bulk data movement such as disk I/O. To solve this problem **direct memory access (DMA)** is used. After setting up buffers, pointers and counters for the I/O device, the device controller transfers an entire chunk of data directly to or from its own buffer storage directly to the memory, with no intervention by the CPU. Only one interrupt is generated in this case to tell the device driver the operation is completed. The CPU can still carry on with other work while DMA is being used.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_5_HowItWorks.jpg)
