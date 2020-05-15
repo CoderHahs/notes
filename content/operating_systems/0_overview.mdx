@@ -4,6 +4,13 @@ metaTitle: "Overview"
 metaDescription: "Operating Systems - Overview"
 ---
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
 An **operating system** is a program that **manages the computer hardware**. It also **provides a basis for application programs** and **acts as an intermediary between computer user and the computer hardware**.
 
 # What Operating Systems Do 
@@ -61,3 +68,17 @@ To start an I/O operation,
 This form of I/O is fine for moving small amounts of data, but it can produce high overhead when used for bulk data movement such as disk I/O. To solve this problem **direct memory access (DMA)** is used. After setting up buffers, pointers and counters for the I/O device, the device controller transfers an entire chunk of data directly to or from its own buffer storage directly to the memory, with no intervention by the CPU. Only one interrupt is generated in this case to tell the device driver the operation is completed. The CPU can still carry on with other work while DMA is being used.
 
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_5_HowItWorks.jpg)
+
+# Computer-System Architecture
+
+## Single-Processor Systems
+
+Most systems use a single processor. On a single-processor system, there is one CPU capable of executing a general-purpose instruction set, including instructions from user processes.
+
+## Multiprocessor Systems
+Multiprocessor systems (a.k.a **parallel systems** or **tightly coupled systems**) have two or more processors in close communication, sharing the computer bus and sometimes the clock, memory, and peripheral devices. 
+
+These systems have three main advantages:
+1. **Increased throughput**: Having $N$ processors doesn't speed up the productivity $N$ times.
+2. **Economy of scale**: Multiprocessor systems can cost less then equivalent multiple single processor systems, because they share peripherals, mass storage and power supplies.
+3. **Increased reliability**: If one processor fails then the others can distribute the work.
