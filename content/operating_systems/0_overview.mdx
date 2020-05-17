@@ -82,3 +82,17 @@ These systems have three main advantages:
 1. **Increased throughput**: Having $N$ processors doesn't speed up the productivity $N$ times.
 2. **Economy of scale**: Multiprocessor systems can cost less then equivalent multiple single processor systems, because they share peripherals, mass storage and power supplies.
 3. **Increased reliability**: If one processor fails then the others can distribute the work.
+
+There are two types of multiprocessor systems used today: 
+- **asymmetric multiprocessing**, where a master processor schedules and allocates work to its slave processors.
+- **symmetric multiprocessing (SMP)**, where each processor does all the tasks, and are peers to one another. An example below.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter1/1_6_SMP_Architecture.jpg)
+
+## Clustered Systems
+
+Like multiprocessor systems, clustered systems gather together multiple CPUs, however they are composed of two or more individual systems or nodes. The general definition is that clustered computers share storage and are closely linked via a **local-area network (LAN)**.
+
+Clustering can be structured in two ways:
+- **asymmetric clustering**: one machine is in **hot-standby mode** while the other is running the applications. The hot-standby host machine does nothing but monitor the activity server. If that server fails the hot-standby host machine becomes the active server.
+- **symmetric mode**: two or most hosts are running applications and are monitoring each other. This is more efficient as all the hardware is being used, however this requires that more than one application is available to run. 
