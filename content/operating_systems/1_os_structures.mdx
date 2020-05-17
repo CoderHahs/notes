@@ -8,65 +8,66 @@ metaDescription: "Operating Systems - Structures"
 
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_01_OS_Services.jpg)
 
-## User interface
+- User Interface
+    - **Command-Line Interface (CLI)**: which uses text commands and a method for entering them
+    - **Batch interface**: commands and directives to control those commands are entered into files, and those files are executed.
+    - **Graphical user interface**: a interface using a window system with a pointing device to direct I/O (mouse), choose from menus, make selections and enter text via keyboard
+- Program Execution
+    - The system must be able to load a program into memory and to run that program. The program must be able to end its execution, either normally or abnormally (indicating error).
+- I/O Operations
+    - The OS is responsible for transferring data to and from I/O devices, including keyboards, terminals, printers, and storage devices.
+- File-system Manipulation
+    - a means for programs to read and write files and directories, create and delete directories, search for files, list file information. Permission management to allow or deny access to files or directories
+- Communication
+    - occur between processes that are executing on the same computer or between processes of clustered systems. Implemented via *shared memory* or through *message passing*, in which packets of information are moved between processes
+- Error detection
+    - Both hardware and software errors must be detected and handled appropriately, with a minimum of harmful repercussions. Some systems may include complex error avoidance or recovery systems, including backups, RAID drives, and other redundant systems. Debugging and diagnostic tools aid users and administrators in tracing down the cause of problems.
 
-The UI of the OS can have several forms:
-- **Command-Line Interface (CLI)**: which uses text commands and a method for entering them
-- **Batch interface**: commands and directives to control those commands are entered into files, and those files are executed.
-- **Graphical user interface**: 
+Another set of operating-system services that are not used for helping the user but rather to maintain efficiency of the system.
 
+- Resource Allocation
+    - E.g. CPU cycles, main memory, storage space, and peripheral devices. Some resources are managed with generic systems and others with very carefully designed and specially tuned systems, customized for a particular resource and operating environment.
+- Accounting
+    - Keeping track of system activity and resource usage, either for billing purposes or for statistical record keeping that can be used to optimize future performance.
+- Protection and security
+    - Preventing harm to the system and to resources, either through wayward internal processes or malicious outsiders.
 
+# User Operating-System Interface
 
+## Command Interpreter
 
+- Gets and processes user requests and opens requested programs
+- in some systems the CI is incorporated directly into the kernel
+- more commonly the CI is a separate program that launches once the user logs in or otherwise accesses the systems
 
+## Graphical User Interface, GUI
 
+- icons represent some item on the system, and respond accordingly when the icon is activated
+- first developed in the early 1970's at Xerox
+- in some systems teh GUI is just a front end for activating a traditional command line interpreter running in the background
 
+# System Calls
+- System calls provide a means for user or application programs to call upon the services of the OS
+- Written in C or C++, or Assembly for optimal performance
 
+Here is a system call to copy a file:
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_05_ExampleSystemCalls.jpg)
 
+Most programmers do not use the low-level system calls directly, but instead use an "Application Programming Interface", API. The use of APIs instead of direct system calls provides for greater program portability between different systems. The API then makes the appropriate system calls through the system call interface, using a table lookup to access specific numbered system calls, as shown in below:
 
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_06_Open.jpg)
 
+Parameters are generally passed to system calls via registers, or less commonly, by values pushed onto the stack. Large blocks of data are generally accessed indirectly, through a memory address passed in a register or on the stack.
 
+# Types of System Calls
 
+System calls can be grouped into six major categories, and most of these system calls support or are supported by concepts and functions discussed in later chapters.
 
+Here are five system calls: 
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_08_SystemCallTypes.jpg)
 
+and some more functions: 
 
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_08B_ExampleSystemCalls.jpg) 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Role of the Operating System
-- Bridging the hardware/user gap
-    - Hide the complexity of directly dealing with hardware devices, e.g.
-        - disk storage: file system
-        - IO devices: monitor/keyboard/mouse
-        - CPU: compilers, multiprogramming, etc 
-    - Provide abstraction of hardware devices
-        - Provide a simple API (interface) to users
-        - Provide a unified interface – for similar devices 
-    - Provide virtualization of devices
-        - Create virtual devices (services) using existing ones
-
-### The OS as a resource manager
-- basically refers to the OS being like a time manager where each program uses the processor at different times
-- multiprogramming and multitasking (Time-sharing)
-- multiprogramming increases CPU utilization by organizing jobs (code and data) so that the CPU always has one to execute
-- time-sharing the CPU executes multiple jobs by switching among them, but the switches occur so frequently that the users can interact with each program while it is running.
-
-# Dual-Mode operation
-- a user mode or a non-privileged mode
-- a kernel mode or a priveleged mode
-
-The **kernel** of an OS is the minimal set of functions necessary to manage the system resources safely and efficiently.
-
-This identification is handled by a mode bit, and it lets the system determine what programs are crucial and need to be run without violating the integrity of the system.
+<!-- ## Process Control -->
