@@ -70,4 +70,51 @@ and some more functions:
 
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_08B_ExampleSystemCalls.jpg) 
 
-<!-- ## Process Control -->
+## Process Control
+
+- Process control system calls include end, abort, load, execute, create process, terminate process, get/set process attributes, wait for time or event, signal event, and allocate and free memory.
+- Processes must be created, launched, monitored, paused, resumed,and eventually stopped.
+- When one process pauses or stops, then another must be launched or resumed
+- When processes stop abnormally it may be necessary to provide core dumps and/or other diagnostic or recovery tools.
+- Compare DOS ( a single-tasking system ) with UNIX ( a multi-tasking system ).
+    - When a process is launched in DOS, the command interpreter first unloads as much of itself as it can to free up memory, then loads the process and transfers control to it. The interpreter does not resume until the process has completed, as shown below:
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter2/2_09_DOS_Execution.jpg)
+
+## File Management
+
+- File management system calls include create file, delete file, open, close, read, write, reposition, get file attributes, and set file attributes.
+- These operations may also be supported for directories as well as ordinary files.
+
+## Device Management
+
+- Device management system calls include request device, release device, read, write, reposition, get/set device attributes, and logically attach or detach devices.
+- Devices may be physical ( e.g. disk drives ), or virtual / abstract ( e.g. files, partitions, and RAM disks ).
+- Some systems represent devices as special files in the file system, so that accessing the "file" calls upon the appropriate device drivers in the OS. See for example the /dev directory on any UNIX system.
+
+## Information Maintenance
+
+- Information maintenance system calls include calls to get/set the time, date, system data, and process, file, or device attributes.
+- Systems may also provide the ability to dump memory at any time, single step programs pausing execution after each instruction, and tracing the operation of programs, all of which can help to debug programs.
+
+## Communication 
+
+- Communication system calls create/delete communication connection, send/receive messages, transfer status information, and attach/detach remote devices.
+- The **message passing** model must support calls to:
+    - Identify a remote process and/or host with which to communicate.
+    - Establish a connection between the two processes.
+    - Open and close the connection as needed.
+    - Transmit messages along the connection.
+    - Wait for incoming messages, in either a blocking or non-blocking state.
+    - Delete the connection when no longer needed.
+- The **shared memory** model must support calls to:
+    - Create and access memory that is shared amongst processes ( and threads. )
+    - Provide locking mechanisms restricting simultaneous access.
+    - Free up shared memory and/or dynamically allocate it as needed.
+- Message passing is simpler and easier, ( particularly for inter-computer communications ), and is generally appropriate for small amounts of data.
+- Shared memory is faster, and is generally the better approach where large amounts of data are to be shared, ( particularly when most processes are reading the data rather than writing it, or at least when only one or a small number of processes need to change any given data item. )
+
+## Protection
+- Protection provides mechanisms for controlling which users / processes have access to which system resources.
+- System calls allow the access mechanisms to be adjusted as needed, and for non-privileged users to be granted elevated access permissions under carefully controlled temporary circumstances.
+- Once only of concern on multi-user systems, protection is now important on all systems, in the age of ubiquitous network connectivity.
