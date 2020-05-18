@@ -621,6 +621,9 @@ export const baseStyles = injectGlobal`
   /* Image styling */
   img {
     max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   /* end image */
   .githubBtn {

@@ -30,13 +30,49 @@ A **process** is an instance of a program in execution. Batch systems work in te
 ## Process State
 
 Processes may be in one of 5 states, as shown below.
-- New - The process is in the stage of being created.
-- Ready - The process has all the resources available that it needs to run, but the CPU is not currently working on this process's instructions.
-- Running - The CPU is working on this process's instructions.
-- Waiting - The process cannot run at the moment, because it is waiting for some resource to become available or for some event to occur. For example the process may be waiting for keyboard input, disk access request, inter-process messages, a timer to go off, or a child process to finish.
-- Terminated - The process has completed.
+- **New** - The process is in the stage of being created.
+- **Ready** - The process has all the resources available that it needs to run, but the CPU is not currently working on this process's instructions.
+- **Running** - The CPU is working on this process's instructions.
+- **Waiting** - The process cannot run at the moment, because it is waiting for some resource to become available or for some event to occur. For example the process may be waiting for keyboard input, disk access request, inter-process messages, a timer to go off, or a child process to finish.
+- **Terminated** - The process has completed.
 
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_02_ProcessState.jpg)
 
 ## Process Control Block
+
+For each process there is a PCB which stores the following process-specific information. 
+
+- **Process State** - as discussed above
+- **Process ID** and parent process ID
+- **CPU registers and Program Counter** - These need to be saved and restored when swapping processes in and out of the CPU
+- **CPU-Scheduling information** - Such as priority information and pointers to scheduling queues
+- **Memory-management information** - E.g. page tables or segment tables
+- **Accounting information** - user and kernel CPU time consumer, account numbers, limits, etc.
+- **I/O Status information** - Device allocated, open file tables.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_03_PCB.jpg)
+
+## Threads
+Modern systems allow a single process to have multiple threads of executions, which execute concurrently. 
+
+# Process Scheduling
+
+The two main objectives of the process scheduling system are to keep the CPU busy at all times and to deliver "acceptable" response times for all programs, particularly for interactive ones. 
+
+## Scheduling Queues
+
+- All processes are stored in the **job queue**
+- Processes in the Ready state are placed in the **ready queue**
+- Processes waiting for a device are placed in **device queues**
+- There is a separate device queue for each device
+
+## Schedulers
+
+A **long-term scheduler** is mostly found in batch systems or heavily loaded systems. It runs infrequently and can afford to take the time to implement intelligent and advanced scheduling algorithms.  
+
+The **short-term scheduler**, or a CPU scheduler, runs very frequently, on the order of 100 milliseconds, and must very quickly swap one process out of the CPU and swap in another one.  
+
+Some systems employ a **medium-term scheduler**. When system loads get high, this scheduler will swap one or more processes out of the ready queue system for a few seconds, in order to allow smaller faster jobs to finish up quickly and clear the system.  
+
+An efficient scheduling system will select a good **process** mix of **CPU-bound** processes and **I/O bound** processes.
 
