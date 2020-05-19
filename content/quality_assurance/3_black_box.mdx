@@ -1,0 +1,49 @@
+---
+title: "Blackbox Testing"
+metaTitle: "Blackbox Testing"
+metaDescription: "Software QA - Blackbox Testing"
+---
+
+# Error Guessing
+
+## Approach
+1. Make a list of possible errors or error-prone situations
+- Error model
+2. Design test-cases to cover error model
+
+### Advantages:
+- effective complement of other techniques
+- quick and efficient
+- can be actively developed skill through time
+
+### Disadvantages:
+- quality of tests depend on the tester's experience
+- metrics about test sufficiency can not be gathered
+- not available to in-experience users
+
+# Equivalence Partitioning
+It is a software testing technique, like a black box technique. 
+
+The roles:
+- it divides the input data of software into different equivalence data classes
+- you can apply this technique where there is a range in the input field
+- test each partition once
+
+For example if you have some input field where the only possible inputs are numbers between 1 and 10, then your Equivalence Partition Classes would be:
+- Valid: Any number between 1-10
+- Invalid: Any number <= 0, and any number >= 10
+
+## Myer's Selection Approach
+
+1. Until all valid ECs have been covered by test cases, write a new test cases that covers as many of the uncovered valid ECs as possible
+2. Until all invalid ECs have been covered by test cases, write a test case that covers *one, and only one* of the uncovered invalid ECs
+
+# Boundary Value Analysis:
+
+Valid partitions have 2 more test cases, the min+1 and max+1
+
+For the above example, our ECs are now:
+- Valid: 1, 2, 9, 10
+- Invalid: 0, 11
+
+In this case we test the values at the boundaries.
