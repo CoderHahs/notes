@@ -1,0 +1,48 @@
+---
+title: "Discrete Distributions"
+metaTitle: "Discrete Distributions"
+metaDescription: "Stats & Probability - Discrete Distributions"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Random Variables and Distributions
+
+Recall that. for any random "experiment", the set of all possible outcomes is denoted by $S$.
+
+A **random variable** is a function $X: S \to \R$, i.e. it is a rule that associates a (real) number to every outcome of the experiment.
+
+$S$ is the **domain** of the random variable $X;X(S) \subseteq R$ is its **range**.
+
+A **probability distribution function** (p.d.f.) is a function $f : \R → \R$ which specifies the probabilities of the values in $X(S)$.
+
+When $S$ is discrete, we say that $X$ is a $discrete r.v.$ and the p.d.f. is called a **probability mass function** (p.m.f.).
+
+The p.m.f. of $X$ is $f(x) = P ({s ∈ S : X(s) = x}) := P(X = x)$.
+
+The **cumulative distribution function** (c.d.f.) of $X$ is $F(x) = P(X ≤ x)$.
+
+## Expectation of a Discrete Random Variable
+
+The **expectation** of a discrete random variable $X$ is defined as:  
+> $E|X| = \sum x\cdot P (X=x) = \sum xf(x)$.
+
+This can be thought of as the sum of $x$ multiplied by the probability of $x$.
+
+### Mean and Variance
+
+The expectation can be interpreted as the average or the **mean** of $X$, denoted as $\mu$.
+
+$E[(Z-E[Z])^2]$ can be thought of the distance from the mean or the **variance** denoted as $\mathrm{Var}[X]$.
+
+> $\mathrm{Var}[X] = E[(X-\mu x)^2] = E[X^2]-\mu^2_x = E[X^2] - E^2[X] = \sigma^2_x$ 
+
+### Standard Deviation
+
+> $\mathrm{SD}[X] = \sqrt{\mathrm{Var}[X]} = \sigma_x$
+
+The mean gives some idea as to where the bulk of the distribution is, whereas the variance and standard deviation provide information about the **spread**; distributions with higher variance/SD are more **spread about the average**.

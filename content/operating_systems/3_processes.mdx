@@ -76,3 +76,11 @@ Some systems employ a **medium-term scheduler**. When system loads get high, thi
 
 An efficient scheduling system will select a good **process** mix of **CPU-bound** processes and **I/O bound** processes.
 
+## Context Switch
+Whenever an interrupt arrives, the CPU must do a **state-save** of the currently running process, then switch into kernel mode to handle the interrupt, and then do a **state-restore** of the interrupted process.
+
+Similarly, a **context switch** occurs when the time slice for one process has expired and a new process is to be loaded from the ready queue. This will be started by a timer interrupts, which will then cause the current process' state to be saved and the new process' state to be restored.
+
+Saving and restoring states involves saving and restoring all of the registers and program counter(s), as well ass the process control blocks described above.
+
+Context switches happens *very* frequently, and the overhead of doing the switching is lost CPU time, so context switches must be as fast as possible. 
