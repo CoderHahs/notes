@@ -46,3 +46,16 @@ $E[(Z-E[Z])^2]$ can be thought of the distance from the mean or the **variance**
 > $\mathrm{SD}[X] = \sqrt{\mathrm{Var}[X]} = \sigma_x$
 
 The mean gives some idea as to where the bulk of the distribution is, whereas the variance and standard deviation provide information about the **spread**; distributions with higher variance/SD are more **spread about the average**.
+
+# Binomial Distribution
+
+**Binomial coefficient**: $\binom{n}{k} = \frac{n!}{(n-r)r!}$.
+
+A **Bernouli trial** is a random experiment with two possible outcomes, "success" and "failure". Let $p$ denote teh probability of success. 
+
+A **binomial experiment** consists of $n$ repeated independent Bernoulli trials, each with the same probability of success, $p$.
+
+**Binomial Distribution** can be defined as:
+> $P(X=x) = \sum p^x(1-p)^{n-x} = \binom{x}{k}p^x(1-p)^{n-x}$
+
+**Expectation**, $E[X] = np$ and **Variance**, $Var[X] = np(1-p)$
