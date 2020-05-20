@@ -1,0 +1,113 @@
+---
+title: "Task-Based Model"
+metaTitle: "Task Based Model"
+metaDescription: "Analysis & Design of UI - Task Based Model"
+---
+
+# Personas
+
+- it is important to research the user in relation to tasks
+
+## User characterization
+
+### Usage Frequency
+
+This is for a software that is already ready to use.
+
+Three categories of users:
+- primary: frequent hands-on
+- secondary: occasional or via someone else
+- tertiary: affected by its introduction, influence some decisions
+
+### Intrinsic characteristics
+- age, gender
+- language, culture
+- education (reading and math skills)
+- physical limits or handicap
+
+### Relation to technology and application domain
+- computer experience
+- experience in the field
+- experience with the application
+- motivation, attitude
+- emotional reaction
+
+## Personas
+- Instead of population as a whole, refine into groups of users, eventually define different "typical" users
+- A **persona** is a fictitious character used as a specific representative of a user class
+
+### Advantages
+- convenient handle for talking about user classes
+- focuses on typical user, rather than extreme
+- discourages the common design error of describing what your ideal users should be, rather than what they actually are
+- encourages empathy
+
+### Disadvantages
+- may be misleading
+- stereotype trap
+
+# Environments
+
+- Task-Based Model will take the environment into account as an aspect that could impact user productivity
+
+## Environment Characterization 
+
+- Physical location
+    - Where is the user located?
+- Body Position
+    - How is the user positioned?
+- Surroundings
+    - cleanliness
+    - danger
+    - privacy
+    - level of distraction
+    - noise level
+- Access to help
+    - access to family members
+    - community
+    - isolation
+
+# Goals and tasks
+
+A **goal** is what we want to achieve or the state we want to reach, without it being in terms of operations linked to a computer tool.
+
+A **task** is a specific step in connection with achieve a goal.
+
+## Tasks and subtasks
+
+The idea that a task can also have sub-tasks. Each goal has tasks and those tasks could have sub-tasks.
+
+For example:
+When ordering food and making a payment, you can have a subtask of inputting payment info and entering address as a subtask
+
+You can also reuse subtasks if they are similar between two tasks. Looking for common tasks will help create a good ui.
+
+A **page-based design** is not a task-based design
+
+# Steps to Follow
+
+1. Determine user groups or Personas
+2. Create a set of goals for each persona, as well as a typical environment in which they would try to accomplish these goals
+3. For each persona/goal:
+    - Create a list of all task the user needs to execute
+4. Gather all tasks:
+    - See if some tasks definer for different personas are actually the same
+        - Merge/Reduce
+5. Characterize each task:
+    - Frequency of the task?
+    - What are the time constraints for the task?
+    - How is the task learned?
+    - What can go wrong?
+    - What are the preconditions to performing the task?
+6. Further understand and refine each task ,and put it in relation to other tasks:
+    - timeline (scenario) - Temporal relation of a task to other tasks
+    - hierarchy of subtask - Subdivision of a task into sub-tasks
+
+## Common Errors
+- Wrong point of view: thinking from the system's point of view
+    - System: notify user about appointment
+    - User: Get a notification about appointment
+- Think too soon about feasibility:
+    - Trade-offs between users and goals and implementation feasibility maybe inevitable, but do not yet consider them...
+- Thinking too early about design vision
+    - For example: system will display a reminder popup window one day ahead of an appointment (perhaps after persona analysis we realize this will not be useful)
