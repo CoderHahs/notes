@@ -14,6 +14,27 @@ export const baseStyles = injectGlobal`
     color: #c2c2c2;
   }
 
+  /* width */
+  ::-webkit-scrollbar {
+    width: 15px
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #1c1c1c; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #888; 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
   :-ms-input-placeholder {
     /* Internet Explorer */
     color: #c2c2c2;

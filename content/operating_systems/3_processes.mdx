@@ -83,4 +83,147 @@ Similarly, a **context switch** occurs when the time slice for one process has e
 
 Saving and restoring states involves saving and restoring all of the registers and program counter(s), as well ass the process control blocks described above.
 
-Context switches happens *very* frequently, and the overhead of doing the switching is lost CPU time, so context switches must be as fast as possible. 
+Context switches happens *very* frequently, and the overhead of doing the switching is lost CPU time, so context switches must be as fast as possible.
+
+# Operations on Process
+
+## Process Creation
+- Processes may create other processes through appropriate system calls such as **fork** or **spawn**. The process which does the creating is called **parent** and the other is termed the **child**.
+- Each process is given an integer identifier, termed its **process identifier** or PID. The parent PID is also stored for each process. 
+- On typical UNIX systems the process scheduler is termed **sched**, and is given ```PID 0```. The first thing it does at system startup time is to launch **init**, which gives that process ```PID 1```. Init then launches all system daemons (computer program that runs as a background process) and user logins, and becomes the ultimate parent of all other processes. 
+- A child process may receive some amount of shared resources from the parent. A limit of resources can be placed by the parent, so the children don't consume too many resources
+- There are two options for the parent process after creating the child
+  1. Wait for the child process to terminate. The parent makes a ```wait()``` system call, for either a specific child or any child that causes the parent process to block until the ```wait()``` returns. UNIX shells normally wait for their children to complete before issuing a new prompt.
+  2. Run concurrently with the child. This is the operation seen when a UNIX shell runs a process as a background task It is also possible for the parent to run for a while, and then wait for the child later.
+- Two possibilities for the address space of the child relative to the parent:
+  1. The child may be an exact duplicate of the parent. Same program and data segments in memory. Each will have their own PCB, including program counter, registers and PID. This is known as the  ```fork()``` system call in UNIX.
+  2. The child process may have a new program loaded into its address space, with all new code and data segments. This is known as the `spawn()` system call in Windows. UNIX systems implement a second step using the `exec()` system call.
+
+Here is an example of a `fork()`:
+
+```C
+#include <sys/types.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main()
+{
+pid_t pid;
+  /* fork a child process */
+  pid = fork();
+
+  if (pid < 0) /* error occurred */ {
+    fprintf (stderr, "Fork Failed");
+    exit(-1);
+  } 
+  else if (pid == 0) /* child process */ {
+    execlp ("/bin/ls", "ls", NULL);
+  }
+  else {/* parent process */ 
+  /* parent will wait for child to complete */ 
+    wait(NULL);
+    printf("Child Complete");
+    exit(0);
+  }
+}
+```
+
+Process creation using the ```fork()``` system call:
+![Image](https://www2.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_10_ProcessCreation.jpg)
+
+## Process Termination
+
+- Processes may request their own termination by making the `exit()` system call, typically returning an int. This is passed to the parent if it is doing a `wait(), and is typically 0 on successful completion and some non-zero if there are problems.
+  - child code:
+    ```C
+    int exitCode;
+    exit ( exitCode ) // return the exitCode; has the same effect when executed from main()
+    ```
+  - parent code:
+    ```C
+    pid_t pid;
+    int status
+    pid = wait( &status );
+    // pid indicates which child exited. exitCode in low-order bits of status
+    // macros can test the high-order bits of status for why it stopped 
+    ```
+
+# Interprocess Communication
+- **Independent Processes** operating concurrently on a system are those that neither affect other processes or be affected by other processes
+- **Cooperative Processes** are those that can affect or be affected by other processes. There are several reasons why cooperating processes are allowed:
+  - *Information Sharing*: processes might need to access the same file (pipelines)
+  - *Computation speedup*: processes are broken down into subtasks
+  - *Modularity*: system is used like cooperating modules (client-server architecture)
+  - *Convenience*: a single user may be multitasking
+- Co-operating processes require some type of inter-process communication, which is most commonly one of two types: Shared Memory systems or Message Passing systems
+
+Shared Memory is faster once it is setup, because no system calls are required and access occurs at normal memory speeds. However, its complicated to setup and doesn't work across multiple computers. It's preferable when large amounts of information must be shared quickly on the same computer.
+
+Message Passing requires system calls for every message transfer, and therefore slower. Simple to setup and works on multiple computer. Preferable with small data transfer or multiple computers.
+
+## Shared-Memory Systems
+- Memory to be shared is in the address space of a particular process, which makes system calls to make that memory public for one or more other processes.
+- Other processes must then make system calls to attach the shared memory to their address space
+- few messages passed back and forth between the cooperating processes to setup the shared memory
+
+### Producer-Consumer Example Using Shared Memory
+This is a classic example, in which one process is producing data and another process is consuming the data. ( In this example in the order in which it is produced, although that could vary. )
+The data is passed via an intermediary buffer, which may be either unbounded or bounded. With a bounded buffer the producer may have to wait until there is space available in the buffer, but with an unbounded buffer the producer will never need to wait. The consumer may need to wait in either case until there is data available.
+This example uses shared memory and a circular queue. Note in the code below that only the producer changes "in", and only the consumer changes "out", and that they can never be accessing the same array location at the same time.
+
+First the following data is set up in the shared memory area:
+```C 
+#define BUFFER_SIZE 10
+
+typedef struct {
+     . . .
+} item;
+
+item buffer[ BUFFER_SIZE ];
+int in = 0;
+int out = 0;
+```
+
+Then the producer process. Note that the buffer is full when "in" is one les than "out" in a circular sense.
+
+```C 
+item nextProduced;
+while( true ) {
+
+/* Produce an item and store it in nextProduced */
+nextProduced = makeNewItem( . . . );
+
+/* Wait for space to become available */
+while( ( ( in + 1 ) % BUFFER_SIZE ) == out )
+      ; /* Do nothing */
+
+/* And then store the item and repeat the loop. */
+buffer[ in ] = nextProduced;
+in = ( in + 1 ) % BUFFER_SIZE;
+
+}
+```
+Then the consumer process. Note that the buffer is empty when "in" is equal to "out"
+
+```C
+item nextConsumed;
+
+while( true ) {
+
+/* Wait for an item to become available */
+while( in == out )
+      ; /* Do nothing */
+
+/* Get the next available item */
+nextConsumed = buffer[ out ];
+out = ( out + 1 ) % BUFFER_SIZE;
+
+/* Consume the item in nextConsumed
+     ( Do something with it ) */
+
+}
+```
+
+## Message-Passing Systems
+- at minimum must support system calls for "send message" and "receive message".
+- a communication link must be established between the cooperating processes before messages can be sent 
