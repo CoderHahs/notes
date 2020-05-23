@@ -1,8 +1,9 @@
 ---
-title: "Discrete Distributions"
-metaTitle: "Discrete Distributions"
-metaDescription: "Stats & Probability - Discrete Distributions"
+title: 'Discrete Distributions'
+metaTitle: 'Discrete Distributions'
+metaDescription: 'Stats & Probability - Discrete Distributions'
 ---
+
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
@@ -28,7 +29,8 @@ The **cumulative distribution function** (c.d.f.) of $X$ is $F(x) = P(X ≤ x)$.
 
 ## Expectation of a Discrete Random Variable
 
-The **expectation** of a discrete random variable $X$ is defined as:  
+The **expectation** of a discrete random variable $X$ is defined as:
+
 > $E|X| = \sum x\cdot P (X=x) = \sum xf(x)$.
 
 This can be thought of as the sum of $x$ multiplied by the probability of $x$.
@@ -39,7 +41,7 @@ The expectation can be interpreted as the average or the **mean** of $X$, denote
 
 $E[(Z-E[Z])^2]$ can be thought of the distance from the mean or the **variance** denoted as $\mathrm{Var}[X]$.
 
-> $\mathrm{Var}[X] = E[(X-\mu x)^2] = E[X^2]-\mu^2_x = E[X^2] - E^2[X] = \sigma^2_x$ 
+> $\mathrm{Var}[X] = E[(X-\mu x)^2] = E[X^2]-\mu^2_x = E[X^2] - E^2[X] = \sigma^2_x$
 
 ### Standard Deviation
 
@@ -51,11 +53,33 @@ The mean gives some idea as to where the bulk of the distribution is, whereas th
 
 **Binomial coefficient**: $\binom{n}{k} = \frac{n!}{(n-r)r!}$.
 
-A **Bernouli trial** is a random experiment with two possible outcomes, "success" and "failure". Let $p$ denote teh probability of success. 
+A **Bernouli trial** is a random experiment with two possible outcomes, "success" and "failure". Let $p$ denote teh probability of success.
 
 A **binomial experiment** consists of $n$ repeated independent Bernoulli trials, each with the same probability of success, $p$.
 
 **Binomial Distribution** can be defined as:
+
 > $P(X=x) = \sum p^x(1-p)^{n-x} = \binom{x}{k}p^x(1-p)^{n-x}$
 
 **Expectation**, $E[X] = np$ and **Variance**, $Var[X] = np(1-p)$
+
+# Geometric Distribution
+
+> P$(X=x) = (1-p)^{x-1} \cdot p$
+>
+> $E[X] = \frac{1}{p}$ and $\mathrm{Var}[X] = \frac{1-p}{p^2}$
+
+# Negative Binomial Distribution
+
+> $P(X=x) = \binom{x-1}{k-1}p^{k-1}(1-p)^{x-k}\cdot p$  
+> $= \binom{x-1}{k-1}(1-p)^{x-k}\cdot p$
+>
+> $E[X] = \frac{k}{p}$ and $\mathrm{Var}[X] = \frac{k(1-p)}{p^2}$
+
+# Poisson Distribution
+
+> $P(X=x) = \frac{\lambda ^x(e^{-\lambda})}{x!}$
+>
+> $E[X] = \lambda$ and $\mathrm{Var}[X] = \lambda$
+
+where $\lambda$ is the rate of a **Poisson Process**
