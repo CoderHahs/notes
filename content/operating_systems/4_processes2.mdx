@@ -1,0 +1,201 @@
+---
+title: 'Processes Continued'
+metaTitle: 'Processes Continued'
+metaDescription: 'Operating Systems - Processes Continued'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Interprocess Communication
+
+- **Independent Processes** operating concurrently on a system are those that neither affect other processes or be affected by other processes
+- **Cooperative Processes** are those that can affect or be affected by other processes. There are several reasons why cooperating processes are allowed:
+  - _Information Sharing_: processes might need to access the same file (pipelines)
+  - _Computation speedup_: processes are broken down into subtasks
+  - _Modularity_: system is used like cooperating modules (client-server architecture)
+  - _Convenience_: a single user may be multitasking
+- Co-operating processes require some type of inter-process communication, which is most commonly one of two types: Shared Memory systems or Message Passing systems
+
+Shared Memory is faster once it is setup, because no system calls are required and access occurs at normal memory speeds. However, its complicated to setup and doesn't work across multiple computers. It's preferable when large amounts of information must be shared quickly on the same computer.
+
+Message Passing requires system calls for every message transfer, and therefore slower. Simple to setup and works on multiple computer. Preferable with small data transfer or multiple computers.
+
+## Shared-Memory Systems
+
+- Memory to be shared is in the address space of a particular process, which makes system calls to make that memory public for one or more other processes.
+- Other processes must then make system calls to attach the shared memory to their address space
+- few messages passed back and forth between the cooperating processes to setup the shared memory
+
+### Producer-Consumer Example Using Shared Memory
+
+This is a classic example, in which one process is producing data and another process is consuming the data. ( In this example in the order in which it is produced, although that could vary. )
+The data is passed via an intermediary buffer, which may be either unbounded or bounded. With a bounded buffer the producer may have to wait until there is space available in the buffer, but with an unbounded buffer the producer will never need to wait. The consumer may need to wait in either case until there is data available.
+This example uses shared memory and a circular queue. Note in the code below that only the producer changes "in", and only the consumer changes "out", and that they can never be accessing the same array location at the same time.
+
+First the following data is set up in the shared memory area:
+
+```C
+#define BUFFER_SIZE 10
+
+typedef struct {
+     . . .
+} item;
+
+item buffer[ BUFFER_SIZE ];
+int in = 0;
+int out = 0;
+```
+
+Then the producer process. Note that the buffer is full when "in" is one les than "out" in a circular sense.
+
+```C
+item nextProduced;
+while( true ) {
+
+/* Produce an item and store it in nextProduced */
+nextProduced = makeNewItem( . . . );
+
+/* Wait for space to become available */
+while( ( ( in + 1 ) % BUFFER_SIZE ) == out )
+      ; /* Do nothing */
+
+/* And then store the item and repeat the loop. */
+buffer[ in ] = nextProduced;
+in = ( in + 1 ) % BUFFER_SIZE;
+
+}
+```
+
+Then the consumer process. Note that the buffer is empty when "in" is equal to "out"
+
+```C
+item nextConsumed;
+
+while( true ) {
+
+/* Wait for an item to become available */
+while( in == out )
+      ; /* Do nothing */
+
+/* Get the next available item */
+nextConsumed = buffer[ out ];
+out = ( out + 1 ) % BUFFER_SIZE;
+
+/* Consume the item in nextConsumed
+     ( Do something with it ) */
+
+}
+```
+
+## Message-Passing Systems
+
+- at minimum must support system calls for "send message" and "receive message".
+- a communication link must be established between the cooperating processes before messages can be sent.
+- there are three key issues to be resolved in message passing systems
+  - Direct or indirect communication (naming)
+  - Synchronous or asynchronous communication
+  - Automatic or explicit buffering
+
+### Naming
+
+#### Direct Communication
+
+- the sender must now the name of the receiver to which it wishes to send a message
+- there is a 1-to-1 link between every sender-receiver pair
+- for **symmetric** communication (in and out is the same), the receiver must also know the specific name of the sender from which it wishes to receive messages from. This is not necessary for **asymmetric** communication.
+
+#### Indirect Communication
+
+- indirect communication uses shared mailboxes or ports.
+- multiple processes can share the same mailbox or boxes
+- only one process can read any given message in a mailbox. The process that creates the mailbox is the owner, and the only one allowed to read the mailbox, but this can be transferred.
+- the OS must provide system calls to create and delete mailboxes, and to send and receive messages to/from mailboxes.
+
+### Synchronization
+
+Either the sending or receiving of messages (or neither or both) may be either _blocking_ or _non-blocking_
+
+### Buffering
+
+Messages are passed via queues, which may have one of three capacity configurations:
+
+1. **Zero capacity** - Messages cannot be stored in the queue, so senders must block until receivers accept the messages
+2. **Bounded capacity** - There is a certain pre-determined finite capacity in the queue. Senders must block if the queue is full, until space becomes available in the queue, but may be either blocking or non-blocking otherwise.
+3. **Unbounded capacity** - The queue has a theoretical infinite capacity, so senders are never forced to block.
+
+# Communication in Client-Server Systems
+
+## Sockets
+
+- A socket is an endpoint for communication
+- Two processes communicating over a network often use a pair of connected sockets as a communication channel.
+- A socket is identified by an IP address concatenated with a port number.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter3/3_20_Sockets.jpg)
+
+- Port numbers below 1024 are considered to be well-known, and are generally reserved for common Internet services. For example, telnet servers listen to port 23, ftp servers to port 21, and web servers to port 80.
+- General purpose user sockets are assigned unused ports over 1024 by the operating system in response to system calls such as socket() or socketpair()
+- Communication channels via sockets may be one of two major forms:
+  - **Connection-oriented (TCP, Transmission Control Protocol)** connections emulate a telephone connection. All packets sent are guaranteed to arrive in good condition, and the order in which they were sent. The TCP layer of the network protocol takes steps to verify al packets sent, re-send if necessary and arrange received packets in proper order.
+  - **Connectionless (UDP, User Datagram Protocol)** emulate individual telegrams. There is no guarantee that any particular packet will get through undamaged ( or at all ), and no guarantee that the packets will get delivered in any particular order.
+
+## Remote Procedure Calls, RPC
+
+- The general concept of RPC is to make procedure calls similar to local procedures, except the procedure being called lies on a remote machine.
+- Implementation involves **stubs** on either end of the connection.
+  - The local process calls on the stub, much as it would call upon a local procedure.
+  - The RPC system packages up (marshals) the parameters to the procedure call, and transmits them to the remote system.
+  - On the remote side the RPC daemon accepts the parameters and calls upon the appropriate remote procedure to perform the requested work
+  - Any results to be returned are then packaged up and sent back by the RPC system to the local system, which then unpacks them and results to the local calling procedure
+
+## Pipes
+
+- **Pipes** are one of the earliest and simplest channels of communications between UNIX processes
+- There re four key considerations in implementing Pipes
+  1. Unidirectional or bidirectional communication
+  2. Is bidirectional communication half duplex or full duplex
+  3. Must a relationship such as parent-child exist between the processes?
+  4. Can pipes communicate over a network, or only on the same machine?
+
+### Ordinary Pipes
+
+- ordinary pipes are uni-directional, wit a reading end and a writing end. (If bidirectional, then a second pipe is needed)
+- Ordinary pipes are created with the system call:
+
+  ```C
+  int pipe ( int fd [ ] )
+  ```
+
+  - the return value is 0 on success, -1 if an error continues
+  - the int array must be allocated before the call, and the values are filled in by the pipe system call
+    - `fd[0]` is filled in with a file descriptor for the reading end of the pipe
+    - `fd[1]` is filled in with a file descriptor for the writing end of the pipe
+  - ordinary pipes are only accessible in the process that created them
+    - typically a parent creates a pipe before forking a child
+    - when the child inherits open files from its parent, including the pipe file(s), a chanel of communication is established
+    - each process (parent and child) should first close the ends of the pipe that they are not using
+
+- ordinary pipes in Windows are very similar
+  - Windows terms them anonymous pipes
+  - they are limited to parent-child relationships
+  - they are read from and written to as files.
+  - they are created with CreatePipe() function, which takes additional arguments.
+  - it is necessary to specify what resources a child inherits, such as pipes
+
+### Named Pipes
+
+- support bidirectional communication, communication between non parent-child related processes, and persistence after the process which created them exits. Multiple processes can also share a named pipe, typically one reader and multiple writers
+- in UNIX, named pipes are termed fifos, and appear as ordinary files in the file system.
+  - ( Recognizable by a "p" as the first character of a long listing, e.g. /dev/initctl )
+  - Created with mkfifo( ) and manipulated with read( ), write( ), open( ), close( ), etc.
+  - UNIX named pipes are bidirectional, but half-duplex, so two pipes are still typically used for bidirectional communications.
+  - UNIX named pipes still require that all processes be running on the same machine. Otherwise sockets are used.
+- Windows named pipes provide richer communications
+- Full-duplex is supported
+- Processes may reside on the same or different machines
+- Created and manipulated using `CreateNamedPipe()`, `ConnectedNamedPipe()`, `ReadFile()`, and `WriteFile()`
