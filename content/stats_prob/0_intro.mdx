@@ -1,15 +1,15 @@
 ---
-title: "Introduction to Probability"
-metaTitle: "Introduction to Probability"
-metaDescription: "Stats & Probability - Introduction"
+title: 'Introduction to Probability'
+metaTitle: 'Introduction to Probability'
+metaDescription: 'Stats & Probability - Introduction'
 ---
+
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
   integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
   crossOrigin="anonymous"
 />
-
 
 # Sample Spaces
 
@@ -20,6 +20,7 @@ The **sample space** for this action is the set of all possible outcomes. Denote
 A sample space can be **discrete** or **continuous**. Ex. flipping a coin, measuring weight $(0, \infty)$
 
 For any events $A$ and $B$ in $S$:
+
 - The union of $A \cup B$ are all outcomes from $S$ in either $A$ or $B$;
 - The intersection of $A \cap B$ are all outcomes in both of $A$ and $B$;
 - The complement of A(sometimes denoted as $\overline{A}$ or $-A$) is the set of all outcomes in $S$ that are not in $A$;
@@ -35,6 +36,7 @@ Consider a job that can be done with 2 independent machine; first machine OR sec
 ## Multiplication Rule
 
 A job that can be done in a **k-stage procedure** would be modeled as having $k$ bags, with $m_1$ items in the first bag,..., $m_k$ items in $k$-th bag. A $k$-stage process is a process for which:
+
 - there are $m_1$ possibilities at stage 1;
 - regardless of the 1st outcome there are $m_2$ possibilities of stage 2
 - regardless of the previous outcomes, there are $m_k$ choices at stage $k$
@@ -61,10 +63,12 @@ In this case we would use $nC_r = \frac{n!}{{(n-r)!r!}}$ = $n \choose r$
 
 # Probability of an Event
 
-For situations where we have a random experiment which has exactly $N$ possible **mutually exclusive, equally likely outcomes, we can assign a probability to an event $A$ by counting the number of outcomes that correspond to $A$. If the count is $a$ then: $P(A) = \frac{a}{N}$.
+For situations where we have a random experiment which has exactly $N$ possible \*\*mutually exclusive, equally likely outcomes, we can assign a probability to an event $A$ by counting the number of outcomes that correspond to $A$. If the count is $a$ then: $P(A) = \frac{a}{N}$.
+
 > The probability of each individual outcome is thus $1/N$
 
 # Axioms of Probability
+
 1. For any event $A$, $1 \geq P(A) \geq 0$.
 2. For the complete sample space $S$, $P(S) = 1$.
 3. For the empty event $\varnothing, P(\varnothing) = 0$.
@@ -74,11 +78,12 @@ Since $S = A \cup \overline{A}$, and since $A$ and $\overline{A}$ are mutually e
 
 ## General Addition Rule
 
-> $(A \cup B) = P(A) + P(B) - P(A \cup B)$
+> $(A \cup B) = P(A) + P(B) - P(A \cap B)$
 
 When $A$ and $B$ are mutually exclusive, $P(A \cap B) = P(\varnothing) = 0$ and $P(A \cup B) = P(A) + P(B)$
 
 If there are more than two events, the rule expands as follows:
+
 > $P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P (A \cap B \cap C)$
 
 # Conditional Probabilities and Independent Events
@@ -94,6 +99,7 @@ The conditional probability of an event $B$ given that another event $A$ has occ
 # Law of Total Probability
 
 if $A_1, ...A_k$ are **mutually exclusive** and **exhaustive** (i.e. $A_i \cap A_j = \varnothing$ **forall** $i \neq j$ **and** $A_1 \cup ... \cup A_k = S$), then for any event $B$
+
 > $P(B) = \sum_{j=1}^{k} P(B|A_j)P(A_j) = P(B|A_1)P(A_1)+ ... + P(B|A_k)P(A_k)$.
 
 # Bayes Theorem
