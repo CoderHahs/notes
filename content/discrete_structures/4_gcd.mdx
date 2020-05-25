@@ -1,0 +1,32 @@
+---
+title: 'Greatest Common Denominator'
+metaTitle: 'Greatest Common Denominator'
+metaDescription: 'Discrete Structures - Greatest Common Denominator'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Lemma
+
+> Let $a,b,q, r \in \Z$ such that $a=b\cdot q + r$  
+> Then $\mathrm{gcd}(a,b) = \mathrm{gcd}(b,r)$
+
+# Euclid's Algorithm (a, b)
+
+> $x = a$  
+> $y = b$  
+> **while** $y \neq 0$  
+>  $r = x  \ \mathrm{mod} \ y$  
+>  $y = r$  
+> **return** $x$
+
+# Bezout's Theorem
+
+> Let $a,b \in \Z^+$.  
+> There exists $s,t \in \Z$ such that:  
+> $s\cdot a + t\cdot b = \mathrm{gcd}(a,b)$
