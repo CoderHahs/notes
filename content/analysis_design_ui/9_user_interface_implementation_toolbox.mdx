@@ -1,0 +1,99 @@
+---
+title: 'User Interface Implementation Toolbox'
+metaTitle: 'User Interface Implementation Toolbox'
+metaDescription: 'Analysis & Design of UI - User Interface Implementation Toolbox'
+---
+
+# Words, WIMP, Widgets
+
+## Words are Everywhere
+
+- Messages, buttons, indicators should use familiar and non-ambiguous language
+    - many possible synonyms: quit, exit, bye, logoff, logout
+- Specific words, focusing on the exact actions to be performed tend to lead to less confusion and favors recall
+    - place vs destination
+    - insert vs add
+- Still avoid rare words
+- Reuse the established vocab that is on the page, or reuse button names in the messages
+
+## WIMP
+Stands for Windows, Icons, Menus and Pointers. The term GUI is more popular (and more generic)
+
+### Advantages
+
+- Champions the idea of recognition rather than recall (design principle). It is easier for humans to recognize an item in a menu than to remember what it is (as needed at the command prompt)
+
+- Offers a limited selection of commands (rather than infinite if we think of command line) which increases learnability and prevents errors. In contrast the command line allows anything to be written.
+
+## Widgets
+
+A **control element** (sometimes called a control or a widget) in a graphical user interface is an element of interaction, such as a button or a scroll bar.
+
+### Advantages / Disadvantages
+
+- External consistency (builds on existing mental methods)
+- Saves development effort
+    - Libraries already support most widgets 
+
+- Widgets may constrain designer's thinking
+
+# Structural Patterns
+
+## Center stage pattern
+
+- Put a workspace, or a display in the center of the screen
+- Direct attention to the center, for important information or the start of a task
+- Surround the display center and secondary controls
+
+## Card stack pattern
+
+- put sections (various tasks) on different panels (or cards)
+- used when there is too much information for a single page
+- view one card / panel at a time
+
+## Closable panel pattern (Accordion pattern)
+
+- content sections on different panels
+- user can open each panel independently
+
+## Movable panel pattern
+
+- content sections, or tools, are on different panels
+- the user can reorganize his workspace by moving the panels
+- the purpose of each sign must be visible regardless of its position
+
+## Two-panel selector pattern
+
+- two panels (vertical or horizontal seperation)
+- a context panel
+- a content panel
+- easily permits a local and global perspective
+
+# Navigational Patterns
+
+## Breadcrumbs pattern
+
+- shows users where they are in a hierarchical structure and allows to navigate back to higher levels in the hierarchy
+
+## Linear pattern (wizard pattern)
+
+- seperation of a task into a linear sequence of subtask (steps)
+- often a sequence of dialogues (or selections)
+- be careful not to make this pattern too rigid ... plan the possibility of going back ... 
+
+## Pagination pattern
+
+- show user he/she can go forward and pack among a set of pages. Often used in search results
+
+## Fly-out menu pattern
+
+- a menu is shown when the user is on a selection
+
+## Directory pattern
+
+- become a bit "old-fashioned"
+- lets see a directory
+
+## Shortcut pattern
+
+- a shortcut can be offered in a different ways, but the underlying idea is to be able to "jump" directly somewhere

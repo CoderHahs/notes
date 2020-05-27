@@ -1,0 +1,32 @@
+---
+title: 'Threads'
+metaTitle: 'Threads'
+metaDescription: 'Operating Systems - Threads'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Overview
+
+- A **thread** is a basic unit of CPU utilization, consisting of a program counter, a stack, and a set or registers, ( and a thread ID). A **thread control block (TCB)** is a data structure that hold a separate copy of the information needed to execute a thread independently
+- Traditional processes have a single thread of control - There is one program counter, and one sequence of instructions that can be carried out at any given time
+- Multi-threaded applications have multiple threads with a single process, each having their own program counter, stack and set of registers, but sharing common code, data, and certain structures such as open files.
+
+## Motivation
+
+- Threads are very useful in modern programming whenever a process has multiple tasks to perform independently of the others.
+- This is particularly true when one of the tasks may block, and it is desired to allow the other tasks to proceed without blocking.
+
+## Benefits
+
+There are four major categories of benefits to multi-threading:
+
+1. Responsiveness - One thread may provide rapid response while other threads are blocked or slowed down doing intensive calculations.
+2. Resource sharing - By default threads share common code, data, and other resources, which allows multiple tasks to be performed simultaneously in a single address space.
+3. Economy - Creating and managing threads ( and context switches between them ) is much faster than performing the same tasks for processes.
+4. Scalability, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors. ( Note that single threaded processes can still benefit from multi-processor architectures when there are multiple processes contending for the CPU, i.e. when the load average is above some certain threshold. )
