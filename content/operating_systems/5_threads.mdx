@@ -26,7 +26,56 @@ metaDescription: 'Operating Systems - Threads'
 
 There are four major categories of benefits to multi-threading:
 
-1. Responsiveness - One thread may provide rapid response while other threads are blocked or slowed down doing intensive calculations.
-2. Resource sharing - By default threads share common code, data, and other resources, which allows multiple tasks to be performed simultaneously in a single address space.
-3. Economy - Creating and managing threads ( and context switches between them ) is much faster than performing the same tasks for processes.
-4. Scalability, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors. ( Note that single threaded processes can still benefit from multi-processor architectures when there are multiple processes contending for the CPU, i.e. when the load average is above some certain threshold. )
+1. **Responsiveness** - One thread may provide rapid response while other threads are blocked or slowed down doing intensive calculations.
+2. **Resource sharing** - By default threads share common code, data, and other resources, which allows multiple tasks to be performed simultaneously in a single address space.
+3. **Economy** - Creating and managing threads ( and context switches between them ) is much faster than performing the same tasks for processes.
+4. **Scalability**, i.e. Utilization of multiprocessor architectures - A single threaded process can only run on one CPU, no matter how many may be available, whereas the execution of a multi-threaded application may be split amongst available processors. ( Note that single threaded processes can still benefit from multi-processor architectures when there are multiple processes contending for the CPU, i.e. when the load average is above some certain threshold. )
+
+# Multi-core Programming
+
+- CPUs are being built with multiple *cores*. 
+- A multi-threaded application running on a traditional single-core chip would have to interleave the threads. On a multi-core chip, however, the threads could be spread across the available cores, allowing true parallel processing.
+
+## Programming Challenges
+1. **Identifying tasks** - Examining applications to find activities that can be performed concurrently.
+2. **Balance** - Finding tasks to run concurrently that provide equal value. Don't waste a thread on trivial tasks.
+3. **Data splitting** - To prevent the threads from interfering with one another
+4. **Testing and debugging** - Inherently more difficult in parallel processing situations, as the race conditions become much more complex and difficult to identifying
+
+## Types of Parallelism 
+1. **Data parallelism** divides the data up amongst multiple cores ( threads ), and performs the same task on each subset of the data. For example dividing a large image up into pieces and performing the same digital image processing on each piece on different cores
+2. **Task parallelism** divides the different tasks to be performed among the different cores and performs them simultaneously.
+
+In practice, a program is divided using a hybrid combination of the two.
+
+# Multi-threading models
+
+Two types of threads, user threads and kernel threads.
+- **User threads** are supported above the kernel, without kernel support. These are the threads that application programmers would put into their programs.
+- **Kernel threads** are supported within the kernel of the OS itself. All modern OSes support kernel level threads, allowing the kernel to perform multiple tasks simultaneously and/or service multiple kernel system calls simultaneously.
+
+In a specific implementation, the user threads must be mapped to kernel threads, using one of the following strategies.
+
+## Many-To-One Model
+
+In the many-to-one model, many user-level threads are all mapped to a single kernel thread. Thread management is handled by the thread library which is very efficient. However, if a blocking system call is made, then the entire process blocks, even if the other user threads would be able to continue.
+
+Because a single kernel thread can operate only on a single CPU, the many-to-one model does not allow individual processes to be split across multiple CPUs.
+
+## One-To-One Model 
+
+The one-to-one model creates a separate kernel thread for each user thread. This model overcomes the problems listed above such as blocking system calls and the splitting of processes across multiple CPUs.
+
+However the overhead associated is greater and slows down the system.
+
+Most implementations of this model limits the number of threads that can be created.
+
+## Many-To-Many Model
+
+The many-to-many model is when several user threads are connected to an equal or smaller number of kernel threads. This combines the best features of many-to-one and one-to-one models. 
+
+Users have no restrictions on the number of threads created. Blocking system calls do not block the entire process. Processes can be split across multiple processors. 
+
+Individual processes may be allocated variable number of kernel threads, depending on the number of CPUs present and other factors.
+
+A popular variation of the many-to-many model is the two-tier model, which allows either many-to-many or one-to-one operation.
