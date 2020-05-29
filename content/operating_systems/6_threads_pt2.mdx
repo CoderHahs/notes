@@ -127,4 +127,61 @@ int main(int argc, char *argv[])
 
 ## Java Threads
 
-All java programs use threads. The creation of new threads requires Objects that implement the Runnable Interface, which means they contain the method `public void run()`. Any descendant of the Thread class will naturally contain such a method. 
+All java programs use threads. The creation of new threads requires Objects that implement the Runnable Interface, which means they contain the method `public void run()`. Any descendant of the Thread class will naturally contain such a method. In practice the `run()` method must be overridden / provided for the thread to have any practical functionality.
+
+Creating a Thread Object does not start the thread running - to do that the program must call the Thread's `start()` method. Start() allocates and initializes memory for the Thread, and then calls the `run()` method. Usually programmers don't call the `run()` method directly.
+
+Because Java does not support global variables, Threads must be passed a reference to a shared Object in order to share data, in this example the "Sum" Object.
+
+Note that the JVM runs on top of a native OS, and that the JVM specification does not specify what model to use for mapping Java threads to kernel threads. This decision is JVM implementation dependant, and may be one-to-one, many-to-many, or many-to-one. On a UNIX system JVM uses Pthreads and on Windows it uses windows threads.
+
+```Java
+class Sum
+{
+    private int sum;
+    public int getSum() {
+        return sum;
+    }
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+}
+
+class Summation implements Runnable
+{
+    private int upper;
+    private Sum sumValue;
+    public Summation(int upper, Sum sumValue) {
+        this.upper = upper;
+        this.sumValue = sumValue;
+    }
+    public void run() {
+        int sum = 0;
+        for (int i = 0; i <= upper; i++)
+            sum += i;
+        sumValue.setSum(sum);
+    }
+}
+
+public class Driver
+{
+    public static void main(String[] args) {
+    if (args.length > 0) {
+        if (Integer.parseInt(args[0]) < 0)
+            System.err.println(args[0] + " must be >= 0.");
+        else {
+            // create the object to be shared
+            Sum sumObject = new Sum();
+            int upper = Integer.parseInt(args[0]);
+            Thread thrd = new Thread(new Summation(upper, sumObject));
+            thrd.start();
+            try {
+                thrd.join();
+                System.out.println("The sum of "+upper+" is "+sumObject.getSum());
+            } catch (InterruptedException ie) { }
+        }
+    }
+    else
+        System.err.println("Usage: Summation <integer value>"); }
+}
+```
