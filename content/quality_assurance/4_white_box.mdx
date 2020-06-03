@@ -1,0 +1,47 @@
+---
+title: 'Whitebox Testing'
+metaTitle: 'Whitebox Testing'
+metaDescription: 'Software QA - Whitebox Testing'
+---
+
+- structural testing approaches focus on system internal logic
+- based on source code
+- we test what is actually there
+- not implemented functionality in specification may be missed
+- can be cumbersome
+
+# Control flow 
+
+- sequencing of statements
+
+## Approaches
+
+- based on the analysis of how control flows through a program
+- examples of test coverage criteria
+    - statement coverage (all-nodes)
+    - branch coverage (all-edges)
+    - path coverage (all-paths)
+    - condition coverage
+    - condition/branch coverage
+
+# Data flow
+
+- data propagation through program
+- based on the analysis of how data flows through a program
+
+# Execution path
+- a sequence of statements from entry to exit
+- typically a large number of paths in a program
+- (input, expected output) pair for each path
+- executing a path requires invoking the unit with the right test input, some paths may be infeasible
+
+# White box test process
+
+1. Derive flow graph from source code
+2. Set coverage goal
+3. Determine paths to obtain coverage goal
+4. For each path
+    - Sensitize path for input values
+    - Use specification for expected output
+5. Run test cases
+6. Check coverage and repeat if needed

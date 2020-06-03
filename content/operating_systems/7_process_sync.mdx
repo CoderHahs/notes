@@ -1,0 +1,61 @@
+---
+title: 'Process Synchronization'
+metaTitle: 'Process Synchronization'
+metaDescription: 'Operating Systems - Process Synchronization'
+---
+
+
+# The Critical Section Problem
+
+The general idea is that in a number of cooperating processes, each has a critical section of code, with the following conditions and terminologies:
+- only one process in the group can be allowed to execute in their critical section at any one time. If one process is already executing their critical section and another process wishes to do so, then the second process must be made to wait until the first process has completed their critical section work
+- the code preceding the critical section, and which controls access to the critical section, is termed the entry section. It acts like a carefully controlled locking door
+- the code following the critical section is termed the exit section. It generally releases the lock on someone elses door, or at least lets the world know that they are no longer in their critical section
+- the rest of the code not included in either the critical section or the entry or exit sections is termed the remainder section
+
+```C 
+do {
+    //entry section
+        critical section
+    // exit section
+        remainder section
+} while (TRUE);
+}
+```
+
+A solution to the critical section problem must satisfy the following three conditions:
+1. **Mutual Exclusion** - Only one process at a time can be executing in their critical section
+2. **Progress** - If no process is currently executing in their critical section, and one or more processes want to execute their critical section, then only the processes not in their remainder sections car participate in the decision, and the decision cannot be postponed indefinitely. (Processes cannot be blocked forever waiting to get into their critical sections)
+3. **Bounded Waiting** - there exists a limit as to how many other processes can get into their critical sections after a process requests entry into their critical section and before that request is granted. 
+
+Kernel processes can also be subject to race conditions, which can be especially problematic when updating commonly shared kernel data structures such as open file tables or virtual memory management. Accordingly kernels can take on one of two forms:
+- Non-preemptive kernels do not allow processes to be interrupted while in kernel mode. This eliminates the possibility of kernel-mode race conditions, but requires kernel mode operations to complete very quickly, and can be problematic for real-time systems, because timing cannot be guaranteed.
+- Preemptive kernels allow for real-time operations, but must be carefully written to avoid race conditions. This can be especially tricky on SMP systems, in which multiple kernel processes may be running simultaneously on different processors.
+
+A **race condition** is an undesirable situation that occurs when a device or system attempts to perform two or more operations at the same time, but because of the nature of the device or system, the operations must be done in the proper sequence to be done correctly.
+
+# Peterson's Solution
+
+Peterson's Solution is a classic software-based solution to the critical section problem. It is unfortunately not guaranteed to work on modern hardware, but it illustrates a number of important concepts.
+
+Peterson's solution is based on two shared data items:
+- `int turn` - indicates whose turn it is to enter into the critical section
+- `boolean flag[i]` indicates when a process wants to enter their critical section, it sets flag[i] to true.
+
+```C
+do {
+    //entry is below
+    flag [i] = TRUE;
+    turn = j;
+    while (flag[j] && turn == j);
+        critical section
+    //exit is below
+    flag[i] = FALSE;
+        remainder section
+} while (TRUE);
+```
+
+To prove that the solution is correct, we must examine the three conditions listed above:
+1. **Mutual exclusion** - If one process is executing their critical section when the other wishes to do so, the second process will become blocked by the flag of the first process. IF both processes attempt to enter at the same time, the last process to execute "turn = j" will be blocked.
+2. **Progress** - Each process can only be blocked at the while if the other process wants to use the critical section (flag[i] == true), AND it is the process's turn to use the critical section (turn == j). If both of these If both of those conditions are true, then the other process (j) will be allowed to enter the critical section, and upon exiting the critical section, will set flag[j] to false, releasing process i. The shared variable turn assures that only one process at a time can be blocked, and the flag variable allows one process to release the other when exiting their critical section.
+3. **Bounded Waiting** - as each process enters their entry section, they set the turn variable to be the other processes turn. Since no process ever sets it back to their own turn, this ensures that each process will have to let the other process go first at most one time before it becomes their turn again.
