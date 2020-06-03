@@ -22,3 +22,43 @@ The *cumulative distribution function* remains the same for discrete and continu
 # Probability Density Function (p.d.f)
 
 The **probability density function** of a continuous random variable X is an **integrable** function $f_X: X(S) \to \R$ 
+
+> $P(A) = P(a,b) = \int_{a}^{b} f_X (x) dx$
+
+# Expectation
+
+> $\mathrm{E}[X] = \int_{-\infty}^{\infty} xf_X (x) dx$
+
+Note that the expectation exists if the integral exists
+
+# Mean and Variance
+
+As in the discrete case, if $X,Y$ are continuous random variables, and $a,b \in \R$,
+
+> $\mathrm{E}[aY +bX] = a\mathrm{E}[Y] + b\mathrm{E}[X]$  
+> $\mathrm{Var}[a+bX] = b^2\mathrm{Var}[X]$  
+> $\mathrm{SD}[a+bX] = |b|\mathrm{SD}[X]$
+
+# Standard Normal Distribution
+
+> $\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-z^2/2}$
+
+and the corresponding cumulative distribution function is denoted by $\Phi(z) = P(Z \leq z) = \int_{-\infty}^{z} \phi(t)dt$
+
+A random variable $Z$ with this c.d.f is said to have a standard normal distribution, and we write $Z \sim N (0,1)$
+
+## Expectation and Variance
+
+> $\mathrm{E}[Z] = \int_{-\infty}^{\infty} z\phi(z)dz = \int_{-\infty}^{\infty} z\frac{1}{\sqrt{2\pi}}e^{-z^2/2} dz = 0$  
+> $\mathrm{Var}[Z] = \int_{-\infty}^{\infty} z^2\phi(z)dz = 1$  
+> $\mathrm{SD}[Z] = \sqrt{\mathrm{Var}[Z]} = \sqrt{1} = 1$
+
+# General Normal Random Variable 
+
+> $Z \sim N(0,1) = \frac{X-\mu}{\sigma}$
+
+c.d.f is given by $F_X(x) = \Phi(\frac{x-\mu}{\sigma})$
+
+p.d.f is given by $f_X(x) = \frac{1}{\sigma} \phi(\frac{x-\mu}{\sigma})$
+
+Any random variable $X$ with this c.d.f/p.d.f must satisfy: $\mathrm{E}[X] = \mu, \mathrm{Var}[X] = \sigma^2, \mathrm{SD}[X] = \sigma$
