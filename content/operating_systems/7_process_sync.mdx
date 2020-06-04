@@ -59,3 +59,82 @@ To prove that the solution is correct, we must examine the three conditions list
 1. **Mutual exclusion** - If one process is executing their critical section when the other wishes to do so, the second process will become blocked by the flag of the first process. IF both processes attempt to enter at the same time, the last process to execute "turn = j" will be blocked.
 2. **Progress** - Each process can only be blocked at the while if the other process wants to use the critical section (flag[i] == true), AND it is the process's turn to use the critical section (turn == j). If both of these If both of those conditions are true, then the other process (j) will be allowed to enter the critical section, and upon exiting the critical section, will set flag[j] to false, releasing process i. The shared variable turn assures that only one process at a time can be blocked, and the flag variable allows one process to release the other when exiting their critical section.
 3. **Bounded Waiting** - as each process enters their entry section, they set the turn variable to be the other processes turn. Since no process ever sets it back to their own turn, this ensures that each process will have to let the other process go first at most one time before it becomes their turn again.
+- Note that the instruction "turn = j" is *atomic*, that is sit is a single machine instruction which cannot be interrupted.
+
+# Synchronization Hardware
+
+- To generalize the solution(s) expressed above, each process when entering their critical section must set some sort of **lock**, to prevent other processes from entering their critical sections simultaneously, and must release the lock when exiting their critical section, to allow other processes to proceed. Obviously it must be possible to attain the lock sonly when no their process has already set a lock. Specific implementations of this general procedure can get quite complicated, and may include hardware solutions as outlined in this sections.
+- One simple solution to the critical section problem is to simply prevent a process from being interrupted while in their critical section, which is the approach taken by non preemptive kernels. Unfortunately this does not work well in multiprocessor environments, due to the difficulties in disabling and the re-enabling interrupts on all processors. There is also a question as to how this approach affects timing if the clock interrupt is disabled.
+- Another approach is for hardware to proved certain **atomic** operations. These operations are guaranteed to operate as a single instruction, without interruption. One such operation is the "Test and Set" which simultaneously sets a  boolean lock variable and returns its previous value as shown below:
+```C
+boolean TestAndSet (boolean *target) {
+    boolean rv = *target;
+    *target = TRUE;
+    return rv;
+}
+
+do {
+    while (TestAndSetLock(&lock))
+        ; // do nothing
+
+        // critical section
+    
+    lock = False
+
+        // remainder section
+
+} while (TRUE);
+```
+
+Above is a mutual-exclusion implementation with `TestAndSet()`. Another variation on the test-and-set is an atomic swap of two booleans as shown below.
+
+```C 
+int compare_and_swap(int *value, int expected, int new_value) {
+    int temp = *value;
+    if (*value == expected)
+        *value = new_value;
+    
+    return temp;
+}
+
+do {
+    while (compare_and_swap(%loc, 0, 1) != 0)
+        ; /* do nothing */
+
+        /* critical section */
+
+    lock = 0;
+
+        /* remainder section */
+} while (true);
+```
+
+- The above examples satisfy the mutual exclusion requirement, but unfortunately do not guarantee bounded waiting. If there are multiple processes trying to get into their critical sections, there is no guarantee of what order they will enter, and any one process could have the bad luck to wait forever until they got their turn in the critical section. ( Since there is no guarantee as to the relative **rates** of the processes, a very fast process could theoretically release the lock, whip through their remainder section, and re-lock the lock before a slower process got a chance. As more and more processes are involved vying for the same resource, the odds of a slow process getting locked out completely increase. )
+
+Here is a solution that does satisfy the above point
+
+```C
+do {
+    waiting[i] = TRUE;
+    key = TRUE;
+    while (waiting[i] && key)
+        key = TestAndSet (&lock);
+    waiting = FALSE'
+
+        // critical section
+    
+    j = (i+1) % n;
+    while ((j != i) && !waiting[j])
+        j = (j+1) % n
+    
+    if (j == i)
+        lock = FALSE;
+    else
+        waiting[j] = FALSE;
+
+        // remainder section
+} while (TRUE);
+```
+
+- The key feature of the above algorithm is that a process blocks on the AND of the critical section being locked and that this process is in the waiting state. When exiting a critical section, the exiting process does not just unlock the critical section and let the other processes have a free-for-all trying to get in. Rather it first looks in an orderly progression ( starting with the next process on the list ) for a process that has been waiting, and if it finds one, then it releases that particular process from its waiting state, without unlocking the critical section, thereby allowing a specific process into the critical section while continuing to block all the others. Only if there are no other processes currently waiting is the general lock removed, allowing the next process to come along access to the critical section.
+- Unfortunately, hardware level locks are especially difficult to implement in multi-processor architectures. Discussion of such issues is left to books on advanced computer architecture.

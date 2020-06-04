@@ -1,4 +1,5 @@
 import { injectGlobal } from 'emotion';
+import styled from '@emotion/styled';
 
 export const baseStyles = injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
@@ -11,17 +12,18 @@ export const baseStyles = injectGlobal`
   }
   ::-webkit-input-placeholder {
     /* Edge */
-    color: #c2c2c2;
+    color: ${props => props.theme.colors.background};
   }
 
   /* width */
   ::-webkit-scrollbar {
-    width: 15px
+    width: 14px;
+    background: ${props => props.theme.colors.background};
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #1c1c1c; 
+    background: ${props => props.theme.colors.background};
   }
   
   /* Handle */
@@ -37,11 +39,11 @@ export const baseStyles = injectGlobal`
 
   :-ms-input-placeholder {
     /* Internet Explorer */
-    color: #c2c2c2;
+    color: ${props => props.theme.colors.background};
   }
 
   ::placeholder {
-    color: #c2c2c2;
+    color: ${props => props.theme.colors.background};
   }
   html,
   body {

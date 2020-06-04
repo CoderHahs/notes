@@ -1,0 +1,66 @@
+---
+title: 'Process Synchronization Part 2'
+metaTitle: 'Process Synchronization Part 2'
+metaDescription: 'Operating Systems - Process Synchronization Part 2'
+---
+
+# Mutex Locks
+
+The hardware solutions above are difficult for ordinary programmers to access, particularly on multi-processor machines, and particularly because they are often platform-dependent. Therefore most systems offer a software API equivalent called **mutex locks** or simply **mutexes**. (For mutual exclusion). The terminology is to *acquire* a lock prior to entering a critical section, and to *release* it when exiting.
+
+Here is a solution to the critical section problem using mutex locks.
+
+```C 
+do {
+    // acquire lock
+        
+        critical section
+
+    // release lock
+
+        remainder section
+
+} while (TRUE);
+```
+
+Just as with hardware locks, the acquire step will block the process if the lock is in use by another process, and both the acquire and release operations are atomic. 
+
+Below is how acquire and release are implemented based on a boolean variable `available`.
+
+```C 
+// Acquire
+acquire() {
+    while (!available)
+        ; /* busy wait */
+    available = false;;
+}
+
+// Release
+release() {
+    available = true;
+}
+```
+
+One problem with the implementation shown here, (and in the hardware solutions presented earlier), is the busy loop used to block processes in the acquire phase. These types of locks are referred to as **spinlocks**, because the CPU just sits and spins while blocking the process. Spinlocks are very inefficient and waste CPU cycles on single-CPU single-threaded machines. However, they are good for multi-threaded machines.
+
+# Semaphores
+
+A more robust alternative to simple mutexes is to use **semaphores**, which are integer variables for which only two (atomic) operations are defined, the wait and signal operations, as shown in the following figure.
+
+Semaphores are comprised of two operations shown below:
+
+```C
+// Wait
+wait (S) {
+    while S <= 0
+        ; // no-op
+    S--;
+}
+
+// Signal
+signal (S) {
+    S++;
+}
+```
+
+## Semaphore Usage
