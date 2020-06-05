@@ -708,7 +708,7 @@ export const baseStyles = injectGlobal`
   }
 
   .heading2 {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.5;
     margin-bottom: 16px;
@@ -716,7 +716,7 @@ export const baseStyles = injectGlobal`
   }
 
   .heading3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.5;
     margin-bottom: 16px;
@@ -724,7 +724,7 @@ export const baseStyles = injectGlobal`
   }
 
   .heading4 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 16px;
@@ -732,7 +732,7 @@ export const baseStyles = injectGlobal`
   }
 
   .heading5 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     margin-bottom: 16px;
@@ -740,7 +740,7 @@ export const baseStyles = injectGlobal`
   }
 
   .heading6 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
     line-height: 1.5;
     margin-bottom: 16px;

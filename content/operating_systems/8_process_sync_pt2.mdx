@@ -64,3 +64,68 @@ signal (S) {
 ```
 
 ## Semaphore Usage
+
+In practice, semaphores can take on one of two forms:
+- **Binary semaphores** can take on of two values, 0 or 1. They can be used to solve the critical section problem as described above, and can be used as mutexes on systems that do not provide a separate mutex mechanism. The general structure is shown below:
+
+```C
+do {
+    waiting(mutex);
+        
+        // critical section
+
+    signal (mutex);
+
+        // remainder section
+
+} while (TRUE);
+```
+- **Counting semaphores** can take on any integer value, and are usually used to count the number remaining of some limited resource. The counter is initialized to the number of such resources available in the system, and whenever the counting semaphore is greater than zero, then a process can enter a critical section and use one of the resources. When the counter gets to zero (or negative in some implementations), then the process blocks until another process frees up a resource and increments the counting semaphore with a signal call. 
+
+Semaphores can also be used to synchronize certain operations between processes. For examples, suppose it is import that process P1 executes statement S1 before process P2 executes statement S2.
+
+1. First we create a semaphore named `synch` that is shared by the two processes and initialize it as zero.
+2. Then in process P1 we insert the code:
+    ```C 
+    S1;
+    signal (synch);
+    ```
+3. and in process P2 we insert the code:
+    ```C 
+    wait (synch);
+    S2;
+    ```
+4. Because `synch` was initialized to 0, process P2 will block on the wait until after P1 executes the call to signal.
+
+## Semaphore implementation
+
+The big problem with semaphores as described above is the busy loop in the wait call, which consumes CPU cycles with doing any useful work. 
+
+An alternative approach is to block a process when it is forced to wait for an available semaphore, and sway it out of the CPU. In this implementation each semaphore needs to maintain a list of processes that are blocked waiting for it, so that one of the processes can be woken up and swapped back in when the semaphore becomes available. 
+
+The new definition of a semaphore is as follows:
+```C 
+// Semaphore Structure:
+typedef struct {
+    int value;
+    struct process *list;
+} semaphore;
+
+// Wait Operation:
+wait (semaphore *S) {
+    S -> value--;
+    if (S -> value < 0) {
+        add this process to S -> list;
+        block();
+    }
+}
+
+// Signal Operation:
+signal(semaphore *S) {
+    S -> value++;
+    if (S -> value <= 0) {
+        remove a process P from S->list;
+        wakeup(P);
+    }
+}
+```
