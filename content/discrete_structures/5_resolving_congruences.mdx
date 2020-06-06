@@ -1,0 +1,22 @@
+---
+title: 'Resolving Congruences'
+metaTitle: 'Resolving Congruences'
+metaDescription: 'Discrete Structures - Resolving Congruences'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Linear Congruence
+
+> $ax \equiv b \pmod{m}$
+
+**If** we find a multiplicative inverse $\bar{a}$ to $a \pmod{m}$, i.e. $\bar{a}\cdot a \equiv 1 \pmod{m}$, then $ax \equiv b \pmod{m}$ becomes $x \equiv \bar{a}\cdot b \pmod m$
+
+## Theorem
+
+Let $a,m \in \Z$ with $m\geq 2$. If $gcd(a,m) = 1$, then the inverse of $a \pmod{m}$ exists and is unique.
