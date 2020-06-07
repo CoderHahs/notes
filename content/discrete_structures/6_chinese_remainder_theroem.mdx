@@ -1,0 +1,45 @@
+---
+title: 'Chinese Remainder Theorem'
+metaTitle: 'Chinese Remainder Theorem'
+metaDescription: 'Discrete Structures - Chinese Remainder Theorem'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+Let $m_1, m_2, ..., m_r \in \Z$ be integers greater than 1 that are pairwise co-prime. Let $a_1, a_2, ..., a_r \in \Z$, then the system,
+
+> $x \equiv a_1 \pmod{m_1}$    
+> $x \equiv a_2 \pmod{m_2}$  
+> ...  
+> $x \equiv a_r \pmod{m_r}$
+
+admits a **unique** solution $\pmod{m_1\cdot m_2 \cdot ... \cdot m_r}$
+
+# Example
+
+Consider the following linear congruences:
+
+> $x \equiv 2 \pmod{3}$  
+> $x \equiv 3 \pmod{5}$  
+> $x \equiv 5 \pmod{7}$  
+
+Therefore, $m = m_1 \cdot m_2 \cdot m_3 = 105$. 
+
+> For $b_1: \frac{m}{m_1} \cdot b_1 \equiv 1 \pmod{m_1}$   
+> $35 \cdot b_1 \equiv 1 \pmod{3} =  2\cdot b_1 \equiv 1 \pmod{3}$  
+> $b_1 \equiv 2 \pmod{3}$
+
+> For $b_2: \frac{m}{m_2} \cdot b_2 \equiv 1 \pmod{m_2}$   
+> $21 \cdot b_2 \equiv 1 \pmod{5} = b_2 \equiv 1 \pmod{5}$  
+
+> For $b_3: \frac{m}{m_3} \cdot b_3 \equiv 1 \pmod{m_3}$   
+> $15 \cdot b_3 \equiv 1 \pmod{7} = b_3 \equiv 1 \pmod{7}$
+
+> $x = \frac{m}{m_1} \cdot b_1 \cdot a_1 + \frac{m}{m_2} \cdot b_2 \cdot a_2 +  \frac{m}{m_3} \cdot b_3 \cdot a_3$  
+> $x = 140 + 63 + 75 = 278$  
+> $x = 68 \pmod{105}$

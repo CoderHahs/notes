@@ -62,3 +62,56 @@ c.d.f is given by $F_X(x) = \Phi(\frac{x-\mu}{\sigma})$
 p.d.f is given by $f_X(x) = \frac{1}{\sigma} \phi(\frac{x-\mu}{\sigma})$
 
 Any random variable $X$ with this c.d.f/p.d.f must satisfy: $\mathrm{E}[X] = \mu, \mathrm{Var}[X] = \sigma^2, \mathrm{SD}[X] = \sigma$
+
+# Exponential Random Variable 
+
+Assume that cars arrive according to a Poisson process with rate λ, i.e. the number of cars arriving within a fixed unit time period is a Poisson random variable with parameter λ. Over a period of time x, we would expect the number of arrivals N to
+follow a Poisson process with parameter λx. Let X be the waiting time to the first car arrival. Then
+
+> $P(X > x) = 1 − P(X ≤ x) = P(N = 0) = exp(−λx)$
+
+We say that X follows a **exponential distribution** $\mathrm{Exp}(λ)$, and
+
+> $F_X(x) = \{0 \ \mathrm{for} \ x < 0 \ \mathrm{and} \ 1-e^{-\lambda x}  \ \mathrm{for} \ 0 \leq x\}$  
+> $f_X(x) = \{0 \ \mathrm{for} \ x \leq 0 \ \mathrm{and} \ \lambda e^{-\lambda x}  \ \mathrm{for} \ 0 \leq x\}$
+
+## Properties
+
+If $X \sim \mathrm{Exp}(\lambda)$, then: 
+- $\mu = \mathrm{E}[X] = 1/\lambda$
+- $\sigma^2 = \mathrm{Var}[X] = 1/\lambda^2$
+
+**Memory-Less Property**:
+> $P(X > s + t | X > t) = P(X > s)$
+
+# Gamma Random Variable
+> $f_Y (y) = \{0 \ \mathrm{for} \ y < 0 \ \mathrm{and} \ \frac{y^{k-1}}{(k-1)!}\lambda^ke^{-\lambda y}  \ \mathrm{for} \ 0 \leq y\}$ 
+
+> $\mu = \mathrm{E}[Y] = \frac{k}{y}$ and $\sigma^2 = \mathrm{Var}[X] = \frac{k}{\lambda^2}$
+
+# Joint Distributions
+
+1. $f(x, y) ≥ 0,$ for all $x, y$
+2. $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) dxdy = 1$
+3. $P(A) = \int \int_A f(x, y) dxdy,$ where $A ⊆ \R^2$
+
+# Normal Approximation of the Binomial Distribution
+If $X \sim B(n, p)$ then we may interpret $X$ as a sum of independent and identically distributed random variables
+
+> $X = I_1 + I_ + ... + I_n$ where each $I_i \sim B(1, p)$.
+
+Thus, according to the **Central Limit Theorem** (more on this later), for large $n$, we have
+
+> $\frac{X-np}{\sqrt{np(1-p)}} \approx N (0,1)$
+
+ for large $n$ if $X \sim B(n, p)$ then $X \approx N (np, np(1 − p))$.
+
+# Normal Approximation with Continuity Correction
+
+Let $X \sim B(n, p)$. Recall that E$[X] = np$ and Var$[X] = np(1 − p)$. If $n$ is large, we may approximate $X$ by a normal random variable in the following way:
+
+> $P(X ≤ x) = P(X < x + 0.5) = P(Z < \frac{x-np+0.5}{\sqrt{np(1-p)}})$
+
+and 
+
+> $P(X \geq x) = P(X > x - 0.5) = P(Z > \frac{x-np-0.5}{\sqrt{np(1-p)}})$
