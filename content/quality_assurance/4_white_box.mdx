@@ -45,3 +45,62 @@ metaDescription: 'Software QA - Whitebox Testing'
     - Use specification for expected output
 5. Run test cases
 6. Check coverage and repeat if needed
+
+## Control Flow graph
+- graph representation of code
+    - nodes represent statements
+    - edges show flow of control
+- decision node
+    - node with several exit edges
+    - (outlinks) affects flow of control
+- junction nodes
+    - node with more than one input edges (inlink)
+- simplified flow graph
+    - obtained by collapsing decision-to-decision
+    - path more convenient for large units
+
+### Coverages
+
+- Branch Coverage:
+    - % of decision branches executed
+    - minimum coverage
+- Condition Coverage:
+    - % of conditions evaluated to true and false
+- Path Coverage:
+    - % of paths covered
+    - is 100% realistic?
+- Loop Coverage:
+    - coverage should execute the loop body
+        - zero times
+        - minimum number of times
+        - average
+        - max number of times
+
+# Path Sensitizing
+To find a set of input to force a selected path
+– consists in determination of solution of predicates (path condition)
+- Backward strategy (from exit to entry)
+- Forward strategy (from entry to exit)
+- Problem with unfeasible paths
+    – may call for re-writing of program
+
+# Path Condition
+- Conjunction of branch predicates required to hold for all the branches along a path
+- Can help
+    – find input values for a path
+    – determine if path is unfeasible
+- Determined using symbolic evaluation
+    – variables take symbolic values  at different points
+    – goal is to express condition in terms of variable values at entry point
+
+# Mutation Testing
+
+- Assesses the effectiveness of a test suite for defects detection 
+    - measures the extent to which a test set can discriminate a program from slight variations of that program
+- Mutant is a version of a program obtained by replicating the original program except for one small change (a mutation 
+    - corresponds to a typical error 
+    - obtained by application of a mutation operator on the original program
+- Mutation operator 
+    - modifies a program code (program under test) to create a mutant program
+    - mimics typical programmer mistake (e.g. change relational operator)
+    - different operators must be defined for different programming languages and goals
