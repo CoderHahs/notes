@@ -1,0 +1,39 @@
+---
+title: "Introduction to Cryptography"
+metaTitle: "Introduction to Cryptography"
+metaDescription: "Discrete Structures - Introduction to Cryptography"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+Let $p,q \in \Z$ be two prime numbers and $M \in \Z$ be a postive integer coprime with $pq$. Then $M^{(p-1)(q-1)} \equiv \pmod{pq}$
+
+# RSA
+
+A large number $n$ where it is of the form $n=pq$, for two prime numbers $p,q$. Moreover gcd$(e, (p-1)(q-1)) = 1$. $e$ is known as the **public key**, which is not a very large number. $n$ and $e$ are both shared between parties and made public. Only the **owner** of $n$ knows $p$ and $q$. For anybody else, it is impossible to calculate. 
+
+Let use consider the case of Eve:  
+$n = 2418737527 = 48611 \cdot 49757 = pq$
+
+We want to send her the message *Salut*. The message is therefore represented by the number $M = 1901122120$ 
+
+We compute:
+> $C\equiv M^e \pmod(n)$  
+> $\equiv 1901122120^11 \pmod{2418737527}$  
+> $\equiv 250061500 \pmod{2418737527}$
+and we send $C$ to Eve.
+
+Since Eve knows $p$ and $q$, she also knows $d$ and $t$ such that $d\cdot e - t(p-1)(q-1) = 1$. In her case $d = 159134011$ and $t = 7$. She then computes:
+
+> $C^d\equiv 250061500^1539134011 \pmod(2418737527)$  
+> $\equiv 1901122120 \pmod{2418737527}$  
+> $\equiv M \pmod{2418737527}$
+
+and the message is discovered! The number $d$ is called the **private key**.
+
+In summary, the crypted message is $C \equiv M^e \pmod{n}$. When the receiver gets the message they compute $C^d \pmod{n}$, and the message is result.
