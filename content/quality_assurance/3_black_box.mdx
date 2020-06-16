@@ -4,6 +4,8 @@ metaTitle: 'Blackbox Testing'
 metaDescription: 'Software QA - Blackbox Testing'
 ---
 
+Black-box testing is testing without having an insight into the details of underlying code.
+
 # Error Guessing
 
 ## Approach
@@ -71,3 +73,49 @@ Steps: For each functional units:
 # Cause-effect graphing
 
 A systematic way to aid selecting a set of test cases
+
+to identify/analyze relationships in a decision table
+– generate boolean formula
+
+Nodes:
+- Cause - distinct instance of input condition or EC
+- Effect - observable result of change in system state
+- Intermediate node - combination of causes representing an expression on input conditions
+
+## Test generation from Cause-Effect graphs
+- Divide the specification into workable pieces.
+- Define separate graphs for each piece.
+1. Identify Causes and Effects
+2. Deduce Logical Relationships and Constraints - represent as graph
+3. Draw a decision table
+4. Convert each variant in the decision table into a test
+case.
+
+## Test generation from Cause-Effect graphs
+- To find the unique combination of conditions
+- Work with a single effect (output) at a time
+1. Set effect to true (1) state
+2. Look backward for all combination of inputs which will
+force effect to the true state (constraints limit number of
+combination)
+3. Create a column in decision table for each combination
+4. Determine states of all other effects for each combination
+
+## Boolean Formula Generation from Cause-Effect graphs
+- Working from effects toward causes
+1. Transcribe node-to-node formulas from the graph
+    – write formula for each effect and its predecessors
+    – For each intermediate node
+        - write formula for intermediate node and its predecessors
+2. Derive the complete Boolean formula
+– replace intermediate variables by substitution until the effect
+formula contains only cause variables
+- factor and rewrite formula into sum-of-products form
+
+## Each-Condition/All-Conditions
+- Method to create Decision Table from Boolean Formula
+- Set of variants includes
+– For each variable, a variant such that the variable is made
+true with all other variables being false, and
+    - One variant such that all variables are true (and logic), or
+    - One variant such that all variables are false (or logic)

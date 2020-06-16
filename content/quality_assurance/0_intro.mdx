@@ -39,13 +39,6 @@ safety, accuracy, precision, etc.
 - potential to avoid costs associated with rework during development and after delivery
 - measure using defect counts, rework costs
 
-#### Conformance to requirements
-
-Lack of defects: # of defects / size unit
-- high reliability (number of failures per n hours of operation)
-- measured as **Mean Time to Failure (MTTF)** probability of failure-free operation in a specified time
-- user/customer satisfaction
-
 ### Product view
 
 - tied to inherent product characteristics
@@ -56,6 +49,14 @@ Lack of defects: # of defects / size unit
 ### Value-based view
 
 - depends on how much customers are willing to pay for trade-off cost and quality
+
+
+#### Conformance to requirements
+
+Lack of defects: # of defects / size unit
+- high reliability (number of failures per n hours of operation)
+- measured as **Mean Time to Failure (MTTF)** probability of failure-free operation in a specified time
+- user/customer satisfaction
 
 # Quality factors and models
 
@@ -161,6 +162,66 @@ key concepts associated to software correctness
   - four complementary methods:
     - formal methods
     - testing
+    - inspections
+    - metrics
+
+# Comprehensive Life-cycle
+- Comprehensive life-cycle approach concerned with every
+aspect of the software product development process 
+- comprehensive set of quality objectives
+- measurable quality attributes (quality metrics) to assess progress toward the objectives
+- quantitative certification targets for all component of the software development processes.
+
+## Activities 
+
+Objective: ensure few, if any, defects remain in the software system when delivered.
+
+- Defect prevention
+  - prevent faults from being injected into the software
+    - elimination of error sources
+    - fault prevention or blocking
+  - Examples
+    - training
+    - remove misconceptions
+    - remove ambiguities
+    - process conformance and standard enforcement
+- Defect reduction
+  - detects and removes faults before system is delivered
+  - Examples
+    - inspection
+    - prototype simulation
+    - static analysis
+    - testing
+- defect containment
+  - minimize the effects of defects (failures)
+  - contains local failures s they do not propagate (fault tolerance)
+  - limits damage caused by failures  
 
 # Validation vs. Verfication
 ![Image](https://bobonmedicaldevicesoftware.com/blog/wp-content/uploads/2009/03/vvsv.png)
+
+Verification:
+- "are we building the product right?"
+- the software should conform to its specifications
+- The process of evaluating a system or component to determine whether the products of a given development phase satisfy the conditions imposed at the start of that phase. IEEE Std 1012-2004
+
+Validation:
+- "are we building the right product?"
+- the software should do what the user really requires.
+- The process of providing evidence that the software and its associated products satisfy system requirements allocated to software at the end of each life cycle activity, solve the right problem, and satisfy intended use and user needs. IEEE Std 1012-2004
+
+# Software Quality Engineering
+
+- encompasses SQA with related activities (planning, monitoring, improvement)
+- engineering approach to manages quality expectations
+  - setting of quality goals
+  - measuring of performance toward these goals
+  - process analysis and improvement
+
+## Main Components
+- Quality planning
+  - sets specific quality goals (based on customer's expectations, economical/time constraints)
+  - forms overall quality strategy (selects QA activities, selects quality measurements)
+- Quality Assessment and improvement
+  - feedback from measurements collected during QA activities
+  - may prompt changes/adjustment to quality goals, QA strategy, development process

@@ -24,6 +24,32 @@ Its impossible to test a program completely
 - software testers aren't the most popular members of a project team
 - software testing is a disciplined technical profession that requires training
 
+Also:
+- large input space
+- large output space
+- large state space
+- large number of possible execution paths
+- subjectivity of specifications
+
+# Testing process
+
+- Planning
+    - includes completion criteria (coverage goal)
+- Design
+    - approaches for test case selection to achieve coverage goal
+- Implementation
+    - scripting of test cases
+        - input/output data
+        - state before/after
+        - test procedure
+- Execution
+    - run tests 
+        - check results - pass or fail?
+        - coverage?
+- Test Management
+    - defect tracking
+    - maintain relationships
+
 # Levels of Testing
 
 - Unit Testing
@@ -85,7 +111,7 @@ Its impossible to test a program completely
 6. Repeat from step 1 if the coding is not done
 
 ## Acceptance TDD
-### Development starts with writing of an acceptance test (customer test)
+Development starts with writing of an acceptance test (customer test)
 - Expected system behavior from users' point of view
 - Free of technical details
 - written in collaboration with experts, customers, users, developers
@@ -140,3 +166,41 @@ and stubs
 - Then, “plays back” the recorded user input and checks if the same responses are detected as are stored in the captured script.
 - Benefits: relatively simple approach, easy to use, little/no scripting involved
 
+# Test case
+- for a state-less system (outcome depends solely on the current input)
+    - a pair of <input, expected outcome>
+- for a state-oriented system (outcome depends both on the current state of the system and current input)
+    - a sequence of <input, expected outcome>
+
+## Expected outcome
+
+An outcome of program execution may include:
+- value produced by the program
+- state change
+- sequence of values which must be interpreted together for the outcome to be valid
+
+- determination of the expected outcome is not always straightforward
+
+- *Test oracle* 
+    - a mechanism that verifies the correctness of program output
+    - generates expected results from test inputs
+    - compares the expected results with the actual results of execution
+
+## Point of Control Observations
+
+- Direct method call (e.g. JUnit)
+- User input / output
+- Data file input / output
+- Network ports / interfaces
+- Windows registry / configuration files
+- Log files
+- Pipes / shared memory
+
+3rd party component interfaces:
+- Lookup facilities:
+    - network: Domain Name Service (DNS), Lightweight Directory
+    - Access Protocol (LDAP), etc.
+    - local / server: database lookup, Java Naming and Directory Interface (JNDI), etc.
+- Calls to:
+    - remote methods (e.g. RPC, Services)
+    - Operating System

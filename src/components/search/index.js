@@ -150,6 +150,7 @@ export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
             </Index>
           );
         })}
+        <PoweredBy />
       </HitsWrapper>
       <Configure hitsPerPage={5} />
     </InstantSearch>
