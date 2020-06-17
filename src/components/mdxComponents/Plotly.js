@@ -15,14 +15,14 @@ const Plotly = Loadable({
     timeout: 10000,
 })
 
-export const LazyPlot = withTheme(({ theme, ...rest }) => (
+export const LazyPlot = ({ theme, ...rest }) => (
     <Plotly
         layout={{
             margin: { t: 0, r: 0, l: 35 },
             paper_bgcolor: `rgba(0, 0, 0, 0)`,
             plot_bgcolor: `rgba(0, 0, 0, 0)`,
             font: {
-                color: '#e98074',
+                color: '#878787',
                 size: 12,
             },
             // The next 3 directives make the plot responsive.
@@ -36,4 +36,4 @@ export const LazyPlot = withTheme(({ theme, ...rest }) => (
         }}
         {...rest}
     />
-))
+)
