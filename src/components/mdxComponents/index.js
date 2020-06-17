@@ -37,7 +37,7 @@ export default {
   ),
   code: CodeBlock,
   a: AnchorTag,
-  LazyPlot: LazyPlot
+  LazyPlot: LazyPlot,
   // TODO add `img`
   // TODO add `blockquote`
   // TODO add `ul`

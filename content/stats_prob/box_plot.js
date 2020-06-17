@@ -19,5 +19,5 @@ const data = [trace1, trace2];
 
 export default {
     data: data,
-    layout: { margin: { t: 0, r: 0, l: 30 } },
+    // layout: { margin: { t: 0, r: 0, l: 30 } },
 }
