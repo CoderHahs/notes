@@ -16,3 +16,45 @@ Defining something (function, algorithm, set, etc.) as a function of itself.
 # Lame's Theorem
 
 Let $a,b \in \Z$ such that $a \geq b > 0$. Euclid's algorithm performs O $(\log{b})$ divisions.
+
+# Binary Tree 
+
+A **binary tree** is defined recursively by:
+- an isolated node $r$ is a binary tree with root r
+- Let $T_1$ be a binary tree with root $r_1$
+- Let $T_2$ be a binary tree with root $r_2$
+- the graph obtained by adding the edges {$r, r_1$} and {$r, r_2$} is a binary tree with root $r$.
+
+Height $h(T)$ of a binary tree $T$:
+- $h(T)$ = 0 if $T$ is an isolated node, else $1 +$ max$(h(T_1), h(T_2))$
+
+Size $n(T)$ of a binary tree $T$:
+- $n(T)$ = 0 if $T$ is an isolated node, else $1+n(T_1)+n(T_2)$
+
+> $n(T) \leq 2^{h(T) + 1} - 1$
+
+# Recursive Algorithms
+
+## Divide and Conquer Approach
+To solve a problem of size $n$:
+- divide the problem in sub problems of size < $n$.
+- conquer, solve each sub problem recursively.
+- combine (merge) the solutions of sub problems to obtain a solution for the original problem.
+
+## General structure
+
+For an input $x$:
+```Python
+def algo(x):
+  if (x == "sufficiently small"):
+    // resolve the problem with brute force and resolve the problem
+  else:
+    // decompose x into sub problems x1, x2, x3, ... , xL
+    // do:
+    y1 = algo(x1)
+    y2 = algo(x2)
+    // ...
+    y3 = algo(xL)
+    // combine y1, y2, ... yL into a solution y for x
+    return y
+```
