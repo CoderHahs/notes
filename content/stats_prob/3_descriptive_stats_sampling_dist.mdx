@@ -110,4 +110,28 @@ import histPlot from './hist_plot'
 
 # Random Sampling
 
+A **population** is a set of similar items which is of interest in relation to some questions or experiments. In some situations, it is impossible to observe the entire set of observations that make up a population. In this case, we consider a **sample** (subset) of the population, and make inferences.
 
+# Linear Properties of Expectation and Variance
+
+> E$[a+bX] = a+b\mathrm{E}[X]$,  
+> Var$[a+bX] = b^2\mathrm{Var}[X]$,  
+> SD$[a+bX] = |b|\mathrm{SD}[X]$
+
+# Sum of Independent Random Variables
+
+Generally if $X_1, X_2, ... , X_n$ are **independent** random variables, then:
+- $\mathrm{E}[X] = \sum_{i=1}^n \mathrm{E}[X_i]$
+- $\mathrm{Var}[X] = \sum_{i=1}^n \mathrm{Var}[X_i]$
+
+## The IID Case
+
+**Independent and identically distributed**(iid) random variables have exactly the same distribution. 
+- $\mathrm{E}[\sum_{i=1}^n \mathrm{E}[X_i]] = n\mu$
+- $\mathrm{Var}[\sum_{i=1}^n \mathrm{Var}[X_i]] = n\sigma^2$
+
+# Central Limit Theorem
+
+If $\overline{X}$ is the mean of a random sample of size $n$ taken from an unknown population with mean $\mu$ and finite variance $\sigma^2$, then $Z = \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}$, has the standard normal distribution $N(0,1)$ as $n \rightarrow \infty$
+
+More precisely, the result is a **limiting** result.
