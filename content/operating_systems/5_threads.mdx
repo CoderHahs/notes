@@ -79,3 +79,178 @@ Users have no restrictions on the number of threads created. Blocking system cal
 Individual processes may be allocated variable number of kernel threads, depending on the number of CPUs present and other factors.
 
 A popular variation of the many-to-many model is the two-tier model, which allows either many-to-many or one-to-one operation.
+
+# Thread Libraries
+
+Thread libraries provide programmers with an API for creating and managing threads. They may be implemented either in user space or kernel space. 
+
+User space involves API functions implemented solely within user space, with no kernel support. Kernel space involves system calls and requires a kernel with thread library support.
+
+## Pthreads
+
+Provided as either a user or kernel library, as an extension to the POSIX standard. The POSIX standard defines the *specification* for pThreads, not the implementation.
+
+Global variables are shared amongst all threads. One thread can wait for the others to rejoin before continuing.
+
+pThreads begin execution in a specified function, in this example the runner() function:
+
+```C
+#include <pthread.h>
+#include <stdio.h>
+
+int sum; /* this data is shared by the thread(s) */
+void *runner(void *param); /* the thread */
+
+int main(int argc, char *argv[])
+{
+    pthread t tid; /* the thread identifier */
+    pthread attr t attr; /* set of thread attributes */
+    if (argc != 2) {
+    fprintf(stderr,"usage: a.out <integer value>\n");
+    return -1;
+    }
+    if (atoi(argv[1]) < 0) {
+    fprintf(stderr,"%d must be >= 0\n",atoi(argv[1]));
+    return -1;
+    }
+    /* get the default attributes */
+    pthread attr init(&attr);
+    /* create the thread */
+    pthread create(&tid,&attr,runner,argv[1]);
+    /* wait for the thread to exit */
+    pthread join(tid,NULL);
+    printf("sum = %d\n",sum);
+}
+/* The thread will begin control in this function */
+void *runner(void *param)
+{
+    int i, upper = atoi(param);
+    sum = 0;
+    for (i = 1; i <= upper; i++)
+    sum += i;
+    pthread exit(0);
+}
+```
+
+Here's Pthread code for joining ten threads:
+
+```C
+# define NUM_THREADS 10
+
+// an array of threads to be joined upon
+pthread_t workers[NUM_THREADS];
+
+for (int i = 0; i < NUM_THREADS; i++)
+    pthread_join (workers[i], NULL);
+```
+
+## Windows Threads
+
+They are provided as a kernel-level library on Windows systems.
+
+```C
+#include <windows.h>
+#include <stdio.h>
+DWORD Sum; /* data is shared by the thread(s) */
+
+/* the thread runs in this separate function */
+DWORD WINAPI Summation(LPVOID Param)
+{
+    DWORD Upper = *(DWORD*)Param;
+    for (DWORD i = 0; i <= Upper; i++)
+    Sum += i;
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    DWORD ThreadId;
+    HANDLE ThreadHandle;
+    int Param;
+    /* perform some basic error checking */
+    if (argc != 2) {
+    fprintf(stderr,"An integer parameter is required\n");
+    return -1;
+    }
+    Param = atoi(argv[1]);
+    if (Param < 0) {
+    fprintf(stderr,"An integer >= 0 is required\n");
+    return -1;
+    }
+    // create the thread
+    ThreadHandle = CreateThread(
+    NULL, // default security attributes
+    0, // default stack size
+    Summation, // thread function
+    &Param, // parameter to thread function
+    0, // default creation flags
+    &ThreadId); // returns the thread identifier
+    if (ThreadHandle != NULL) {
+    // now wait for the thread to finish
+    WaitForSingleObject(ThreadHandle,INFINITE);
+    // close the thread handle
+    CloseHandle(ThreadHandle);
+    printf("sum = %d\n",Sum);
+}
+```
+
+## Java Threads
+
+All java programs use threads. The creation of new threads requires Objects that implement the Runnable Interface, which means they contain the method `public void run()`. Any descendant of the Thread class will naturally contain such a method. In practice the `run()` method must be overridden / provided for the thread to have any practical functionality.
+
+Creating a Thread Object does not start the thread running - to do that the program must call the Thread's `start()` method. Start() allocates and initializes memory for the Thread, and then calls the `run()` method. Usually programmers don't call the `run()` method directly.
+
+Because Java does not support global variables, Threads must be passed a reference to a shared Object in order to share data, in this example the "Sum" Object.
+
+Note that the JVM runs on top of a native OS, and that the JVM specification does not specify what model to use for mapping Java threads to kernel threads. This decision is JVM implementation dependant, and may be one-to-one, many-to-many, or many-to-one. On a UNIX system JVM uses Pthreads and on Windows it uses windows threads.
+
+```Java
+class Sum
+{
+    private int sum;
+    public int getSum() {
+        return sum;
+    }
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+}
+
+class Summation implements Runnable
+{
+    private int upper;
+    private Sum sumValue;
+    public Summation(int upper, Sum sumValue) {
+        this.upper = upper;
+        this.sumValue = sumValue;
+    }
+    public void run() {
+        int sum = 0;
+        for (int i = 0; i <= upper; i++)
+            sum += i;
+        sumValue.setSum(sum);
+    }
+}
+
+public class Driver
+{
+    public static void main(String[] args) {
+    if (args.length > 0) {
+        if (Integer.parseInt(args[0]) < 0)
+            System.err.println(args[0] + " must be >= 0.");
+        else {
+            // create the object to be shared
+            Sum sumObject = new Sum();
+            int upper = Integer.parseInt(args[0]);
+            Thread thrd = new Thread(new Summation(upper, sumObject));
+            thrd.start();
+            try {
+                thrd.join();
+                System.out.println("The sum of "+upper+" is "+sumObject.getSum());
+            } catch (InterruptedException ie) { }
+        }
+    }
+    else
+        System.err.println("Usage: Summation <integer value>"); }
+}
+```
