@@ -23,14 +23,14 @@ $n = 2418737527 = 48611 \cdot 49757 = pq$
 We want to send her the message *Salut*. The message is therefore represented by the number $M = 1901122120$ 
 
 We compute:
-> $C\equiv M^e \pmod(n)$  
-> $\equiv 1901122120^11 \pmod{2418737527}$  
+> $C\equiv M^e \pmod{n}$  
+> $\equiv 1901122120^{11} \pmod{2418737527}$  
 > $\equiv 250061500 \pmod{2418737527}$
 and we send $C$ to Eve.
 
 Since Eve knows $p$ and $q$, she also knows $d$ and $t$ such that $d\cdot e - t(p-1)(q-1) = 1$. In her case $d = 159134011$ and $t = 7$. She then computes:
 
-> $C^d\equiv 250061500^1539134011 \pmod(2418737527)$  
+> $C^d\equiv 250061500^{1539134011} \pmod(2418737527)$  
 > $\equiv 1901122120 \pmod{2418737527}$  
 > $\equiv M \pmod{2418737527}$
 
