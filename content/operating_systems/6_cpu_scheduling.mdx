@@ -4,4 +4,109 @@ metaTitle: 'CPU Scheduling'
 metaDescription: 'Operating Systems - CPU Scheduling'
 ---
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
 
+# Basic Concepts
+
+Almost all programs have some alternating cycle of CPU number crunching and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
+
+In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever.
+A scheduling system allows one process to use the CPU while another is waiting for I/O, thereby making full use of otherwise lost CPU cycles.
+
+The challenge is to make the overall system as "efficient" and "fair" as possible, subject to varying and often dynamic conditions, and where "efficient" and "fair" are somewhat subjective terms, often subject to shifting priority policies.
+
+## CPU Burst cycles
+
+Almost all processes alternate between two states in a continuing *cycle*
+- A CPU burst of performing calculations
+- An I/O burst, waiting for data transfer in or out of the system
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_01_CPU_BurstCycle.jpg)
+
+CPU bursts vary from process to process, and from program to program, but an extensive study shows frequency patterns like so:
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_02_CPU_Histogram.jpg)
+
+## CPU Scheduler
+
+Whenever the CPU becomes idle, it is the job of the CPU Scheduler ( a.k.a. the short-term scheduler ) to select another process from the ready queue to run next.
+
+The storage structure for the ready queue and the algorithm used to select the next process are not necessarily a FIFO queue. There are several alternatives to choose from, as well as numerous adjustable parameters for each algorithm, which is the basic subject of this entire chapter.
+
+## Preemptive Scheduling
+
+CPU scheduling decisions take place under one of four conditions:
+1. When a process switches from the running state to the waiting state, such as for an I/O request or invocation of the wait() system call.
+2. When a process switches form teh running state to the ready state, for example in response to an interrupt
+3. When a process switches from the waiting state to the ready state, for example in response to an interrupt. When a process switches from the waiting state to the ready state, say at completion of I/O or a return from wait().
+4. When a process terminates.
+
+For conditions 1 and 4 there is no choice, a new process must be selected. For conditions 2 and 3 the choice of either continuing to run the current process or select a different one can be made.
+
+If scheduling takes place only under conditions 1 and 4, the system is said to be *non-preemptive*, or *cooperative*. Under these conditions, once a process starts running it keeps running, until it either voluntarily blocks or until it finishes. Otherwise the system is said to be *preemptive*.
+
+## Dispatcher
+
+The dispatcher is the module that gives control of the CPU to the process selected by the scheduler. This function involves:
+- Switching context
+- switching to user mode
+- jumping to the proper location in the newly loaded program
+
+The dispatched needs to be as fast as possible, as it is run on every context switch. The time consumed by the dispatched is known as **dispatch latency**
+
+# Scheduling Criteria
+
+- **CPU utilization** - Ideally the CPU would be busy 100% of the time, so as to waste 0 CPU cycles. On a real system CPU usage should range from 40% (lightly loaded) to 90% (heavily loaded). 
+- **Throughput** - Number of processes completed per unit time, may range from 10 / second to 1 / hour depending on the specific processes.
+- **Turnaround time** - Time required for a particular process to complete, from submission time to completion. (Wall check time)
+- **Waiting time** - How much time processes spend in the ready queue waiting their turn to get on the CPU.
+    - **Load average** - the average number of processes sitting in the ready queue waiting their turn to get into the CPU. Reported in 1-minute, 5-minute, and 15-minute averages by "uptime" and "who".
+- **Response time** - the time taken in an interactive program from the issuance of a command to the *commence* of a response to that command.
+
+Sometimes it is most desirable to minimize the variance of a criteria than the actual value. I.e. users are more accepting of a consistent predictable system than an inconsistent one, even if it is a little bit slower.
+
+# Scheduling algorithm
+
+## First-Come-First-Serve Scheduling, FCFS
+
+- FCFS is very simple, just a FIFO queue, like customer waiting in a line at the bank or the ost office or at a copying maching
+- Unfortunately, however, FCFs can yield some very long average wait times, particularly if the first process to get there takes a long time. For example, consider the following three processes:
+| Process 	| Burst Time 	|
+|-	|-	|
+| P1 	| 24 	|
+| P2 	| 3 	|
+| P3 	| 3 	|
+
+- In the first Gantt chart below, process P1 arrives first. The average waiting time for the three processes is ( 0 + 24 + 27 ) / 3 = 17.0 ms.
+- In the second Gantt chart below, the same three processes have an average wait time of ( 0 + 3 + 6 ) / 3 = 3.0 ms. The total run time for the three bursts is the same, but in the second case two of the three finish much quicker, and the other process is only delayed by a short amount.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_FCFS_Chart1.jpg)
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_FCFS_Chart2.jpg)
+
+FCFS can also block the system in a busy dynamic system in another way, known as the *convoy effect*. When one CPU intensive process blocks the CPU, a number of I/O intensive processes can get backed up behind it, leaving the I/O devices idle. When the CPU hog finally relinquishes the CPU, then the I/O processes pass through the CPU quickly, leaving the CPU idle while everyone queues up for I/O, and then the cycle repeats itself when the CPU intensive process gets back to the ready queue.
+
+## Shortest-Job-First Scheduling, SJF
+
+The idea behind the SJF algorithm is to pick the quickest fastest little jb that needs to be done, get it out of the way first, and the pick the next smallest fastest job to do next. Technically, this algorithm picks a process based on the next shortest CPU burst, not the overall process time. 
+
+| Process 	| Burst Time 	|
+|-	|-	|
+| P1 	| 6 	|
+| P2 	| 8 	|
+| P3 	| 7 	|
+| P4 	| 3 	|
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_SJF_Chart.jpg)
+
+In the case above the average wait time is ( 0 + 3 + 9 + 16 ) / 4 = 7.0 ms, ( as opposed to 10.25 ms for FCFS for the same processes. )
+
+SJF can be proven to be the fastest scheduling algorithm, but it suffers from one important problem: How do you know how long the next CPU burst is going to be?
+- For long-term batch jobs this can be done based upon the limits that users set for their jobs when they submit them, which encourages them to set low limits, but risks their having to re-submit the job if they set the limit too low. However that does not work for short-term CPU scheduling on an interactive system.
+- Another option would be to statistically measure the run time characteristics of jobs, particularly if the same tasks are run repeatedly and predictably. But once again that really isn't a viable option for short term CPU scheduling in the real world.
+- A more practical approach is to predict the length of the next burst, based on some historical measurement of recent burst times for this process. One simple, fast, and relatively accurate method is the exponential average, which can be defined as follows. 
+> $\mathrm{estimate}[i+1] = \alpha \cdot \mathrm{burst}[i] + (1.0 - \alpha) * \mathrm{estimate}[i]$
