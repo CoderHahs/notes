@@ -111,4 +111,45 @@ SJF can be proven to be the fastest scheduling algorithm, but it suffers from on
 - For long-term batch jobs this can be done based upon the limits that users set for their jobs when they submit them, which encourages them to set low limits, but risks their having to re-submit the job if they set the limit too low. However that does not work for short-term CPU scheduling on an interactive system.
 - Another option would be to statistically measure the run time characteristics of jobs, particularly if the same tasks are run repeatedly and predictably. But once again that really isn't a viable option for short term CPU scheduling in the real world.
 - A more practical approach is to predict the length of the next burst, based on some historical measurement of recent burst times for this process. One simple, fast, and relatively accurate method is the exponential average, which can be defined as follows. 
-> $\mathrm{estimate}[i+1] = \alpha \cdot \mathrm{burst}[i] + (1.0 - \alpha) * \mathrm{estimate}[i]$
+> $\mathrm{estimate}[i+1] = \alpha \cdot \mathrm{burst}[i] + (1.0 - \alpha) * \mathrm{estimate}[i]$  
+- In this scheme the previous estimate contains the history of all previous times, and alpha serves as a weighting factor for the relative importance of recent data versus past history. If alpha is 1.0, then past history is ignored, and we assume the next burst will be the same length as the last burst. If alpha is 0.0, then all measured burst times are ignored, and we just assume a constant burst time. Most commonly alpha is set at 0.5, as shown below:
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_03_BurstPrediction.jpg)
+
+- SJF can be either preemptive or non-preemptive. Preemption occurs when a new process arrives in the ready queue that has a predicted burst time shorter than the time remaining in the process whose burst is currently on the CPU. Preemptive SJF is sometimes referred to as **shortest remaining time first scheduling**.
+
+| Process 	| Arrival Time 	| Burst Time 	|
+|-	|-	|-	|
+| P1 	| 0 	| 8 	|
+| P2 	| 1 	| 4 	|
+| P3 	| 2 	| 9 	|
+| P4 	| 3 	| 5 	|
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_PreemptiveSJF_Chart.jpg)
+
+The average wait time in this case is ( ( 5 - 3 ) + ( 10 - 1 ) + ( 17 - 2 ) ) / 4 = 26 / 4 = 6.5 ms. ( As opposed to 7.75 ms for non-preemptive SJF or 8.75 for FCFS. )
+
+## Priority Scheduling
+
+Priority scheduling is a more general case of SJF, in which each job is assigned a priority and the job with the highest priority will get scheduled first. (SJF uses the inverse of the next expected burst time as its priority, the smaller the expected burst time, the higher the priority)
+
+Note that in practice, priorities are implemented using integers within a fixed range, but there is no agreed-upon convention as to whether "high" priorities use large numbers or small numbers. This book uses low number for high priorities, with 0 being the highest possible priority. 
+
+Example: 
+
+| Process 	| Burst Time 	| Priority 	|
+|-	|-	|-	|
+| P1 	| 10 	| 3 	|
+| P2 	| 1 	| 1 	|
+| P3 	| 2 	| 4 	|
+| P4 	| 1 	| 5 	|
+| P5 	| 5 	| 2 	|
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_PriorityChart.jpg)
+
+Priorities can be assigned either internally or externally. Internal priorities are assigned by the OS using criteria such as average burst time, ratio of CPU to I/O activity, system resource use, and other factors are available to the kernel. External priorities assigned by users, based on the importance of the job, fees paid, politics, etc. 
+
+Priority scheduling can be either preemptive or non-preemptive. 
+
+Priority scheduling can suffer from a major problem known as **indefinite blocking** or **starvation**, in which a low-priority task can wait forever because there are always some other jobs around that have higher priority. 
+- if this problem is allowed to occur, then processes will either run eventually when the system load lightens or will eventually get lost when the system is shut down or crashes. 
