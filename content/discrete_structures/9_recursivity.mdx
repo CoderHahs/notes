@@ -58,3 +58,19 @@ def algo(x):
     // combine y1, y2, ... yL into a solution y for x
     return y
 ```
+
+# Solving linear recurrence relations
+
+## Linear homogenous recurrence
+> $a_n = c_1 \cdot a_{n-1} + c_2 \cdot a_{n-2} + ... + c_k \cdot a_{n-k}$  
+> $a_0 = x_0$  
+> $a_1 = x_1$  
+> ...  
+> $a_{k-1} = x_{k-1}$
+where $c_i \in \R (1 \leq i \leq k), c_k \neq 0, x_i \in \R (0 \leq i \leq k)$
+
+## Theorem
+
+Let $c_1, c_2 \in \R$. Suppose that $r^2-c_1r-c_2 = 0$ has two distinct roots $r_1$ and $r_2$. Then $a_n$ is a solution of $a_n = c_1a_{n-1} + c_2a_{n-2}$, if and only if $a_n = \alpha_1 \cdot r_1^n + \alpha_2 \cdot r_2^n$, where $\alpha_1$ and $\alpha_2$ are constants.
+
+Let $c_1, c_2 \in \R$. Suppose that $r^2-c_1r-c_2 = 0$ has a single root $r_0$. So $a_n$ is a solution of $a_n = c_1a_{n-1} + c_2a_{n-2}$, if and only if $a_n = \alpha_1 \cdot r_0^n + \alpha_2 \cdot n \cdot r_0^n$, where $\alpha_1$ and $\alpha_2$ are constants.

@@ -76,6 +76,7 @@ Sometimes it is most desirable to minimize the variance of a criteria than the a
 
 - FCFS is very simple, just a FIFO queue, like customer waiting in a line at the bank or the ost office or at a copying maching
 - Unfortunately, however, FCFs can yield some very long average wait times, particularly if the first process to get there takes a long time. For example, consider the following three processes:
+
 | Process 	| Burst Time 	|
 |-	|-	|
 | P1 	| 24 	|
@@ -86,6 +87,7 @@ Sometimes it is most desirable to minimize the variance of a criteria than the a
 - In the second Gantt chart below, the same three processes have an average wait time of ( 0 + 3 + 6 ) / 3 = 3.0 ms. The total run time for the three bursts is the same, but in the second case two of the three finish much quicker, and the other process is only delayed by a short amount.
 
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_FCFS_Chart1.jpg)
+
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_FCFS_Chart2.jpg)
 
 FCFS can also block the system in a busy dynamic system in another way, known as the *convoy effect*. When one CPU intensive process blocks the CPU, a number of I/O intensive processes can get backed up behind it, leaving the I/O devices idle. When the CPU hog finally relinquishes the CPU, then the I/O processes pass through the CPU quickly, leaving the CPU idle while everyone queues up for I/O, and then the cycle repeats itself when the CPU intensive process gets back to the ready queue.
