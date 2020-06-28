@@ -153,3 +153,65 @@ Priority scheduling can be either preemptive or non-preemptive.
 
 Priority scheduling can suffer from a major problem known as **indefinite blocking** or **starvation**, in which a low-priority task can wait forever because there are always some other jobs around that have higher priority. 
 - if this problem is allowed to occur, then processes will either run eventually when the system load lightens or will eventually get lost when the system is shut down or crashes. 
+- one common solution to this problem is **aging**, in which priorities of jobs increase (so the priority number will reduce) the longer they wait. Under this scheme a low-priority job will eventually get its priority raised high enough that it gets run. 
+
+## Round Robin Scheduling
+
+This type of scheduling is similar to FCFS scheduling, except that CPU bursts are assigned with limits called **time quantum**.
+
+When a process is given the CPU, a timer is set for whatever value has been set for a time quantum. 
+- if the process finished its burst before the time quantum timer expires, then it is swapped out of the CPU just like the normal FCFS algorithm. If the timer goes off first, then the process is swapped out of the CPU and moved to the back end of the ready queue. 
+- The ready queue is maintained as a circular queue, so when all processes have had a turn, then the scheduler gives the first process another turn and so on. 
+- RR scheduling can give the effect of all processors sharing the CPU equally, although the average wait time can be longer than with other scheduling algorithms. In the following example the average wait time is 5.66 ms. 
+
+| Process 	| Burst Time 	|
+|-	|-	|
+| P1 	| 24 	|
+| P2 	| 3 	|
+| P3 	| 3 	|
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_RoundRobinChart.jpg)
+
+The performance of RR is sensitive to the time quantum selected. If the quantum is large enough, then RR reduces to the FCFS algorithm; If it is very small, then each process gets 1/nth of the processor time and share the CPU equally.
+
+BUT, a real system invokes overhead for every context switch, and the smaller the time quantum the more context switches there are. Most modern systems use time quantum between 10 and 100 milliseconds, and context switch times on the order of 10 microseconds, so the overhead is small relative to the time quantum.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_04_quantums.jpg)
+
+Turn around time also varies with quantum time, in a non-apparent manner. In general, turnaround time is minimized if most processes finish their next cpu burst within one time quantum. For example, with three processes of 10 ms bursts each, the average turnaround time for 1 ms quantum is 29, and for 10 ms quantum it reduces to 20. However, if it is made too large, then RR just degenerates to FCFS. A rule of thumb is that 80% of CPU bursts should be smaller than the time quantum. 
+
+## Multilevel Queue Scheduling 
+
+When processes can be readily categorized, then multiple separate queues can be established, each implementing whatever scheduling algorithm is most appropriate for that type of job, and/or with different parametric adjustments.
+
+Scheduling must also be done between queues, that is scheduling one queue to get time relative to other queues. Two common options are strict priority ( no job in a lower priority queue runs until all higher priority queues are empty ) and round-robin ( each queue gets a time slice in turn, possibly of different sizes. )
+
+Note that under this algorithm jobs cannot switch from queue to queue - Once they are assigned a queue, that is their queue until they finish.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_06_MultilevelQueueScheduling.jpg)
+
+## Multilevel Feedback-Queue Scheduling 
+
+Multilevel feedback queue scheduling is similar to the ordinary multilevel queue scheduling described above, except jobs may be moved from one queue to another for a variety of reasons:
+- If the characteristics of a job change between CPU-intensive and I/O intensive, then it may be appropriate to switch a job from one queue to another.
+- Aging can also be incorporated, so that a job that has waited for a long time can get bumped up into a higher priority queue for a while.
+
+Multilevel feedback queue scheduling is the most flexible, because it can be tuned for any situation. But it is also the most complex to implement because of all the adjustable parameters. Some of the parameters which define one of these systems include:
+- the number of queues
+- the scheduling algorithm for each queue
+- the methods used to upgrade or demote processes from one queue to another. 
+- The method used to determine which queue a process enters initially.
+
+# Thread Scheduling 
+
+The process scheduler schedules only the kernel threads. User threads are mapped to kernel threads by the thread library. The OS (and in particular the scheduler) is unaware of them.
+
+## Contention Scope
+
+**Contention scope** refers to the scope in which threads compete for the use of physical CPUs. On systems implementing many-to-one and many-to-many threads, *Process Contention Scope, PCS*, occurs, because competition occurs between threads that are part of the same process. ( This is the management / scheduling of multiple user threads on a single kernel thread, and is managed by the thread library. )
+
+**System Contention Scope, SCS**, involves the system scheduler scheduling kernel threads to run on one or more CPUs. Systems implementing one-to-one threads ( XP, Solaris 9, Linux ), use only SCS.
+
+PCS scheduling is typically done with priority, where the programmer can set and/or change the priority of threads created by his or her programs. Even time slicing is not guaranteed among threads of equal priority.
+
+# Multiple Processor Scheduling
