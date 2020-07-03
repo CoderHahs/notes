@@ -214,5 +214,68 @@ The process scheduler schedules only the kernel threads. User threads are mapped
 
 PCS scheduling is typically done with priority, where the programmer can set and/or change the priority of threads created by his or her programs. Even time slicing is not guaranteed among threads of equal priority.
 
-# Multiple Processor Scheduling
+# Real-Time CPU Scheduling
 
+Real-time systems are those in which the time at which tasks complete is crucial to their performance
+- Soft real-time systems have degraded performance if their timing needs cannot be met. Example: streaming video.
+- Hard real-time systems have total failure if their timing needs cannot be met. Examples: Assembly line robotics, automobile air-bag deployment.
+
+## Minimizing latency
+
+Event Latency is the time between the occurrence of a triggering event and the ( completion of ) the system's response to the event.
+
+In addition to the time it takes to actually process the event, there are two additional steps that must occur before the event handler ( Interrupt Service Routine, ISR ), can even start:
+- Interrupt processing determines which interrupt(s) have occurred, and which interrupt handler routine to run. In the event of simultaneous interrupts, a priority scheme is needed to determine which ISR has the highest priority and gets to go next.
+- Context switching involves removing a running process from the CPU, saving its state, and loading up the ISR so that it can run.
+
+## Priority-Based Scheduling
+
+Real-time systems require pre-emptive priority-based scheduling systems.
+Soft real-time systems do the best they can, but make no guarantees. They are generally discussed elsewhere.
+Hard real-time systems, described here, must be able to provide firm guarantees that a tasks scheduling needs can be met.
+- One technique is to use a admission-control algorithm, in which each task must specify its needs at the time it attempts to launch, and the system will only launch the task if it can guarantee that its needs can be met.
+
+Hard real-time systems are often characterized by tasks that must run at regular periodic intervals, each having a period p, a constant time required to execute, ( CPU burst ), t, and a deadline after the beginning of each period by which the task must be completed, d.
+In all cases, t <= d <= p.
+
+## Rate-Monotonic Scheduling
+
+The rate-monotonic scheduling algorithm uses pre-emptive scheduling with static priorities.
+Priorities are assigned inversely to the period of each task, giving higher ( better ) priority to tasks with shorter periods.
+Let's consider an example, first showing what can happen if the task with the longer period is given higher priority:
+- Suppose that process P1 has a period of 50, an execution time of 20, and a deadline that matches its period ( 50 ).
+- Similarly suppose that process P2 has period 100, execution time of 35, and deadline of 100.
+- The total CPU utilization time is 20 / 50 = 0.4 for P1, and 25 / 100 = 0.35 for P2, or 0.75 ( 75% ) overall.
+- However if P2 is allowed to go first, then P1 cannot complete before its deadline:
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_16_SchedulingTasks.jpg)
+- Now on the other hand, if P1 is given higher priority, it gets to go first, and P2 starts after P1 completes its burst.
+- At time 50 when the next period for P1 starts, P2 has only completed 30 of its 35 needed time units, but it gets pre-empted by P1.
+- At time 70, P1 completes its task for its second period, and the P2 is allowed to complete its last 5 time units.
+- Overall both processes complete at time 75, and the cpu is then idle for 25 time units, before the process repeats.
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_17_RateMonotonicScheduling.jpg)
+
+Rate-monotonic scheduling is considered optimal among algorithms that use static priorities, because any set of processes that cannot be scheduled with this algorithm cannot be scheduled with any other static-priority scheduling algorithm either.
+There are, however, some sets of processes that cannot be scheduled with static priorities.
+- For example, supposing that P1 =50, T1 = 25, P2 = 80, T2 = 35, and the deadlines match the periods.
+- Overall CPU usage is 25/50 = 0.5 for P1, 35 / 80 =0.44 for P2, or 0.94 ( 94% ) overall, indicating it should be possible to schedule the processes.
+- With rate-monotonic scheduling, P1 goes first, and completes its first burst at time 25.
+- P2 goes next, and completes 25 out of its 35 time units before it gets pre-empted by P1 at time 50.
+- P1 completes its second burst at 75, and then P2 completes its last 10 time units at time 85, missing its deadline of 80 by 5 time units.
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_18_MissingDeadlines.jpg)
+- The worst-case CPU utilization for scheduling N processes under this algorithm is N * ( 2^(1/N) - 1 ), which is 100% for a single process, but drops to 75% for two processes and to 69% as N approaches infinity. Note that in our example above 94% is higher than 75%.
+
+## Earliest-Deadline-First Scheduling
+
+Earliest Deadline First ( EDF ) scheduling varies priorities dynamically, giving the highest priority to the process with the earliest deadline.
+
+Here's an example: At time 0 P1 has the earliest deadline, highest priority, and goes first., followed by P2 at time 25 when P1 completes its first burst.
+At time 50 process P1 begins its second period, but since P2 has a deadline of 80 and the deadline for P1 is not until 100, P2 is allowed to stay on the CPU and complete its burst, which it does at time 60.
+P1 then starts its second burst, which it completes at time 85. P2 started its second period at time 80, but since P1 had an earlier deadline, P2 did not pre-empt P1.
+P2 starts its second burst at time 85, and continues until time 100, at which time P1 starts its third period.
+At this point P1 has a deadline of 150 and P2 has a deadline of 160, so P1 preempts P2.
+P1 completes its third burst at time 125, at which time P2 starts, completing its third burst at time 145.
+The CPU sits idle for 5 time units, until P1 starts its next period at 150 and P2 at 160.
+- Question: Which process will get to run at time 160, and why?
+- Answer: Process P2, because P1 now has a deadline of 200 and P2's new deadline is 240.
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter6/6_19_EarliestDeadlineFirstScheduling.jpg)
