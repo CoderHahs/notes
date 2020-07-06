@@ -1,0 +1,70 @@
+---
+title: 'Point and Interval Estimation'
+metaTitle: 'Point and Interval Estimation'
+metaDescription: 'Stats & Probability - Point and Interval Estimation'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Statistical Inference
+
+One of the goals of statistical inference to draw conclusions about a *population* based on a random sample from the population.
+
+Specifically, we seek to estimate an unknown parameter $\theta$, say using a single quantity called the **point estimate** $\overline{\theta}$. 
+
+The point estimate is obtained using a *statistic*, which is simply a function of a random sample. The probability distribution of the statistic is its **sampling distribution**. 
+
+Examples of a statistic include:
+- sample mean and sample median
+- sample variance and sample standard distribution
+- sample quantiles
+
+## Estimator Variance and Standard Error 
+
+The standard error of a statistic is the **standard deviation of its sampling distribution** 
+
+For instance, if observations $X_1, ..., X_n$ come from a population with unknown mean $\mu$ and known variance $\sigma^2$, then $\mathrm{Var}(\overline{X}) = \sigma^2/n$ and the standard error of $\overline{X}$ is 
+> $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$
+
+if the variance of the original population is *unknown*, then it is estimated by the sample variance $S^2$ and the estimated standard error $\overline{X}$:
+> $\sigma_{\overline{X}} = \frac{S}{\sqrt{n}}$  
+> $S^2 = \frac{1}{n-1}\sum_{i-1}^{n}(X_i-\overline{X})^2$
+
+# Confidence Interval
+
+## For mean When SD is known
+
+Consider a sample ${x_1, ..., x_n}$ from a normal population with known variance $\sigma^2$ and **unknown mean** $\mu$. The sample mean is a **point estimate** of $\mu$.
+> $\overline{x} = \frac{x_1 + ... + x_n}{n}$
+
+### The 68-96-99.7 Rule
+
+![Image](https://miro.medium.com/max/1400/1*IZ2II2HYKeoMrdLU5jW6Dw.png)
+
+68% of the data is within 1 standard deviation, 95% is within 2 standard deviation, 99.7% is within 3 standard deviations.
+
+The **symmetric confidence interval** for $\mu$ is 
+> $\overline{X} - k\frac{\sigma}{\sqrt{n}} < \mu < \overline{X} +  k\frac{\sigma}{\sqrt{n}} \Rightarrow \overline{X} \pm  k\frac{\sigma}{\sqrt{n}}$
+
+## For mean when SD is known (reprise)
+
+Another approach to C.I. building is to specify the proportion of the area under $φ$(z) of interest, and then to determine the critical values (the endpoints) of the interval.
+
+For a symmetric 95% confidence interval, we need to find $z^∗ > 0$ such that $\mathrm{P}(−z^∗ < Z < z^∗) ≈ 0.95$.
+
+But the LHS can be re-written as
+
+$\mathrm{P}(−z^∗ < Z < z^∗) = Φ(z^∗) − Φ(−z^∗) = Φ(z^∗) − (1 − Φ(z^∗)) = 2Φ(z^∗) − 1$
+
+The confidence level 1 − α is usually expressed in terms of a small α, e.g. α = 0.05 ⇒ 1 − α = 0.95 confidence level.
+
+For α = 0.01, 0.02, . . . , 0.98, 0.99, the corresponding $z_α$ are called the **percentiles** of the standard normal distribution. In general,
+> P$(Z > z_α) = α ⇒ z_α$ is the $100(1 − α)$ percentile
+
+The symmetric 100(1 − α)% confidence interval can generally be written as:
+> $\overline{X} \pm  z_{a/2}\frac{\sigma}{\sqrt{n}}$
