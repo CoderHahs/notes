@@ -1,0 +1,214 @@
+---
+title: 'Accessibility, Internalization and Emotions'
+metaTitle: 'Accessibility in UIs'
+metaDescription: 'Analysis & Design of UI - Accessibility in UIs'
+---
+
+# Accessibility
+
+## Types of Accessibility Issues
+
+Impairment:
+- The loss malformation or abnormality of an organ, structure or mental, psychological or anatomical function resulting from an observable and measurable condition which can be diagnosed.
+
+Disability:
+- partial or total reduction in the ability to perform an activity in a normal way or within the limits considered normal for a human being because of an impairment
+
+Handicap:
+- a disadvantage resulting from a disability or impairment that limits or prohibits an individual from fulfilling his or her social and cultural role.
+
+## Accessibility guidelines for kiosk UI and physical Design
+
+- satisfies ADA Laws
+- provides equal access for all types of disabilities
+
+
+# Internalization
+
+## Important terms
+
+Locale:
+- Set of features that can be varied depending on the language and culture of the user or the data.
+
+Internalization:
+- The process of designing software so that it can be easily adapted to different locales.
+
+Localization:
+- The process of adapting software to a locale.
+
+## Design for Internalization
+
+- An application must first be internationalized before it can be localized.
+- An international program has the following characteristics:
+    - with localized data, a single executable can run is all supported locales
+    - textual elements are not hard coded, they become variables that change according to the locale
+    - new languages support does not require recompilation
+- In the localization phase, the most time-consuming portion is the translation of text.
+- Create a resource file for each locale and language
+- All strings to be displayed (except data) are taken from this file
+- English is just one language, from the start of the design
+- plan the proper use of encoding
+- Attention to variable size (text expansion)
+    - some languages can take at least 30% more space
+    - abbreviations may have to be expanded when translated
+- Leaver room for longer translations
+- avoid putting text in narrow columns
+- don't embed text in images
+- don't create sentences with UI elements
+
+## Translatability
+
+### Politeness
+- Some countries require you to specify Mr, Dr, Eng. Etc.
+    - these titles do not necessarily translate
+- the family name is not always last
+- salutations in letters are different in different locales
+- in certain language/country, the whole text needs to be adjusted depending on the title (or seniority) of the reader (e.g. tu/vous in French)
+
+### Humour
+Humour does not translate well
+- puns are language-specific
+- people are sensitive to different things in different cultures
+    - jokes/cartoons can be offensive
+
+### Punctuation
+- can vary based on language
+
+### Ambiguity
+- Attention to ambiguous phrases
+- How would a translator translate the following noun compound?
+    - 'Display options’
+        - Options of the display
+        - Show the options (all of them)
+- Expert English users will often understand these in context
+
+## Localization beyond text
+
+### What should be localized?
+- Language selection
+- Date formats
+- icons
+- illustrations
+- numerical formats
+- currency
+- measures
+- addresses
+
+### Language selection
+- Avoid using national flags from which people pick their preferred language
+- what order do they display languages?
+- what language do you display for language choices?
+
+### Date formats
+- date separators depend on locale
+- 'am' and 'pm' not universally used
+- ISO standard dates are unambiguous
+- NON ISO date means different things in different locales
+
+### Icons
+- careful with choice of metaphors
+- some metaphors are culturally charged
+- some concepts have been found extremely hard to represent as an icon
+
+### Illustrations
+- careful with choice of illustrations
+    - considered inappropriate in some cultures
+    - what skin color do you use?
+
+### Numeric formats
+- Groups:
+    - number of digits in a group
+    - group separator
+    - decimal separator
+
+### Currency
+- use the currency symbol of the data
+- format depends n the user's locale, not the currency
+    - differences in formats include:
+        - symbol
+        - position
+        - blanks separating the symbol from the data
+
+### Measures
+- be aware of the need to use imperial or metric units
+- beware of odd measurements in data 
+
+### Addresses
+- don't rely on a fixed number of lines
+- don't rely on a particular order of elements
+
+# Emotions
+
+## Anthropomorphism
+
+Attributing human like qualities to inanimate objects (eg. cars, computer)
+
+Well known phenomenon in advertising
+- dancing butter, vegetables, breakfast cereals
+
+Much exploited in human computer interaction
+- make user experience more enjoyable, more motivating, make people feel at ease, reduce anxiety
+
+### Examples
+
+As a welcome message:
+1. “Hello Chris! Nice to see you again. Welcome back. Now
+what were we doing last time? Oh yes, exercise 5. Let’s start
+again.”
+2. “User 24, commence exercise 5.”
+
+Feedback when you get something wrong:
+1. “Now Chris, that’s not right. You can do better than that. Try
+again.”
+2. “Incorrect. Try again."
+
+
+### Emotional Relations
+- requires both an emotional behavior (anthropomorphism) but also a detection (classification) of the emotion of the user.
+- an emotion classification should be followed by a selection of appropriate emotional response
+    - empathy
+    - encouragement
+    - acting upon (solution finding)
+- not only to detect the emotion, but to learn which emotional reaction is most appropriate for different users
+
+### Virtual characters
+
+We already see them appearing on our screens in the form of:
+- sales agents, learning companions, wizards, pets, newsreaders
+
+Provides a persona that is welcoming, has personality and makes user feel involved with them. But there must be compatibility with the user... the same as between humans
+
+Diversify the avatars to find compatibility with the user
+
+## Emotional Detection
+
+### Emotion detection
+
+Definition of 6 universal emotions:
+- anger
+- disgust
+- fear
+- happiness
+- sadness
+- surprises
+
+- Identification of features on the face
+- Association of curvature of features with emotions
+- Use of machine learning approach to associate feature with classes(emotions)
+
+### Purpose of emotions
+
+- Anger: to fight against problems
+- Fear: to protect us from danger
+- Anticipation: to look forward and plan
+- Surprise: to focus on new situations
+- Joy: To remind us what's important
+- Sadness: To connect us with those we love
+- Trust: To connect with people who help
+- Disgust: to reject what is unhealthy
+
+### Emotion detection in voices
+- features in voice will relate to frequency
+- Attributes can also relate to the content:
+    - similar to text-based emotion detection
+    - features = words
