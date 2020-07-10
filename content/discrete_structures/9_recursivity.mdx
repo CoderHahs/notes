@@ -69,8 +69,81 @@ def algo(x):
 > $a_{k-1} = x_{k-1}$
 where $c_i \in \R (1 \leq i \leq k), c_k \neq 0, x_i \in \R (0 \leq i \leq k)$
 
-## Theorem
+## Theorem For Degree Two
 
 Let $c_1, c_2 \in \R$. Suppose that $r^2-c_1r-c_2 = 0$ has two distinct roots $r_1$ and $r_2$. Then $a_n$ is a solution of $a_n = c_1a_{n-1} + c_2a_{n-2}$, if and only if $a_n = \alpha_1 \cdot r_1^n + \alpha_2 \cdot r_2^n$, where $\alpha_1$ and $\alpha_2$ are constants.
 
 Let $c_1, c_2 \in \R$. Suppose that $r^2-c_1r-c_2 = 0$ has a single root $r_0$. So $a_n$ is a solution of $a_n = c_1a_{n-1} + c_2a_{n-2}$, if and only if $a_n = \alpha_1 \cdot r_0^n + \alpha_2 \cdot n \cdot r_0^n$, where $\alpha_1$ and $\alpha_2$ are constants.
+
+### Example
+> $a_n = 6a_{n-1} - 9a_{n-2}$  
+> $a_0 = 1$
+> $a_1 = 6$
+> 
+> Characteristic equation: $r^2 - 6r+9=0$  
+> $r^2-6r+9 = (r-3)^2$  
+>
+> Therefore $a_n = \alpha_1\cdot 3^n + \alpha_2\cdot n \cdot 3^n$  
+> $1 = a_0 = \alpha_1\cdot 3^0 + \alpha_2 \cdot 0 \cdot 3^0 = \alpha_1$  
+> $6 = a_1 = \alpha_1\cdot3^1 + \alpha_2 \cdot 1 \cdot 3^1 = 3\alpha_1 + 3\alpha_2$  
+>
+> So $\alpha_1 = 1$  
+> and $6 = 3+3\cdot\alpha_2$ from which $\alpha_2 = 1$
+> Thus,  
+> $a_n = 3^n + n\cdot 3^n = (n+1) \cdot 3^n$
+
+
+## Theorem For Any Degree
+
+Let $c_1, c_2 \in \R$. Suppose that $r^2-c_1r-c_2 - ... - c_k = 0$ has two distinct roots $r_1$, $r_2$, ..., $r_k$. Then $a_n$ is a solution of $a_n = c_1a_{n-1} + c_2a_{n-2} + c_ka_{n-k}$, if and only if $a_n = \alpha_1 \cdot r_1^n + \alpha_2 \cdot r_2^n + ... + \alpha_k\cdot r_k^n$, where $\alpha_1$, $\alpha_2$, ... , $\alpha_k$ are constants.
+
+### Example 
+
+> $a_n = 6a_{n-1} - 11a_{n-2} + 6a_{n-3}$  
+> $a_0 = 2$
+> $a_1 = 5$
+> $a_1 = 15$
+> 
+> Characteristic equation: $r^3 - 6r^2+11r-6=0$  
+
+There exists a general formula for degree 3, but we will restrict ourselves to ones that factorize easily. $0, \pm 1, \pm 2$ will be used as roots to help factorize.
+
+> $r=1$ is a root for the characteristic equation above.  
+> Therefore we can factorize and get  
+> Characteristic equation: $(r-1)(r-3)(r-2)$  
+> So we get roots: 1, 2, 3
+> 
+> Therefore $a_n = \alpha_1\cdot 1^n + \alpha_2\cdot 2^n + \alpha_3 \cdot 3^n$  
+> $2 = \alpha_1\cdot 1^0 + \alpha_2\cdot 2^0 + \alpha_3 \cdot 3^0 = \alpha_1 + \alpha_2 + \alpha_3$  
+> $5 = \alpha_1\cdot 1^1 + \alpha_2\cdot 2^1 + \alpha_3 \cdot 3^1 = \alpha_1 + 2\alpha_2 + 3\alpha_3$  
+> $15 = \alpha_1\cdot 1^2 + \alpha_2\cdot 2^2 + \alpha_3 \cdot 3^2 = \alpha_1 + 4\alpha_2 + 9\alpha_3$
+>
+> So $\alpha_1 = 1,  \alpha_2 = -1, \alpha_3 = 2$  
+> $a_n = 1-2^n + 2\cdot 3^n$
+
+## Linear homogenous recurrence
+
+> $a_n = c_1 \cdot a_{n-1} + c_2 \cdot a_{n-2} + ... + c_k \cdot a_{n-k} + \mathrm{F}(n)$  
+
+where $c_i \in \R (1 \leq i \leq k), c_k \neq 0, \mathrm{F}(n)$ is a function depending only on $n$.
+
+## Theorem
+
+If $a^p_n$ is an arbitrary particular solution of (\*) $a_n = c_1 \cdot a_{n-1} + c_2 \cdot a_{n-2} + ... + c_k \cdot a_{n-k} + \mathrm{F}(n)$, then all solutions of (\*) are of the form $a_n^p + a_n^h$, where $a_n^h$ is a solution to the associated homogenous recurrence.
+
+### Example
+> $a_n = 3a_{n-1} + 2n$  
+> $a_1 = 3$  
+> $a_n^h = \alpha\cdot 3^n$ is the solution of the homogenous part 
+
+Now we need a particular solution for $a_n = 3a_{n-1}+ 2n$. Since $\mathrm{F}(n) = 2n$ is linear ... let's try a particular solution of the form $a_n^p = c\cdot n + d$. We must guess!
+
+> $c\cdot n + d = 3(c(c\cdot (n-1) + d)) + 2n$    
+> $c\cdot n + d = (3c+2) \cdot n + (-3c + 3d)$  
+> So $c = 3c+2, d = -3c + 3d$,
+> $c=-1 and d = -3/2 = -n -3/2+\alpha\cdot 3^n$
+>
+> 3 = a_1 = -1 -3/2 + \alpha \cdot 3^n = 3\alpha - 5/2$  
+> $\alpha = 11/6$
+> 
+> $a_n = -n -3/2+ 11/6\cdot 3^n$
