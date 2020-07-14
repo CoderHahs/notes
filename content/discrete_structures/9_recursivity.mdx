@@ -121,7 +121,7 @@ There exists a general formula for degree 3, but we will restrict ourselves to o
 > So $\alpha_1 = 1,  \alpha_2 = -1, \alpha_3 = 2$  
 > $a_n = 1-2^n + 2\cdot 3^n$
 
-## Linear homogenous recurrence
+## Linear non-homogenous recurrence
 
 > $a_n = c_1 \cdot a_{n-1} + c_2 \cdot a_{n-2} + ... + c_k \cdot a_{n-k} + \mathrm{F}(n)$  
 
@@ -140,10 +140,20 @@ Now we need a particular solution for $a_n = 3a_{n-1}+ 2n$. Since $\mathrm{F}(n)
 
 > $c\cdot n + d = 3(c(c\cdot (n-1) + d)) + 2n$    
 > $c\cdot n + d = (3c+2) \cdot n + (-3c + 3d)$  
-> So $c = 3c+2, d = -3c + 3d$,
-> $c=-1 and d = -3/2 = -n -3/2+\alpha\cdot 3^n$
+> So $c = 3c+2, d = -3c + 3d$,  
+> $c=-1$ and $d = -3/2 = -n -3/2+\alpha\cdot 3^n$
 >
 > $3 = a_1 = -1 -3/2 + \alpha \cdot 3^n = 3\alpha - 5/2$  
 > $\alpha = 11/6$
 > 
 > $a_n = -n -3/2+ 11/6\cdot 3^n$
+
+## Theorem 
+
+Let $a_n = c_1a_{n-1}+c_2a_{n-2} + ... + c_ka_{n-k} + \mathrm{F}(n)$, where $c_1, c_2, ..., c_k \in \R$ with $c_k \neq 0$ and $\mathrm{F}(n) = (b_tn^t + b_{t-1}n^{t-1}+...+ b_1n+b_0)s^n$, where $b_0, b_1, ..., b_t, s \in \R$ with $b_t \neq 0$ and $s \neq 0$.
+
+- Assume that $s$ is not a root of the characteristic equations of the associated linear homogenous recurrence relation. Then there is a particular solution $a_n^{(p)}$ of the form:
+> $(p_t n^t + p_{t-1}n^{t-1}+...+p_1n+p_0)s^n$ 
+
+- Otherwise, $s$ is a root of the characteristic equation of the associated linear homogeneous recurrence relation. Assume that $s$ is a root with multiplicity $m$. Then there is a particular solution $a_n^{(p)}$ of the form:
+> $n^m (p_t n^t + p_{t-1}n^{t-1}+...+p_1n+p_0)s^n$ 
