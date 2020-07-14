@@ -68,3 +68,55 @@ For α = 0.01, 0.02, . . . , 0.98, 0.99, the corresponding $z_α$ are called the
 
 The symmetric 100(1 − α)% confidence interval can generally be written as:
 > $\overline{X} \pm  z_{a/2}\frac{\sigma}{\sqrt{n}}$
+
+For a given confidence level α, shorter confidence intervals are better in relation to estimating the mean:
+- estimates become better when the sample size n increases;
+- estimates become better when σ decreases.
+
+# Choice of Sample Size
+
+The error we commit by estimating µ via the sample mean X is smaller than $zα/2\sqrt{σn}$, with probability 100(1 − α)%.
+
+If we want to control the error, the only thing we can really do is control the sample size:  
+> $E > zα/2σ√n ⇒ n > (\frac{zα/2σ}{E})^2$
+
+If σ is known, we know from the CLT that $\frac{X−µ}{σ/√n}$ is approximately N (0, 1).
+
+If σ is unknown, it can be shown that $\frac{X−µ}{S/√n}$
+follows approximately t(n − 1), the **Student T−distribution** with n − 1 degrees of freedom.
+
+Consequently, for a confidence level α,
+> $P(−t_{α/2}(n − 1) < \frac{X−µ}{S/√n}< t_{α/2}(n − 1))≈ 1 − α$,
+
+Equality is reached if the underlying population is
+normal.
+
+$100(1 − α)%$ C.I. for $µ : \overline{X} ± t_{α/2}(n − 1) S/√n$.
+
+# Confidence Interval for a Proportion
+
+If $X ∼ B(n, p)$ (number of successes in $n$ trials), then the point estimator for $p$ is $P = X/n$.
+
+Recall that $\mathrm{E}[X] = np$ and $\mathrm{Var}[X] = np(1 − p)$.
+
+We can standardize any random variable: $Z = \frac{X − µ}{σ} = \frac{nP − np}{\sqrt{np(1 − p)}} = \frac{P − p}{\sqrt{p(1−p)/n}}$ is approximately $N (0, 1)$.
+
+# Summary
+
+Sample: {X1, . . . , Xn}. Objective: predict µ with confidence level α.
+
+If population is normal with known variance σ2, the exact 100(1−α)%
+C.I. is $X ± z_{α/2}\frac{σ}{√n}.
+
+If population is non-normal with known variance $σ^2$ and n is ‘big’, the approximate 100(1 − α)% C.I. is $X ± z_{α/2}\frac{σ}{√n}$.
+
+<!-- If population is normal with unknown variance, the exact 100(1 − α)%
+C.I. is
+X ± tα/2(n − 1) S
+√
+n
+.
+If population has unknown variance and n is ‘big’, the approximate
+$100(1 − α)%$ C.I. is $X ± z_{α/2}\frac{S}/{√n}$.
+
+If population has unknown variance and n is ‘small’, you are S.O.O.L -->
