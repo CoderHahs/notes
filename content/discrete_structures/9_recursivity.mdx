@@ -157,3 +157,19 @@ Let $a_n = c_1a_{n-1}+c_2a_{n-2} + ... + c_ka_{n-k} + \mathrm{F}(n)$, where $c_1
 
 - Otherwise, $s$ is a root of the characteristic equation of the associated linear homogeneous recurrence relation. Assume that $s$ is a root with multiplicity $m$. Then there is a particular solution $a_n^{(p)}$ of the form:
 > $n^m (p_t n^t + p_{t-1}n^{t-1}+...+p_1n+p_0)s^n$ 
+
+# Solving non-linear recurrence relations
+
+## Theorem 
+
+Let $f$ be a monotonically increasing function such that $f(n) = af(n/6) + c$, where $a \geq 1, b \in \Z (b > 1), c > 0$.
+
+Then $f(n) = \mathrm{O}(n^{log_b(a)})$ if $a > 1$ else $\mathrm{O}log(n)$ if $a=1$.
+
+Monotonically increasing means its just increasing, just a fancy way of saying it.
+
+## Master Theorem
+
+Let $f$ be a monotonically increasing function such that $f(n) = af(n/6) + c^\cdot n^d$, where $a \geq 1, b \in \Z (b > 1), c > 0, d > 0$.
+
+Then, $f(n) = \mathrm{O}(n^d)$ if $d > \log_b a$ else $\mathrm{O}log(n^d \cdot \log n)$ if $d = \log_b a$ else $\mathrm{O}(n^{log_b(a)})$ if $d < \log_b a$.
