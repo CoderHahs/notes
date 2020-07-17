@@ -266,3 +266,24 @@ A two level page-table scheme:
 ![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_18_AddressTranslation.jpg)
 
 With a 64-bit logical address space and 4K pages, there are 52 bits worth of page numbers, which is still too many even for two-level paging. One could increase the paging level, but with 10-bit page tables it would take 7 levels of indirection, which would be prohibitively slow memory access. So some other approach must be used.
+
+64-bits two tiered leaves 42 bits in outer table
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_15B_64bitAddressProblem.jpg)
+
+Going to a fourth level still leaves 32 bits in the outer table
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_15C_ThreeLevelPageTableAddress.jpg)
+
+## Hashed Page Table
+
+One common data structure for accessing data that is sparsely distributed over a broad range of possible values is with hash tables. The figure below illustrates a hashed page table using chain-and-bucket hashing:
+
+![Image](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter8/8_19_HashedPageTable.jpg)
+
+## Inverted Page tables
+
+Another approach is to use an inverted page table. Instead of a table listing all of the pages for a particular process, an inverted page table lists all of the pages currently loaded in memory, for all processes. ( I.e. there is one entry per frame instead of one entry per page. )
+
+Access to an inverted page table can be slow, as it may be necessary to search the entire table in order to find the desired page ( or to discover that it is not there. ) Hashing the table can help speedup the search process.
+
+Inverted page tables prohibit the normal method of implementing shared memory, which is to map multiple logical pages to a common physical frame. ( Because each frame is now mapped to one and only one process. )
+
