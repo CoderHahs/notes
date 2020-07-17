@@ -1,0 +1,46 @@
+---
+title: "Graph Theory"
+metaTitle: "Graph Theory"
+metaDescription: "Discrete Structures - Graph Theory"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Definitions
+
+A graph $G$ is made of a set $V$ of vertices (also called *nodes*) together with a set $E$ of edges. We write $G=(V,E)$.
+
+A graph is undirected whenever each of its edges in $E$ is an unordered pair $\{u,v\}$ and $u \neq v$.
+
+Let $G = (V, E)$ be a graph. Two vertices $u, v ∈ V$ are said to be adjacent if there is an edge between $u and v$.
+
+An edge $e ∈ E$ is said to be incident to a vertex $u ∈ V$ if one of the two endpoints of $e$ is $u$.
+
+The degree of a vertex $u ∈ V$ is equal to the number of edges incident to $u$.
+
+Let $G = (V, E)$ be a directed graph. The out-degree of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the starting point of $e$.
+
+Let $G = (V, E)$ be a directed graph. The in-degree of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the endpoint of $e$.
+
+> $deg(u) = \mathrm{indeg}(u) + \mathrm{outdeg}(u)$
+
+
+Let $G = (V, E)$ be an undirected graph. A path of length greater than zero that begins and ends at the same vertex is called a *cycle*.
+
+Let $G = (V, E)$ be an undirected graph and $u, v ∈ V$ be two vertices. A *path of length k* between $u$ and $v$ is a sequence of vertices.
+
+Let $G = (V, E)$ be an undirected graph. We say that $G$ is connected if for all vertices $u, v ∈ V$, there is a path between $u$ and $v$.
+
+
+# Theorem (Handshaking Lemma)
+
+Let $G = (V, E)$ be a graph, then $\sum_{u \in V} \mathrm{deg}(u) = 2|E|$.
+
+# Theorem 
+
+Let $G = (V, E)$ be a graph. Then $G$ has an even number of vertices with an odd degree.
