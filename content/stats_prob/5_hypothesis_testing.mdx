@@ -185,16 +185,65 @@ We can follow the same steps as for the test with known variance, with the modif
 where $t_0, t_\alpha (n-1)$ is the t-value satisfying $P(T > t_\alpha (n-1)) = \alpha$, and $T$ follows a Student's t-distribution with $n-1$ degrees of freedom. 
 
 | Alternative Hypothesis | p-Value |
-    |- |- |
-    | $H_1 : \mu > \mu_0$ | $P(T > t_0)$ |
-    | $H_1 : \mu < \mu_0$ | $P(T < t_0)$ |
-    | $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ | 
+|- |- |
+| $H_1 : \mu > \mu_0$ | $P(T > t_0)$ |
+| $H_1 : \mu < \mu_0$ | $P(T < t_0)$ |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ | 
 
 # Two-Sample Tests
 
 ## Unpaired
 
-Let $X_{1,1}, . . . , X_{1,n}$ be a random sample from a normal population with unknown mean $µ_1$ and variance $σ^2_1$; let $Y_{2,1}, . . . , Y_{2,m}$ be a random sample from a normal population with unknown mean $µ_2 and variance $σ^2_2$, with both populations independent of one another. We want to test
+Let $X_{1,1}, . . . , X_{1,n}$ be a random sample from a normal population with unknown mean $µ_1$ and variance $σ^2_1$; let $Y_{2,1}, . . . , Y_{2,m}$ be a random sample from a normal population with unknown mean $µ_2$ and variance $σ^2_2$, with both populations independent of one another. We want to test:
 
+> $H_0 : \mu_1 = \mu_2$ against $H_1 : \mu_1 \neq \mu_2$
 
-# Test for Two Proportions
+Let $\overline{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$, $\overline{Y} = \frac{1}{n}\sum_{i=1}^{n} Y_i$. The observed values are again denoted by lower case letters: $\overline{x}, \overline{y}$.
+
+### Case 1: SD1 and SD2 are known
+
+| Alternative Hypothesis | Critical Region |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $z_0 > z_\alpha$ |
+| $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
+| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
+
+where $z_0 = \frac{\overline{x} - \overline{y}}{\sqrt{\sigma^2_1/n+\sigma^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \approx N(0,1)$
+
+| Alternative Hypothesis | p-Value |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $P(Z > z_0)$ |
+| $H_1 : \mu < \mu_0$ | $P(Z < z_0)$ |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ | 
+
+### Case 2: SD1 and SD2 are Unknown (Small Samples)
+
+| Alternative Hypothesis | Critical Region |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $t_0 > t_\alpha (n+m-2)$ |
+| $H_1 : \mu < \mu_0$ | $t_0 < -t_\alpha (n+m-2)$ |
+| $H_1 : \mu \neq \mu_0$ | $\|t_0\| > t_{\alpha/2}(n+m-2)$ |
+
+where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_p/n+S^2_p/m}}, S^2_p = \frac{(n-1)S^2_1+(m-1)S^2_2}{n+m-2}, t_\alpha(n+m-2)$ satisfies $P(T > t_\alpha(n+m-2)) = \alpha$, and $T \approx t(n+m-2)
+
+| Alternative Hypothesis | p-Value |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $P(T > t_0)$ |
+| $H_1 : \mu < \mu_0$ | $P(T < t_0)$ |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ | 
+
+### Case 3: SD1 and SD2 are Unknown (Large Samples)
+
+| Alternative Hypothesis | Critical Region |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $z_0 > z_\alpha$ |
+| $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
+| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
+
+where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_1/n+S^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \approx N(0,1)$
+
+| Alternative Hypothesis | p-Value |
+|- |- |
+| $H_1 : \mu > \mu_0$ | $P(Z > z_0)$ |
+| $H_1 : \mu < \mu_0$ | $P(Z < z_0)$ |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ | 
