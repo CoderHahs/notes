@@ -32,10 +32,18 @@ Let $G = (V, E)$ be a directed graph. The in-degree of a vertex $u ∈ V$ is equ
 
 Let $G = (V, E)$ be an undirected graph. A path of length greater than zero that begins and ends at the same vertex is called a *cycle*.
 
+Let $G = (V, E)$ be a directed graph. A (directed) path of length greater than zero that begins and ends at the same vertex is called a (directed) cycle.
+
 Let $G = (V, E)$ be an undirected graph and $u, v ∈ V$ be two vertices. A *path of length k* between $u$ and $v$ is a sequence of vertices.
 
-Let $G = (V, E)$ be an undirected graph. We say that $G$ is connected if for all vertices $u, v ∈ V$, there is a path between $u$ and $v$.
+Let $G = (V, E)$ be an undirected graph. We say that $G$ is *connected* if for all vertices $u, v ∈ V$, there is a path between $u$ and $v$.
 
+Let $G = (V, E)$ be a directed graph and $u, v \in V$ be two vertices. A (directed) path of length $k$ from $u$ to $v$ is a sequence of vertices $x_0, x_1, ..., x_k$ such that $x_0 = u, x_k = v$ and $(x_0, x_1) \in E, (x_1, x_2) \in E, ..., (x_{k-1}, x_k) 
+\in E$ 
+
+A graph is *planar* if it can be drawn on a plan such that the edges don't intersect.
+
+A graph with $v$ vertices has at most $v^2$ edges.
 
 # Theorem (Handshaking Lemma)
 
@@ -44,3 +52,12 @@ Let $G = (V, E)$ be a graph, then $\sum_{u \in V} \mathrm{deg}(u) = 2|E|$.
 # Theorem 
 
 Let $G = (V, E)$ be a graph. Then $G$ has an even number of vertices with an odd degree.
+
+# Theorem (Euler's Formula)
+
+Let $G = (V, E)$ be a planar and connected graph.
+
+Let $v = |V|, e = |E|$ and $f$ = the number of faces. Then, $v-e+f = 2$, $e \leq 3v-6$
+
+# Lemma 
+
