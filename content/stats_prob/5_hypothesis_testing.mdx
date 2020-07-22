@@ -99,7 +99,7 @@ is equal to some pre-determined value, like 0.05 or 0.01.
 
 Suppose $X_1, ..., X_n$ is a random sample from a population with mean $\mu$ and variance $\sigma^2$, let $\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i$ and denote the sample mean:
 - if the population is normal then $\overline{X}$ is exactly $N(\mu, \sigma^2/n)$
-- if the population is not normal, then as long as $n$ is large enough, we have $\overline{X}$ is approximately $N (\mu, \sigma^2/n)$, according to the CLT.
+- if the population is not normal, then as long as $n$ is large enough, we have $\overline{X}$ is\simimately $N (\mu, \sigma^2/n)$, according to the CLT.
 
 In this section, we assume that the population variance $\sigma^2$ is known, and that the hypothesis concerns the unknown population mean $\mu$.
 
@@ -110,7 +110,7 @@ Consider the unknown population mean $\mu$. Suppose that we would like to test:
 where $\mu_0$ is some candidate value for $\mu$. 
 
 To evaluate the evidence against $H_0$, we compare $\overline{X}$ to $\mu_0$: under $H_0$,
-> $Z_0 = \frac{\overline{X} - \mu_0}{\sigma/\sqrt{n}}$ is approximately $N(0,1)$
+> $Z_0 = \frac{\overline{X} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)$
 
 We say that $Z_0$ is the observed value of the **Z-test statistic** $Z_0$. If z_0 < 0, we have evidence that $\mu$ < $\mu_0$. However, we only reject $H_0$ in favour of $H_1$ if the evidence is *significant*.
 
@@ -172,7 +172,7 @@ If the data is normal and $\sigma$ is unknown, we can estimate it by the sample 
 > $S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(X_i-\overline{X}^2)}$
 
 As we have seen for confidence intervals, the test statistic follows a Student's $t$=distribution with $n-1$ degrees of freedom.
-> $T = \frac{\overline{X}-\mu}{S/\sqrt{n}} \approx t(n-1)$
+> $T = \frac{\overline{X}-\mu}{S/\sqrt{n}} \sim t(n-1)$
 
 We can follow the same steps as for the test with known variance, with the modified critical regions and p-values:
 
@@ -208,7 +208,7 @@ Let $\overline{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$, $\overline{Y} = \frac{1}{n}\
 | $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
 | $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
 
-where $z_0 = \frac{\overline{x} - \overline{y}}{\sqrt{\sigma^2_1/n+\sigma^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \approx N(0,1)$
+where $z_0 = \frac{\overline{x} - \overline{y}}{\sqrt{\sigma^2_1/n+\sigma^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \sim N(0,1)$
 
 | Alternative Hypothesis | p-Value |
 |- |- |
@@ -224,7 +224,7 @@ where $z_0 = \frac{\overline{x} - \overline{y}}{\sqrt{\sigma^2_1/n+\sigma^2_2/m}
 | $H_1 : \mu < \mu_0$ | $t_0 < -t_\alpha (n+m-2)$ |
 | $H_1 : \mu \neq \mu_0$ | $\|t_0\| > t_{\alpha/2}(n+m-2)$ |
 
-where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_p/n+S^2_p/m}}, S^2_p = \frac{(n-1)S^2_1+(m-1)S^2_2}{n+m-2}, t_\alpha(n+m-2)$ satisfies $P(T > t_\alpha(n+m-2)) = \alpha$, and $T \approx t(n+m-2)
+where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_p/n+S^2_p/m}}, S^2_p = \frac{(n-1)S^2_1+(m-1)S^2_2}{n+m-2}, t_\alpha(n+m-2)$ satisfies $P(T > t_\alpha(n+m-2)) = \alpha$, and $T \sim t(n+m-2)$
 
 | Alternative Hypothesis | p-Value |
 |- |- |
@@ -240,7 +240,7 @@ where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_p/n+S^2_p/m}}, S^2_p =
 | $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
 | $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
 
-where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_1/n+S^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \approx N(0,1)$
+where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_1/n+S^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \sim N(0,1)$
 
 | Alternative Hypothesis | p-Value |
 |- |- |
