@@ -13,24 +13,24 @@ metaDescription: "Discrete Structures - Graph Theory"
 
 # Definitions
 
-A graph $G$ is made of a set $V$ of vertices (also called *nodes*) together with a set $E$ of edges. We write $G=(V,E)$.
+A **graph** $G$ is made of a set $V$ of vertices (also called *nodes*) together with a set $E$ of edges. We write $G=(V,E)$.
 
-A graph is undirected whenever each of its edges in $E$ is an unordered pair $\{u,v\}$ and $u \neq v$.
+A graph is **undirected** whenever each of its edges in $E$ is an unordered pair $\{u,v\}$ and $u \neq v$.
 
-Let $G = (V, E)$ be a graph. Two vertices $u, v ∈ V$ are said to be adjacent if there is an edge between $u and v$.
+Let $G = (V, E)$ be a graph. Two vertices $u, v ∈ V$ are said to be **adjacent** if there is an edge between $u and v$.
 
-An edge $e ∈ E$ is said to be incident to a vertex $u ∈ V$ if one of the two endpoints of $e$ is $u$.
+An edge $e ∈ E$ is said to be **incident** to a vertex $u ∈ V$ if one of the two endpoints of $e$ is $u$.
 
-The degree of a vertex $u ∈ V$ is equal to the number of edges incident to $u$.
+The **degree** of a vertex $u ∈ V$ is equal to the number of edges incident to $u$.
 
-Let $G = (V, E)$ be a directed graph. The out-degree of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the starting point of $e$.
+Let $G = (V, E)$ be a directed graph. The **out-degree** of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the starting point of $e$.
 
-Let $G = (V, E)$ be a directed graph. The in-degree of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the endpoint of $e$.
+Let $G = (V, E)$ be a directed graph. The **in-degree** of a vertex $u ∈ V$ is equal to the number of edges $e$ such that $u$ is the endpoint of $e$.
 
 > $deg(u) = \mathrm{indeg}(u) + \mathrm{outdeg}(u)$
 
 
-Let $G = (V, E)$ be an undirected graph. A path of length greater than zero that begins and ends at the same vertex is called a *cycle*.
+Let $G = (V, E)$ be an undirected graph. A path of length greater than zero that begins and ends at the same vertex is called a **cycle**.
 
 Let $G = (V, E)$ be a directed graph. A (directed) path of length greater than zero that begins and ends at the same vertex is called a (directed) cycle.
 
@@ -39,11 +39,7 @@ Let $G = (V, E)$ be an undirected graph and $u, v ∈ V$ be two vertices. A *pat
 Let $G = (V, E)$ be an undirected graph. We say that $G$ is *connected* if for all vertices $u, v ∈ V$, there is a path between $u$ and $v$.
 
 Let $G = (V, E)$ be a directed graph and $u, v \in V$ be two vertices. A (directed) path of length $k$ from $u$ to $v$ is a sequence of vertices $x_0, x_1, ..., x_k$ such that $x_0 = u, x_k = v$ and $(x_0, x_1) \in E, (x_1, x_2) \in E, ..., (x_{k-1}, x_k) 
-\in E$ 
-
-A graph is *planar* if it can be drawn on a plan such that the edges don't intersect.
-
-A graph with $v$ vertices has at most $v^2$ edges.
+\in E$
 
 # Theorem (Handshaking Lemma)
 
@@ -53,11 +49,70 @@ Let $G = (V, E)$ be a graph, then $\sum_{u \in V} \mathrm{deg}(u) = 2|E|$.
 
 Let $G = (V, E)$ be a graph. Then $G$ has an even number of vertices with an odd degree.
 
-# Theorem (Euler's Formula)
+# Planar Graphs 
+
+A graph is *planar* if it can be drawn on a plan such that the edges don't intersect.
+
+A graph with $v$ vertices has at most $v^2$ edges.
+
+## Theorem (Euler's Formula)
 
 Let $G = (V, E)$ be a planar and connected graph.
 
 Let $v = |V|, e = |E|$ and $f$ = the number of faces. Then, $v-e+f = 2$, $e \leq 3v-6$
 
-# Lemma 
+## Lemma 
 
+All planar graphs have a vertex of degree at most 5.
+
+## Graph Coloration
+
+Give a color to each vertex such that all adjacent vertices have different colors. 
+
+### Theorem
+
+We can color all planar graphs with at most 6 colors. 
+
+# Bipartite Graphs
+
+A graph $G = (V,E)$ is **bipartite** if $V=v_1 \cup \v2$ or $v_1 \cap \v_2 = \varnothing$ and all edges in $E$ have a vertex in $v_1$ and a vertex in $v_2$.
+
+## Theorem
+
+A graph is 2-colorable if and only if it is bipartite.
+
+# Eulerian
+
+Let $G=(V,E)$ be a non-directed graph. A cycle (or a path) in G that visits each edge of $E$ exactly once is called **Eulerian**.
+
+## Theorem 
+
+Let $G=(V,E)$ be a non-directed and connected graph. G admits an Euler cycle if and only if all vertices have an even degree.
+
+## Theorem 
+
+Let $G = (V,E)$ be a non-directed graph. $G$ admits a Eulerian path that is not a cycle if and only if there are exactly two vertices $U_1$ and $U_2$ of odd degree. This path starts at $U_1$ and finished at $U_2$ or vice-versa.
+
+# Hamiltonian 
+
+Let $G = (V,E)$ be a non-directed graph. A cycle (or a path) in G that visits each vertex exactly once is called **Hamiltonian**. In this case the first point is visited twice.
+
+Given a cycle or path:
+- it is easy to verify if it is Hamiltonian
+  - does it visit each vertex exactly once?
+- it is easy to verify it is is Eulerian
+  - does it visit each edge exactly once?
+
+Given a non-directed graph:
+- it is difficult to verify if it admits a Hamiltonian cycle (or path). 
+- it is easy to verify if it admits a Eulerian cycle or path
+  - verify if it satisfies the previous theorem for Eulerian.
+
+# Matching
+
+Let $G = (V,E)$ be a non-directed graph. A **matching** is a set of $E \subsetq E$ of edges that have no vertices in common. 
+
+A matching is called **maximum** if it contains the greatest number of edges possible. 
+
+Application:
+- assigning tasks to a group of people.
