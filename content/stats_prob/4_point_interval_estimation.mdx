@@ -80,10 +80,10 @@ The error we commit by estimating µ via the sample mean X is smaller than $z_{�
 If we want to control the error, the only thing we can really do is control the sample size:  
 > $E > z_{α/2}σ√n ⇒ n > (\frac{z_{α/2}σ}{E})^2$
 
-If σ is known, we know from the CLT that $\frac{X−µ}{σ/√n}$ is approximately N (0, 1).
+If σ is known, we know from the CLT that $\frac{X−µ}{σ/√n} \sim N (0, 1)$.
 
 If σ is unknown, it can be shown that $\frac{X−µ}{S/√n}$
-follows approximately t(n − 1), the **Student T−distribution** with n − 1 degrees of freedom.
+follows approximately $t(n − 1)$, the **Student T−distribution** with $n − 1$ degrees of freedom.
 
 Consequently, for a confidence level α,
 > $P(−t_{α/2}(n − 1) < \frac{X−µ}{S/√n}< t_{α/2}(n − 1))≈ 1 − α$,
