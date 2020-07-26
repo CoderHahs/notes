@@ -75,10 +75,10 @@ For a given confidence level α, shorter confidence intervals are better in rela
 
 # Choice of Sample Size
 
-The error we commit by estimating µ via the sample mean X is smaller than $zα/2\sqrt{σn}$, with probability 100(1 − α)%.
+The error we commit by estimating µ via the sample mean X is smaller than $z_{α/2}\frac{\sigma}{\sqrt{n}}$, with probability 100(1 − α)%.
 
 If we want to control the error, the only thing we can really do is control the sample size:  
-> $E > zα/2σ√n ⇒ n > (\frac{zα/2σ}{E})^2$
+> $E > z_{α/2}σ√n ⇒ n > (\frac{z_{α/2}σ}{E})^2$
 
 If σ is known, we know from the CLT that $\frac{X−µ}{σ/√n}$ is approximately N (0, 1).
 
