@@ -170,6 +170,6 @@ Monotonically increasing means its just increasing, just a fancy way of saying i
 
 ## Master Theorem
 
-Let $f$ be a monotonically increasing function such that $f(n) = af(n/6) + c^\cdot n^d$, where $a \geq 1, b \in \Z (b > 1), c > 0, d > 0$.
+Let $f$ be a monotonically increasing function such that $f(n) = af(n/b) + c^\cdot n^d$, where $a \geq 1, b \in \Z (b > 1), c > 0, d > 0$.
 
 Then, $f(n) = \mathrm{O}(n^d)$ if $d > \log_b a$ else $\mathrm{O}log(n^d \cdot \log n)$ if $d = \log_b a$ else $\mathrm{O}(n^{log_b(a)})$ if $d < \log_b a$.
