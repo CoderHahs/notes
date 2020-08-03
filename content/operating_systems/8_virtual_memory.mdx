@@ -10,3 +10,17 @@ metaDescription: 'Operating Systems - Virtual Memory'
   integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
   crossOrigin="anonymous"
 />
+
+# Background 
+
+Preceding sections talked about how to avoid memory fragmentation by breaking process memory requirements down into smaller bites ( pages ), and storing the pages non-contiguously in memory. However the entire process still had to be stored in memory somewhere.
+
+In practice, most real processes do not need all their pages, or at least not all at once, for several reasons:
+1. Error handling code is not needed unless that specific error occurs, some of which are quite rare.
+2. Arrays are often over-sized for worst-case scenarios, and only a small fraction of the arrays are actually used in practice.
+3. Certain features of certain programs are rarely used, such as the routine to balance the federal budget.
+
+The ability to load only the portions of processes that were actually needed ( and only when they were needed ) has several benefits:
+- Programs could be written for a much larger address space ( virtual memory space ) than physically exists on the computer.
+- Because each process is only using a fraction of their total address space, there is more memory left for other programs, improving CPU utilization and system throughput.
+- Less I/O is needed for swapping processes in and out of RAM, speeding things up.
