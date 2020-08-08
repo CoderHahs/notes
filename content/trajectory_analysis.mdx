@@ -1,0 +1,51 @@
+---
+title: "Trajectory Analysis"
+metaTitle: "Trajectory Analysis"
+metaDescription: "Topics in Trajectory Analysis"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+These are some notes from a [lecture](youtube.com/watch?v=9wVUUeN04Rk) by Helge Eichhorn
+
+# What is Space Mission Design?
+
+- Determining how a spacecraft will reach its target orbit (efficient, reasonable amount of time and not break the laws of physics)
+
+## Definition of State Vectors
+- $\overrightarrow{r}$ $ \in $ $R^{3}$: Position vector
+- $\overrightarrow{v}$ $ \in $ $R^{3}$: Velocity vector
+- $t$: Epoch e.g. in Julian days
+- Cooridnate frame
+- Central body (e.g. gravitational parameter $\mu = GM$)
+
+## Determination of Keplerian Orbital Elements
+- Shape of the orbital ellipse (or other conic section):
+    - $a$: Semi-major axis
+    - $e$: Eccentricity
+- Orientation of the orbital plane:
+    - $i$: inclination
+    - $\Omega$: Longitude of the ascending node
+- Orientation of the orbital ellipse within the orbital plane
+    - $\omega$: Argument of periapsis
+- Position of the orbiting body on the orbital ellipse at a given point:
+    - $v$: True anomaly
+
+![Image](https://en.wikipedia.org/wiki/File:Orbit1.svg)
+
+## Solving Kepler's Equation
+
+Paraphrasing Kepler's Second Law:
+- The radius vector sweeps equal areas in equal fractions of time
+
+![Image](https://commons.wikimedia.org/wiki/File:Kepler%27s_equation_scheme_German.svg)
+
+- *Umkreis* = Circumcircle
+- $M$: Mean anomaly - angle at the center sweeping the circumcircle of the orbit
+- $E$: Eccentric anomaly - angle at the center sweeping the orbital ellipse
+- $v$: True anomaly - angle at the focus sweeping the orbit ellipse
