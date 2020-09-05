@@ -1,0 +1,139 @@
+---
+title: "Intro to CockroachDB"
+metaTitle: "CockroachDB"
+metaDescription: "Topics in CockroachDB"
+---
+
+# A Brief History of Databases
+
+The first commercial implementation of relational databases occurred in 1970s. 
+
+Scalability and Availability are difficult to implement with traditional SQL databases.
+
+**Table joins** make read operations that pull together separate records into one. **Transactions** are a combination of reads and especially writes across the database.
+
+Since no one server can handle the workload of an application, a cluster of database nodes working together are used.
+
+NoSQL databases were built to scale out easily and to tolerate node failures with minimal disruption.
+
+CockroachDB tries to deliver distributed SQL.
+
+# The Future of Databases: Distributed SQL
+
+CockroachDB is a distributed SQL Database, with online transactional processing or OLTP workloads. These are real time operations with a client touching just a few records at a time even if lots of clients are doing this in parallel. Analytics workloads touch every row of a table and take hours to run.
+
+Distributed SQL database:
+- not legacy SQL (can't scale, not resilient)
+- not NoSQL (not consistent, no SQL, no ACID transactions)
+- but combines the best of both
+
+## ACID Transactions
+
+A: Atomicity requires transactions are "all or nothing." If any part of a transaction fails, the entire transaction is aborted, and the the database is left unchanged.  
+C: Consistency enforces rules on data This means that any data written in a transaction will be valid according to all defined rules, including SQL constraints.  
+I: Isolation ensures that concurrent transactions will leave the database in the same state that it would have been in if the transactions were executed serially, one after another.
+D: Durability guarantees that once a transaction is committed, it will remain so even in the event of power loss, crashes or failures.
+
+# CockroachDB: A True Distributed SQL Databases
+
+uses:
+- serializable isolation
+    - every transaction behaves as if it had *exclusive use of the entire cluster* as it performed the transaction.
+- PostgreSQL Wire Protocol
+    - utilizes a mature existing ecosystem
+- Geo-Replication
+    - ability to *control where data resides*, even if it's a globally distributed cluster.
+- Multi-Cloud
+    - not tied to a specific cloud provider
+
+# Connecting to CockroachDB with the SQL Shell
+
+## Setup
+
+```bash 
+cockroach start --insecure
+```
+## Terminal (or Powershell)
+```bash
+cockroach workload init movr
+cockroach sql --insecure
+```
+## SQL Shell
+```SQL
+SHOW databases;
+SHOW TABLES FROM movr;
+SELECT * FROM movr.users LIMIT 10;
+```
+
+# Primary KEY and Primary INDEX
+
+Primary KEY:
+- identifies a record
+- unique for each record
+- present in all records
+- only one primary key
+- immutable
+- implementation doesn't matter
+- defined by a set of criteria
+
+### Single Column Primary Key
+- identifies a record
+- unique for each record
+
+### Composite Primary Key
+- multiple columns
+- all included columns must be not null
+- combo must be unique
+
+
+Primary INDEX:
+- A data structure
+    - Contains all table data
+- implementation can vary, but ...
+    - enable lookups
+    - physically ordered by Primary Key
+
+# Creating and Modifying a Table
+## Setup (not shown)
+```bash 
+cockroach start-single-node --insecure
+cockroach sql --insecure 
+```
+## SQL shell
+```SQL
+CREATE DATABASE crdb_uni;
+SET database = crdb_uni;
+CREATE TABLE students (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name STRING);
+SHOW CREATE students;
+CREATE TABLE courses (sys_id UUID DEFAULT gen_random_uuid(), course_id INT, name STRING, PRIMARY KEY (sys_id, course_id));
+SHOW CREATE TABLE courses;
+ALTER TABLE courses ADD COLUMN schedule STRING;
+SHOW CREATE TABLE courses;
+```
+
+# Cluster concepts: Keyspace, Ranges, and Replicas
+
+Keyspace:
+- an ordered set of key-value pairs with the full path to each record in the key part of each entry including where it lives and the primary key of the row. 
+
+Ranges:
+- a cluster can divide the keyspace into ranges. When a range grows beyond a certain limit it gets split into two. (64 MB by default)
+
+Replicas:
+- multiple copies of each range are called replicas.
+- each replica is always on a different node and never double up.
+
+# Raft Protocol in CockroachDB
+
+- an algorithm that allows a distributed set of servers to agree on any values without losing the record of that value, even in the face of node failure.
+- used to perform all writes.
+- each range defines a Raft group. 
+- replicas are either leaders or followers
+- leaders coordinate the distributed write process while followers assist
+- If a follower doesn't see a heartbeat from a leader, it'll get a randomized time-out, declare itself a candidate, and call for an election. Majority vote makes it a leader. The process takes seconds.
+
+Writes are kicked off by the leaseholders which tells the leader to begin the process. The leader first upends the command to its Raft log, which is an ordered set of commands on disc. The leader then proposes the write to the followers. Each follower will replicate the command on its own Raft log.
+
+## Lease
+- one of the replicas is assigned a lease and is known as a 'lease holder'
+- this lets the replica serve reads on its own bypassing Raft but also keeping track of write commits, so it knows not to show rights until they're durable
