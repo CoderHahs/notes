@@ -37,6 +37,7 @@ const config = {
       '/operating_systems',
       '/quality_assurance',
       '/discrete_math',
+      '/databases',
       '/ai',
       '/algorithms',
       '/astronomy',
