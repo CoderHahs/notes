@@ -37,6 +37,12 @@ const config = {
       '/operating_systems',
       '/quality_assurance',
       '/discrete_math',
+      '/ai',
+      '/algorithms',
+      '/astronomy',
+      '/programming_with_cpp',
+      '/software_arch',
+      '/software_requirements',
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
@@ -54,8 +60,8 @@ const config = {
   pwa: {
     enabled: false, // disabling this will also remove the existing service worker.
     manifest: {
-      name: 'Gatsby Gitbook Starter',
-      short_name: 'GitbookStarter',
+      name: 'Hrithik\'s Notes',
+      short_name: 'H Notes',
       start_url: '/',
       background_color: '#6b37bf',
       theme_color: '#6b37bf',
