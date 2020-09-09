@@ -1,0 +1,87 @@
+---
+title: "Introduction"
+metaTitle: "Introduction"
+metaDescription: "Topics in Introduction"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+
+# What does "algorithm" jmean?
+
+Its a sequence of steps to solve a problem. This sequence of steps works depending on the input to the problem.
+
+# What does "design & analysis of algorithms" mean?
+
+- correctness of algorithms
+- does it terminate?
+- efficient (fast):
+    - estimate the running terminate
+    - count the number of steps
+    - is it optimal? Can we do better?
+- limits of efficiency (some problems *cannot* be solved efficiently)
+- pseudocode, no programming
+
+## Insertion Sort
+
+Input: An array $A[1..n]$ of $n$ numbers.
+Output: An array containing the numbers of $A$ in increasing order.
+
+```python
+for i in range (2, n):
+    key = A[i]
+    j = i-1
+    while (j > 0 and A[j] > key):
+        A[j+1] = A[j]
+        j = j-1
+    A[j+1] = key
+```
+
+Best case: Already sorted O(n)
+Worst case: Sorted in reverse order O($n^2$)
+
+# Definition (O-Notation)
+
+Let $f:\N \rightarrow \R^+$ and $g:\N \rightarrow \R^+$ be two functions. We say that $f$ is $O$ of (or is big $O$ of) $g$ if there exists a constant $c \in \R^+$ and a number $k \in \N$ such that $f(n) \leq c g(n)$ for all $n \geq k$. 
+
+We write $f (n) = O(g(n))$ or $f = O(g)$
+
+# Definition (Omega-Notation)
+
+Let $f:\N \rightarrow \R^+$ and $g:\N \rightarrow \R^+$ be two functions. We say that $f$ is $\Omega$ of (or is big $\Omega$ of) $g$ if there exists a constant $c \in \R^+$ and a number $k \in \N$ such that $f(n) \geq c g(n)$ for all $n \leq k$. 
+
+We write $f (n) = \Omega (g(n))$ or $f = \Omega (g)$
+
+# Definition (Theta-Notation)
+
+Let $f:\N \rightarrow \R^+$ and $g:\N \rightarrow \R^+$ be two functions. We say that $f$ is $\Theta$ of (or is big $\Theta$ of) $g$ if there exists two constants $c_1, c_2 \in \R^+$ and a number $k \in \N$ such that $c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq k$. 
+
+We write $f (n) = \Theta (g(n))$ or $f = \Theta (g)$
+
+# Overview
+
+An algorithm $A$ takes $O(T(n))$ time, for a function $T$, if there exists:
+- a strictly positive constant c
+- and an experimentation of $A$ which takes at most $c T(n)$ units of time to execute for any input of size $n$.
+
+This is possible thanks to the **Principle of Invariance**. 
+> Two different implementations of the same algorithm will not differ in efficiency by more than some multiplicative constant.
+
+A *barometer instruction* is one that is executed at least as often as any other instruction in the algorithm.
+
+# Theorem (Limit Criterion)
+
+To establish the relation between two functions, we can use the following theorem.
+
+Let $f:\N \rightarrow \R^+$ and $g:\N \rightarrow \R^+$ be two functions.
+
+Let $L = \lim_{n \to +\infty} \frac{f(n)}{g(n)}$
+
+- If $L = 0$, then $f = O(g) (and f \neq \Theta(g))
+- If $L = \infty$, then $f = \Omega(g) (and f \neq \Theta(g))
+- If $L \in \R^+$, then $f = \Theta(g) (and g = \Theta(f))
+- If the limit does not exist, then we cannot conclude. 
