@@ -1,0 +1,26 @@
+---
+title: "Divide-and-Conquer Algorithms"
+metaTitle: "Divide-and-Conquer Algorithms"
+metaDescription: "Topics in Divide-and-Conquer Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+To solve a problem of size $n$:
+- **Divide**: the problem into subproblems, each of size < $n$:
+- **Conquer**: Solve each subproblem recursively (and independently of the other subproblems).
+- **Combine/Merge** the solutions to the subproblems into a solution to the original problem.
+
+# Merge Sort
+
+To sort $n$ numbers:
+- If $n \leq 1$: do nothing.
+- If $n \geq 2$: divide the $n$ numbers arbitrarily into two sequences, both of size $n/2$, run Merge sort twice, once for each sequence. Then merge the two sorted sequences into one sorted sequence.
+
+In general, if we do not assume anything about the value of $c$, we find $T(n) \leq 2c n \log_2 n$
+
+So the running time of Merge Sort is $T(n) = O(n\log_2 n)$ if $n$ is a power of two.

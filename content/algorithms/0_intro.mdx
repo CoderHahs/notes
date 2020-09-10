@@ -11,7 +11,7 @@ metaDescription: "Topics in Introduction"
 />
 
 
-# What does "algorithm" jmean?
+# What does "algorithm" mean?
 
 Its a sequence of steps to solve a problem. This sequence of steps works depending on the input to the problem.
 
@@ -81,7 +81,36 @@ Let $f:\N \rightarrow \R^+$ and $g:\N \rightarrow \R^+$ be two functions.
 
 Let $L = \lim_{n \to +\infty} \frac{f(n)}{g(n)}$
 
-- If $L = 0$, then $f = O(g) (and f \neq \Theta(g))
-- If $L = \infty$, then $f = \Omega(g) (and f \neq \Theta(g))
-- If $L \in \R^+$, then $f = \Theta(g) (and g = \Theta(f))
+- If $L = 0$, then $f = O(g) (and f \neq \Theta(g))$
+- If $L = \infty$, then $f = \Omega(g) (and f \neq \Theta(g))$
+- If $L \in \R^+$, then $f = \Theta(g) (and g = \Theta(f))$
 - If the limit does not exist, then we cannot conclude. 
+
+# Fibonacci Numbers
+
+```python
+def fib(n):
+    if (n <= 1):
+        return n
+    else:
+        return fib(n-1) + fib(n-2)
+```
+
+This algorithm takes exponential time, which is super slow! A better solution to this problem is shown below:
+
+```python
+def fib2(n):
+    if (n <= 1):
+        return n
+    else:
+        f = [n]
+        f[0] = 0
+        f[1] = 1
+        for i in range (2, len(n)):
+            f[i] = f[i-1]+f[i-2]
+        return f[n]
+```
+
+Here the running time is linear, $O(n)$. In this case, we can even say that it is $\Theta (n)$
+
+In terms of bit-operations (adding numbers), *fib2(n)* is quadratic.
