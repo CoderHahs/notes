@@ -1,0 +1,54 @@
+---
+title: "Strassen Algorithm"
+metaTitle: "Strassen Algorithm"
+metaDescription: "Topics in Strassen Algorithm"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+
+# Matrix Multiplication
+
+Input: Two square matrices $A_{nxn}$ and $B_{nxn}$  
+Output: $AB$
+
+```python
+# initialize matrix c (n x n)
+for i in range (n):
+    for j in range(n):
+        c[i][j] = 0
+        for k in range (n):
+            c[i]c[j] = c[i][j] + a[i][k] * b[k][j]
+return c
+```
+$T(n) = \Theta (n^3)$
+
+![Image](https://cdn.kastatic.org/googleusercontent/rk4fR1jNJsGUfdHOc87UzuQh2zokwYDoVo3Hk1m3s6ToGDgW6KxgrsUeIj8-CJeV6cNf6WB8B6sRHt3BoGBdVY7h)
+
+# Strassen Algorithm
+
+Input: Two square matrices $A=[A_{11} A_{12}, A_{21}, A_{22}]$ and $B=[B_{11} B_{12}, B_{21}, B_{22}]$
+
+```python
+if (n == 1):
+    C = A * B
+else:
+    m_1 = (A_11 + A_22) * (B_11 + B_22)
+    m_2 = (A_21 + A_22) * B_11
+    m_3 = A_11 * (B_12 - B_22)
+    m_4 = A_22 * (B_21 - B_11)
+    m_5 = (A_11 + A_12) * B_22
+    m_6 = (A_21 - A_11) * (B_11 + B_12)
+    m_7 = (A_12 - A_22) * (B_21 + B_22)
+    C_11 = m_1 + m_4 - m_5 + m_7
+    C_12 = m_3 + m_5
+    C_21 = m_2 + m_4
+    C_22 = m_1 - m_2 + m_3 + m6
+return C
+```
+
+Time complexity $T(n) = \Theta (n^{2.8})$
