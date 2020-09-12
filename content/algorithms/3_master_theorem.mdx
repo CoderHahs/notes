@@ -1,0 +1,24 @@
+---
+title: "Master Theorem"
+metaTitle: "Master Theorem"
+metaDescription: "Topics in Master Theorem"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+Let $T : \N \Rightarrow \R^+$ be a function. Suppose that:
+> $T(n) =$   
+> $1$ if $n=1$  
+> $a\cdot T(n/b) + n^d$ if $n > 1$
+
+where $a \geq 1, b > 1$ and $d \geq 0$.
+
+- If $d > \log_b (a)$, then $T(n) = O (n^d)$
+- If $d = \log_b (a)$, then $T(n) = O (n^d \log(n))$
+- If $d < \log_b (a)$, then $T(n) = O (n^{]log_b (a)})$
+
+
