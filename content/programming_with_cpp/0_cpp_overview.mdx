@@ -18,3 +18,225 @@ metaDescription: "Topics in C++ Overview"
 - objects to structure
 
 
+# Basic types
+- int
+- double or long double
+- char
+- bool
+
+# Variables
+Syntax type v;
+
+- int p = 25
+
+## Strings
+
+- string t ; define t as a variable...
+– string word = "hello" ;
+– s.size() represents the length of s
+– s[i] is the i-th character of s ( i = 0,1,. . . s.size()-1)
+– s+t is a new string corresponding to concatenation of s and t
+
+```c++
+string ch1 ; /* construction of an empty string : ch1.size() == 0 */
+string ch2 (10, ’*’) ; /* construction of 10 characters string equal to ’*’ */
+/* ch2.size() == 10 */
+string ch3 (5, ’\0’) ; /* construction of 5 characters string with zero code */
+/* ch2.size() == 5 */
+```
+
+# Arrays
+
+```c++
+int tab[5] = { 10, 20, 5, 0, 3 } // an array of 5 int with values 10, 20, 5, 0 and 3
+int tab[] = { 10, 20, 5, 0, 3 } // an array of dimension 5
+int tab[5] = { 10, 20 } ; // equivalent to tab[] = {10, 20, 0, 0, 0}
+int tab[5] = { 10, 20, 5 } ; // equivalent to tab[] = {10, 20, 5, 0, 0} 
+
+// Multidimensional
+int tab[3][4] = { //three elements; each element is an array of size 4
+{ 1, 2, 3, 4 } , // initializers for the row indexed by 0
+{ 5, 6, 7, 8 }, // initializers for the row indexed by 1
+{ 9,10,11,12 } // initializers for the row indexed by 2
+};
+- The nested braces are optional. The following initialization is equivalent :
+int tab[3][4] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 } ;
+- At each of the two levels, the last values can be omitted.
+- The following statements are correct (but not equivalent) :
+int tab[3][4] = { { 1, 2 } , { 3, 4, 5 } } ;
+int tab[3][4] = { 1, 2 , 3, 4, 5 } ;
+```
+
+## Initializers and allocation class
+Initializers that can be used for elements of an array follow the same rules as the initializers of the
+scalar variables, i.e. :
+- For a static array, Initialization values must be constant expressions of a type compatible by assignment with the type of elements in the array; static variables or automatic variables
+declared with the const attribute can be shown.
+
+```C++
+void f()
+{ 
+    const int N = 10 ;
+    static int delta = 3 ;
+    .....
+    int tab[5] = { 2*N-1, N-1, N, N+1, 2*N+1} ;
+    int t[3] = { 0, delta, 2*delta } ;
+}
+```
+- For an automatic array, you can use any expression of a type compatible by assigning to the type of elements in the array. 
+```c++
+const int NEL = 10 ;
+void fct (int p)
+{ 
+    int n ;
+    .....
+    int tab[] = {NEL, p, 2*p, n+1, n+p} ;
+    .....
+}
+```
+
+We can also use the ```vector``` class, for this you have to place at the top of the file.
+
+```c++
+# include <vector>
+//– An array is typed :
+vector<int> Tab(100 , 5) ;
+vector<int> Tab(50) ;
+vector<double> T ;
+//– General structure :
+vector<type> Name(n, v) ;
+vector<type> Name1 = Name2 ;
+//– Values of Name2 are then copied into Name1.
+//– T.size() is the size of T.
+//NB: size() actually returns an unsigned Integer, its exact type is vector<type> :: size_type
+//– T[i] refers to the i-th element with i = 0, . . . T.size()-1.
+vector<vector<int> > T define a two dimensions array.
+//To initialize it, you can use the following statement :
+vector<vector<int> >T2
+T2(100,vector<int>(50,1)) ;
+//We initialize each of the 100 elements of T2 with an array of size 50 filled with 1
+```
+
+# Expression:
+The expression ++var increments the variable var and returns the
+new value. (++i is equivalent to i=i+1)
+- The expression var++ increments the variable var and returns the
+the old value. (i++ is equivalent to (i=i+1)-1). 
+- n = i++ - 5 will affect the value 6 to i and value 0 to n (because here the value of the expression i++ is 5). 
+
+# Loops
+
+## For Loop
+
+- for (expr1 ;expr2 ;expr3) instr
+
+```cpp
+for(i=0 ; i<235 ;i=i+1) cout << T[i] ;
+for(i=0, j=1 ; i<235 ;i=i+1,j=j+3) cout << T[i][j] ;
+```
+
+## While Loop
+- while (expr) instr
+
+## Do While Loop 
+- do instr while (expr) ;
+
+# Input/Output
+
+Add ```#include <iostream>```
+
+Syntax : cout < < expr1 < < . . . < < exprn ;
+This statement prints expr1 then expr2
+
+- cout (or std::cout) means the standard “Output”
+- << is a binary operator. It is associative from left to right
+    – the second operand is the expression to be displayed
+    – The result is “Output stream type
+- << is overloaded (or over-defined): the same operator is used to
+display characters, integers, real characters or strings of
+characters etc.
+- Displaying a line break is done by means of cout << endl
+
+## Read on the keyboard
+Syntax : *cin* > > var1 > > . . . > > varn ;
+This statement reads (keyboard) values and assigns them to var1 then var2 . . .
+- *cin* is the standard input stream, and >> is an operator similar to <<.
+- The characters typed on the keyboard are recorded in a buffer in which the *cin* come to draw values. Spaces, tabulations and line ends are separators.
+
+# Program structure
+```cpp
+#include <iostream>
+void test(int j) {cout << j << endl ; }
+int main()
+{
+    int i =20 ;
+    cout << " Hello" << endl ;
+    test(i) ;
+    return 0;
+}
+```
+
+# Functions
+
+```cpp
+int k=34, t=5, m ;
+m = max(k,2*t+5) ;
+
+int max(int a,int b)
+{ 
+    int res=b ;
+    if (a>b) res = a ;
+    return res ; 
+}
+...
+main()
+{
+    int x, y ;
+    x=5 ;
+    y=10 ;
+    int z = max(y, x) ;
+    cout<<" z = "<<z ;
+}
+```
+
+Displaying the contents of an array of integers
+```cpp
+void DisplayTab(vector<int> T)
+{
+    int i ;
+    for (i=0 ; i< T.size() ; i++)
+    cout << T[i] << " " ;
+}
+```
+
+Entering an array of integers
+```cpp
+vector<int> EnterTab()
+{
+    int size ;
+    cout << " Enter a size : " ;
+    cin >> size ;
+    vector<int> res(size,0) ;
+    for (int i=0 ; i<size ; i++) {
+        cout << " val = " ;
+        cin >> res[i] ;
+    }
+    return res ;
+}
+```
+
+Searching for the greatest element
+```cpp
+int Search(vector<int> T)
+{
+    if (T.size()==0) {
+        cout << " Error ! Array empty !" << endl ;
+        return -1 ;
+    }
+    int res=T[0] ;
+    for (int i=1 ; i<T.size() ;i++)
+        if (T[i] > res) res=T[i] ;
+        return res ;    
+}
+```
+
