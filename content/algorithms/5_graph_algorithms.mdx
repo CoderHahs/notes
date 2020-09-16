@@ -1,0 +1,32 @@
+---
+title: "Graph Algorithms"
+metaTitle: "Graph Algorithms"
+metaDescription: "Topics in Graph Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+For an intro to graphs refer to this [page](https://hrithiks-notes.netlify.app/discrete_structures/10_graph_theory) for more details.
+
+# Exploring Undirected Graph
+
+Let $G = (V, E)$ be an undirected graph.
+
+Task: Find all vertices that can be reached from a given vertex $v \in V$.
+
+```python
+def explore(v):
+    visited(v) = True
+    previsit(v) # see later
+    for each edge {u,v} in E do:
+        if visited(u) = False:
+            call explore(u)
+    postvisit(v) # see later
+```
+
+The number of vertices u such that “visited(u) = false” decreases in each recursive call. Since there is a finite number of vertices, the algorithm eventually terminates.
+

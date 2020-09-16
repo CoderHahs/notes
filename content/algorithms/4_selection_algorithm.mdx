@@ -9,3 +9,39 @@ metaDescription: "Topics in Selection Algorithm"
   integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
   crossOrigin="anonymous"
 />
+
+Input: Sequence $S$ of $n$ numbers and an integer $k$ with $1 \leq k \leq n$.  
+Output: The $k$-th smallest element in $S$.
+
+```python
+Sort S
+return the element at position k
+```
+
+Run time $O(n \log (n))$
+
+Here's an algorithm without sorting. Assume that all numbers are different. Assume that there is a constant $0 < \alpha < 1$ such that in *Select (S, p)*, it is always to choose a pivot $p$ satisfying $|S_<| \leq a n$ and $|S_>| \leq a n$
+
+```python
+def Select (S, k)
+    if |S| = 1:
+        return the only element in S
+    else
+        Choose an element p in S (called the pivot)
+        Split S into S_<, S_=, and S_>
+        if (k <= |S_<|):
+            Run Select(S_<, k)
+        elif (k > |S_<| + |S_=|):
+            Run Select(S_>, k - |S_<| - |S_=|)
+        else:
+            return p
+```
+
+To find a good pivot $p$:
+1. Divide the input scenario in to $\frac{n}{5}$ groups, each of size 5.
+2. For $i = 1, 2, ..., n/5$, compute the median of the $i-th$ group, call this median $m_i$.
+3. Compute the median $p$ of $m_1, m_2, ..., m_{n/5}$.
+4. Run *Select (S, k)* using the $p$ of Step 3 as the pivot.
+
+Time complexity is $T(n) = T(1/5 n) + T(7/10 n) + O(n) = O(n)$
+
