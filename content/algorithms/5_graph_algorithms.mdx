@@ -30,3 +30,29 @@ def explore(v):
 
 The number of vertices u such that “visited(u) = false” decreases in each recursive call. Since there is a finite number of vertices, the algorithm eventually terminates.
 
+## Lemma
+
+Assume that, initially, *visited(u)* = False. After explore(v) has terminated, *visited(u)* = True $\iff$ there is a path from $v$ to $u$.
+
+## Connected Components of G = (V, E)
+
+```python
+def DFS (G):
+  for all v in V do:
+    visited (v) = false
+  cc = 0
+  for all v in V do:
+    if visited (v) = false:
+      cc = cc + 1
+      explore (v)
+```
+
+### Run-time of DFS
+
+First for-loop: $O(|V|)$ time
+
+Second for-loop:
+- ```explore(u)``` is called exactly once for each vertex u (this may be a recursive call)
+- time spent for ```explore(u)```, excluding recursive calls is $O(1 + degree(u))$
+
+Total time: $O (|V| + \sum_{u \in V}(1+ \mathrm{degree}(u))) = O(|V| + |V| + 2|E|) = O(|V| + |E|)$
