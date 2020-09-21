@@ -1,0 +1,138 @@
+---
+title: "Non-functional Requirements"
+metaTitle: "Non-functional Requirements"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# NFR Quantification
+
+- NFRs need to be measurable
+    - avoid subjective characterization
+- values are not just randomly specified
+    - must have a rationale
+    - stakeholders must understand goals and trade-offs
+- precise numbers are unlikely to be known at the beginning of the requirement process
+    - do not slow down your initial elicitation process
+    - ensure that quality attributes are identified
+    - negotiate/revise more precise values later during the process
+- make the desirable direction of values known
+    - very few requirements actually need one specific value
+    - the video game's frame rate shall be higher or equal to 60 frames per second at least 99% of the time during one game.
+
+We often use measures in a generic way but there is actually a distinction between measures and metrics.
+
+- measure is an observation
+- metric is what we are measuring with units
+- indicator is metrics with a target and other attributes
+
+# NFR Challenges
+
+These include:
+1. Select relevant NFRs that can impact decisions during system development
+2. Select relevant metrics (with units) for these NFRs
+3. Determine realistic and measurable quantities
+4. Assess and specify confidence levels in these qualities
+
+# Performance NFRs: Patterns
+
+![Image](https://d3i71xaburhd42.cloudfront.net/010f914109527b63c73fdffce7c1ae7903072977/2-Figure2-1.png)
+
+# Reliability Metrics
+
+- measure of the degree to which the *system performs* during a request
+    - ability to perform a required function under stated conditions for a specified period of time
+    - very important for critical, continuous or scientific systems
+- can be measured using
+    - error/defect rate
+    - degree of precision/recall for computations
+    - Precision = True positives / True positives + False positives -> if positive then for sure positive
+    - Recall = true positive / true positive + false negatives -> if negative then for sure negative
+    - F1 score = 2 x precision x recall / precision + recall
+
+# Availability Metrics
+
+- Proportion of time that the system is up and running correctly
+- can be calculated based on **Mean-time to failure** (MTTF) and **Mean-Time to Repair**(MTTR)
+    - MTTF: Average duration between operation start and failure
+    - MTTR: Average duration needed to resume operation after a failure
+    - Availability = MTTF / (MTTF + MTTR)
+- may lead to architectural requirements
+    - redundant components (lower MTTF)
+    - modifiability/substitutability of components (lower MTTR)
+    - special types of components (e.g. self-diagnostic)
+
+# Maintainability Metrics 
+
+- measure ability to make changes quickly and cost effectively
+    - extension with new functionality
+    - deleting unwanted capabilities
+    - adaptation to new operation environments
+    - restructuring (rationalizing, modularizing, optimizing, creating reusable components)
+- can be measured in terms of
+    - code readability
+    - coupling/cohesion metrics, number of anti-patterns
+    - mean time to fix a defect, mean time to add new functionality
+    - presence, accessibility and usefulness of the documentation
+
+# Testability Metrics
+
+Measure the ability to detect, isolate, and fix defects
+- Time to run tests
+- Time to setup testing environment (development and execution)
+- Probability of visible failure in presence of a defect
+- Test coverage (requirements coverage, code coverage...)
+
+May lead to architectural requirements
+- Mechanisms for monitoring
+- Access points and additional control
+
+Examples
+- The delivered system shall include unit tests that ensure a minimum of 80% branch coverage.
+- The system development process shall use regression tests allowing for full system retesting in less than 12 hours.
+
+# Portability Metrics
+
+Measure the ability of the system to run under different computing environments
+- Hardware, software, OS, languages, versions, combination of these
+
+Can be measured as
+- Enumeration of targeted platforms (hardware, OS...)
+- Proportion of platform-specific components or functionality
+- Mean time to port to a different platform
+
+Example
+- No more than 5% of the software code shall be specific to the operating system.
+
+# Usability Metrics
+
+In general, concerns the ease of use by and training of end users. The following more specific aspects can be identified:
+- Learnability
+    - Proportion of functionalities or tasks mastered after a given training time
+- Efficiency
+    - Acceptable response time
+    - Number of tasks performed or problems resolved in a given time
+    - Number of mouse clicks needed to get to information or functionality
+- Memorability
+    - Number (or ratio) of learned tasks that can still be performed after not using the system for a given time period
+- Error avoidance
+    - Number of error per time period and user class
+- Error handling
+    - Mean time to recover from an error and be able to continue the task
+- Accessibility
+    - Compliance to standards targeting access from people with disabilities
+- User satisfaction
+    - Satisfaction ratio per class of users; usage ratios
+- Examples
+    - The hotel management system shall enable at least 80% of users to book a guest within 5 minutes after a 2-hour introduction to the system.
+    - The system shall enable novice users to perform *some task X* in less than 15 minutes.
+    - The system shall enable expert users to perform *some task X* in less than 2 minutes.
+    - The satisfaction level of the system shall be “very good” or better for at least 80% of customers polled after a 3-month usage period.
+
+# Domain-Specific Metrics
+The most appropriate quality metrics will vary from one application domain to another, e.g.:
+- Performance
+    - Web-based system:Number of requests processed per second
+    - Video games: Number of 3D image frames per second
+- Accessibility
+    - Web-based system: Compliance with standards for people with visual disabilities
+    - Video games: Handling by a 8-10 year old kid (and, also, no violence!)

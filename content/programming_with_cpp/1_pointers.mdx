@@ -5,3 +5,71 @@ metaDescription: "Topics in Pointers"
 ---
 
 
+C++ has pointers, i.e. variables for other addresses (variables,
+functions...). In C++, there is an indirect link between arrays and the pointers, that an array identifier is a «constant pointer».
+
+Pointers:
+– operators * and &
+– «Arithmetic» of pointers
+- Link between arrays and pointers
+- Dynamic memory management offered by operators new and delete
+
+```cpp
+int * ad ; // you can also write : int *ad ;
+int n ;
+n = 20 ;
+ad = &n ;
+*ad = 30 ; // you can also write : * ad = 30 ;
+```
+
+The following instruction : ```ad = &n ;```
+- affects the value of the expression &n to the variable ad. The operator & is a unary operator that provides the result of the address of its operand. Thus, this statement places in the variable ad the address of the n variable. 
+
+The following instruction : ```*ad = 30 ;```
+- means: assigning to the lvalue *ad the value 30. But *ad represents the Integer ad address.
+
+# Transmission by address
+
+```cpp
+#include <iostream>
+using namespace std ;
+main()
+{ 
+    void exchange (int *ad1, int *ad2) ;
+    int a=10, b=20 ;
+    cout << " before call : " << a << " " << b << "\n" ;
+    exchange (&a, &b) ;
+    cout << " after call : " << a << " " << b << "\n" ;
+}
+void exchange (int *ad1, int *ad2)
+{ 
+    int x ;
+    x = *ad1 ;
+    *ad1 = *ad2 ;
+    *ad2 = x ;
+}
+```
+
+# Arrays and Pointers
+
+An array name is a constant pointer
+– In C++, the identifier of an array, when used alone (without index), is considered a (constant) pointer on the beginning of the array.
+
+One-dimensional array
+- Consider the following statement : ```int t[10]```
+- The notation t is then totally equivalent to &t[0].
+- The t identifier is considered to be of the "pointer" type corresponding to the elements of the array, i.e., here, int * (and even more precisely const int *). 
+
+Two ways to place value 1 in each of the 10 items in our array:
+```cpp
+int i ;
+for (i=0 ; i<10 ; i++)
+    *(t+i) = 1 ;
+// Or :
+int i ;
+int *p :
+for (p=t, i=0 ; i<10 ; i++, p++)
+    *p = 1 ;
+```
+
+In the second way, we had to copy the value represented by t into a pointer named p. Indeed, the t symbol represents a constant address (t is a pointer type constant on int cases). In other words, an expression such as t++ would have been invalid, just as, for example, 3++. An array name is a constant pointer; it is not lvalue.
