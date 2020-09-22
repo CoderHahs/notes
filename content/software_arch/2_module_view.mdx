@@ -1,0 +1,141 @@
+---
+title: "Module View"
+metaTitle: "Module View"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+- captures code/data units structure decisions
+- allocation of responsibilities
+    - project management
+        - work allocation
+        - effort/cost evaluation
+        - progress monitoring
+    - engineering qualities
+        - maintainability
+        - reusability
+        - portability
+
+# Modules
+
+Modules are a grouping of code/data. Each module has some responsibilities and relations. For example: Functions/Procedures, Class, Component, Layer, Subsystem.
+
+# Principles
+
+## Information Hiding
+
+Internal design and data of a module must be hidden within the module.
+
+- a module should only expose an **Abstract Interface** through which all interactions occurs
+- **Encapsulation** helps to realize hidden information
+
+Information hiding helps qualities such as:
+- modifiability
+- understandability by reducing complexity
+- reusability
+- portability
+
+## Separation of Concerns
+
+Allocation difference concerns to different modules. A concern is a feature/behavior/quality that is specified as part of requirements.
+
+Helps qualities such as:
+- understandability
+- maintainability
+- reusability
+
+## Functional Independence
+
+A module should depend as little as possible to other
+modules to fulfill its function. These modules are focused and minimal injection. They have high cohesion and low coupling.
+
+## Single Responsibility (SRP)
+
+A module should have only one reason to change. Allocate a single responsibility to a module.
+
+## Dependency Inversion (DIP)
+
+High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions.
+
+## Dependency Inversion (DIP)
+- Don’t refer to volatile concrete classes
+- Don’t derive from volatile concrete classes
+- Don’t override concrete functions
+- Never mention the name of anything concrete and volatile
+
+## Dependency Injection
+A module should not create the modules that it depends-on, they should be provided.
+
+
+# Architectural Patterns
+
+- Organization structures for module view
+- address specific concerns and qualities
+
+## Layered Pattern
+
+Hierarchical organization in layers
+- separation of concerns
+- layers interaction constraints
+
+### Strict Layered
+A layer is only allowed to use the next below. Helps:
+- modifiability
+- testability
+- portability
+
+### Relaxed Layered
+
+Loosens layering constraints. Higher-level layer allowed to directly use a selection (or all) layers below.
+
+## Information Systems
+
+Supports and improve everyday business operation and decision making in an organization.
+- collect store data
+- provide information, knowledge, services
+- accessed and used intensively by users
+
+Design Concerns:
+- data storage/persistance
+- application/business/domain
+- presentation/view
+
+## Model-View Separation Principle
+
+Model (domain) components should not have any direct knowledge of view (presentation) components.
+- do not connect non-UI modules directly to UI modules
+- do not put application logic in the UI modules.
+
+## Model-View-Controller (MVC)
+
+Architectural pattern for interactive applications
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/MVC-Process.svg/200px-MVC-Process.svg.png)
+
+## Model-View-Presenter (MVP)
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Model_View_Presenter_GUI_Design_Pattern.png/220px-Model_View_Presenter_GUI_Design_Pattern.png)
+
+## Model-ViewModel (MVVM)
+
+- responsive UI
+- avoids code duplication
+- unit testing
+- binding complexity
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/MVVMPattern.png/500px-MVVMPattern.png)
+
+# Clean Architecture
+
+- Code dependencies must point only inward.
+    - inner code must know nothing about outer code
+
+![Image](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+- Entities: encapsulate high-level application independent business rules
+- Use Cases: encapsulate application-specific business rules
+- Interface Adapters: translate between the core application and external elements.
+
+## Ports
+
+Interfaces for communication between Use Cases and Adapters.
+- In Port: Adapter to Use Case
+- Out Port: Use case to Adapter
