@@ -56,3 +56,85 @@ Second for-loop:
 - time spent for ```explore(u)```, excluding recursive calls is $O(1 + degree(u))$
 
 Total time: $O (|V| + \sum_{u \in V}(1+ \mathrm{degree}(u))) = O(|V| + |V| + 2|E|) = O(|V| + |E|)$
+
+# Directed Graphs
+
+Assume that $G = (V,E)$ is directed and acyclic. 
+
+Topological Sorting or Ordering is the numbering the vertices $1, 2, ... , n$ such that for each edge (u,v), $#(u) < #(v)$
+
+```python
+def TopologicalOrdering(G):
+  # Input: a directed acyclic graph G (V, E)
+  # Output: A topological ordering of V
+  k = 1
+  while V != {} do:
+    Choose a vertex u in V with indegree 0
+    Give u the number k
+    k = k + 1
+    Remove u from G
+```
+
+## Prenumbers and Postnumbers
+
+Let $G = (V, E)$ be a directed graph. For each vertex $v \in V$, we define the following two numbers with respect to Depth-First-Search. 
+
+- **pre(v)**: the first time we visit $v$ (the time at which *explore(v)* is called)
+- **post(v)**: the time at which *explore(v)* is finished.
+
+Use variable *clock*. At start, clock = 1.
+
+```python
+def previsit(v):
+  pre(v) = clock
+  clock += 1
+def postvisit(v):
+  post(v) = clock
+  clock += 1
+```
+
+## 4 Types of Edges
+
+### Tree edge
+
+- edge $v \rightarrow u$
+- $explore(u)$ is called as a recursive call within $explore(v)$
+- solid edge
+- literally the edges we follow when we execute DFS
+
+### Forward edge
+- edge $v \rightarrow u$ where in the (solid) tree,
+- $u$ is in subtree of $v$
+- $u$ is not a child of $v$
+- shortcut that brings you down the tree
+
+### Back edge
+- edge $v \rightarrow u$ where in the (solid) tree,
+- $v$ in subtree of $u$
+- enable you to go back in the tree
+
+### Cross edge
+- lets you go from one subtree to another
+- all other edges
+
+## Acyclic vs Cyclic
+
+$G$ has a directed cycle if and only if DFS-forest has a back-edge.
+
+### How to test if a directed graph is cyclic?
+
+1. Run DFS (including pre/post-numbers)
+2. For each non-tree edge(v, u), test if *pre(u) < pre(v) > post(v) < post(u)*
+  - if "yes" fpr at least one non-tree edge, return "cyclic"
+  - if "no" for all non-tree edges, return "acyclic"
+
+Running time: *O(|V| + |E|)*
+
+### Topological Sort for directed acyclic graph
+
+1. Run DFS (including pre/post-numbers)
+2. Run Bucket Sort to sort the vertices by post-number.
+3. Obtain the topological ordering from the reverse sorted order of the post-numbers.
+
+# Shortest Paths
+
