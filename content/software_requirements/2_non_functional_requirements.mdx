@@ -47,7 +47,7 @@ These include:
     - degree of precision/recall for computations
     - Precision = True positives / True positives + False positives -> if positive then for sure positive
     - Recall = true positive / true positive + false negatives -> if negative then for sure negative
-    - F1 score = 2 x precision x recall / precision + recall
+    - F1 score = 2 x precision x recall / precision + recall -> average of precision and recall, to do with reliability
 
 # Availability Metrics
 
@@ -136,3 +136,89 @@ The most appropriate quality metrics will vary from one application domain to an
 - Accessibility
     - Web-based system: Compliance with standards for people with visual disabilities
     - Video games: Handling by a 8-10 year old kid (and, also, no violence!)
+
+# Contemporary qualities
+
+## Security
+
+Requirements expressed in terms of:
+- Types of attacks, threats or vulnerabilities
+- Risks
+- Observed events
+- Controls
+- Technical solutions (how)
+- Individuals!
+
+Security measures the ability of the system to resist unauthorized accesses and other attacks. Some metrics include:
+- Minimal success rate in authentication
+- Level of resistance to known attacks (to be enumerated)
+- Time/effort/resources/probability needed to find a key
+- Probability/time/resources needed to detect an attack
+- Percentage of useful services still available during an attack
+- Percentage of successful attacks
+- Lifespan of a password/session
+- Encryption level
+- Compliance level with security standards or guidelines
+
+Examples of security requirements
+- The system shall detect at least 99% of intrusion attempts within 10 seconds
+- Under a detected Denial of Service attack, the system shall continue offering service X to its premium users
+- The system shall use AES-192 or stronger encryption on the data it stores
+- The server shall identify its client applications before allowing them to use its capabilities
+- The system shall log access authorization attempts
+- The system shall force its users to change their password on their first monthly login
+
+## Safety
+
+Protection against *unintended* threats/hazards
+- both types of threats can be internal or external
+- similar metrics
+    - replace attack with hazard!
+
+## Privacy and Confidentiality
+
+### Privacy 
+Privacy refers to an individual's right to be free from intrusion or interference by others. It is a fundamental right in a free and democratic society. Individuals have privacy interests in relation to their bodies, personal information, expressed thoughts and opinions, personal communications with others, and spaces they occupy.
+
+Privacy is often described from the viewpoint of the user
+- The system shall enable the user to manage the visibility of their personal information with other users
+- The system shall notify users of the system’s information management policy before any personal information is collected from them
+- The system shall destroy personal information of a user within 1 year of the deletion of that user’s account
+
+### Confidentiality
+
+The ethical duty of confidentiality refers to the obligation of an individual or organization to safeguard entrusted information. The ethical duty of confidentiality includes obligations to protect information from unauthorized access, use, disclosure, modification, loss or theft. 
+
+Confidentiality is often described from the viewpoint of the organization
+- The system shall prevent personal information to be accessed by unauthorized users
+
+## Legal (Normative) Compliance
+
+- Many sources of norms
+    - Laws, acts, regulations, policies, standards, collective agreements, contracts, codes
+    - Mostly expressed in terms of obligations, rights, interdictions...
+- There are consequences to non-compliance to applicable norms
+    - Fines/penalties, additional audits, licence removal, imprisonment, closure, loss of reputation...
+- Yet, it is insufficient to simply cite appropriate norms... 
+    - “The system shall comply with the Personal Information Protection and Documents Act (PIPEDA)” does not help much (too coarse-grained)!
+        - PDF version (57 pages): https://laws-lois.justice.gc.ca/PDF/P-8.6.pdf
+    - Ditto with “The system shall comply with the General Data Protection Regulation” (GDPR, from the European Union)
+
+## Ethical Requirements
+
+Go beyond (imposed) regulatory norms and consider ethics!
+- Applied ethics is the use of ethics principles (what is right or good) in actual situations, such as in professional life
+- One challenge is to turn ethical considerations and principles into concerns and requirements that engineers can understand
+
+## Values
+
+![Image](https://upload.wikimedia.org/wikipedia/en/d/db/Theory_of_Basic_Human_Values_Graphic.jpg)
+
+## Emotional Requirements
+
+“Make sure the new video game is fun!”
+- Common in games, social media applications, wellness apps
+- Metrics based on intended emotional state of the user/player, the frequency of usage/gaming, the duration of usage/gaming, etc.
+- States based on:
+- amusement, anger, contempt, contentment,disgust, embarrassment,excitement, fear, guilt, pride in achievement, relief, sadness/distress, satisfaction, sensory pleasure, and shame
+

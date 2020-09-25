@@ -1,0 +1,176 @@
+---
+title: "Blind and Heuristic Searches"
+metaTitle: "Blind and Heuristic Searches"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Blind Searches
+
+A **blind search** (also called an uninformed search) is a search that has no information about its domain.
+
+The only thing that a blind search can do is distinguish a non-goal state from a goal state.
+
+## Examples of Search Spaces
+
+- 8-puzzle problem
+    - A tile game with a total 9 spaces (like a sudoku), but only 8 of those spaces are filled. The goal is to sort the numbers in clockwise ascending order while moving one piece at a time.
+- Traveling Salesman
+    - How to visit all cities with minimal cost or time spent?
+- Tic-tac-toe
+
+## Search as a directed graph
+- A (directed) graph consists of a set $N$ of nodes and a set $A$ of ordered pairs of nodes, called **arcs**.
+- Node $n_2$ is a neighbor of $n_1$ if there is an arc from $n_1$ to $n_2$. That is, if $(n_1, n_2) \in A$/
+- A **path** is a sequence of nodes $(n_0, n_1,..., n_k)$ such that $n_{i-1}, n_i) \in A$.
+- The **length** of path $(n_0, n_1, ..., n_k)$ is $k$.
+- Given the set of **start nodes** and **goal nodes**, a **solution** is a path from a start node to a goal node.
+
+## Graph Searching / Generic Search
+
+- Generic search algorithm: given a graph, start nodes, and goal nodes, incrementally explore paths from the start nodes.
+- Maintain a **frontier** of paths from the start node that have been explored.
+- As search proceeds, the frontier expands into the unexplored nodes until a goal node is encountered.
+- The way in which the frontier is expanded defines the **search strategy**.
+
+## Depth-First Search
+
+Depth-first search treats the frontier as a stack. It always selects one of the last elements added to the frontier. If the list of paths on the frontier is $[p_1, p_2, ...]:
+- $p_1$ is selected. Paths that extend $p_1$ are added to the front of the stack (in front of $p_2$).
+- $p_2$ is only selected when all paths form $p_1$ have been explored.
+
+## Breadth-first Search
+
+Breadth-first search treats the frontier as a queue. It always selects one of the earliest elements added to the frontier. If the list of paths on the frontiers is $[p_1, p_2, ..., p_r]$. If the list of paths on the frontier is $[p_1, p_2, ..., p_r]$:
+- $p_1$ is selected. It's neighbors are added to the end of the queue after $p_r$
+- $p_2$ is selected next.
+
+## Lowest-cost-first Search
+
+Sometimes there are costs associated with arcs. The *cost* of a path is the sum of the costs of its arcs. An **optimal solution** is one with minimum cost.
+- At each stage, *lowest-cost-first* selects a pth on the frontier with lowest cost.
+- The frontier is a priority queue ordered by path cost.
+- The first path to a goal is a least-cost path to a goal node.
+- When arc costs are equal $\rightarrow$ breadth-first search.
+
+## Variations on Basic algorithms
+
+The **branching factor** is the number of children of a node. if that factor is not constant (e.g. binary trees has a constant factor of 2), then we cna use an average to perform cost estimates.
+
+The **depth** of a space search is the number of actions on the longest path. That number can be infinite if the graph contains cycles.
+
+### Depth-first search: Bounded Search Variation
+
+1. Determine a maximum level for the depth to explore.
+2. Do not continue in a path if the maximum is reached.
+
+### Depth-first search: Iterative Deepening Search
+
+1. Fix a maximum depth
+2. Repeat until a solution is found:
+    - Perform bounded search with specified maximum
+    - If a solution is found:
+        - return the solution
+    - else:
+        - increase the max depth
+
+### Breadth-first search: Beam Search
+
+1. Determine a maximum size for the number of children to explore (the beam size)
+2. Only add the specified number of children on the frontier.
+
+### Iterative Broadening Search
+
+1. Fix a beam size
+2. Repeat until a solution is found:
+    - Perform beam search with specified beam size
+    - If a solution is found
+        - return the solution
+    - else:
+        - increase beam size
+
+# Heuristic Searches
+
+A heuristic search considers knowledge of the problem to explore some (not all) successors of the current state. This means pruning the state space, gaining speed, but perhaps missing the solution!
+
+As opposed to blind search, a heuristic search has a "look-ahead" method it can use to estimate how close it is to the goal.
+
+## What is a Heuristic?
+
+Heuristics is the study of the methods and rules of discovery and invention. Sometimes called a "rule of thumb", but that has a bit of a negative connotation. A heuristic should express some *insight* about a domain. Some heuristics are more "well founded" than others, as they might rely on observable facts. For example, a *good move* in chess might correspond to a move that frequently leads to a win.
+
+## Local vs Global Heuristics
+
+A **local heuristic** has a limited view of a problem. An agent may have a task to do and only know items close to it.
+
+A **global heuristic** assumes a broader understanding of the problem that allows for evaluations (heuristic evaluation functions) that depend on a set of factors.
+
+## Greedy Algorithm
+
+The algorithm considers local information. A decision is based on
+the lowest cost of the next possible action.
+
+Not to be confused with the lowest-cost-first search, because here
+the algorithm looks forward, not back. We consider the cost of the
+branch to be taken, and not the already accumulated cost of a path.
+
+## Global Heuristic Search
+
+- General idea: Don't ignore the goal when selecting a path.
+- Use knowledge (heuristics) to guide search towards the goal.
+- We define $h(n)$ as an *estimate of the proximity* to the goal, starting from node n.
+- $h(n)$ must be quick to calculate
+- We say that $h(n)$ is an underestimate if there is no path from node n to goal that has a cost less than $h(n)$. 
+
+## Best-First Search
+Follow the path with the final node the closest to the goal, as estimated by the heuristic function. 
+
+On the frontier, choose the minimal $h(n)$.
+
+## A* Search
+
+A* search combines the lowest-cost search and the best-first search. It looks behind and in front. The evaluation function for the choice of the path to pursue on the frontier becomes:
+
+> $f(p) = \mathrm{cost}(p) + h(p)$
+>
+> $\mathrm{cost}(p)$ is path cost from start to current node
+> $h(n)$ is the estimated cost from the current node to the goal.
+
+## Summary
+
+| Search Strategy 	| Selection at frontier 	|
+|-	|-	|
+| Greedy** 	| minimum of $\mathrm{cost}(n_i+1)$ 	|
+| Best-first 	| search minimum of $h(n)$ 	|
+| A*  	| minimum of $(h(n) + f(n))$ 	|
+
+** *The greedy approach does not need to open multiple nodes, it just selects the one with the smallest cost.*
+
+## Adversarial Searches
+
+### Minimax Algorithm
+```python
+def minimax(node, depth, maximizingPlayer):
+    if (depth == 0 or node is terminal node):
+        return the heuristic value of node
+    if (maximizingPlayer):
+        value = -infinity
+        for each child of node:
+            value = max(value, minimax(child, depth -1, False))
+        return value
+    else: # minimizing Player
+        value = +infinity
+        for each child of node:
+            value = min(value, minmax(child, depth - 1, TRUE))
+        return value
+```
+
+#### Alpha-beta pruning
+
+A search algorithm that seeks to decrease the number of nodes that are evaluated by the minimax algorithm in its search tree. It is an adversarial search algorithm used commonly for machine playing of two player games. It stops evaluating a move when at least one possibility has been found that proves the move to be worse than a previously examined move. Such moves need not be evaluated further. When applied to a standard minimax tree, it returns the same move as minimax would, but prunes away branches that cannot possibly influence the final decision.
