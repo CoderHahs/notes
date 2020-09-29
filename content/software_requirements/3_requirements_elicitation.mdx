@@ -1,0 +1,193 @@
+---
+title: "Requirements Elicitation"
+metaTitle: "Requirements Elicitation"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+Requirements elicitation is “the process of discovering the requirements for a system by communicating with customers, system users and others who have a stake in the system development”
+
+# Goals
+
+- Determine information needed, the sources of information & the appropriate techniques
+- Get information on domain, problem, constraints
+- Produce a first draft
+    - Mainly user requirements and elicitation notes
+    - Potentially incomplete, disorganized, inconsistent
+    - But we must start somewhere!
+    - In terms of the IEEE 29148 standard, can lead to the Stakeholder Requirements Specification
+
+# Risks and Challenges
+
+- Problems of scope
+- System boundaries inadequately defined or defined too soon
+- Unnecessary technical details
+- Problems of understanding
+    - Stakeholder not sure of what is needed
+    - Stakeholder has trouble communicating needs
+    - Stakeholder does not understand capabilities and limitation of computing environment
+        - Requirements limited by what stakeholders think is possible
+    - Stakeholder does not have full understanding of domain
+    - Stakeholders state conflicting requirements
+        - Hard to detect, negotiate, and prioritize
+- Problems of volatility
+    - Stakeholders will change their mind and avoid committing
+- Other typical issues
+    - Experts seldom available
+    - Many stakeholders lack motivation or resist to change
+    - Finding an adequate level of precision/detail
+    - Mixing requirements with design
+    - Common vocabulary often missing
+- Requirements do not fall from the sky!
+    - Sometimes hidden
+    - Sometimes too obvious, implicit, ordinary...
+    - Assume == “a**” of “u” and “me”
+- Need for creative thinking in order to produce innovative and adequate requirements
+
+# Sources of Requirements and Stakeholders
+
+- Various stakeholders
+    - Clients, customers, users (past and future), buyers, managers, domain experts, developers, marketing and QA people, lawyers, people involved in related systems, anyone who can bring added value!
+- Pre-existing systems
+    - Not necessarily software systems, e.g., manual workflows
+- Pre-existing documentation
+- Competing systems
+- Documentation about interfacing systems
+- Private data (companies) and public data (social media)
+- Standards, policies, collective agreements, legislation
+
+# Stakeholder
+
+## Customer/Client
+
+Person who pays for the software development
+- Ultimately, has the final word on what the product will be 
+- For an internal product, the client is probably a product manager
+- For the consumer market, the customer may be the marketing department
+
+## Buyer
+
+Person who pays for the software once it is developed
+- Possibly a user or a business owner buying a product for his employees
+- What features is he willing to pay for?
+- Which features are trivial or excessive?
+- Must participate actively in the project (or have a representative) 
+
+## User
+
+User of the current system or future system
+- Experts of the current system: indicate which functions to maintain or improve
+- Experts of competitors’ products: suggestions on designing a superior product
+- May have special needs or requirements
+    - Usability, training, online help ...
+- Do not neglect interest groups
+    - Expert users, or with disabilities or handicaps
+- Select users with care
+    - Different seniority and other categories
+    - Must speak with authority and be responsible and motivated
+
+## Domain Expert
+
+Expert who knows the work involved
+- Familiar with the problem that the software must solve. For example:
+    - Financial expert for finance management software
+    - Aeronautical engineers for air navigation systems
+    - Meteorologist for weather forecasting system, etc...
+- Also knows the environment in which the product will be used
+
+## Software Engineer
+
+Expert who knows the technology and process
+- Determines if the project is technically and economically feasible
+- Specifically estimates the cost and time of product development
+- Educates the buyer/client on the latest and innovative hardware or software, and recommends new features that will benefit from these technologies
+
+## Others
+
+- Inspector
+    - An expert in governmental rules and safety relevant to the project
+    - Examples: safety inspectors, auditors (e.g., “Big Four”), technical inspectors, government inspectors
+- Market research specialist
+    - Can play the role of the customer if the software is developed for the general public
+    - Expert who has studied the market to determine trends and potential needs of (future) customers
+- Lawyer
+    - Familiar with laws and legal/contractual aspects
+    - Standards relevant to the project
+- Expert on interacting systems
+    - Knows the interfaces of the (external) interacting systems
+    - May be interested in product features (if the product can help the interacting system to perform its tasks)
+- Managers and decision-makers
+- Others that bring added value
+    - People who will use your product as a basic building block
+    - User experience (UX) expert, negative stakeholders (competitor, hacker, ...), regulators, unions, testers, interest groups, the “crowd”, etc.
+
+# Personas
+
+- Fictitious representation of a probable user
+    - Away from outlier and unlikely cases
+- Seeks to represent the needs and characteristics of different groups of users (often unavailable)
+- Ideally created from real data / encounters / observations
+- Can partially compensate for the physical absence of users
+    - Name and photo! Personalizes a particular user. Focus and empathy!
+    - No interactions however ...
+- Describes: behavior patterns, objectives, problems, abilities, attitudes, environment, culture, demographic info...
+- Different templates exist
+    - Generic advice: https://bit.ly/3cL4m9m
+    - Some  focus on particular areas, for example, medical patients (http://russellfaust.com/patient-personas/)
+
+## Characteristics of personas: VARIED
+
+- Vivid
+    - The persona should make anyone who reads it feel like they have actually met this person.
+- Actionable
+    - If the persona does not inform how you sell or build stuff, why bother?
+- Real
+    - Good personas are not created in cubicles. Go where the persona is and observe!
+- Identifiable
+    - Make sure you can identify and target these personas, or you will not be able to find a use for them.
+- Exact
+    - “Everyone” is not your customer. Make sure the personas are distinct so you can apply relevant focus.
+- Detailed
+    - People are complicated and so good personas are usually substantial
+
+# Requirements Elicitation Tasks
+
+- Planning for the elicitation
+    - Why? Who? When? How? Risks?
+- During the elicitation
+    - Confirm the viability of the project (is it worth it?)
+    - Understand the problem from the perspective of each stakeholder
+    - Extract the essence of stakeholders’ requirements
+    - Invent better ways to do the work of the user
+- Following the elicitation
+    - Analyse results to understand obtained information
+    - Negotiate a coherent set of requirements acceptable by all stakeholders and establish priorities
+    - Record results in the requirements specification
+
+![Image](https://miro.medium.com/max/1414/1*3Wosmb7qlsKd1-EMlftWBQ.png)
+
+Elicitation is incremental
+- Driven by information obtained
+- You always do a bit of elicitation – analysis – specification – verification at the same time
+
+## Objectives, Strategies & Processes
+
+- Objectives: Why this elicitation?
+    - Validate market data
+    - Explore usage scenarios
+    - Develop a set of requirements, etc..
+- Approaches used
+    - Often a combination of approaches depending on the types and number of stakeholders
+- Expected products
+    - Choice of: notes, goals, high-level requirements, scenarios, etc.
+    - Generally: disorganized, inconsistent, incomplete
+- Extract the essence of the stakeholders' requirements
+    - Interpret stakeholders' descriptions of requirements
+    - Possibly build models (may be part of your documentation!)
+    - Gaps in the model behavior may indicate unknown or ambiguous situations
+        - Models help focus our efforts
+        - Should be resolved by asking appropriate stakeholders
+- Invent better ways to do the user’s work
+    - The client/user’s view can be limited by past experiences...
+    - Ask why documented requirements so far are desired
+    - Brainstorm (or use another creativity technique) to invent and propose requirements the stakeholders have not yet thought of
+

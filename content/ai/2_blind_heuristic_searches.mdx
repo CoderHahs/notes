@@ -27,7 +27,7 @@ The only thing that a blind search can do is distinguish a non-goal state from a
 
 ## Search as a directed graph
 - A (directed) graph consists of a set $N$ of nodes and a set $A$ of ordered pairs of nodes, called **arcs**.
-- Node $n_2$ is a neighbor of $n_1$ if there is an arc from $n_1$ to $n_2$. That is, if $(n_1, n_2) \in A$/
+- Node $n_2$ is a neighbor of $n_1$ if there is an arc from $n_1$ to $n_2$. That is, if $(n_1, n_2) \in A$
 - A **path** is a sequence of nodes $(n_0, n_1,..., n_k)$ such that $n_{i-1}, n_i) \in A$.
 - The **length** of path $(n_0, n_1, ..., n_k)$ is $k$.
 - Given the set of **start nodes** and **goal nodes**, a **solution** is a path from a start node to a goal node.
@@ -162,7 +162,7 @@ def minimax(node, depth, maximizingPlayer):
     if (maximizingPlayer):
         value = -infinity
         for each child of node:
-            value = max(value, minimax(child, depth -1, False))
+            value = max(value, minimax(child, depth -1, False)) 
         return value
     else: # minimizing Player
         value = +infinity

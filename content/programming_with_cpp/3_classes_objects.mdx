@@ -1,0 +1,91 @@
+---
+title: "Classes and Objects"
+metaTitle: "Classes and Objects"
+metaDescription: "Topics in Programming Concepts with C++"
+---
+
+# Structures
+
+```cpp
+struct enreg
+{ 
+    int number ;
+    int quantity ;
+    float price ;
+} ;
+```
+
+– It defines a type (model) of structure but does not reserve a variable corresponding to that structure. This type is called here enreg and it specifies the name and type of each of the fields that make up the structure (number,
+quantity and price).
+– Variables of the corresponding type can be reported, such as : ```enreg art1 ;```
+    - reserves a location called art1« of type enreg » intended to contain two int and one float. We'll use the same word « structure » to designate either the name of the type (model) or variables of the type. 
+
+## Initialization of structures
+
+– In the absence of explicit initialization, automatic class structures (including local structures to a function) are
+not initialized, so they contain random values.
+– Static class structures see their fields initialized to « zero » (zero integer, zero float, zero code character, zero
+pointer). This rule applies to fields that are scalars or scalar arrays. If some fields are themselves structures, the
+rule will apply to each of their fields, and so on.
+– A structure can be initiated when it is declared, as in this statement which uses the type enreg defined previously :
+```enreg art1 = { 100, 285, 200 } ;```
+
+## Scope
+
+The scope of a type of structure depends on the location of its declaration :
+- If it is within a function (including main function), it is only accessible from that function
+- If it is outside a function, it is accessible from the entire part of the source file that follows its statement; it can be used by several functions.
+
+```cpp
+struct enreg
+{ 
+    int number ;
+    int quantity ;
+    float price ;
+} ;
+int main ()
+{ enreg x ;
+....
+}
+fct ( ....)
+{ enreg y, z ;
+....
+}
+```
+
+# Unions
+
+The union theoretically allows the same memory location to be shared by variables of different types. The syntax of the description of a union is analogous to that of a structure.
+
+```cpp
+union test
+{
+    long n;
+    float x;
+} u;
+```
+
+This statement reserves a location whose number of bits corresponds to the size (here assumed to be common) of a
+long or a float which can be seen as a long Integer which will then be referred to as u.n, sometimes as a float which will then be referred to as u.x. 
+
+# Enumerations
+
+A type enumeration is a particular case of int type and therefore a scalar type (or simple). It forms as structures a type defined by the programmer.
+
+```enum color {yelow, red, blue, green} ;```
+– This statement defines a type of enumeration named color and specifies that it contains four possible values designated by the identifiers yellow, red, blue and green. These values are the constants of the color type.
+
+## Why Enumeration?
+
+– Readability
+– Easy to change digital representations
+– enum types are implicitly converted to int
+– enum class in C++ (highly typical enumerations)
+– Strong typing, i.e.
+    - Red value cannot be assigned to a variable of another type.
+
+# Class and object
+# Constructor and destructor
+# Static data members
+# Using a class
+# Objects

@@ -1,0 +1,92 @@
+---
+title: "Strings in C++"
+metaTitle: "Strings in C++"
+metaDescription: "Topics in Programming Concepts with C++"
+---
+
+In C++, a string of characters is represented by a series of bytes corresponding to each of its characters, all of which end with an additional byte of zero code. A string of characters occupies a n+1 bytes location in memory.
+
+```cpp
+#include <iostream>
+using namespace std ;
+int main()
+{ 
+    char * adr ;
+    adr = "Hello" ;
+    while (*adr)
+    { 
+        cout << *adr ;
+        adr++ ;
+    }
+    return 0;
+}
+
+// Output : Hello
+```
+
+char * adr ;
+- reserves the location for a pointer on a character (or a sequence of characters).
+- For the constant : "Hello"
+    - the compiler has created in memory the corresponding suite of bytes but, in the assignment:
+- adr = "Hello"
+    - The Hello notation has as value its address, not the value of the string itself; we find here the same phenomenon as for the arrays. 
+
+# Reading and writing C-Style Strings
+
+```cpp
+#include <iostream>
+using namespace std ;
+int main()
+{ 
+    char name [20], firstName [20], city [25] ;
+    cout << " what is your city : " ;
+    cin >> city ;
+    cout << " give your name and first name : " ;
+    cin >> name >> first name ;
+    cout << "hello dear" << first name << " "<< name << " who lives in " << city ;
+    return 0;
+}
+
+//Output
+// what is your city : Ottawa
+// give your name and first name : Leblanc Yves
+// hello dear Yves Leblanc who lives in Ottawa
+```
+
+# Initialization of arrays by Strings
+
+```char ch[20] ;```
+– ch here is a constant pointer that corresponds to the address that the compiler has attributed to the array ch; it's not lvalue. Therefore, it cannot be given any other value (such as: ch = "hello").
+– In C the characters array is initialized using a constant string
+
+```char ch[20] = "hello" ;```
+which is equivalent to a ch Initialization by a list of characters:
+```char ch[20] = {'h','e′, 'l′, 'l′, 'o′, '\0′ }```
+– the 14 characters not explicitly initialized will be:
+    - initialized to zero (static class array): in this case, the omission of character \0 would not be (here) serious
+(unless 20 characters had been provided!);
+    - Random (automatic class array): In this case, the omission of character \0 would be much more
+troublesome.
+    - C++ authorizes the omission of the size of an array when it is made, when accompanied by an initialization,one can write:
+
+```char message[] = "hello" ;```
+- which reserves an array, called message, of 6 characters  (considering the end 0). 
+
+# Arguments transmitted to main function
+
+```cpp
+#include <iostream>
+using namespace std ;
+main (int nbarg, char * argv[])
+{ 
+    int i ;
+    cout << " my program name is : " << argv[0]<< "\n" ;
+    if (nbarg>1) for (i=1 ; i<nbarg ; i++)
+    cout << " argument number " << i << " : " << argv[i] << "\n" ;
+    else cout << " no arguments \n" ;
+}
+// ----------------------Code output-----------------------------------------
+// my program name is : XXX.exe
+// argument number 1 : data.dat
+// argument number 2 : output.txt
+```
