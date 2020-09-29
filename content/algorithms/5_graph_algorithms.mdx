@@ -147,3 +147,40 @@ Input:
 Output:
 - For each vertex $v \in V$, $(s,v)$ = length of a shortest path from $s$ to $v$.
 
+For each vertex $v ∈ V$, maintain variable $d(v)$ = length of a shortest path from $s$ to $v$ found so far.
+
+At start,
+$d(v) = {0 if v = s, \infty if v \neq s$
+
+Loop: Pick a vertex u for which $d(u) = δ(s, u)$. For each edge $(u, v), d(v) = min {d(v), d(u) + wt(u, v)}$
+
+```python
+for each vertex v in V:
+  d(v) = infinity
+
+d(s) = 0
+S = {}
+Q = V
+
+while Q != {}:
+  u = vertex in Q for which d(u) is minimum
+  delete u from Q
+  insert u into S
+  for each edge (u,v):
+    d(v) = min (d(v), d(u) + wt(u,v))
+```
+
+### Example:
+
+1. Let $n = |V|$ and $m = |E|$.
+2. Store $Q$ in a min-heap, where the key of each vertex is $d(v)$.
+3. Initialization: $O(n)$ (including the time to build the heap storing $Q=V$).
+4. One iteration:
+  - Find $u$ and delete it from Q.
+    - ```extract_min```: $O(log (n))$ time.
+  - For each edge (u, v), we update $d(v)$
+    - ```decrease_key```: $O (log (n))$ time.
+
+Total time for one iteration: $O(log(n)) + O(outdegree(u) · log(n))$
+Total running time: $O (n) + O (\sum_{u \in V} (O(log(n)) + O(outdegree(u) · log(n))))$
+$ = O(n) + O (log(n)(n + 2m)) = O ((m + n) log(n))$
