@@ -1,0 +1,189 @@
+---
+title: "Domain Driven Design"
+metaTitle: "Domain Driven Design"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+- Subject area of an application
+    - Problem space
+    - Can be tangible or intangible
+- Key to building effective applications
+- Must be reflected in the code
+    - Ease maintenance and evolution
+- Most stable part of Architecture
+    - design ensures that
+
+# Domain Driven Design (DDD)
+
+- Focuses on the Domain
+    - what is important
+- Collaboration between domain experts and developers
+- Domain mode - Ubiquitous Language
+    - bounds analysis model to code
+    - supports change and evolution
+
+# DDD Stages
+
+- Strategic Design
+    - Breaks down Domain
+    - Identifies Core-Domains
+    - Determine general structure
+- Tactical Design
+    - Model Domains
+    - Ensures proper separation
+
+## Domain Partition
+
+- difficult to grasp a complex domain
+- sub-domain: partition of a domain
+    - area of capability, processes, part of function
+    - tackle complexity
+    - concentrate effort
+
+### Types of Sub-Domain
+
+- Core domain
+    - essence of the system
+- support domain
+    - necessary for core domain success
+- generic domain
+    - available off-the-shelf
+
+### Development Focus
+
+- Membership, Listing -> supporting (less focus, may outsource)
+- Seller -> core (main focus, most resources)
+- Dispute Resolution -> generic (should be acquired)
+
+## Bounded Context
+
+- semantic contextual boundary for a domain
+    - contains ubiquitous language
+    - encapsulates models: diagrams, code, data
+
+### Context Map
+- global overview of contexts and their relationships
+    - shows bounded contexts integration
+    - teams relationships
+
+### Bounded Context Relations
+
+- Integration approach of Bounded Context and Teams
+- Type of Collaboration
+    - partnership
+    - customer-supplier
+    - conformist
+    - separate-way
+- Direction of dependency
+    - upstream/downstream
+- Integration Mechanism
+    - Shared Kernel
+    - common part of bounded contexts
+        - needs partnership
+        - continuous integration
+    - Anticorruption Layer
+        - protects a bounded context from external corruption
+    - Open Host Service
+        - service access protocol in open format
+
+### Tactical Design
+
+- building blocks for domain models
+- domain concepts
+
+#### Entities 
+- main domain concept
+    - has identity
+    - equality based on identity
+    - has mutable state
+
+#### Value Object
+- descriptor for Entities
+    - no identify
+    - equality defined by state
+    - immutable state
+
+#### Aggregate
+
+- cluster of entities and value objects
+    - has root entity
+    - root controls access
+
+#### Domain Service
+
+- Implements Business Logic
+    - Orchestrates Entities, Value Objects behavior
+    - no identity or state
+
+#### Domain Event
+
+- notifies of domain significant activity
+    - consequence of command
+    - immutable
+- state changes
+    - instance created
+    - instance destructed
+    - attribute value changed
+    - association created
+    - association destructed
+
+#### Repository
+
+- abstraction of persistance store
+    - for persisting and hydrating domain concepts
+    - aggregates must always be persisted as a whole
+
+#### Factory
+
+- creates complex Domain Objects
+    - invariant
+    - complex object structures
+
+# DDD processes
+
+- Use case driven process 
+
+## Identify Sub-Domains
+
+- areas of capabilities, functionalities
+- single responsibility principle
+
+### Contracts 
+
+Consider each sub-domain
+- consider each use case of the sub-domain
+    - identify application commands
+    - consider each application commands
+        - determine post conditions
+        - determine pre conditions
+    - specify contracts
+
+Example:
+
+Use case name: Register Customer  
+Actor: Clerk  
+Precondition: System is ON and Clerk has successfully logged in  
+Steps:
+1. An unregistered Customer who want to register to the Library arrives at a Clerk Station
+2. The Clerk asks for an identification showing the Customer's first and last names, date of birth and address
+3. The Customer provides an identification showing his/her first and last names, date of birth and address
+4. The Clerk asks for the Customer's phone number
+5. The Clerk submits a registration request to the System with the Customer's first and last names, date of birth, address and phone number
+6. The System displays an acknowledgement message and returns a Card to the Customer with his/her Customer's number
+
+Alternatives
+- Occurs at step 5 if a Customer with the same first and last name, and address is already registered
+    1. The System displays a message notifying the Clerk that the Customer is already registered
+    2. The Clerk informs the Customer
+
+Postcondition: The Customer is registered
+
+# Use Case Realization
+
+## Dynamic Model
+- shows how use cases are realized
+- collaboration of application & domain elements
+- responsibility assignment principles
+    - aggregate create their components
+    - single responsibility principle
+    - low coupling / high cohesion
