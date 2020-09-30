@@ -85,6 +85,48 @@ A type enumeration is a particular case of int type and therefore a scalar type 
     - Red value cannot be assigned to a variable of another type.
 
 # Class and object
+
+A **class** is a structure in which only certain members and/or member functions will be *public*, i.e. accessible from the outside, with the other members referred to as *private*.
+
+The declaration of a class is close to that of a structure. Just:
+- replace the keyword struct by the keyword class:
+- specify which public members (functions or data) and private members are using the public and private keywords
+
+```cpp
+#include <iostream>
+using namespace std ;
+/* ------------ Class point statement ------------- */
+class point
+{/* statement of private members */
+private : /* Optional */
+int x ;
+int y ;
+/* statement of public members */
+public :
+void initialize (int, int) ;
+void move (int, int) ;
+void display () ;
+} ;
+17
+/* ----- Defining point class members ---- */
+void point::initialize (int abs, int ord)
+{ x = abs ; y = ord ; }
+void point::move (int dx, int dy) { x = x + dx ; y = y + dy ; }
+void point:: display ()
+{ cout << " I'm in " << x << " " << y << "
+\n" ;
+}
+/* -------- Example of point class use -------- */
+int main() {
+point a, b ;
+a.initialize (5, 2) ; a.display () ;
+a.move (-2, 4) ; a.display () ;
+b.initialize (1,
+-1) ; b.display () ;
+return 0;
+}
+```
+
 # Constructor and destructor
 # Static data members
 # Using a class
