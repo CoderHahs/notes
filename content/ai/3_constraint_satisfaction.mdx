@@ -1,0 +1,101 @@
+---
+title: "Constraint Satisfaction Problems"
+metaTitle: "Constraint Satisfaction Problems"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+A **Constraint Satisfaction Problem** is a characterized by:
+- A set of variables $V_1, V_2, ..., V_n$
+- Each variable $V_i$ has an associated domain $\D_{V_i}$ of possible values.
+- There are hard constraints on various subsets of the variables which specify legal combinations of values for these variables.
+- A solution to the CSP is an assignment of a value to each variable that satisfies all the constraints.
+
+## Hard and Soft constraints
+
+- Given a set of variables, assign a value to each variable that either
+    - satisfies some set of constraints: **satisfiability problems** = "hard constraints"
+    - minimizes some cost function, where each assignment of values to variables has some cost: **optimization problems** = "soft constraints"
+- Many problems are a mix of hard and soft constraints (called constrained optimization problems).
+
+Examples of Satisfiability:
+- scheduling without preferences
+- scheduling with preferences
+- knapsack problem
+
+Example of Optimization:
+- scheduling with preferences
+- knapsack
+- TSP
+
+# Satisfiability
+
+## Generate-and-Test algorithm
+
+- Generate all possibilities and test all (brute force)
+- Generate the assignment space $D = D_{V_1} \cdot D_{V_2} \cdot ... \cdot D_{V_n}$
+- Test cases become to big is a downside
+
+## Arc consistency algorithms
+
+- Idea: prune the domains as much as possible before selecting values from them.
+- A variable is **domain consistent** if no value of the domain of the node is ruled impossible by any of the constraints.
+
+### Constraint Graph
+![Image](https://artint.info/figures/ch04/ConstraintNetwork1.gif)
+
+- oval shape for nodes representing variables
+- rectangular shape for constraints
+- there is a domain associated with each variable node
+- there is an arc starting at the variable X for each constraint that involves it
+
+# AC-3 Algorithm
+
+AC stands for arc consistency. 
+
+- Put all arcs in a Queue. 
+- Evaluate each arc to see if it is consistent.
+
+G is a constraint network representing a CSP with V, D, C
+
+## Algorithm
+
+```
+Q = {(Vi, Vj) such that (Vi, Vj) is part of edges (G), i != j}
+While Q not empty:
+    Choose and remove (Vk, Vm) from Q
+    If revise((Vk, Vm)) then:
+        Q = Q union {(Vi, Vk) for all edges (G), i!= k, i!=m}
+    End While
+End Ac-3
+```
+
+Three possible results:
+- At least one domain is empty -> no solution
+- each domain is reduced to a single value -> unique solution
+- certain domains have more than one value -> maybe none, maybe one, maybe multiple solutions, continue and explore
+
+# Greedy Search
+
+- Greedy Search for planning
+    - alphabetical order, small non-conflicting value
+    - most constrained to least constrained domain
+- Greedy search for knapsack
+    - choose the highest value first. For two equal values, choose the least heavy
+    - choose heaviest first. If two equal weights, choose hightest value
+- Greedy search for TSP
+    - go to closest city, if 2 equal choices, select in descending alphabetical order
+
+## Search Space
+
+**Local maximum (or minimum)**: There exists a better solution that cannot be reached by making local moves according to the cost function.
+
+**Global maximum (or minimum)**: Where the optimal solution is found. Where the cost function is minimized or maximized.
+
+**Plateau**: An area of the search space which provides no clue as to where to go since all neighbors seem locally equal in their evaluation of the cost function.
