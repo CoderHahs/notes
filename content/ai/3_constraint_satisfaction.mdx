@@ -99,3 +99,101 @@ Three possible results:
 **Global maximum (or minimum)**: Where the optimal solution is found. Where the cost function is minimized or maximized.
 
 **Plateau**: An area of the search space which provides no clue as to where to go since all neighbors seem locally equal in their evaluation of the cost function.
+
+# Randomized Search
+
+## Random Restart
+
+Algorithm for search with random restart
+- we try to create a first complete solution
+- we restart from the beginning with a new starting point
+
+## Random Step
+
+Algorithm for search with random step
+- we introduce random steps within the construction of a solution. Sometimes we take a path that is not locally the best.
+
+## Random Modification
+
+ALgorithm for search with random modification
+- we create a first complete solution
+- we then modify parts of the solution following some random strategy
+
+Generic algorithm:
+- Starting with an initial (greedy) solution
+- Repeat for N iterations:
+    - Make local changes
+    - If better (according to cost function):
+        - Keep changes
+    - Else
+        - Keep change (according to some probability)
+
+## Simulated Annealing
+
+- a well-known random modification algorithm
+
+**Simulated annealing** is inspired by the process of restructuring an internal configuration of a solid which is annealed (e.g. crystallization process).
+
+The solid heated up to melting point, so that its particles are randomly distributed. The material is then slowly cooled down, so that the particles reorganize in order to reach a low energy state.
+
+## How to Evaluate?
+
+If we introduce random in the algorithm, we must repeat it many times to measure an average of its performance.
+
+The performance could be in terms of runtime and/or quality of the obtained solution(s).
+
+# Population-based algorithms
+
+Idea: Instead of exploring one solution at atime, **explore M solution in parallel.** The solutions are the **individuals**, and the set of M solutions is the **population**.
+
+## Examples
+
+Known population-based algorithms:
+- bee colony
+- ant colony
+- genetic algorithm
+
+Algorithms inspired from social behavior or nature's behavior
+- Particle swarm optimization (social behavior in flocking birds)
+- Rain algorithm
+
+## Algorithm
+
+- Generate a population $X(t)$ of $M$ individuals
+- Repeat
+    - Perform variations on individuals to generate new individuals
+    - Evaluate individuals and retain the "best" $M$ to generate population $X(t + 1)$
+- Until stopping condition
+
+## Generic Algorithm
+
+- Generate a population $X(t)$ of $M$ individuals
+- Repeat
+    - Perform variations on individuals to generate new individuals
+    - Evaluate individuals and retain the "best" $M$ to generate population $X(t + 1)$
+- Until stopping condition
+    1. Max $Nb$ iterations
+    2. No better solution within K iterations
+    3. One solution better than threshold on cost function
+
+## Genetic Algorithm
+
+Algorithm inspired from genetic, including crossovers and mutations of ADN
+occurring during reproduction. The best adapted (according to a cost
+function) “parent” population will hopefully create even more adapted
+“children” individuals.
+
+- **Crossover**: exchange portions from both parents
+- **Mutation**: modify an element of an individual
+
+- Generate a population X(t) of M individuals
+- Repeat
+    - Choose pairs of individuals (parents) using a measure to
+    choose the most "fitted" individuals
+    - For each pair, carry out cross-overs by exchanging part of
+    solutions from the parents to generate children
+    - Generate some children as « copies » of a parent
+    - Make changes (mutations) to certain children
+    - Evaluate individuals and retain the “best” M to generate
+    population X(t + 1)
+- Until stopping condition
