@@ -184,3 +184,42 @@ while Q != {}:
 Total time for one iteration: $O(log(n)) + O(outdegree(u) · log(n))$
 Total running time: $O (n) + O (\sum_{u \in V} (O(log(n)) + O(outdegree(u) · log(n))))$
 $ = O(n) + O (log(n)(n + 2m)) = O ((m + n) log(n))$
+
+# Dijkstra Correctness
+
+## Theorem
+
+Let $G = (V, E)$ be a weighted directed graph and $s \in V$ be a source vertex. Dijkstra algorithm finds the lengths of the shortest paths from $s$ to all vertices in $V$.
+
+We prove by induction that
+1. if a vertex $u$ is in $S$, then $d(u)$ gives the length of a shortest path from $s$ to $u$ and
+2. if a vertex $u$ is not in $S$, then $d(u)$ gives the length of a shortest *special* path from $s$ to $u$.
+
+**Base case**:
+1. At the beginning, $S = {}$, so (1) above is vacuously true.
+2. Since $S = {}$, the other vertices simply cannot be reached by following a special path from $s$. Since $d$ is initialized to $\infty$, then (2) above also holds when the algorithm starts.
+
+**Induction hypothesis**: Assume that both (1) and (2) hold right before we
+add a new vertex v to S. We address induction steps (1) and (2) separately.
+
+**Induction step (1)**: By the induction hypothesis (1), before the addition of $v$, we already know a shortest path from $s$ to all vertices that are in $S$. Adding $v$ to $S$ does not change these shortest paths. 
+
+As for node $v$, it is about to be inserted in $S$. Before adding it to $S$, we must check $d(v)$ gives the length of a shortest path from $s$ to $v$.
+
+So we compare $d(v)$ to the lengths of all paths from $s$ to $v$. There are two kinds of paths:
+- the paths that are special
+- the ones that are not
+
+By the induction hypothesis (2), we already know that $d(v)$ is less than or equal to the length of any special path from $s$ to $v$. A non-special path from $s$ to $v$ is one which contains at least one vertex $x \neq v$ that is not in $S$. But such a path has length at least $d(x) \geq d(v)$.
+
+Hence, $d(v)$ is less than or equal to the length of any path from $s$ to $v$,
+which means that $d(v)$ gives the length of a shortest path from $s$ to $v$.
+So the induction step is complete for $(1)$.
+
+**Induction step (2)**: Consider a node $w \neq v$ which is not in $S$. Let $y$ be the last vertex in $S$ encountered on a shortest special path from $s$ to $w$. We consider:
+- $y \neq v$
+- $y = v$
+
+If $y \neq v$ then adding $v$ to $S$ does not change the value of $d(w)$. Hence, by the induction hypothesis (2), $d(w)$ gives the length of a shortest special path from $s$ to $w$.
+
+If $y = v$, then by doing $d(w) = \mathrm{min} {d(w), d(v) + wt(v, w)}$, we ensure that after adding $v$ to $S$, $d(w)$ gives the length of a shortest special path from $s$ to $w$.
