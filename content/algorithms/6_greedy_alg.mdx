@@ -1,0 +1,64 @@
+---
+title: "Greedy Algorithms"
+metaTitle: "Greedy Algorithms"
+metaDescription: "Topics in Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+A **greedy algorithm** arrives at a solution by making a sequence of choices, each of which simply looks the best at the moment. The hope is that locally-optimal choices will lead to a globally-optimal solution.
+
+# Making Change
+
+```py
+def MakingChange(x):
+    Coins = {5, 10, 25, 100, 200}
+    Sum = 0
+    while Sum != x:
+        Let c in Coins be the largest denomination such that Sum + c <= x
+        if there is no such denomination:
+            return "No Solution"
+        Add c to the change that will be returned
+        Sum = Sum + c
+```
+
+# The [0, 1] - Knapsack Problem
+
+Find a greedy algorithm to solve the following problem.
+
+input:
+- $n$ objects such that object $i$ (1 \leq i \leq n) has a positive value $v_i$ and a positive weight $w_i$.
+- A maximum weight $W$.
+
+output: A vector $X = (x_1, x_2, ..., x_n)$ such that
+- $0 \leq x_i \leq 1$
+- The total value $x_1v_1+x_2v_2+ ... + x_nv_n$ is maximized.
+- The total weight is not too heavy: $x_1w_1 + x_2w_2 + ... + x_nw_n \leq W$.
+
+## Lemma 
+
+If the objects are selected in order of decreasing $\frac{v_i}{w_i}$, then the greedy choice finds an optimal solution.
+
+## Algorithm
+
+1. Compute all the $\frac{v_i}{w_i}$
+2. Sort the objects in decreasing order of $\frac{v_i}{w_i}$ (use MergeSort)
+3. Build the solution by applying the greedy choice with respect to decreasing order of $\frac{v_i}{w_i}$.
+
+Total time: $O(n log(n))$
+
+# Minimum Spanning Tree
+
+We are given edge $G = (V, E)$ that is undirected and connected. Each edge ${u, v} \in \E$ has a weight $wt (u, v)$. 
+
+We want a compute a subgraph $G' of G$ such that:
+- The vertex set of $G' is V$, 
+- $G'$ is connected, 
+- and $weight(G')$ is minimum, where
+    - $weight(G')$ = sum of weights of edges in $G'$.
+
+$G'$ is called a **Minimum Spanning Tree** of G (MST of G).
