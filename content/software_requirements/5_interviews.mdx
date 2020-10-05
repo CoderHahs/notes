@@ -1,0 +1,151 @@
+---
+title: "Interviews and User Stories"
+metaTitle: "Interviews and User Stories"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Interviews
+
+An **interview** is a structured conversation in which one or more participants (interviewers) ask questions while one or more other participants (interviewees) answers them. 
+
+## Objectives and Process
+
+Three main objectives:
+- Discover information from interviewees
+- Record information to be used as input for requirement analysis and modeling
+- Reassure interviewees that their understanding of the topic has been explored, listened to and valued
+
+Process:
+- Before: Planning and Prep
+- During: Interview session
+- After: Consolidation of information
+- After: Follow-up
+
+## Before Interviews
+
+### Planning and Preparation
+
+- Set objectives for the interview
+    - scope? domain? processes? problems? needs? success criteria?
+    - asking what your requirements are is too direct
+- Acquire background knowledge of the subject matter to conduct an effective interview
+    - about the domain (vocabulary, problems) but also about the interviewee (work tasks, role, expertise, attitude)
+- Choose your stakeholders carefully
+    - Diversity! Time and expertise are also limited.
+- Organize an effective interview environment
+    - how will notes be taken, written, audio
+
+### Preparation of Questions
+
+- Prepare questions in advance
+    - In line with the objectives
+    - Improves the effectiveness of the session, which is limited in time
+    - Gives stakeholders the impression that they are not wasting their time talking to you (and ensures they are actually not wasting their time!)
+- No need to structure everything in advance
+    - ~1 high-level question, with sub-questions, every 5 minutes
+    - However, be comfortable enough to ask more specific questions that follow up on previous answers
+    - Not all questions need to be asked; prioritize dynamically throughout the discussion!
+- Open-ended questions, to improve your understanding
+    - Of the domain
+        - How many SEG3904 projects are there typically in a semester?
+    - Of the process 
+        - What must you do in order to approve a project and enter the final grade?
+    - Of the problem
+        - What takes you the most time? 
+        - What bothers you the most? What is repetitive?
+- Closed questions for confirmations
+    - Should the system immediately cover all project courses of EECS? Of the Faculty? Of the University?
+- Do not forget “why” questions?
+    - Understanding the rationale allows for innovation in potential solutions, not just local improvements
+
+## During Interviews - Session
+
+- Make the interviewee(s) comfortable and confident
+    - Introduce yourselves and your objectives
+    - Listen, adjust to your stakeholders
+    - Demonstrate empathy and understanding
+    - Communicate the value of this exercise to the stakeholders 
+    - Create excitement!
+- You have your objectives
+    - Balance tenacity with flexibility 
+- Consider interviewing several people at once 
+    - Creates synergy! This would allow the stakeholders to comment and add to the comments of others.
+    - The response of the small group may be better than the sum of the individual responses
+- Potential questions to consider
+- Are there any other questions I should ask you?
+- Is there someone else I should talk to?
+- Do you have any questions?
+- Always give participants a chance to ask their own questions!
+
+### Common Mistakes
+- Implicit interview objectives
+- Poorly formulated questions (vague, too technical, long)
+- Questions ordering (technical at first, without summary)
+- Missing questions to cover objectives
+- Interactions (unnatural style, no empathic connection)
+- Lack of knowledge and confidence
+- Ambiguity not leveraged/clarified
+- Non-functional requirements not elicited
+- Interrogatory-like interviews
+
+## After Interviews
+
+Revise and complete the elicitation notes after the interview
+    - Needs to be done soon after because one forgets the details!
+- Identify inconsistencies and address them in another interview 
+    - Or by email, as a quick confirmation in the follow-up
+- Keep all diagrams, charts, and models created during the discussions
+- You are learning, so be precise
+    - Pay attention to the terminology; try using the stakeholder’s
+    - Identify synonyms, and choose one term per concept
+    - Create a glossary if necessary
+- Thank the participants (e.g., by e-mail)
+    - For their time and the knowledge they shared
+    - Keep the door open for future communications
+- Perhaps take the opportunity to ask 1-2 short questions for clarification or confirmation
+
+# User Stories
+
+
+- Sentence, in a simple business language, that describes a functionality to support (Who? What? Why?)
+- Often from the viewpoint of the user or client
+- Popular in agile development approaches
+- Generic pattern (https://en.wikipedia.org/wiki/User_story):
+    - As a *who/role*,I want *what/desire* [so that *why/benefit*]
+- Examples:
+    - As a user, I want to be able to search for my customers by their first and last names so that I can find them quickly when I receive a call from them.
+    - As a senior manager, I want to produce a report to identify departments that need to improve their productivity.
+
+## Invest Characteristics
+
+
+- I – Independent. We want to be able to move stories around, taking into account their relative priority. This means stories are easiest to work with when they are independent.
+- N – Negotiable. Stories are not an explicit commitment to produce certain features, but a framework for ultimately defining what to produce for the end user.
+- V – Valuable. A story needs to be valuable to the end user. Development issues should be framed in a way that illustrate why the end user would perceive them as important.
+- E – Estimable. We want stories to be estimable, otherwise they're never likely to be tasked for development.
+- S – Small. It is harder to evaluate or plan long stories. When planning the iteration, it must be possible to design, code and test the story within the iteration.
+- T – Testable. Document the acceptance criteria, or the definition of what “accomplished” means for the story, which will lead to test cases.
+
+## Negative User Stories
+
+- As a *hostile agent* I want to *what* [in order to *why/benefit*] [and harm *who*]
+- Examples
+    - As a competitor, I want to be able to flood the system with unnecessary queries to convince users that my system is more performant.
+    - As a hacker, I want to be able to steal a user’s password in order to copy their personal data and harm the owners of the system.
+    - As a hacker, I want to be able to insert executable code in a system query in order to take control of the server.
+- Leads to useful countermeasures 
+    - Like a chess game! But when should we stop?
+
+## Summary 
+
+
+- Benefits of use cases / user stories
+    - All stakeholders can understand them
+    - Often reflect essential stakeholder requirements
+    - Often represent a gold mine for clarifying requirements
+    - Negative user stories help identify safety and security requirements
+- Challenges
+    - Scalability is sometimes difficult for complex systems
+    - Weak support for non-functional concerns and for story maintainability
+    - Are stakeholders really writing their own stories?
+    - Going too far with negative stories could lead to premature design
