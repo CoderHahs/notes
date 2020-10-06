@@ -128,6 +128,63 @@ return 0;
 ```
 
 # Constructor and destructor
+
+– The destructor is a member function systematically performed (if it exists!) «at the end of life» of a static, automatic, or dynamic object.
+– You can’t pass parameters to destructor.
+– Its task is to release the memory allocated to the object when it is created (via the constructor). If you don't define a destructor, there is a default, not visible in the code, that provides the same function of memory release.
+– The destructor has the same name as the class, preceded by a tilde (~).
+
+## Example
+
+```cpp
+#include <iostream>
+using namespace std ;
+class test
+{ public :
+int num ;
+test(int) ; // constructor
+~test() ; // destructor
+} ; 24
+test::test (int n) // constructor definition
+{ num = n ;
+cout << "++ constructor call - num = " << num << "\n" ;
+}
+test::~test () // destructor definition
+{ cout << "-- destructor call - num = " << num << "\n" ;
+}
+int main()
+{ void fct (int) ;
+test a(1) ;
+for (int i=1 ; i<=2 ; i++) fct(i) ;
+return 0;
+}
+void fct (int p)
+{ test x(2*p) ; // note the expression (not constant) : 2*p
+}
+// ---------------------------------------Code Output------------------------------
+// ++ constructor call - num = 1
+// ++ constructor call - num = 2
+// -- destructor call - num = 2
+// ++ constructor call - num = 4
+// -- destructor call - num = 4
+// -- destructor call - num = 1
+```
+
+## Rules
+
+- A constructor may have any number of arguments, possibly none.
+-  A constructor does not return any value; no type can appear before his name (the presence of void is a mistake).
+-  A destructor cannot have any arguments and does not return any value. No type can appear before his name (the presence of void is a mistake).
+-  Constructors and destructors can be public or private. In practice, it is better to make them public.
+-  If a destructor is private, it can no longer be called directly, which is usually not serious (rarely useful).
+-  Privatization of a constructor has serious consequences since it will be usable only by class members functions.
+-  In Java
+    – The constructor owns the same properties as in C++ and a class may not have a constructor.
+    – But in Java, given members are always initialized by default (zero value) and can also be initialized when they are returned (the same value is then assigned to all items of the type). These two possibilities (default initialization and explicit initialization) do not exist in C++(see later).
+
 # Static data members
+
+One way to allow multiple objects to share data is to declare it static.
+
 # Using a class
 # Objects
