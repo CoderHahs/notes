@@ -1,0 +1,211 @@
+---
+title: "Concurrency View"
+metaTitle: "Concurrency View"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+- shows how a system works at runtime as a collaboration of components
+- runtime system quality attributes:
+    - performance
+    - availability
+    - reliability
+    - scalability
+    - integrability
+
+# Elements of the View
+
+- Components
+    - processes, threads, clients, servers, services, peers
+- Connectors
+    - shared memory, remote procedure call, messages, pipe service invocation
+
+# Distributed Programming
+
+- Components distributed over a network
+    - client/server
+- concurrency
+- communication and coordination
+- built on top of a basic messaging system
+    - sockets
+
+## Sockets
+
+- Operating System communication mechanism
+    - part of POSIX specification
+    - inter-process communication API
+    - Identified by IP/Port
+    - Byte Streams Messages
+
+# Distributed Programming
+
+- Abstraction of communication
+    - localization
+    - communication errors handling
+    - repetitive programming
+- heterogeneity
+- security
+
+## Middle-ware
+
+- Layer between applications and operating systems
+    - hides distribution
+    - hides heterogeneity
+    - high-level API
+    - common services
+
+### Middle-Ware Technologies
+
+- Remote Procedure Call (RPC)
+- Message Oriented Middle-ware (MOM)
+- Distributed Object-Oriented Components
+- Service Oriented Architecture (SOA)
+
+#### RPC
+
+- Interface definition language (IDL)
+    - specify remote procedures
+    - generate stubs and skeletons
+    - language heterogeneity
+    - evolution, portability
+
+##### IDL Example
+
+- gRPC interface definition
+- protocol buffers
+
+```ts
+// ProductInfo.proto
+syntax = "proto3";
+package ecommerce;
+service ProductInfo {
+ rpc addProduct(Product) returns (ProductID);
+ rpc getProduct(ProductID) returns (Product);
+}
+message Product {
+ string id = 1;
+ string name = 2;
+ string description = 3;
+}
+message ProductID {
+ string value = 1;
+}
+
+```
+
+##### Call Semantics
+
+Types of guarantees provided to Caller
+- at least once semantics
+    ```
+    At least once:
+    request_received = false
+    while not request_received:
+        send RPC
+        wait for acknowledgement with timeout
+        if acknowledgment received and acknowledgement.is_successful:
+            request_received = true     
+    ```
+- at most once semantics 
+    ```
+    At most once:
+    request_sent = false
+    while not request_sent:
+        send RPC
+        request_sent = true
+        wait for acknowledgement with timeout
+        if acknowledgment received and not acknowledgement.is_successful:
+            request_sent = false
+
+    ```
+
+##### RPC Advantages / Disadvantages
+
+- make distributed programming easier
+- hides semantic differences between local/remote calls
+- coupling related to interfaces
+
+#### Message-Oriented Middleware
+
+- message broker between producers and consumers
+- asynchronous messages
+- point-to-point -> unicast communication
+- publish/subscribe -> broadcast communication
+
+##### RabbitMQ
+
+- open source message oriented Middleware
+    - cross-platform, cross-language
+    - implements advanced message queuing protocol (AMQP)
+        - AMQP is a standard message broker specification
+            - interoperability
+        - various interaction modes
+
+##### AMQ Model
+
+- private/shared
+- durable/temporary
+- server-named/client-named
+
+- Direct Exchange
+    - point-to-point communication
+- Fanout Exchange
+    - broadcast communication
+- Topic Exchange
+    - public-subscribe communication
+
+##### Spring AMQP
+
+- spring support for AMQP
+- Springboot starter: spring-boot-starter-amqp
+    - autoconfiguration
+    - RabbitMQ integration
+
+#### Advantages/Drawbacks of MOM
+
+- lower coupling
+- better reliability
+- better interoperability
+
+- lower-lever abstraction
+
+
+#### Distributed Object-Oriented Components
+
+- Evolution of RPC model to Object-Oriented Paradigm
+    - Transparent invocation of distributed objects
+    - Based on
+        - proxy pattern
+            - substitute for a component
+            - abstract communication
+            - location transparency
+            - a broker for each host (broker registers to server)
+        - broker pattern
+
+### Middle-ware Advantages / Drawbacks
+
+- Speed up development
+- software quality (reliability, robustness)
+- performance penalty
+- must be learned
+- vendor lock-in
+
+# Types of communication
+
+## Synchronous communication
+
+Caller is blocked until Callee returns
+
+- behaviour traceability (debugging, understandably)
+- tight coupling
+- connection overhead
+- handling failures is hard
+- performance low
+
+## Asynchronous communication
+
+Caller continues work, gets notified
+
+# Component Based Software Engineering
+
+- software development based on assembly of software components
+- based on component models
