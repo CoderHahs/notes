@@ -1,0 +1,62 @@
+---
+title: "Naive Bayes Classifier"
+metaTitle: "Naive Bayes Classifier"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+
+# Review of Probabilities
+
+**Elementary event** is an elementary or atomic event is an event that cannot be made up of other events.
+
+**Event, $E$** is a set of elementary events.
+
+**Sample space, $S$** is the set of all possible outcomes of an event $E$ is the sample space $S$. 
+
+**Probability, $p$** of an event $E$ in a sample space $S$ is the ratio of the number of elements in $E$ to the total number of possible outcomes of the sample space $S$ of $E$. 
+
+Thus $p(E) = |E| / |S|$.
+
+## Bayes Rule
+
+> $p(A|B) = p(B|A) * p(A) / p(B)$
+
+# Hypothesis testing and Classification
+
+One of the most important results of probability theory is the general form of
+Bayes’ theorem. Assume there are individual hypotheses, $h_i$, from a set of hypotheses, $H$. Assume a set of evidences, $E$.
+
+> $p(h_i|E) = p(E | h_i) * p(h_i)$
+
+## Prior and Posterior Probability
+
+The **prior** probability, is the probability, generally an unconditioned probability, of an hypothesis or an event. The prior probability of an event is symbolized: $p(E)$, and the prior probability of an hypothesis is symbolized $p(h_i)$.
+
+The **posterior** (after the fact) probability, generally a conditional probability, of an hypothesis is the probability of the hypothesis given some evidence. The posterior probability of an hypothesis given some evidence is symbolized: $p (h_i | E)$.
+
+The **Naive Bayes Classifier** tests all the hypothesis using Bayes rule, and choose the maximum. 
+
+Since the denominator for $p(E)$ is the same for all classes, we only calculate the numerator: $p(h_i | E) = p(E|h_i) * p(h_i)$. We test for $\mathrm{h_i}$ of $p(E | h_i) * p(h_i)$. Argmax is the index i corresponding to the maximum value of $h_i$.
+
+# Conditional Independence Assumption
+
+Two events $A$ and $B$ are **independent** if and only if the probability of their joint occurrence is equal to the product of their individual (separate) occurrence. General form $p (A \cap B) = P(A|B) * P(B)$, independence $p (A \cap B) = P(A) * P(B)$.
+
+Two events $A$ and $B$ are **conditionally independent** of each other given a third event $C$ if and only if: $p ((A \cap B)|C) = P(A|C) * P(B|C)$
+
+# Summary
+
+Naive Bayes
+- probability theory
+- discrete features
+- Multi-value classes
+- Calculate the prior and posterior hypotheses
+- Applies Bayes Theorem, calculate posterior on hypothesis
+- Sensitive to sampling technique.

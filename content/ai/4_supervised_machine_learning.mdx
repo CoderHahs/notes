@@ -1,0 +1,77 @@
+---
+title: "Supervised Machine Learning"
+metaTitle: "Supervised Machine Learning"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+# Components of a Supervised Machine Learning System
+
+Steps of Learning:
+- Training data
+- Features vector
+- Algorithm
+- Model
+
+Inference from Model:
+- Test data
+- Features vector
+- Model
+- Prediction
+
+# Features
+
+There are two types of features: Continuous and Discrete. 
+
+**One-hot encoding** to convert discrete into Continuous, where there are as many dimensions(features) as the number of values.
+
+**Discretization** to convert continuous into discrete, where features are divided into buckets.
+
+# Generative and Discriminative Learners
+
+## Discriminative Learners
+
+The objective of this learning algorithm is to learn a decision surface in an N-dimensional space (N - number of features) that distinctly classifies the data points (examples).
+
+We call the decision surface, the **discriminative function**. The whole point of learning is to be able to correctly classify unseen examples.
+
+A discriminative learner is essentially an equation (decision surface) that acts as a classification/boundary. 
+
+### Support Vector Machine (SVM)
+
+It maximizes the margin between the support vectors. Depends on the features that are the closest.
+
+### Decision Trees
+
+Will create as many boundaries as necessary to separate the training data. It creates zone by splitting on each feature.
+
+### Multi-Layer Perceptron
+
+Will be able to learn decision surfaces that are not planes. These are higher degree polynomial separators.
+
+## Probabilistic Approach
+
+The learner assumes the data comes from more or less probable classes.
+
+It is important that the construction of the training set reflects the generative process and reduces bias.
+
+# Evaluation
+
+## Factors to Consider
+
+### What do we evaluate on?
+
+We always evaluate on unseen data, or "test" data. **Cross validation** is a technique for evaluating ML models by training on subsets of the available input data and evaluating them on the complementary subset of the data.
+
+### Is the training data representative of the test data?
+
+Training data should be similar to the test data.
+
+### What is the Performance Measure
+
+**Confusion Matrix** measures precision (true positive / true positive + false positive) and recall (true positive / true positive + false negative)
+
+**Macro-average** is the average on the results per class. **Micro-average** is the average when putting all the data together.
+
+### Is the gold standard unanimously agreed on?
+
+Do all humans think the same, is your classification of the training data correct?

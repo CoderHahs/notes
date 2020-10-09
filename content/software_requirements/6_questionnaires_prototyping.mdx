@@ -1,0 +1,109 @@
+---
+title: "Questionnaires and Prototyping"
+metaTitle: "Questionnaires and Prototyping"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Questionnaires
+
+- A questionnaire is a research instrument consisting of a series of questions for the purpose of gathering information from respondents
+    - Questionnaires can be thought of as a kind of written interview 
+- A survey is both the set of questions and the process of collecting, aggregating, and analyzing the responses from those questions
+    - Surveys can be carried out face to face, by telephone, computer or post
+- Questionnaires/surveys provide a relatively cheap, quick and efficient way of obtaining large amounts of information from a large sample of people
+
+## Benefit
+
+- Can reach multiple people in a cost-effective way
+- Participants may be anonymous
+    - No need to lie, although some answers can be brutal!
+- Participation can be asynchronous
+    - With answers provided at the convenience of the participant
+- Participants to computer-based surveys can be distributed
+    - All over the world
+- Questionnaires can be quick to answer
+- Questionnaires can be repeated
+    - To discover trends over time or across populations
+- Support qualitative and quantitative analyses
+
+## Challenges
+
+- Preparation time is high!
+- Questionnaire mistakes cannot easily be fixed once deployed
+- Choice of question types
+    - Open-ended (difficult to analyse automatically)
+    - Closed, with predetermined answers (lack of flexibility)
+- Choice of answers and scales
+    - Nominal? Intervals? Likert scale (1-5)? Avoid centralist tendencies!
+- Statistical significance during analysis
+- Validity of questions (bias, ambiguities)
+- Repetition and ordering of questions
+- Determining suitable participants to invite (risk of bias/fraud)
+- Motivating people to participate and answer everything
+    - Wrong incentives (population bias), unattractive presentation, exhaustion...
+- Ethical issues (fairness in access, confidentiality...)
+
+## Types of Questions to Consider
+
+- Demographic questions (for classification)
+    - Age, country, occupation... For analysis from many angles/dimensions
+    - Be minimal! Beware of re-identification risks in anonymous surveys
+- Attitudinal questions 
+    - What do you think of...? Do you agree with...?
+    - Scale with 4-6 values (no neutral) or 5-7 values (with neutral value)
+        - Strongly agree
+        - Agree somewhat
+        - Neither agree nor disagree (Undecided)
+        - Disagree somewhat
+        - Strongly disagree
+- Supplementary open questions (instructive, but qualitative)
+- Optional/alternative questions, by population
+- Redundant questions, for robustness...
+
+# Prototyping
+
+- A software requirements prototype is a mock-up or partial implementation of a software system
+    - Helps developers, users, and customers better understand system requirements
+    - Helps clarify and complete requirements
+    - Provides early response to “I’ll know it when I’ll see it” attitude
+    - Also “I’ll know it when I won’t see it” (completeness)
+    - Helps find new functionalities, discuss usability, and establish priorities
+- Prototyping is effective in resolving uncertainties early in the development process
+    - Focus prototype development on these uncertain parts
+    - Encourages user participation and mutual understanding
+
+## Types
+
+- Evolutive: 
+    - An initial prototype is designed and refined in several iterative stages to become the final product
+    - Goal: to deliver a functional system to the users. This type of development starts with the best understood requirements
+- Throw-away: 
+    - A more or less faithful prototype is designed to elicit the requirements and is then thrown away
+    - Goal: derive/validate system requirements. The process starts with the least understood requirements!
+    - The system is designed with another development process
+
+## Techniques
+
+- Prototyping techniques vary greatly depending on the purpose of the prototype (evolutive or throw-away) and the desired level of fidelity:
+    - Paper prototypes (see [https://en.wikipedia.org/wiki/Paper_prototyping](https://en.wikipedia.org/wiki/Paper_prototyping))
+    - Screen mock-ups
+    - Interactive prototypes
+    - Using animation tools (e.g., PowerPoint with buttons/hyperlinks, [https://proto.io/](https://proto.io/),  [https://app.moqups.com](https://app.moqups.com), ...)
+    - Models (executables)
+    - Pilot systems
+- There is usually a trade-off between cost and fidelity
+
+### Fidelity 
+
+- Fidelity is the extent to which the prototype is real and (especially) reactive
+    - Fidelity may vary for throw-away prototypes
+- High-fidelity prototypes
+    - Applications that “work” – you press a button, and something happens
+    - Often involve programming or executable modeling languages
+    - Advantages: Provide an understanding of functionality; reduce design risk; more precise verdicts about requirements
+    - Disadvantages: Take time to build; more costly to build; sometimes difficult to change; false sense of security (users may hesitate to suggest changes not to disappoint developers); often focuses on details rather than on the goals and important/uncertainty issues
+- Low-fidelity prototypes
+    - They are static (not operated), without much detail
+    - Advantages: Easy and quick to build; cheaper to develop; excellent for interfaces; offers the opportunity to engage users before coding begins; encourage creativity; users will not hesitate to suggest modifications (without being afraid of undoing much developer work)!
+    - Disadvantages: May not cover all aspects of interfaces; are not interactive; may seem non-professional in the eyes of some stakeholders (who may not take the exercise seriously)
+- Consider showing a low-fidelity, throw-away prototype during you project interview, to get quicker and more valid feedback than with many questions!

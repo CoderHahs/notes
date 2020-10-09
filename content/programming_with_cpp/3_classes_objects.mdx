@@ -184,7 +184,8 @@ void fct (int p)
 
 # Static data members
 
-One way to allow multiple objects to share data is to declare it static.
+One way to allow multiple objects to share data is to declare it static. Since static data members exist in only one copy, regardless of class objects, their initialization can no longer be made by the class constructor. A static member must be explicitly initialized outside the class statement by:
+- ```int class::var = 5;```
 
 # Using a class
 # Objects
