@@ -61,7 +61,7 @@ Total time: $O (|V| + \sum_{u \in V}(1+ \mathrm{degree}(u))) = O(|V| + |V| + 2|E
 
 Assume that $G = (V,E)$ is directed and acyclic. 
 
-Topological Sorting or Ordering is the numbering the vertices $1, 2, ... , n$ such that for each edge (u,v), $#(u) < #(v)$
+Topological Sorting or Ordering is the numbering the vertices $1, 2, ... , n$ such that for each edge $(u,v), (u) < (v)$
 
 ```python
 def TopologicalOrdering(G):
@@ -150,7 +150,7 @@ Output:
 For each vertex $v ∈ V$, maintain variable $d(v)$ = length of a shortest path from $s$ to $v$ found so far.
 
 At start,
-$d(v) = {0 if v = s, \infty if v \neq s$
+$d(v) = 0$ if $v = s, \infty$ if $v \neq s$
 
 Loop: Pick a vertex u for which $d(u) = δ(s, u)$. For each edge $(u, v), d(v) = min {d(v), d(u) + wt(u, v)}$
 
@@ -181,9 +181,9 @@ while Q != {}:
   - For each edge (u, v), we update $d(v)$
     - ```decrease_key```: $O (log (n))$ time.
 
-Total time for one iteration: $O(log(n)) + O(outdegree(u) · log(n))$
-Total running time: $O (n) + O (\sum_{u \in V} (O(log(n)) + O(outdegree(u) · log(n))))$
-$ = O(n) + O (log(n)(n + 2m)) = O ((m + n) log(n))$
+Total time for one iteration: $O(log(n)) + O(\mathrm{outdegree}(u) · log(n))$  
+Total running time: $O (n) + O (\sum_{u \in V} (O(log(n)) + O(\mathrm{outdegree}(u) · log(n))))  
+= O(n) + O (log(n)(n + 2m)) = O ((m + n) log(n))$
 
 # Dijkstra Correctness
 
@@ -222,4 +222,4 @@ So the induction step is complete for $(1)$.
 
 If $y \neq v$ then adding $v$ to $S$ does not change the value of $d(w)$. Hence, by the induction hypothesis (2), $d(w)$ gives the length of a shortest special path from $s$ to $w$.
 
-If $y = v$, then by doing $d(w) = \mathrm{min} {d(w), d(v) + wt(v, w)}$, we ensure that after adding $v$ to $S$, $d(w)$ gives the length of a shortest special path from $s$ to $w$.
+If $y = v$, then by doing $d(w) = \mathrm{min} (d(w), d(v) + wt(v, w))$, we ensure that after adding $v$ to $S$, $d(w)$ gives the length of a shortest special path from $s$ to $w$.
