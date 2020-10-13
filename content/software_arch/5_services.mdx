@@ -1,0 +1,213 @@
+---
+title: "Services"
+metaTitle: "Services"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+# Service Oriented Architecture (SOA)
+
+A paradigm for organizing and utilizing distributed capabilities that may be under the control of different ownership domains. It provides a uniform means to offer, discover, interact with and use capabilities to produce desired effects consistent with measurable preconditions and expectations.
+
+- an architecture style for building applications as composition of Services
+- categorized as a an evolution of distributed object-oriented components
+- addresses dependency to
+    - objected-oriented paradigm (clients need to be implemented this way)
+    - program interfaces
+    - component model
+
+## Service
+
+Defined as a repeatable unit of work done by a Provider for a Consumer
+- offers coarse-grained business function
+- used as building block for larger business functionality
+- loose coupling
+- open standards
+- platform independent
+
+## Architecture
+
+- User Interface
+- Service Integration
+    - Enterprise Service Bus (ESB) ex. Message Oriented Middleware
+    - Orchestrator (coordinates interactions between services)
+        - orchestration
+            - business process execution language (BPEL)
+        - choreography
+            - decentralize integration
+- Service Registry
+    - Service 1 (can share data stores)
+    - Service 2
+
+# Web Services
+
+- means of implementing services
+- service provided on the Web (HTTP, HTTPS)
+    - SOAP based
+    - RESTful
+    - GraphQL
+
+- allow organization to make web accessible business functions accessible
+    - consumed by programs
+- exposes standard representation of computation
+    - interface (Data format, Operations)
+    - Discoverability
+
+## SOAP Web Services
+
+- initial web services approach
+- standardized XML based
+    - Simple Object Access Protocol (SOAP)
+    - Web Service Description Language (WSDL)
+    - Universal Description, Discovery and Integration (UDDI)
+    - Web Services Business Process Execution Language (WS-BPEL)
+    - Web Services Security (WS-Security)
+
+- achieves several objectives of SOA
+    - open standard based, platform independence
+- Heavy Weight (Serialization, Deserialization)
+- Limited to XML
+- Coupling to Service Interface
+
+## Web Service Description Language
+
+- XML-based open standard for web service interface
+    - what a service does
+    - how to invoke its operations
+    - where it is available
+
+### Format
+
+- XML elements
+
+```xml
+<!-- root element of WSDL file/container for service description -->
+<definitions>
+    <!-- data types used in messages -->
+    <types>
+    <!-- messages communicated during service invocation -->
+    <message>
+    <!-- operations provided by the service -->
+    <portType>
+    <!-- transport protocol used to transmit messages -->
+    <binding>
+    <!-- location/URL address of the service -->
+    <service>
+```
+
+# Simple Object Access Protocol (SOAP)
+
+- communication between heterogenous applications
+- Transport protocol
+    - HTTP
+    - SMTP
+    - TCP
+    - UDP
+
+- RPC style
+    - body contains request or reply
+    - synchronous
+- Document style
+    - body contains Document
+    - Reference to service description
+    - synchronous or asynchronous
+- Literal model
+    - types based on supplied XSD
+- Encoded model
+    - types based on specification
+
+# JAX-WS
+
+- standard Java library for SOAP-based Web Services
+    - creation and consumption of SOAP Web Services
+
+## Service Creation Approaches
+
+- Top down (contract-first)
+    - generation of Java from WSDL (wsimport)
+- Bottom up (contract-last)
+    - generation of WSDL from Java
+
+# REpresentational State Transfer (REST)
+
+- architectural style for developing and designing loosely coupled components of the Web
+- components can be used to model web services
+    - considers web service as providing access to Resources
+    - accessible with HTTP
+    - identified and location used a Resource Identifier (URI)
+
+Representational State Transfer is intended to evoke an image of how a well-designed Web application behaves: a network of web pages (a virtual state-machine). where the user progresses through an application by selecting links (state transitions), resulting in the next page (representing the next state of the application) being transferred to the user and rendered for their use.
+
+## REST Concepts
+
+- Resource - information that can be identified
+    - Resource metadata - described the resource
+- Resource identifier (URI) - uniquely identify a resource
+- Resource representation - how resource is observable
+    - representation metadata - described the representation
+- Resource implementation and perception are separate
+- Support for intermediates (transformation, caching)
+- Application state maintained by Client
+- All applications based on HTTP and URIs
+    - GET, PUT, PATCH, POST, DELETE, HEAD, OPTIONS
+
+## REST HTTP Methods
+
+- GET: obtain resource representation (Read)
+- POST: add new resource (Create)
+- DELETE: remove a resource (Delete)
+- PUT: replace a resource (Update)
+- PATCH: update a resource (Update)
+- HEAD: check a resource
+- OPTIONS: get communication options info
+
+### Safe Method
+- does not modify resources representation
+    - caching
+    - prefetching
+- OPTION, GET, HEAD
+
+### Idempotent Method
+- same outcome for multiple calls on the server
+    - can be safely retried
+- OPTION, GET, HEAD, PUT, DELETE
+
+### Common Patterns
+
+- Retrieve all collection contents: GET /items
+- Retrieve items based on a criteria: GET /items?criteria
+- Retrieve an item: GET /items/itemid
+- Add an item to collection: POST /items
+- Replace an item: PUT /items/itemid
+- Update an item: PATCH /items/itemid
+- Remove an item: DELETE /items/itemid
+
+## RESTful API Design Principles
+
+- Resource oriented design 
+    - resources identification
+    - assignment of a unique URI
+- classify resources access as
+    - immutable: GET
+    - mutable: PUT, PATCH, POST or DELETE
+- Hypermedia as the Engine of Application State (HATEOAS)
+    - Use a "gradual unfolding methodology" to expose data for clients
+    - links to related resources.
+- Robustness Principle (Postel's Law)
+    - "be conservative in what you do, be liberal in what you accept from others"
+
+### Richardson Maturity Model
+
+- Level of compliance to REST Principles
+    - Level 0: Single URI and a single verb (method), ex. SOAP based web service
+    - Level 1: Multiple URI based resources and a single verb. 
+    - Level 2: Multiple URI based resources and multiple verbs
+    - Level 3: HATEOAS (+ level 2 requirements)
+
+## REST vs SOAP
+
+- SOAP: Few Nouns (URI), Many custom Verbs (methods)
+    - musicPort.getRecordings("beatles")
+    - HTTP Transport Protocol
+- REST: Many Nouns, Few fixed Verbs
+    - GET /music/artists/beatles/recordings
+    - HTTP Transport and Message Protocol
