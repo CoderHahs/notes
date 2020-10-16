@@ -1,0 +1,144 @@
+---
+title: "Existing Data"
+metaTitle: "Existing Data"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Analysis of Existing Systems
+
+- Useful when building a new improved version of an existing system (automated or not)
+- Important to know:
+- What is used, not used, or missing
+- What works well, what does not work
+- How the system:
+    - Is used (with frequency and importance) 
+    - Was supposed to be used
+    - Can be reused (even if partly)
+- Also important to do for competing systems and for related systems
+    - What are they for your project?
+- Users may become disillusioned with a new system or may not like this new system if it is too different from what currently exists or does not do what they want 
+    - Risk of nostalgia towards the “gool old system”
+- To appropriately take into account real usage patterns, human issues, common activities, relative importance of tasks/features
+- To catch obvious possible improvements 
+    - Features that are missing or do not currently work well
+- To find out which “legacy” features can/cannot be left out
+    - And those that should be reused
+
+# Review Available Documentation
+
+- Start by studying available documentation
+    - User documents (manual, guides, procedures…)
+    - Development documents and change requests/histories
+    - Requirements documents (possibly for requirements reuse!)
+    - Data structures, communication interfaces, GUIs
+    - Relevant regulations and standards
+- Of course, the above are often out of date, poorly written, wrong, etc., but they still represent a good starting point!
+- Complement with observations and analysis of usage data
+
+# Observations
+
+Observation 
+- Get into the trenches and observe specialists “in the wild”
+- Shadow important potential users as they do their work 
+- Silent approach, or ask user to explain everything he or she is doing  
+- Session videotaping and coding
+
+Challenges
+- Takes time and expertise! 
+- Also needs observed people to agree…
+- Observed people can also be conscious of the presence of external observers and change their behaviour accordingly (Hawthorne effect)
+
+## Ethnography: more scientific observations
+
+- Comes from anthropology, literally means “writing the culture”
+- Essentially seeks to explore the human factors and social organization of activities -> understand work
+    - Studies have shown that work is often richer and more complex than is suggested by simple models derived from interviews
+- Discoveries are made by observation and analysis
+- Aim to make the implicit explicit!
+- Useful to discover, for example
+    - What does an Academic Assistant do during the day?
+    - What does their workspace look like?
+- May need to team up with social scientists!
+
+# Usage/Comment Data Analysis
+
+## For Existing and Evolving Systems...
+
+- Shift requirements focus from intuition and experience of stakeholders to rational and explainable decisions based on implicit and explicit user data
+- Move from reactive evolution to real-time and even proactive decision-making about requirements and priorities.
+- Challengers:
+    - Is data available?
+    - Can the data be trusted?
+
+## Crowdsourcing Requirement
+
+- The crowd and social media represent potential sources of data-driven requirements
+- For example
+    - Dozens of emergency applications exist to support people during catastrophes
+    - Recent events (e.g., Fort McMurray fires, summer 2016) yet suggest there utility is limited.
+- Can we analyze social media information (e.g., Twitter feeds) to discover more appropriate requirements?
+
+### Sample Crowdsourced Requirements
+
+- Top 10 in-demand features based on the analysis of nearly 70,000 tweets related to the Fort McMurray (AB) fires in 2016
+    - Fire alarm notification
+    - Food and water requests and resource
+    - Emergency maintenance service
+    - Send emergency text messages
+    - Safety guidelines
+    - Fire and safeness warning
+    - Request ambulance at a tap
+    - Find nearest gas station
+    - Emergency zones maps
+    - Find a medical centre
+- How many of these were found in the dozens of emergency apps on the market?
+    - None! Only six of the features existing in wildfire apps are among top 40 crowdsourced features explored!
+
+## Mining App Features from Tweets (MAPFEAT)
+
+1. Mine informative communications
+2. NLP for understanding discussed requirements
+3. Search in the requirements in the app store
+4. Extract app features
+5. Retrieve features common between apps
+6. Crowd validation
+7. Specify mobile apps
+
+
+## A/B testing
+
+- A/B testing is the act of running a simultaneous experiment between two or more variants of a system to see which one performs the best
+
+Useful when:
+- Frequent deployment is easy
+    - Web-based system
+    - Auto-updated mobile app…
+- Lots, lots of users
+- Developing alternative features is easier than eliciting requirements through conventional means!
+
+Procedure:
+1. Develop variants (incremental feature)
+2. Assign variants to random users
+3. Gather and analyze data
+4. Keep winner as new baseline and start again with new variants
+
+
+## Implications for Requirements Engineering
+1. Consider eliciting as few requirements as you can before building the MVP
+2. Instrument product, and collect and analyze data to constantly validate your selection and prioritization
+3. Model the expected value rather than express the requirements
+
+Where is such A/B testing approach not easily applicable?
+- Few users available
+- Systems that cannot be frequently updated
+- Systems where variant development is expensive
+- Systems that involve much more than software
+
+Nice to have requirements:
+- System instrumentation to produce usage logs?
+- Sending specific usage information to a server?
+- Catching and reporting bugs and performance issues to a server?
+- Informing users about data collection?
+- Leaving users a choice about whether to participate or not (privacy)?
+- Ensuring the security and confidentiality of the data collected?
+- Ensuring compliance with applicable laws and regulations?
