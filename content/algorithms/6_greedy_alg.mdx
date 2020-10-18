@@ -62,3 +62,91 @@ We want a compute a subgraph $G' of G$ such that:
     - $weight(G')$ = sum of weights of edges in $G'$.
 
 $G'$ is called a **Minimum Spanning Tree** of G (MST of G).
+
+## Lemma
+
+Let $G = (V, E) be an undirected and connected graph, where each edge ${u,v} \in E$ has a weight $wt(u,v)$.
+
+Split $V$ into $A$ and $B$. Let ${u,v} \in E$ be a shortest edge connecting $A$ and $B$. then there is an MST of $G$ that contains ${u,v}$.
+
+From the previous lemma, any algorithm that follows this greedy scheme is guaranteed to work:
+1. X = {}
+2. Repeat until $|X| = |V| - 1$
+    - Pick a set $S$ such that $X$ has no edge between $S$ and $V\S$.
+    - Let $e \in E$ be a minimum-weight edge between $S$ and $V\S$.
+    - $X = X \cup {e}$
+
+## Union-Find Data Structure
+
+Before presenting a first algorithm to compute an MST, we first open a parenthesis and study a data structure called *Union-find*.
+
+Given $n$ sets, each of size one, process a sequence of operation, where each operation is one of:
+
+```py
+def union (A,B,C):
+    Set C = A U B
+    A = {}
+    B = {}
+
+def find (x):
+    Return the name of the set that contains x
+```
+
+The sequence consists of $n-1$ Union operations, $m$ Find operations. This can be done in any arbitrary order.
+
+We store each set in a list:
+- the list has a pointer to the head and a pointer to the tail
+- the first node stores the name of the set and the size of the set
+- each other node stores one element of the set
+- each node $u$ stores two pointers:
+    - next($u$) the next node in the list
+    - back($u$) first node in the list
+
+For the Union Function:
+- if size of set $A$ is larger than $B$, append $B$ to $A$. Otherwise append $A$ to $B$.
+- running time $O(\mathrm{min}{|A|,|B|}$
+
+For the Find function:
+- follow the back pointed from the node storing $x$ to the head of the list and return the name stored at the head.
+- $O(1)$
+
+**Total running time**:
+- $n-1$ **Union** operations = $O (n \log{n})
+- Any sequence of $n-1$ Union operations and $m$ Find operations takes $O(m + n \log{n})$
+
+# Kruskal Algorithm
+
+- **Approach**: Maintain a forest. In each step, add an edge of minimum weight that does not create a cycle.
+- **Start**: At the beginning, each vertex is a (trivial) tree.
+- **One Iteration**: Combine two trees using an edge of minimum weight
+
+```py
+# Input: G = (V,E), where V = {x1, x2, ..., xn} and m = |E|
+# Output: A minimum spanning tree of G
+def Kruskal(G):
+    Sort the edges of E by weight using Merge Sort
+    for i in range(n):
+        V[i] = x[i]
+    T = {}
+    for k in range(m):
+        Let u[k] and v[k] be the vertices of e[k]
+        Let i be the index such that u[k] is in V[i]
+        Let j be the index such that v[k] is in V[j]
+        if (i != j):
+            V[i] = Vi[i] union V[j]
+            V[j] = {}
+            T = T union {{u[k], v[k]}}
+    return T
+```
+
+## Running time
+- Sorting: $O(m \log{m})$
+- First loop: $O(n)$ time
+- Second for loop:
+    - Store $T$ in a linked list Total time to maintain this list: $O(n)$ time
+    - Store the sets $V_i$ using the Union-Find data structure
+    - In this second For-Loop, we do
+        - $2m$ Find operations
+        - $n-1$ Union operations
+    - So in total for the second for loop: $O(n) + O(m + n \log{n})$
+- Total running time is **$O(n \log{n})$**
