@@ -149,4 +149,81 @@ def Kruskal(G):
         - $2m$ Find operations
         - $n-1$ Union operations
     - So in total for the second for loop: $O(n) + O(m + n \log{n})$
-- Total running time is **$O(n \log{n})$**
+- Total running time is **$O(m \log{n})$**
+
+# Prim Algorithm
+
+Start:
+- $A$ is a set consisting of one (arbitrary) vertex of $V$
+- $T$ is an empty set of edges.
+- $Q = V\A$
+
+One Iteration:
+- Take an edge ${u, v}$ of minimum weight such that $u \in A$ and $v \in Q$
+- Add the edge ${u, v}$ to $T$
+- Move $v$ from $Q$ to $A$
+
+Repeat until $A = V$ (i.e. $Q={}$)!
+
+```py
+# Input: G = (V,E)
+# Output: A minimum spanning tree of G
+def Prim(G):
+    Let r in V be an arbitrary vertex. 
+    A = {r}
+    T = {}
+    while A != V:
+        # Q = V\A
+        find an edge {u, v} in E of min weight such that u in A and v in Q
+        A = A union {v}
+        T = T union {{u,v}}
+```
+
+Finding the edge ${u,v}$ takes $O(|E|)$ time, so **total** running time is $O(|V| \cdot |E|)$
+
+To improve running time, we can maintain extra information.
+
+For each vertex $y \in Q$, *minweight*$(y)$: minimum weight of any edge between y and a vertex of $A$. *closest*$(y)$: vertex $x \in A$ for which $wt(x, y) = \mathrm{minweight}(y)$. Observe that: a shortest edge ${u, v}$ connecting $A$ and $Q$ has weight $min_{y\in Q}{\mathrm{minweight}(y)}$.
+
+## Algorithm
+
+```py
+# Input: G = (V , E)
+# Output: A minimum spanning tree of G
+Let r ∈ V be an arbitrary vertex
+A = {r}
+T = { }
+for each vertex y != r:
+    minweight(y) = infinity
+    closest(y) = nil
+for each edge {r, y}:
+    minweight(y) = wt(r, y)
+    closest(y) = r
+Q = V \ {r}
+k = 1 # Stores the size of A
+while k != n:
+    Let v be the vertex of Q for which minweight(v) is minimum
+    u = closest(v)
+    A = A ∪ {v}
+    Q = Q \ {v}
+    T = T ∪ {{u, v}}
+    k = k + 1
+    for each edge {v, y}:
+        if y ∈ Q and wt(v, y) < minweight(y):
+            minweight(y) = wt(v, y)
+            closest(y) = v
+return T
+```
+
+- Store the vertices of $Q$ in a min-heap.
+- For each vertex $v \in Q$, the key of $v$ is minweight(v).
+- Store $T$ in a list.
+- With each vertex of $V$, store one bit indicating whether the vertex
+- belongs to $A$ or to $Q$.
+
+Running time:
+- Up to the while loop: $O(n)$ time (this includes the time to build the heap).
+- One iteration of the while-loop:
+    - extract min: $O(\log(n))$ time
+    - At most $\mathrm{degree(v)}$ many decrease key operations: $O(\mathrm{degree}(v) · \log{n})$ time
+- Total time for the while-loop: $O (m \log{n})
