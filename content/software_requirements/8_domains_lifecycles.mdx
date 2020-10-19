@@ -1,0 +1,145 @@
+---
+title: "Domains and Lifecycles"
+metaTitle: "Domains and Lifecycles"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Requirement Analysis and Modelling
+
+- Candidate requirements, user stories, GUI prototypes elicited from different sources need to be analyzed for:
+    - Consistency (are there contradictions, incompatibilities, or conflicts?)
+    - Completeness (are there gaps that deserve more elicitation?)
+    - Usefulness (are these artifacts actually helpful?)
+- The objectives are 
+    - To produce system and software requirements specifications that make sense
+    - To produce more formal artifacts that can support development and testing
+- Modelling often helps here!
+
+# Models
+
+
+- According to Bran Selic, a model is a reduced representation (simplified, abstract) of (one aspect of) a system used to:
+    - Help understand complex problems and / or solutions
+    - Communicate information about the problem / solution
+    - Direct implementation (especially in software)
+- Qualities of a good model
+    - Abstract
+    - Understandable
+    - Accurate
+    - Predictive
+    - Inexpensive
+
+# Model Based Analysis
+
+
+- By construction
+    - We learn by questioning and describing the system
+- By inspection
+    - Execute/analyze the model in our minds
+    - Incomplete, but good for learning
+- By formal analysis
+    - Requires formal semantics (mathematical) and tools
+    - Reliable (in theory), but expensive (for certain modeling approaches)
+- By experimentation
+    - Execution, simulation, animation, test...
+    - Requires well-defined semantics and execution/simulation tools
+    - More reliable than inspection for certain aspects
+    - Possible to interact directly with the model (prototype)
+
+# UML Diagrams Most Relevant for R.E.
+
+
+- Use case diagram
+    - Use cases structuring
+- Activity diagram
+    - Workflow and process modeling
+- Sequence diagram
+    - Modeling of message exchange scenarios
+- Class diagram
+    - Domain modeling
+- State machine diagram
+    - Detailed behavioral specification (of objects, protocols, ports...)
+    - System behaviour (black box)
+    - Object/document lifecycles
+
+# Domain Modeling in Requirements Engineering
+
+
+- It is important to define
+    - The concepts that exist in a domain where requirements are being specified
+        - Provides the basic terminology/vocabulary for requirements and stories!
+    - The particular attributes of these concepts
+    - The relationships that exist between these concepts
+        - Generalization, aggregation, others more domain-specific...
+- Class diagrams are ideal to capture this information!
+- But a precise subset is useful here...
+    - Avoid unnecessary complex features of UML class diagrams!
+
+## Class Diagrams for Precise Domain Modeling
+
+
+- No operations!
+- Attributes with types
+    - Use associations when types are other classes
+- Associations with precise multiplicities
+    - Beware of fixed numbers... and of 1..1 associations!
+- Names for association ends (roles) must be used instead of a simple name for the association itself
+    - Less confusing, especially for expressing constraints
+- Enumerations are also useful
+- Beware of generalization
+    - Yes, design patterns are useful here too!
+- Supplement with constraints for precision wherever needed
+    - In natural language (using the names of classes, attributes, and association ends in the model) or OCL (Object Constraint Language)
+
+## Constraints for More precision
+- UML class diagrams have their limitations...
+- The name of a Course shall be unique among all Courses
+- The weight of an Assessment shall be between 0 and 100
+- The weights of assessments of a Course shall sum up to 100
+- The assessments of a Student shall only be assessments of courses this Student is taking
+
+```UML
+-- The name of a Course shall be unique among all Courses
+context Course
+    inv UniqueName:
+        Course.allInstances -> isUnique(name)
+-- The weight of an Assessment shall be between 0 and 100
+context Assessment
+    inv ValidWeight:
+        weight >= 0 and weight <= 100
+-- The weights of assessments of a Course shall sum up to 100
+context Course
+    inv ValidTotalAssessmentsWeight:
+        assessments.weight->sum() = 100
+-- The assessments of a Student shall only be assessments of Courses this
+-- Student is taking
+context Student
+    inv AssessmentselongToStudentsCourse:
+            assessments->forAll (a : Assessment | courses->includes(a.course))
+```
+
+# Artifact Lifecycles with UML State Machine Diagrams
+
+- Artifacts include documents, requests, bugs, requirements... of value to the system
+- Often, artifacts have states that change according to some event or condition
+- The different states and transitions of an artifact (i.e., how it evolves during its life) represent its lifecycle
+- Understanding the lifecycle of an artifact helps analyze completeness and helps minimize complexity
+- Lifecycle models can also influence the design of interaction mechanisms (e.g., GUIs) with users
+    - Can restrict/simplify what possible interactions are available next
+- UML state machine diagrams can help here
+
+## Modeling Behavior
+
+- In general, state machines are suitable for describing discrete reactive systems based or events
+    - Including lifecycles!
+- Not appropriate to describe continuous systems (e.g., spacecraft trajectory control, stock market predictions)
+
+## State Machine Diagrams for Lifecycles
+
+
+- States, transitions with events [and conditions] are essential
+- Hierarchical states and orthogonal regions should be used only if they simplify the model
+- Lifecycles include fewer actions than conventional state-based behavior descriptions
+    - Entry/exit/do actions of limited use
+- Advanced UML features such as history pseudostates are not useful for lifecycles
+- Keep models simple yet useful!
