@@ -211,3 +211,120 @@ Representational State Transfer is intended to evoke an image of how a well-desi
 - REST: Many Nouns, Few fixed Verbs
     - GET /music/artists/beatles/recordings
     - HTTP Transport and Message Protocol
+
+# Web Services
+
+## Rest Operations
+
+Suggested URI Pattern for Service Operations
+- ```service-name/operation-name/argument1/.../argumentn```
+
+- There are no enforced guidelines for these operations. It is assumed that they are implemented using the proper procedure. 
+- There is also limited documentation on:
+    - Parameter types
+    - Formats
+- Also a problem is tracking the Evolution of Web Services
+
+All of these raise issues, that result in:
+- Incompatibilities
+- Errors
+- Interoperability
+
+Specification for web services have been developed to solve this problem:
+- OpenAPI (Swagger)
+- RESTful API Modeling Language (RAML)
+- API BluePrint
+
+## OpenAPI
+
+- Description language for RESTful APIs
+    - Implementation independent
+    - Human-Readable documentation
+    - Machine processable specification
+
+Specifications are written using JSON or YAML documents. They contain:
+- General info
+- Endpoints
+    - Paths
+    - Methods
+    - Parameters
+    - Responses
+- Components
+    - Schemas
+    - Security schemes
+
+### Usage Scenarios
+- Code First Development Approach
+    - Generates Specification from Code
+    - E.g. SpringDoc
+- API First Development Approach
+    - Specification designed first
+    - Implementation derived by code generation
+    - Also known as Contact-First Approach 
+    - Results in
+        - Better quality API
+        - More stable API
+        - Parallel work
+
+### API Driven Development
+
+Evolved from API First Development. It starts and focuses on Web Service API
+- Created in collaboration between Clients and Providers
+- Benefits include:
+    - Promotes API Oriented Architecture
+    - Better modularity (modular design)
+    - Leads to decoupled teams
+    - supports continuous integrations/delivery (CI/CD)
+    - APIs as products
+
+## REST Limitations
+
+- Multiple Queries are required to get linked resources
+    - HATEAOS Principle, a request should include hypertext links to linked resources
+- One Size-Fits-All
+    - Same API for all Client-types regardless of needs and capabilities
+
+### One-Size-Fits-All
+- Variety of Clients
+- Different needs
+- Service API is used for access
+- Solutions lead to complexity, poor maintainability
+
+#### Backend for Frontend (BFF) Pattern
+
+- Solution to One-Size-Fits all issues
+- One API per client
+- Focused on Client
+- Downside: Duplication
+
+## GraphQL
+
+Specification for API Query language and Server Engine for executing Queries
+- Data Access Web Service API
+- Open Source - introduced by Facebook
+
+### Schema
+
+- Data as a graph of objectives
+    - Structured types with fields
+    - GraphQL Schema Definitions Language
+    - Contract within Server and Clients
+- Queries as a declarative approach
+    - What client wants
+    - object structure required
+- Mutations create or alter Data
+    - Specified in Schema
+    - can return data
+- Resolver functions correspond to fields and business logic
+- GraphQL offers introspection which is the capability to query about a schema
+
+## GraphQL vs REST
+
+Improvement of GraphQL over REST:
+- Better abstraction
+    - Single Endpoint
+- Focused on Client
+    - request based on client needs
+- Evolution
+    - Server can add fields
+    - Deprecation notices
