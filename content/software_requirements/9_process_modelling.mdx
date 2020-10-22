@@ -1,0 +1,141 @@
+---
+title: "Process Modelling"
+metaTitle: "Process Modelling"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+
+- Process modelling is the activity of representing processes of stakeholders or an enterprise, so that the current processes may be analyzed, improved, or automated
+- Process modelling enables to represent who does what,  when, and possibly where
+- Process modelling gives an opportunity to 
+    - Capture operational information from observations, documents, interviews, and questionnaires about existing ways of working (i.e. processes) of stakeholders
+    - Integrate userstoriesand other operational scenarios together to analyze commonalities, alternatives, and potential conflicts
+    - Anticipate the processes to be followed by the users of the future system
+
+## User Requirement Notation
+
+
+- URN is the first and currently only standard that explicitly addresses goals in addition to processes in graphical and textual ways in one unified language. URN combines:
+    - Goal-oriented Requirement Notation (GRL), especially good for NFRs
+    - Use Case Maps (UCM), especially good for processes
+- About the URN standard
+    - International Telecommunication Union (ITU-T Z.150 series)
+    - United Nation organization: 193 countries + member companies
+    - ITU-T Z.150 (02/03, revised 02/11): User Requirements Notation (URN) - Language requirements and framework
+    - ITU-T Z.151 (11/08, corrigendum 2011, revised 2012 and 2018): User Requirements Notation (URN) - Language definition
+    - Metamodel, abstract/concrete graphical and textual syntaxes, semantics...
+
+### Bird's Eye View of URN
+
+GRL
+- intentional elements + actors + links + indicators + strategies
+
+UCM
+- responsibilities + causality + component + scenarios
+
+
+- Although UCMs are used here to explain process modelling, most process notations share common concepts:
+    - Start
+    - End
+    - Activity
+    - Sequence
+    - Alternatives (with conditions)
+    - Concurrency
+    - Decomposition...
+
+# Use Case Maps
+
+
+- Use Case Maps
+    - Graphical and textual scenario/process modelling notation 
+    - Causal relationships between responsibilities
+    - Scenario elements may (optionally) be allocated to components
+- UCM models support
+    - Functional requirements as scenarios/processes
+    - Integration and reusability of scenarios/processes
+    - Guidance for architecture and detailed behaviour
+    - Conflict detection
+    - Transformations
+    - Performance analysis
+
+# Process Analysis and Traversal
+
+
+- As seen for models in general, there are benefits in creatingand inspecting process models, as the language/notation forces some rigour, and so do supporting tools that understand its syntax (i.e., not PowerPoint or Visio)
+- But some languages and tools also support some level of simulation or executability that helps:
+    - Animate specific scenario runs in a process model, for validation
+    - Extract execution traces (e.g., as sequence diagrams) for testing
+    - Check properties such as absence of deadlocks, non-determinism, race conditions, or modeller-defined properties
+    - Simulate different loads, for performance assessment
+    - Detect undesirable interactions between processes coming from different stakeholders and other sources
+- Requires additional precision, with data and conditions
+- Example: UCM traversal, supported by the jUCMNav tool
+
+## Use Case Maps Notation: Data language
+
+
+- URN includes a simple a data language for conditions and statements
+- Subset of SDL’s data language (ITU-T Rec.  Z.100), supporting only 3 types
+- Boolean, Integer, and Enumeration 
+- Concrete textual syntax that supports both SDL and Java/C expressions and operators
+    - Condition: ```x>100 && day==MONDAY```
+    - Statement: ```if (var1 || var2) then var3=35;```
+
+### Notation Overview
+
+![Image](https://www.researchgate.net/profile/Babak_Esfandiari/publication/225790255/figure/fig9/AS:668617037336577@1536422132064/Summary-of-the-Use-Case-Map-UCM-notation.png)
+
+## Possible Problems with Multiple Conditions
+
+
+- In process models (e.g., UCM or BPMN), OR-forks (and dynamic stubs) are locations where the conditions can lead to common issues
+- For example, assume two Boolean variables A and B:
+    - Condition 1: A || B
+    - Condition 2: A && B
+- If these conditions guard branches or plug-ins, what are the two main issues that can happen?
+    1.Non-determinism: There exist values for which more than one condition are true at the same time. For example: A=T, B=T
+        - If not solved: random behaviour!
+    2.Incompleteness: There exist values for which all conditions are false at the same time. For example: A=F, B=F
+        - If not solved: deadlock!
+- Your challenge is to ensure that conditions in a UCM OR-fork or in a dynamic stub are deterministic and complete (and making sense)
+
+## Summary
+
+
+- Model processconcepts – mainly for workflow, operational, and functional requirements
+- Like most process modeling notations, UCMs provide: 
+    - Coverage of basic process modelling concepts
+    - Visual description of behavior superimposed over entities (from software and hardware components to actors)
+    - Combined system view – integrate many scenarios/processes
+    - Effective documentation tool for people unfamiliar with the domain
+- More uniquely, UCMs also provide:
+    - Executability enabling requirements analysis
+        - Enables reasoning about potential undesirable interactions of processes
+        - Validation of specific scenarios with stakeholders
+        - Path towards design and implementation
+    - Integration with goal models in URN
+
+# Scenario Export: UCM Model
+
+- Scenarios can be exported to:
+    - UCM model where all scenarios are linearized
+        - Stubs flattened and choices resolved (but documented with special waiting places) 
+    - UCM model where all scenarios are linearized and well-formed
+        - From graph to “tree” (especially for AND-joins)
+        - Some concurrency may be lost along the way
+
+## Key Points: Scenario Definitions 
+
+- Improves understanding of (lengthy) scenarios
+- Validation and regression testing
+- UCM data model is not a domain data model
+- Simpler, aims to support scenario execution
+- Scenario definitions are the foundation for more advanced functionality based on UCM path traversal mechanisms (highlight, transformations)
+- Much value here in a tool-supported translation
+
+# Process Mining
+
+- The use of data (event logs) to discover existing processes from evidence, and generate a corresponding process model
+- Uses a combination of data mining and some A.I.
+- Shows the real as-is process rather than what people think the process is
+
