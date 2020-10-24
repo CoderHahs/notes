@@ -1,0 +1,61 @@
+---
+title: "Convolutional Neural Networks"
+metaTitle: "Convolutional Neural Networks"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Image Classification
+
+Input: Image NxN pixels
+
+Annotation require lots of expertise. People doing the annotation must be very knowledgeable.
+
+Useful for real-time object detection
+
+A good dataset is CIFAR-10.
+
+## Convolutional Network Architecture (CONVNET)
+
+![Image](https://miro.medium.com/max/2510/1*vkQ0hXDaQv57sALXAJquxA.jpeg)
+
+# Various Layers of CONVNET 1D
+
+![Image](https://miro.medium.com/max/1000/1*z7hd8FZeI_eodazwIapvAw.png)
+
+## Layers in Convolutional Network
+
+- Input Layer
+- Convolutional Layer
+- Max Pooling
+- Feed-forward Network
+- Output layer
+- Error
+
+Backpropagtion can be used all the way, and can be used for weights of inputs as well.
+
+### Convolutional Layer
+
+Here we're learning **filters**, which is a set of tied inputs that are learned. We learn these filters through back propagation.
+
+Common representation: learned weights as a *filter* used to do a convolution on the input.
+
+### Max Pooling
+
+This just takes the max of the outputs. 
+
+# Various Layers of CONVNET 2D
+
+## Convolutional Layer
+
+Matrix multiplication where the original matrix is multiplied by a filter, to create a result of the element-wise product and sum of the filter matrix and the original matrix.
+
+## Max-pooling layer
+
+Addition layer (with no adjustable weights) can be introduced to further reduce dimensionality: the pooling layer. It's just downsampling using a max operation.
