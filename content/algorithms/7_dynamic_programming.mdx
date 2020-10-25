@@ -1,0 +1,60 @@
+---
+title: "Dynamic Programming"
+metaTitle: "Dynamic Programming"
+metaDescription: "Topics in Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+Let $G = (V,E)$ be a directed acyclic graph, where each edge $(u, v)$ has a weight $wt(u, v) > 0$. 
+
+Topological sorting: vertices are numbered $v_1, v_2, ..., v_n$ such that for each $(v_i, v_j)$, we have $i< j$.
+
+Let $s = v_1$ and $t = v_n$. 
+
+How do we compute the shortest path from $s$ to $t$?
+
+Can we do better than Dijkstra algorithm, using the topological ordering of $G$?
+
+# Step 1: Structure of the Optimal Solution
+
+Let $u_1, u_2, ..., u_k$ be all vertices that have an edge to $t$.
+
+The last edge of the shortest path from $s$ to $t$ is $(u_i, t)$ for some $1 \leq i \leq k$. 
+
+If we know this index $i$, then the shortest path from $s$ to $t$ is equal to **path from $s$ to $u_i$** followed by the edge $(u_i, t)$.
+
+Since we don't know the index $i$, the length of the shortest path from $s$ to $t$ is equal: $\mathrm{min}_{1\leq i \leq k}$ (length of the shortest path from $s$ to $u_i$) + $wt(u_i, t)$. In other words, the shortest path from $s$ to $t$ contains the shortest path from $s$ to one of $u_1, u_2, ..., u_k$.
+
+# Step 2: Set up a Recurrence for the Optimal Solution
+
+For $j = 1,2,..., n$, define $d(v_j) = $ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$. 
+
+Recurrence:
+- $d(v_1) = 0$
+- For $2 \leq j \leq n$, $d(v_j) = \mathrm{min}_{(v_i, v_j) \in E} {d(v_i) + wt(v_i, v_j)}$
+
+# Step 3: Solve the Recurrence "Bottom-Up"
+
+**First idea:**
+- To compute $d(v_n) = d(t)$, take all edges $(u_1, t), (u_2, t), ..., (u_k, t)$, and recursively compute $d(u_1), d(u_2), ..., d(u_k)$. From this, compute $d(v_n)$ as $d(v_n) = \mathrm{min}_{1\leq i \leq k} {d(u_i) + wt(u_i, t)}$
+
+This is slow and takes $O(2^n)$.
+
+**Better approach:**
+```py
+d(v1) = 0
+for i in range(2, n):
+    k = indegree(vj)
+    Let u1, u2, ..., uk be all the vertices that have an edge to vj
+    d(vj) = infinity
+    for i in range(1, k):
+        d(vj) = min {d(vj), d(ui) + wt(ui, vj)}
+return d(vn)
+```
+
+This running time here is $O(|V| + |E|)$.
