@@ -10,6 +10,7 @@ metaDescription: "Topics in Algorithms"
   crossOrigin="anonymous"
 />
 
+# Shortest Acyclic Path
 Let $G = (V,E)$ be a directed acyclic graph, where each edge $(u, v)$ has a weight $wt(u, v) > 0$. 
 
 Topological sorting: vertices are numbered $v_1, v_2, ..., v_n$ such that for each $(v_i, v_j)$, we have $i< j$.
@@ -20,7 +21,7 @@ How do we compute the shortest path from $s$ to $t$?
 
 Can we do better than Dijkstra algorithm, using the topological ordering of $G$?
 
-# Step 1: Structure of the Optimal Solution
+## Step 1: Structure of the Optimal Solution
 
 Let $u_1, u_2, ..., u_k$ be all vertices that have an edge to $t$.
 
@@ -30,7 +31,7 @@ If we know this index $i$, then the shortest path from $s$ to $t$ is equal to **
 
 Since we don't know the index $i$, the length of the shortest path from $s$ to $t$ is equal: $\mathrm{min}_{1\leq i \leq k}$ (length of the shortest path from $s$ to $u_i$) + $wt(u_i, t)$. In other words, the shortest path from $s$ to $t$ contains the shortest path from $s$ to one of $u_1, u_2, ..., u_k$.
 
-# Step 2: Set up a Recurrence for the Optimal Solution
+## Step 2: Set up a Recurrence for the Optimal Solution
 
 For $j = 1,2,..., n$, define $d(v_j) = $ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$. 
 
@@ -38,7 +39,7 @@ Recurrence:
 - $d(v_1) = 0$
 - For $2 \leq j \leq n$, $d(v_j) = \mathrm{min}_{(v_i, v_j) \in E} {d(v_i) + wt(v_i, v_j)}$
 
-# Step 3: Solve the Recurrence "Bottom-Up"
+## Step 3: Solve the Recurrence "Bottom-Up"
 
 **First idea:**
 - To compute $d(v_n) = d(t)$, take all edges $(u_1, t), (u_2, t), ..., (u_k, t)$, and recursively compute $d(u_1), d(u_2), ..., d(u_k)$. From this, compute $d(v_n)$ as $d(v_n) = \mathrm{min}_{1\leq i \leq k} {d(u_i) + wt(u_i, t)}$
@@ -58,3 +59,64 @@ return d(vn)
 ```
 
 This running time here is $O(|V| + |E|)$.
+
+# Matrix Chain Multiplication
+
+$A: p x q$ matrix, $B: q x r$ matrix, $C = A \cdot B: p x r$ matrix. $C$ has $pr$ entries, each of which can be computed in $O(q)$ time. So $C$ can be computed in $O(pqr)$ time. We define the cost of multiplying $A$ and $B$ to be $pqr$.
+
+In general, 
+- $p_0, p_1, ..., p_n$: positive integers
+- $A_1, A_2, ..., A_n$: matrices such that $A_i$ has $p_{i-1}$ rows and $p_i$ columns.
+
+Compute the best order to compute the product of the matrices by minimizing the total cost.
+
+## Step 1: Structure of the Optimal Solution
+
+Consider the best order to compute $A_iA_{i+1} \cdot ... \cdot A_j$. In the *last* step, we multiply: $(A_i \cdot ... \cdot A_k)$ and (A_{k+1} \cdot ... \cdot A_j), both of which are already computed.
+
+## Step 2: Set Up a Recurrence for the Optimal Solution
+
+For $1\leq i \leq j \leq n$, define $m(i,j)$ = minimum cost to compute $A_i \cdot ... \cdot A_j$.
+
+We want to compute $m(1,n)$.
+
+If we know $k$, then $m(i,j) = m(i,k) + m(k+1, j) + p_{i-1}p_kp_j$.
+
+But we do not know $k$, so try all values of $k$, $i \leq k \leq j-1$ and take the best one. 
+
+Recurrence:
+- For $1\leq i \leq n$: $m(i, i) = 0$.
+- For $1 \leq i < j \leq n$: $m(i,j) = \mathrm{min}_{i \leq k \leq j-1} m(i,k) + m(k+1, j) + p_{i-1}p_kp_j$
+
+## Step 3: Solve the Recurrence Bottom-Up
+
+Compute, in this order,  
+$m(1, 1), m(2, 2), ..., m(n, n)$  
+$m(1, 2), m(2, 3), ..., m(n − 1, n)$  
+$m(1, 3), m(2, 4), ..., m(n − 2, n)$  
+$m(1, 4), m(2, 5), ..., m(n − 3, n)$  
+.  
+.  
+.  
+$m(1, n − 1), m(2, n)$  
+$m(1, n)$
+
+
+## Algorithms
+
+```py
+for i = 1 to n do
+    m(i, i) = 0
+    for l = 2 to n do
+        // Compute m(1, l), m(2, l + 1), ..., m(n − l + 1, n)
+        for i = 1 to n − l + 1 do
+            // Compute m(i, i + l − 1)
+            j = i + l − 1
+            // Compute m(i, j) using the recurrence
+            m(i, j) = ∞
+            for k = i to j − 1 do
+                m(i, j) = min {m(i, j), m(i, k) + m(k + 1, j) + pi−1*pk*pj}
+return m(1, n)
+```
+
+Running time is $\Theta(n^3)$
