@@ -15,19 +15,19 @@ struct enreg
 } ;
 ```
 
-– It defines a type (model) of structure but does not reserve a variable corresponding to that structure. This type is called here enreg and it specifies the name and type of each of the fields that make up the structure (number,
+- It defines a type (model) of structure but does not reserve a variable corresponding to that structure. This type is called here enreg and it specifies the name and type of each of the fields that make up the structure (number,
 quantity and price).
-– Variables of the corresponding type can be reported, such as : ```enreg art1 ;```
+- Variables of the corresponding type can be reported, such as : ```enreg art1 ;```
     - reserves a location called art1« of type enreg » intended to contain two int and one float. We'll use the same word « structure » to designate either the name of the type (model) or variables of the type. 
 
 ## Initialization of structures
 
-– In the absence of explicit initialization, automatic class structures (including local structures to a function) are
+- In the absence of explicit initialization, automatic class structures (including local structures to a function) are
 not initialized, so they contain random values.
-– Static class structures see their fields initialized to « zero » (zero integer, zero float, zero code character, zero
+- Static class structures see their fields initialized to « zero » (zero integer, zero float, zero code character, zero
 pointer). This rule applies to fields that are scalars or scalar arrays. If some fields are themselves structures, the
 rule will apply to each of their fields, and so on.
-– A structure can be initiated when it is declared, as in this statement which uses the type enreg defined previously :
+- A structure can be initiated when it is declared, as in this statement which uses the type enreg defined previously :
 ```enreg art1 = { 100, 285, 200 } ;```
 
 ## Scope
@@ -73,15 +73,15 @@ long or a float which can be seen as a long Integer which will then be referred 
 A type enumeration is a particular case of int type and therefore a scalar type (or simple). It forms as structures a type defined by the programmer.
 
 ```enum color {yelow, red, blue, green} ;```
-– This statement defines a type of enumeration named color and specifies that it contains four possible values designated by the identifiers yellow, red, blue and green. These values are the constants of the color type.
+- This statement defines a type of enumeration named color and specifies that it contains four possible values designated by the identifiers yellow, red, blue and green. These values are the constants of the color type.
 
 ## Why Enumeration?
 
-– Readability
-– Easy to change digital representations
-– enum types are implicitly converted to int
-– enum class in C++ (highly typical enumerations)
-– Strong typing, i.e.
+- Readability
+- Easy to change digital representations
+- enum types are implicitly converted to int
+- enum class in C++ (highly typical enumerations)
+- Strong typing, i.e.
     - Red value cannot be assigned to a variable of another type.
 
 # Class and object
@@ -129,10 +129,10 @@ return 0;
 
 # Constructor and destructor
 
-– The destructor is a member function systematically performed (if it exists!) «at the end of life» of a static, automatic, or dynamic object.
-– You can’t pass parameters to destructor.
-– Its task is to release the memory allocated to the object when it is created (via the constructor). If you don't define a destructor, there is a default, not visible in the code, that provides the same function of memory release.
-– The destructor has the same name as the class, preceded by a tilde (~).
+- The destructor is a member function systematically performed (if it exists!) «at the end of life» of a static, automatic, or dynamic object.
+- You can’t pass parameters to destructor.
+- Its task is to release the memory allocated to the object when it is created (via the constructor). If you don't define a destructor, there is a default, not visible in the code, that provides the same function of memory release.
+- The destructor has the same name as the class, preceded by a tilde (~).
 
 ## Example
 
@@ -179,8 +179,8 @@ void fct (int p)
 -  If a destructor is private, it can no longer be called directly, which is usually not serious (rarely useful).
 -  Privatization of a constructor has serious consequences since it will be usable only by class members functions.
 -  In Java
-    – The constructor owns the same properties as in C++ and a class may not have a constructor.
-    – But in Java, given members are always initialized by default (zero value) and can also be initialized when they are returned (the same value is then assigned to all items of the type). These two possibilities (default initialization and explicit initialization) do not exist in C++(see later).
+    - The constructor owns the same properties as in C++ and a class may not have a constructor.
+    - But in Java, given members are always initialized by default (zero value) and can also be initialized when they are returned (the same value is then assigned to all items of the type). These two possibilities (default initialization and explicit initialization) do not exist in C++(see later).
 
 # Static data members
 
@@ -188,4 +188,124 @@ One way to allow multiple objects to share data is to declare it static. Since s
 - ```int class::var = 5;```
 
 # Using a class
+
+Class as a software component:
+- Decouple the class from its use
+- Isolate the class' only statement instructions in a header file that will be included for compilation
+
+```cpp
+class point
+{
+    int x;
+    int y;
+    public:
+        point(int, int);
+        void move(int, int);
+        void display();
+}
+
+#include <iostream>
+#include "point.h"
+using namespace std;
+
+// Definition of point class member functions
+point::point(int abs, int ord)
+{
+    x = abs;
+    y = ord;
+}
+
+void point::move(int dx, int dy)
+{
+    x = x+dx;
+    y = y+dy;
+}
+
+void point::display()
+{
+    cout << "I'm in" << x << " " << y << endl;
+}
+```
+
+## Multiple inclusions
+- any header file in a class is systematically protected from multiple inclusions by a conditional compilation technique:
+    ```cpp
+    #ifndef POINT_H
+    #define POINT_H
+    // declaration of point class
+    #endif
+    ```
+    - The symbol set for each header file will be chosen to avoid any risk of duplicates.
+
+## Cases of class change
+
+- When a class is considered a software component, it should no longer be changed. If a change is necessary, two situations should be considered:
+    - The statement of public members has not changed
+        - programs using the class do not need to be modified and need to be recompiled with the corresponding new header file (link edition for new object module).
+    - The statement of public members has changed
+        - programs using the class may require changes (should be avoided). It must be considered a class design error (these problems can often be solved by the use of the inheritance mechanism).
+
 # Objects
+
+## Automatic and Static objects
+
+- Automatic objects are those created by a statement:
+    - in a function: They are destroyed at the end of the function.
+    - in a block: they are destroyed when they leave the block.
+- Static objects are those created by a statement located:
+    - Outside of any function;
+    - in a function, but with the term static.
+- Static objects are created before the main function running and destroyed after the execution is complete.
+- Construction and destruction :
+    - the constructor is called after the object is created;
+    - the destructor is called before the destruction of the object.
+
+## Dynamic Objects
+
+Case 1: A class without a constructor.
+
+```cpp
+class Point
+{ int x, y ;
+public :
+void initialize(int, int) ;
+void move(int, int) ;
+void display( ) ;
+} ;
+```
+If we declare : ```Point * adr ;```
+- One can dynamically create a Point type location (which will therefore contain the place for two int) and assign its address to adr by : ```adr = new Point ;```
+
+Case 2: A class with a constructor.
+
+- After dynamically allocating the required memory location, the new operator will call an object constructor.
+- Before the corresponding memory location is released, the delete operator will call the destructor.
+- Example : program that dynamically creates a Point object in the main function and destroys it in a *fct* function (called by main). The messages displayed highlight the moments at which the constructor and the destructor are called.
+
+## Copy Constructor
+
+Sometimes you will have to create a copy constructor. The purpose of this type of constructor is to initialize an object when it is instantiated from another object. 
+
+Every class has a default copy constructor automatically generated by the compiler, whose only purpose is to copy the fields of the object to be copied one by one in the
+fields of the object to instantiate. However, this default constructor will not always suffice, and the programmer will sometimes have to provide one explicitly.
+This will be particularly the case when certain data from the objects have been dynamically allocated. A brutal copy of the fields of one object in another would only copy the pointers, not the pointed data. Thus, changing this data for
+one object would cause the data to be changed from the other object, which would probably not be the desired effect.
+
+The definition of copy constructors is like that of normal constructors. The name must be that of the class, and there must be no type. In the list of settings, however, there will always have to be a reference on the object to be copied. This means that its header must be one of these two forms (if the class concerned is called point) : ```Point (Point &)``` Or, ```Point (const Point &)```
+
+If this copy constructor is private, it can only be called by class members. Any attempt by the class user to copy
+objects will lead to a compilation error.
+- If you want to ban the construction by copying, you can:
+    - Declare it private
+    - Use the possibility of declaring a function without providing a definition: in this case any attempt to copy (even by a member function, this time) will be rejected by the link editor;
+    - Combine the two possibilities above, i.e. make a private statement, without definition; in this case, attempts to copy by the user will remain detected in compilation (with an explicit message) and only copying by a member function will be limited to a link editing error (and this is only for the class designer, not its user!)
+
+# Dynamic arrays of Objects
+
+For the Point class, you can dynamically create an arrays of points by using the *new* operator. For example: ```Point * adcurve = new Point[20] ;```
+– allocates the necessary memory location to twenty (consecutive) Point type objects, and places the address of the first of these objects in adcurve.
+– If none of the Point constructors is a constructor without argument, the previous statement will lead to a compilation error. Of course, there will be no particular problem if there are no constructors in the Point class.
+– So, there is no possibility here to provide an initializer, whereas this is possible in the case of automatic or
+static array.
+
+- To destroy our array of objects, we use the instruction: ```delete [] adcurve```
