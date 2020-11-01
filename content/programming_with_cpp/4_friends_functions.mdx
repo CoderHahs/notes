@@ -1,0 +1,245 @@
+---
+title: "Friendly Functions"
+metaTitle: "Friendly Functions"
+metaDescription: "Topics in Programming Concepts with C++"
+---
+
+The principle of encapsulation prohibits a member function of one class from accessing private data of another class. The concept of **friendly function** offers an interesting solution, in the form of a compromise between formal encapsulation of private and public data. When defining a class, it is possible to declare that one or more functions (outside the class) are "friends"; such a declaration of friendship then allows them to access private data, just like any member function.
+
+# Independent function
+
+Friend to a class
+
+```cpp
+
+#include <iostream>
+using namespace std ;
+class Point {
+    int x, y ;
+    public :
+    Point (int abs=0, int ord=0) // constructor ("inline")
+    { 
+        x=abs ; y=ord ;
+    }
+    friend int coincide(Point, Point) ; //statement friend function (independent) named coincide
+};
+    /* coincide definition*/
+int coincide (Point p, Point q) {
+    if ((p.x == q.x) && (p.y == q.y)) return 1 ;
+    else return 0 ;
+}
+
+
+int main() {
+    Point a(1,0), b(1), c ;
+    if (coincide(a,b)) cout << "a coincide with b \n" ;
+    else cout << "a and b are different \n" ;
+    if (coincide(a,c)) cout << "a coincide with c \n" ;
+    else cout << "a and c are different \n" ;
+    return 0;
+}
+// -----------------------------Output Code-----------------------------------------
+// a coincide with b
+// a and c are different
+```
+An independent function that is a friend to a class can be summarized by the following:
+
+```cpp
+class Point{
+    int coincide (Point ..., Point ...)
+    // private part { // we have access here to private members of any Point type object }
+    // public part
+    friend int coincide (Point, Point) ;
+    .....
+} ;
+```
+
+Although it is placed here in the public Point part, the friendship statement can appear anywhere in the class. 
+
+# Class member function and friend to another class
+
+In this case, specify in the declaration of friendship, the class to which the function concerned belongs, with the resolution operator (::).
+
+```cpp
+class A
+{
+    //private part
+    //public part
+    friend int B::f(char, A);
+}
+
+class B
+{
+    int f(char, A);
+}
+
+int B::f (char ..., A ...)
+{
+    // we have access here to private members of any type A object
+}
+```
+
+# Functions friends to several Classes
+
+The same function (independent or member function) may be the subject of declaration of friendship in different classes. Here's an example of a function to two classes A and B:
+
+```cpp
+class A {
+    //private part
+    //public part
+    friend void f(A, B);
+}
+
+class B {
+    // private part
+    // public part
+    friend void f(A,B)
+}
+
+void f(A ..., B ...)
+{
+    // we have access here to private members of any type A or B object
+}
+```
+
+# All the functions of a class are friends to another class
+
+You can make as many declarations of friendship as there are functions involved. To say that all class B functions are class A friends, the statement will be placed in class A.
+
+## Example
+
+- using a function to determine the product of a vector (Vect class object) by a matrix (Matrix class object). For
+simplicity, we have limited member functions to:
+    - a constructor for Vect and Matrix;
+    - a display function displaying for Matrix.
+- Two solutions based on the use of a friendly function called prod are provided:
+    - prod is independent and friend to both Vect and Matrix classes;
+    - prod is a member of Matrix and friend to the Vect class.
+
+
+Case: Independent Friend Function
+```cpp
+#include <iostream>
+using namespace std ;
+class Matrix ; // to be able to compile the statement of Vect
+class Vect {
+    double v[3] ; // 3-component vector
+    public :
+        Vect(double v1=0, double v2=0, double v3=0) // constructor
+        { v[0] = v1 ; v[1]=v2 ; v[2]=v3 ;}
+        friend Vect prod (Matrix, Vect) ; // prod is an Independent friend function
+    void display ()
+    { 
+        int i ;
+        for (i=0 ; i<3 ; i++) cout << v[i] << " " ;
+        cout << "\n" ; 
+    }
+} ;
+
+class Matrix {
+    double mat[3][3] ; // matrix 3×3
+    public :
+    Matrix (double t[3][3]) // constructor, from 3×3 array
+    { 
+        int i, j ;
+        for (i=0 ; i<3 ; i++)
+        for (j=0 ; j<3 ; j++) mat[i][j] = t[i][j] ;
+    }
+    friend Vect prod(Matrix, Vect) ; // prod is an Independent friend function
+}; 
+
+/ ********** prod() function *****************/
+Vect prod(Matrix m, Vect x) {
+    int i, j ;
+    double som ;
+    Vect res ; // for the result of the product
+    for (i=0 ; i<3 ; i++)
+    { 
+        for (j=0, som=0 ; j<3 ; j++)
+            som += m.mat[i][j] * x.v[j] ;
+            res.v[i] = som ;
+    }
+    return res ;
+}
+
+int main() {
+    Vect w(1,2,3) ;
+    Vect res ;
+    double tb[3][3] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ;
+    Matrix a = tb ;
+    res = prod(a, w) ;
+    res.display() ;
+    return 0;
+}
+// --------------------------Code Output----------------------------------------------------------
+// 14 32 50
+```
+
+Case: Member Function, Friend to a class
+
+```cpp
+#include <iostream>
+using namespace std ;
+// / ********* Matrix class************/
+class Vect ; // to be able to compile
+class Matrix {
+    double mat[3][3] ; // matrice 3×3
+    public :
+    Matrix (double t[3][3]) // constructor, from 3×3 array
+    { 
+        int i, j ;
+        for (i=0 ; i<3 ; i++)
+        for (j=0 ; j<3 ; j++) mat[i][j] = t[i][j] ;
+    }
+    Vect prod(Vect) ; // prod is now a member function
+} ;
+
+// / ********* Vect class**************/
+class Vect {
+    double v[3] ; // 3-component vector
+    public :
+    Vect(double v1=0, double v2=0, double v3=0) // constructor
+    { 
+        v[0] = v1 ; v[1]=v2 ; v[2]=v3 ; }
+        friend Vect Matrix::prod(Vect) ; // prod is a friend function
+        void display ()
+        { 
+            int i ;
+            for (i=0 ; i<3 ; i++) cout << v[i] << " " ;
+            cout << "\n" ;
+        }
+} ;
+
+// / ********* prod() function definition ************/
+Vect Matrix::prod(Vect x)
+{ 
+    int i, j ;
+    double som ;
+    Vect res ; // for the result of the product
+    for (i=0 ; i<3 ; i++)
+    { for (j=0, som=0 ; j<3 ; j++)
+    som += mat[i][j] * x.v[j] ;
+    res.v[i] = som ;
+    }
+    return res ;
+}
+
+int main() {
+    Vect w(1,2,3) ;
+    Vect res ;
+    double tb[3][3] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ;
+    Matrix a = tb ;
+    res = a.prod(w) ;
+    res.display() ;
+}
+```
+
+# Use of classes with friendly functions
+
+Classes will be compiled separately. Their use will be from an object module containing their member functions and a header file containing their statement. It is always possible to group several classes in the same object module and possibly in the same header file.
+
+In any case, this compilation of classes made it possible to ensure reuse.
+
+These possibilities are not changed when using class-based friendly functions (apart from any class declarations necessary for their use). If it is an independent functions, it must be seen that if one knows how to make it a separate object module, we risk of seeing the user of the class violate the principle of encapsulation. 
+
+The user of a class with a friendly function may still not be incorporated the friend function into the privilege editing and provide herself with another header function, and then access private data.

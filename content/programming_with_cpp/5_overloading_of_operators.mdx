@@ -1,0 +1,63 @@
+---
+title: "Overloading of Operators"
+metaTitle: "Overloading of Operators"
+metaDescription: "Topics in Programming Concepts with C++"
+---
+
+C++ allows you to over-load existing operator as along as it involves at least one object.
+
+For example, if a *Complex* class if defined to represent complex, numbers, it will be possible to give meaning to expressions such as:
+- a+b
+- a-b
+- a * b
+- a/b
+where a,b are *Complex* objects
+
+# Over-definition of Operators
+
+Let's consider a Point class, and suppose that we want to define the operator + in order to give meaning to an expression such as a + b, when a and b are Point type. The agreement adopted by C++ to over-define this operator is to define a function named: ```operator +```.
+- This function must haver two Point type arguments and provide a return vale of the same type.
+- This function may be a member of the class or an independent function (a friendly function)
+
+In general, when multiple operators are combined within the same expression (whether they are over defined or not), they retain relative priority and association. All operators can be over-defined except '.', '::', '?:'.
+
+## Over-definition with a friendly function
+
+Operator over-definition with a friendly function is based on:
+- prototype of the operator + function: ```Point operator + (Point, Point) ;```
+- a declaration of friendship within the Point class;
+- definition of the function
+
+```cpp
+#include <iostream>
+using namespace std ;
+class Point {
+    int x, y ;
+    public :
+    Point (int abs=0, int ord=0) { x=abs ; y=ord ;} // constructor
+    friend Point operator+ (Point, Point) ;
+    void display() { cout << " Coordinates : " << x << " " << y << "\n" ; }
+} ;
+
+Point operator + (Point a, Point b) {
+    Point p ;
+    p.x = a.x + b.x ; p.y = a.y + b.y ;
+    return p ;
+}
+int main() {
+    Point a(1,2) ; a.display() ;
+    Point b(2,5) ; b.display() ;
+    Point c ;
+    c = a+b ; c.display() ;
+    c = a+b+c ; c.display() ;
+    return 0;
+}
+// ----------------------------Code Output--------------------------------------
+// Coordinates : 1 2
+// Coordinates : 2 5
+// Coordinates : 3 7
+// Coordinates : 6 14
+```
+
+
+
