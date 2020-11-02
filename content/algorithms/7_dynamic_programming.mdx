@@ -191,3 +191,63 @@ Running time: $O(m*n)$
 Space: $O(m*n)$
 
 But if we only want to compute $C(m, n)$, we only need the current row and the previous row. Hence, Space: $O(m+n)$
+
+# General Structure
+
+In general, when we solve a problem using dynamic programming, we go
+through the following steps:
+1. Understand the structure of the optimal solution. Show that there is an optimal substructure: an optimal solution “contains” optimal solutions for subproblems (which are
+smaller problems).
+2. Set up a recurrence for the optimal solution. We know from Step 1 that an optimal solution can be obtained from optimal solutions for subproblems. Use this to derive
+recurrence relations.
+3. Solve the recurrence bottom-up. First solve the smallest subproblems (usually the base case of the recurrence). Then solve the second smallest subproblems. Then solve the third
+smallest subproblems, etc.
+
+Do **not** use a recursive algorithm!
+
+# All-Pairs Shortest Paths
+
+Let $G = (V, E)$ be a directed graph, where $V = {1, 2, ..., n}$. Each edge $(i, j)$ has a weight $wt(i, j) > 0$.
+
+For all $i$ and $j$, compute the weight of a shortest path in $G$ from $i$ to $j$, which we denote by $\gamma_G (i, j)$.
+
+## Step 1: Structure of the Optimal Solution
+
+Consider the shortest path from $i$ to $j$, and assume this path has at least one interior vertex. Let $k$ be the largest interior vertex.
+- shortest path from $i$ to $k$, all interior vertices are $\leq k-1$
+- shortest path from $k$ to $j$, all interior vertices are $\leq k-1$
+
+## Step 2: Set up a recurrence for the Optimal Solution 
+
+For $i \leq i \leq n$, $1 \leq j \leq n$, $0 \leq k \leq n$, be the length of the shortest path from $i$ to $j$, all of whose interior vertices are vertices are $\leq k$.
+
+We want to compute $dist(i,j,n) = \gamma_G (i,j)$ for all $1 \leq i \leq n, 1 \leq j \leq n$.
+
+Recurrence:
+- For $1 \leq i \leq n, \mathrm{dist}(i,i, 0) = 0$
+- For $1 \leq i \leq n, 1 \leq j \leq n, i \neq j$
+- $dist (i,j,0) = {wt(i,j) if (i,j) is an edge, \infty otherwise}$
+
+- For $1 \leq i \leq n, 1 \leq j \leq n, 1 \leq k \leq n$, $dist(i,j,k) = min {dist(i, j, k-1), dist(i, k, k-1) + dist(k, j, k-1)}$.
+
+## Algorithm: Floyd-Warshall
+
+```py
+for i = 1 to n do
+    for j = 1 to n do
+        if i = j then
+           dist(i, j, 0) = 0
+        else
+            dist(i, j, 0) = +infinity
+for all edges (i, j) do
+    dist(i, j, 0) = wt(i, j)
+for k = 1 to n do
+    for i = 1 to n do
+        for j = 1 to n do
+            dist(i, j, k) = min {dist(i, j, k − 1), dist(i, k, k − 1) + dist(k, j, k − 1)}
+```
+
+$O(n^3)$
+
+# Final Remarks
+
