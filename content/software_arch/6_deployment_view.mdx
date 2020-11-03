@@ -1,0 +1,263 @@
+---
+title: "Deployment View"
+metaTitle: "Deployment View"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+Allocation of system components over nodes
+- Static components (e.g. source code, data)
+- Dynamic components (e.g. processes)
+- Availability reliability, performance, scalability, security
+- System Engineering, System operators
+
+# Deployment Models
+
+- Self-managed
+    - managed by organization
+    - full control
+    - high components
+    - demand fluctuations
+- Cloud
+    - third party managed
+    - focus on core mission
+    - dynamic adaptions
+    - lower cost
+    - security/privacy
+    - vender lock-in
+
+## Cloud Computing
+
+> Cloud computing is a paradigm for enabling network access to a scalable and elastic pool of shareable physical or virtual resources with self-service provisioning and administration on-demand
+- ISO/IEC
+
+> A style of computing where scalable and elastic IT-enabled capabilities are provided as a service to multiple customers using Internet technologies
+- Gartner
+
+- on-demand access to resource pools
+    - applications, computing, storage, networking, development, deployment platforms, business processes
+- again third party managed
+
+### Characteristics
+
+- On-demand self-service
+- rapid elasticity
+- broad network access
+- measured service
+- resource pooling
+- multitenancy
+
+# Cloud Models
+
+- Public Cloud
+    - provider owned
+    - subscription based
+- Private Cloud
+    - company owned
+- Community Cloud
+    - optimized for sector/group
+- hybrid Cloud
+    - mixes models
+
+# Service Models
+
+- Software as a Service
+    - hosted application
+- Platform as a Service
+    - application development platforms
+    - middleware, Server, database
+- Infrastructure as a Service
+    - hardware Infrastructure
+
+![Image](https://www.uniprint.net/wp-content/uploads/2017/05/Cloud-service-models-diagram.png)
+
+![Image](https://www.stackscale.com/wp-content/uploads/2020/04/cloud-service-models-iaas-paas-saas-stackscale.jpg)
+
+## Other Service Models
+
+- Data storage as a service
+    - data store capabilities for use by applications
+    - API access
+- Function as a service
+    - cloud based execution of code
+    - abstracts processing
+    - provider managed
+    - scales as needed
+- Analytics as a service
+    - platform for big data analysis
+    - derive actionable insights
+- Security as a service
+    - applications/services security
+        - e.g. authentications, virus detection, antimalware
+
+# Virtualization
+
+- enabling technology
+- abstracts view on resources
+    - application, hardware, storage, network
+
+## Hardware Virtualization
+
+- Simulates Hardware expected by Operating System
+    - more efficient use of resources
+    - sharing configuration/state
+- virtual machine-based approach
+- container-based approach
+
+## Virtual machine
+
+- Hardware Abstraction (Disk, CPU, NIC, ...)
+    - Guest Operating System (OS) runs on
+- Full Virtualization
+    - Guest OS runs unmodified
+- Paravirtualization
+    - Guest OS modification needed
+- Hardware Assisted Virtualization
+    - Special VM CPU Calls
+
+### Monitor/Hypervisor
+
+- Software layer that runs VMs
+    - intercepts instructions
+
+#### Type 1 Hypervisor
+
+- runs directly on hardware
+- E.g. VMWare ESX, Microsoft Hyper-V, KVM
+- VMs dedicated Host
+
+#### Type 2 Hypervisor
+
+- on top of a guest OS
+- E.g. VMWare GSX, VirtualBox, QEMU
+- Less efficient
+
+![Image](https://img.vembu.com/wp-content/uploads/2019/12/Hypervisor-Types.png)
+
+# Containers
+
+- Lightweight Virtual Machines
+    - Linux processes separation
+- Operation System Virtualization
+    - no guest OS required
+    - namespaces
+    - control groups (cgroups)
+- Example: Docker, rkt
+
+## Namespaces
+
+- Sandbox processes: restricts what processes see, use
+    - UTS: host/domain
+    - Mount: mount points
+    - IPC: inter-process communication
+    - Cgroup: control group identity
+    - PID: set of process ids
+    - Network: network subsystems
+    - Time: time system
+
+## Control Groups (Cgroups)
+
+- Collection of processes with resource usage parameters
+    - limit prioritize, meter, control resource usage
+    - CPU, memory, network bandwidth
+
+## Docker
+
+- container platform
+    - portability
+- hypervisors for non-linux OS support
+
+![Image](https://vmarena.com/wp-content/uploads/2018/08/DOCK02.png)
+
+### Concepts
+
+- Docker Image
+    - Packaging of application and environment
+    - Layered building
+    - Dockerfile
+- Docker registry
+    - Docker images repository
+    - public/Private
+    - DockerHub
+- Docker Container
+    - Container instantiated from an Image
+
+Steps:
+1. Developer tells Docker to build and push image
+2. Docker builds image
+3. Docker pushes image to registry
+4. Developer tells Docker on production machine to run image
+5. Docker pulls image from registry
+6. Docker runs container from image
+
+# Container vs Virtual Machines
+
+Virtual Machines:
+- run on top of a hypervisor with a full fledged OS
+- can run on several applications
+- applications from the same VM can share libraries
+
+Containers:
+- run on top of the host OS as a process
+- runs a single application
+- applications from different containers can share libraries
+
+## Advantages
+
+- VM
+    - Security 
+        - VM provides complete isolation
+        - container can affect kernel
+    - Portability
+        - VM is portable across any system
+        - Container relies on OS
+- Container
+    - resource efficiency
+    - performance
+    - agility
+
+# Container Orchestration
+- automated scheduling, execution, coordination, management of Containers
+    - load-balancing
+    - discovery
+    - failure-handling
+    - replication management
+- orchestrator: Docker Swarm, Red Hat OpenShift, Kubernetes
+
+# Kubernetes
+
+- Open Source Container orchestrator
+    - containers deployment, monitoring, management on clusters
+    - abstracts distributed infrastructure 
+    - cloud development platform
+
+## Components
+
+- **API Server** communicates with Control Panel
+- Maintains cluster state (**etcd**)
+- **Scheduler** schedules to workers
+- **Controller Manager** does cluster level functions
+- **kube-proxy** does networking
+- **Kubelet** interacts with API Server
+- **Controller Runtime** runs containers
+
+![Image](https://miro.medium.com/max/981/1*HXbT0c4Q5XaiCIp6y3VMvw.png)
+
+## Kubernetes Objects
+
+- entities provided by Kubernetes
+    - Pods
+    - Replicasets
+    - Deployments
+    - Services
+    - Volumes
+- YAML/JSON definition
+
+### Pods
+
+- Basic building block
+- Groups co-located Containers
+- Managed as unit
+
+Clusters:
+
+![Image](https://www.researchgate.net/profile/Unai_Arronategui/publication/320248964/figure/fig1/AS:806205253484545@1569225719186/Kubernetes-architecture.png)
