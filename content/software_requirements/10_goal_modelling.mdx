@@ -1,0 +1,162 @@
+---
+title: "Goal Modelling"
+metaTitle: "Goal Modelling"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Goals and Rationales
+
+- **Rationale** is the reasoning that leads to the system
+- Rationales include
+    - Issues that were addressed
+    - Alternatives that were considered
+    - Decisions that were made to resolve the issues
+    - Criteria that were used to guide decisions
+    - Debate developers went through to reach a decision
+- Very similar to the “analytic nature” of SEG co-op reports!
+
+- **Goal**: high-level objective of the business, organization, or system
+- A requirement specifies how a goal should be accomplished by a proposed system
+- Operationalization: the process of defining a goal with enough detail so that its sub-goals have an operational definition
+- Decomposition: the process of subdividing a set of goals into a logical sub-grouping so that system requirements can be more easily understood, defined, and specified
+- Obstacles: behaviours or other goals that prevent or block the achievement of a given goal
+- Abstracting and identifying goal obstacles allows one to consider the possible ways for goals to fail and anticipate exception cases
+
+## Use of Rationales
+- Improve design support
+- Avoid duplicate evaluation of poor alternatives
+- Make consistent and explicit trade-offs
+- Improve documentation support
+- Makes it easier for non developers (e.g., users, managers, lawyers) to review the design
+- Improve maintenance support
+- Provide maintainers with design context
+- Improve learning
+- New staff can learn the design by replaying the decisions that produced it
+
+
+# Goal-oriented Requirement Language (GRL)
+
+
+- The Goal-oriented Requirement Language (GRL)
+    - Is a standardized graphical and textual notation, part of URN
+    - Connects requirements to business objectives
+    - Allows reasoning about (non-functional) requirements and tradeoffs
+    - Is based on i* and the NFR Framework (U. Toronto)
+    - Supports indicators, strategies, and extension mechanisms
+- GRL models “why” aspects
+    - Goals, alternatives, and rationales
+    - Little or no operational/sequencing detail
+- Supports goal and trade-offanalysis and evaluations
+    - Which stakeholders will be happy about these decisions?
+- Nothing comparable in UML, SysML or BPMN...
+
+## GRL Notation
+![Image](https://www.researchgate.net/profile/Joao_Araujo3/publication/4325579/figure/fig1/AS:341739534602240@1458488462398/Summary-of-jUCMNavs-GRL-Notation.png)
+
+
+- Intentional elements
+    - Goal, softgoal (or quality), task 
+    - GRL resources and beliefs are not used in this course
+- Achievement of a softgoal is qualifiable but not entirely measurable; it is quantifiable for goals (more binary too)
+    - Softgoal ...often non-functional or quality
+    - Goal ... often functional
+- A task is a proposed solution that can achieve a goal and contribute to softgoals/qualities
+- An indicator transforms a measure to a satisfaction level
+
+
+- Contribution Link
+    - A contribution describes desired impact orside effects (positive or negative)
+    - Qualitative (symbols) or quantitative (numbers) contribution types are used for these links
+- Decomposition Link
+    - Defines what an intentional element needs to be satisfied
+        - AND
+        - OR
+        - XOR
+- Dependency Link (source target)
+    - The source of the dependency cannot be more satisfied than its target
+
+## Recurring Pattern in Goal Modelling
+
+- The system (actor) has several functional goals, with various alternative ways of performing them (shown with tasks)
+- There are several stakeholders (actors) involved, with their own concerns, often non-functional (captured with softgoals)
+- There are known contributions and side-effects from the potential solutions to the softgoals
+
+## Why Goals
+
+- Goals become an important driver for requirements elaboration – yet, stakeholders goals and objectives are complex and will conflict...
+- GRL expresses and clarifies tentative, ill-defined, and ambiguous requirements
+    - Supports argumentation, negotiation, conflict detection & resolution, and in general decisions
+    - Captures decision rationale and criteria (documentation!)
+- GRL identifies alternative requirements and alternative system boundaries (scope)
+- GRL provides clear traceability from strategic objectives to technical requirements
+- GRL allows reuse of stable higher-level goals when the system evolves
+
+## User Stories and Goal models
+
+- Pattern: As an [Actor], I want to [Task] in order to [Contribution] achieve [Goal]
+- This user story identifies the task of an actor, a contribution level, and a contribution from the task to a goal (inside or outside the actor)
+- Ex: As a professor, I want to use Brightspace in order to help minimize the number of lost assignments.
+
+# Goal Model Analysis
+
+## Strategies and Evaluation Mechanism
+
+- GRL allows a particular configuration of intentional elements to be defined in a strategy (i.e., one possible solution)
+    - Captures the initial, user-defined satisfaction levels for these elements separately from the GRL graphs
+    - Intentional elements tagged with (*) in jUCMNav
+    - Strategies can be compared with each other for trade-off analysis
+- In order to analyze the goal model and compare solutions with each other, jUCMNav’s customizable evaluation mechanism executes the strategies 
+    - Propagating satisfaction levels to the other elements and to actors shows impact of proposed solution on high level goals for each stakeholder
+    - Propagation starts at user-defined satisfaction levels of intentional elements (usually bottom-up)
+- Evaluations of GRL graphs show the impact of qualitative decisions on high level soft goals
+- Evaluation mechanism takes into consideration:
+    - Initial satisfaction levels of children (from a strategy)
+    - Links, types of these links, and contribution/decomposition types
+    - Importance defined for intentional elements and actors
+- More complete than simple pros/cons tables or criteria evaluation matrices
+
+# Indicators
+
+- GRL includes a notion of goal satisfaction, with qualitative and quantitative ([-100..100] or [0..100]) scales.
+- However, there is often a need to better relate observations about the real world to the goal model, with domain-specific units such as:
+    - Currencies (e.g., revenues in $)
+    - Durations (e.g., waiting time in a hospital, in hours)
+    - Counts (e.g., number of new students admitted in SEG)
+- GRL supports this kind of information, and integrates it in the rest of the goal model
+    - Key Performance Indicator (KPI)
+- KPIs help measure goals and NFRs with quantifiable metrics
+- GRL KPIs can also be fed from external sources of information, hence turning the GRL model into a monitoring engine (e.g., a dashboard).
+
+## Key Performance Indicators
+
+- In GRL, a KPI is defined as an intentional element, but with additional characteristics
+    - Attributes (for a given GRL strategy)
+        - An evaluation value (observed, or simulated in a what-if strategy)
+        - A target value (the KPI is fully satisfied if the evaluation value reaches or exceeds it)
+        - A worst-case value (the KPI is fully denied if the evaluation value reaches it)
+        - A threshold value (the KPI is neutral if the evaluation value equals it)
+        - A unit (e.g., $)
+    - Liens (for a given GRL model)
+        - Source of contributions
+        - Target of decompositions and dependencies
+
+# Goal/Process Consistency and Completeness
+
+## From Goal Models to Process Models - URN Links
+
+- URN Links (typed) establish traceability relationships
+    - Connect any pair of URN model elements
+    - Most frequently, URN links are used to trace ...
+        - Actors in GRL models and corresponding components in UCM models
+        - Tasks in GRL models and corresponding maps/processes or responsibilities in UCM models
+
+## Integrating Goals and Processes
+
+- Refinements of alternative solutions 
+    - From GRL goals (identification) to UCM processes (operationalization) 
+- Traceability enables the analysis of completeness (anything missing?) and consistency (are the views aligned?)
+    - Under-specification: discovery of new goals or process elements
+    - Over-specification: removal of unnecessary goals or process elements
+- Examples:
+    - Why is there a UCM process without any link to a GRL goal?
+    - Why is there a GRL goal without any link to a UCM process?
