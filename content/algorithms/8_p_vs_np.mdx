@@ -26,3 +26,89 @@ Examples of problems in $P$:
 
 # Other Problems
 
+## Hamiltonian Cycle
+
+- input: An undirected graph $G = (V, E)$ stored using adjacency lists
+- question: Does $G$ contain a Hamiltonian cycle? A *Hamiltonian cycle* is a cycle that traverses each vertex exactly once.
+
+Right now on this planet, nobody knows how to solve this problem in polynomial time. Not known if this problem is in $P$!
+
+## Travelling Salesman Problem
+
+- input:
+    - A complete directed graph $G = (V, E)$, where each edge $(u,v) \in E$ has a weigh $wt(u,v) > 0$
+    - An integer K
+- question: Does $G$ contain a Hamiltonian cycle of total weight at most $K$?
+
+Again we don't know if this problem is in $P$!
+
+## Subset-Sum
+
+- input: A set $S$ of integers together with an integer $t$
+- question: Is there a subset $S'$ of $S$ such that the sum of the subset is equal to $t$?
+
+Not known if this problem is in $P$!
+
+## Clique
+
+- input: An undirected graph $G = (V,E)$ together with an integer $K$
+- question: DOes $G$ contain a clique (complete subgraph) with $K$ vertices?
+
+Not known if this problem is in $P$!
+
+# Proving
+
+For each of the 4 previous problems
+    - Not know if it can be solved in polynomial time
+    - If the answer to the question is YES, then
+        - there is a "short" proof for this
+            - "short" means the length of the proof is "polynomial in the length of the input"
+        - if someones gives us such a short proof, then we can "easily" verify this proof
+            - here "easily" means "in polynomial time"
+
+How to check if proof is correct?
+
+## Hamiltonian cycle
+
+proof/solution: sequence $v_1, ..., v_k$ of vertices
+
+verification: 
+    - $k=n$?
+    - no duplicates in $v_1, ..., v_k$
+    - For each $1 \leq i < k-1, {v_i, v_{i+1}$ is an edge?
+    - ${v_k, v_1} is an edge?
+
+## TSP
+
+proof/solution: sequence $v_1, ..., v_k$ of vertices
+
+verification: 
+    - $k=n$?
+    - no duplicates in $v_1, ..., v_k$
+    - Do we have $\sum_{i=1}^{k-1} wt(v_i, v_{i+1}) + wt (v_k, v_1) \leq K$?
+
+## Subset-sum
+
+proof/solution: A set $S'$
+
+verification: 
+    - is $S'$ a subset of S? 
+    - Do we have sum of subset $=t$?
+
+## Clique
+
+proof/solution: A set $V'$
+
+verification:
+    - is $V'$ a subset of V?
+    - Do we have $|V'| = K$?
+    - For each $u,v \in V'$ such that $u \neq v$, is ${u,v}$ an edge in $E$?
+
+# Complexity Class NP
+
+A decision problem $A$ is in $NP$ if
+- for a given input $I$, the answer to the question $A(I)$ is YES, then there exists a proof/solution/certificate $C$ such that
+    - $C$ is short (polynomial size in the length of $I$)
+    - in polynomial time, we can verify that $C$ is a correct proof for the fact that $A(I)$ = YES
+
+$NP$ stands for Nondeterministic Polynomial 
