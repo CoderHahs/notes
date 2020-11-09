@@ -1,0 +1,28 @@
+---
+title: "P vs. NP"
+metaTitle: "P vs. NP"
+metaDescription: "Topics in Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+An algorithm has **polynomial running time** if there is a constant $c \geq 1$ such that for every input of length $n$, the algorithm takes $O(n^c)$ time.
+
+An algorithm has **exponential running time** if there is a constant $c \geq 1$ such that for every input of length $n$, the algorithm takes $O(2^{n^c})$ time.
+
+# Complexity Class P
+
+A **decision problem** is a problem for which the answer is "yes" or "no". The **complexity class** $P =$ set of all decision problems that can be solved in polynomial time. For example a sorting problem is not in $P$, since it does not output "yes" or "no".
+
+Examples of problems in $P$:
+- is a given input graph connected
+- is a given input graph bipartite
+- is a given input sequence sorted
+- does a given input graph contain an Euler tour? An Euler tour is a path that traverses each edge exactly once
+
+# Other Problems
+
