@@ -1,0 +1,282 @@
+---
+title: "Microservices"
+metaTitle: "Microservices"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+# Monolithic Style
+
+- Consists in tiers
+    - Client tier (presentation)
+    - Server tier (business logic)
+    - data tier (persistence)
+- Deploying units are done using servers
+
+A good design uses modularization to tackle complexity. 
+
+## Style Issues
+
+- single deployment units
+    - architecture degradation
+    - build complexity
+    - continuous integration / delivery
+    - scaling
+
+# Microservice Style
+
+Developed to address the limitations of the Monolithic Style.
+
+> The microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare minimum of centralized management of these services, which may be written in different programming languages and use different data storage technologies
+
+The modules of the business logic are separate autonomous services. They use REST or GraphQL to interact with one another. Each service is responsible for its own storage.
+
+## Characteristics
+
+- componentization via services
+- around business capabilities
+- products not projects
+- decentralized governance
+
+## Design Principles
+- Autonomy
+    - Loose coupling
+    - Independent evolution/deployment
+- Single responsibility
+    - manages a sub-domain
+- Encapsulation
+    - interfaces
+    - separate data store
+- Fault-Isolation
+
+## Benefits
+
+- Technology Heterogeneity
+    - most appropriate tools
+- development flexibility
+    - understandability, maintainability
+- Resilience
+    - can handle partial failure
+- Ease of deployment
+    - partial deployment
+- Scalability
+    - selective Scalability
+- Agility
+    - smaller teams
+
+## Drawbacks
+
+- complexity
+    - communication
+    - debugging
+    - deployment
+- hard to refactor
+- eventual consistency
+
+## Microservices Application Architecture
+
+- Platform
+    - Infrastructure, deployment communication
+- Services
+    - business logic, aggregation, orchestration
+- Boundary
+    - facade, authentication
+- Client
+    - front-ends applications
+
+# Clean Architecture
+
+- Frameworks -> Platform
+- Adapters -> Boundary
+- Use Cases -> Application Services
+- Entities -> Core Business Services
+
+## Platform tier
+
+- infrastructure support
+    - deployment target (containers, virtual machines)
+    - communication, service discovery
+    - logging/monitoring
+    - security support
+
+## Communications support
+
+- Communication support provided by Platform
+    - load balancing
+    - discovery
+    - circuit breaking
+
+### Load Balancer
+
+- Distributes requests to instances
+    - Efficient distribution
+- Algorithms
+    - Round robin
+    - Least connections
+    - Randomized
+    - Least-time
+
+### Service Discovery
+
+- Service Localization
+    - multiple instances
+    - needs to know IP address/Port
+    - Dynamic information
+    - Service Registry
+
+#### Application-Level Discovery
+
+- responsibility of services and service clients
+    - ex. Netflix Eureka (Spring cloud)
+
+
+#### Platform-level Discovery
+
+- Handled by deployment Platform
+    - e.g. Kubernetes
+
+### Circuit Breaker
+
+- handles service failure
+    - prevents cascade
+    - resource hold
+
+## Services Tier
+
+- fulfills business logic
+- lower-level microservices
+    - core business logic
+- higher-level microservices
+    - application logic
+    - aggregate/coordinate
+
+## Boundary Tier
+
+- Exposes underlying functionality
+    - Services tier facade
+    - Protocols, format translation
+    - Authentication/Authorization
+    - Rate limiting
+    - Caching
+    - Metrics, logging
+
+### API Gateway
+
+- Single entry point
+    - reverse proxy
+- one-size-fits-all API
+
+### Backends for Frontends (BFF)
+
+- API Gateway per client
+    - adapted to client
+
+### Consumer-Driven Gateway
+
+- consumer defined responses
+    - GraphQL server
+
+## Client Tier
+
+- frontend applications
+- Frontend Monolith
+    - deployed as a single unit
+- micro frontend
+    - independently deployed chunks
+
+### Micro-Frontends
+
+- user interface consists of chunks (pages, fragments)
+    - independently developed, tested, deployed
+- server-side integration: server-side includes (SSI), Edge-Side includes (ESI), Tailorl Podium
+- client-side integration: iframes, Ajax, Web components
+
+Here the complete stack is owned by the independent team.
+
+### Benefits/Drawbacks
+
+Benefits:
+- autonomous teams
+    - from frontend to backend
+- independent DevOps
+    - reduces scope/risk
+
+Drawbacks:
+- payload size
+    - duplication of dependencies
+- consistency
+- native mobile support
+
+#### Data consistency
+
+- decentralized data
+    - Autonomy
+    - data consistency challenging
+
+# Saga Pattern
+
+- Saga: series of transaction
+    - coordinated with messages/events
+- Mechanism for eventual consistency
+    - compensating actions
+- Coordination approaches
+    - choreography
+    - orchestration
+
+## Choreography
+
+- decentralized
+- reverses to consistent state
+
+Advantages:
+- loose coupling
+
+Disadvantages:
+- complex design
+- difficult validation
+
+## Orchestration
+
+- centralized
+- orchestrator/collaborators
+- initiates compensation
+
+Orchestrator directs the Saga
+
+Advantages:
+- understandability/maintenance
+
+Drawbacks:
+- coupling
+- Single point of failure
+
+# Serverless Architecture Style
+
+> The serverless architectural style is the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment.
+
+- composition of cloud-based components
+    - Function as a Service (FaaS)
+    - Backend as a Service (BaaS)
+        - Data Storage as a Service (DSaaS)
+        - Security as a Service (SECaaS)
+        - Analytics as a Service (AaaS)
+
+## Framework
+
+- Severless applications development platform
+    - development, testing deployment
+    - cloud providers integration
+    - serverless Framework
+    - AWS Serverless Application model
+    - AWS Amplify
+
+## Benefits/Drawbacks
+
+- Benefits:
+    - Developmentn and Operation
+    - Operational Cost
+    - Scalability/Elasticity
+    - Security
+    - Stability/Availability
+- Drawbacks:
+    - Cold-start
+    - vendor lock-in

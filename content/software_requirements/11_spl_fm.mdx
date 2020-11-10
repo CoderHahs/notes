@@ -1,0 +1,48 @@
+---
+title: "Software Product Lines and Feature Models"
+metaTitle: "Software Product Lines and Feature Models"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+# Software Product Lines
+## Families of Software Products
+- A set of programs is considered to constitute a family, whenever it is worthwhile to study programs from the set by first studying the common properties of the set and then determining the special properties of the individual family members (1)
+- Software-intensive systems come in many variants
+
+## Variability in Time vs. Space
+
+- Variability in Time (releases) 
+    - the existence of different versions of an artifact that are valid at different times
+- Variability in Space (variants)
+    - the existence of an artifact in different shapes / configurations at the same time
+
+## Benefits
+
+- Improve product reliability
+- Improve usability
+- Improve consistency across products
+- Reduce production costs
+- Reduce certification costs
+- Shorten time-to-market
+
+# Domain and Application Engineering
+
+
+- Domain engineering
+    - The process of analyzing the domain of a product line and developing reusable artifacts
+    - Decides what features and combinations of features to offer
+    - Example domain: intelligent mobile phones
+- Application engineering
+    - Aims to developing a specific product for the needs of a particular customer
+    - Selects one particular (and valid) combination of features
+    - Example product: Apple iPhone 12
+    - Corresponds to the process of single application development in traditional software engineering, but reuses artifacts from domain engineering where possible
+
+
+- Domain requirements engineering is a form of requirements engineering for an entire product line
+- Here, we need to decide the scope and content of the domain
+- Application requirements engineering analyses the needs of a specific customer as part of application engineering
+- In the simplest case, a customer’s requirements are mapped to a feature selection, based on the features identified during domain engineering
+- Domain realization is the process of developing reusable artifacts that correspond to the features identified in domain requirements engineering
+- Application realization (or product derivation/generation/configuration/ assembly) is the production step of application engineering, where reusable artifacts from domain engineering are combined according to the results of requirement analysis
+- Leads to one concrete product/application
