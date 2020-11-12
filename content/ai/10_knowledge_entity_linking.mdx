@@ -1,0 +1,117 @@
+---
+title: "Knowledge Organization and Entity Linking"
+metaTitle: "Knowledge Organization and Entity Linking"
+metaDescription: "Topics in Programming Concepts with C++"
+---
+
+# Knowledge Organization
+
+Our brain tries to connect words together based on their relationships.
+
+## Taxonomy
+
+This connects words based on specificity. For example vegetable can be linked to greens which can be linked to spinach.
+
+## Meronymy
+
+This connects words based on a predefined relationship.
+
+For example:
+
+| Type                | Example          |
+|---------------------|------------------|
+| Component – Object  | Head – Body      |
+| Material – Object   | Wood             |
+| Membre - Collection | Tree - Forest    |
+| Location – Area     | Ottawa - Ontario |
+| Phase – Process     | Youth - life     |
+
+## Semantic Network
+
+This connects words based a "one to two word" description.
+
+For example:
+- Cat *has* fur
+- Cat *is a* mammal
+- Fish *lives in* water
+
+# Semantics
+
+## Definitional
+
+Words can also be connected based on definitions. They can have both taxonomic and meronymic parts.
+
+## Predicates / Attributes
+
+A large knowledge base created from the “infobox” sections of wikipedia. Has become the largest knowledge base in the Semantic Web. The structure is in triple form: predicate(subject, object).
+
+## Distributional
+
+> you know a word by the company it keeps
+
+Trying to figure out a word based on the words around it. 
+
+For example:
+- I did X today
+    - X is probably an activity
+- I ate X today
+    - X is some sort of food
+
+Overtime and several examples, the distributional semantics get better since the examples work as weights in a neural net.
+
+# Semantic Similarity
+
+## Definitional Semantic
+
+1. Explicit synonymy
+2. Similarity of definitions (comparing the text)
+3. Proximity in Taxonomy
+    - hypernym: dog/animal
+    - co-hyponyms: dog/cat (both having animal as a hypernym)
+
+## Predicate Semantic
+
+1. shared predicates between concepts/entities
+
+## Distributional
+
+1. vector similarity (cosine)
+2. 2d map
+
+# Entity Linking
+
+## Ambiguity in named entity recognition
+
+- confusion with general language:
+    - I have an account at *Tangerine*
+    - I ate a *tangerine* for breakfast
+- confusion between types:
+    - I visited *Paris* last year.
+    - *Paris* Hilton is in the news today.
+
+## Ambiguity within a type
+
+- confusion within the same type - entity Linking
+    - my friend learned French before going to *Paris*
+        - confusion with Paris and Paris, Texas
+    - *Michael Jordon* was invited speaker at the ML conference.
+        - confusion with basketball player and ML researcher
+
+## Algorithms
+
+Use Bag of words match algorithm to find similarities with corpus for ambiguous words.
+
+```
+build a bag-of-words BOW_c to contain the words in the context of occurrence of the occurrence of the ambiguous word:
+for each possible sense s=1 .. S do:
+    Build a bag-of-words BOW_s, to contain the words in the definition of sense s
+Assign MaxOverlap to 0
+Assign BestSense to null
+for each possible sense s=1..S do:
+    Measure overlap = Overlap (BOW_c, BOW_s)
+    if overlap > MaxOverlap:
+        MaxOverlap = overlap
+        BestSense = s
+```
+
+**Collective Disambiguation** referring to the corpus and linking words to entities
