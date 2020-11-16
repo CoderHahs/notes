@@ -1,0 +1,169 @@
+---
+title: "Prioritization"
+metaTitle: "Prioritization"
+metaDescription: "Topics in Software Requirement Analysis"
+---
+
+
+- There are too many requirements!
+- From many different sources
+- Resources are limited (budget, time, expertise, etc.)
+- Establishing priorities is important, but:
+    - Which requirements are truly important, and to whom?
+    - How to prioritize them? On what basis? What to minimize/maximize?
+    - In which iteration should the requirement be considered?
+- Developers may not know the business value of some requirements, and clients may not know the implementation complexity (or cost) of some requirements...
+- Different stakeholders have different (and often conflicting) goals and different priorities
+- Some stakeholders’ decisions carry more weight than others
+- Companies often lack systematic data, metrics, and technologies to support the prioritization process
+    - Often done manually, informally, on an ad-hoc basis
+    - Difficult to establish and communicate 
+- Attitude!
+    - "No need for priorities, we can do everything in the specification!“
+        - Yes, but when and at what cost?
+    - Suddenly, when the deadline is fast approaching, some requirements are put aside in order to deliver something on time... 
+
+# Requirements Prioritization and Triage
+
+- Requirements prioritization is also referred to as triage
+- Need to decide which requirements really matter, e.g., those that need to be implemented in the next release
+- Need for compromise, negotiation, priorities
+- Prioritization must help:
+    - Make acceptable the trade-offs among quality, cost, and time-to-market goals
+    - Allocate resources based on importance of requirements to the project as a whole (project planning)
+    - Determine when a requirements should become part of the product
+    - Offer the right product!
+
+## 80-20 Rule
+
+- 20% of functionalities provide 80% of revenues
+    - Think of MS Word...
+- The remaining 80% of functionalities offer a lower return on investment while adding delays, development costs, maintenance costs...
+- How to find the most useful and beneficial 20% of functionalities and qualities?
+
+## Triage Process
+
+- Shall be simple and fast, for industry adoption
+- Shall yield accurate and reliable results
+- Shall consider issues such as
+    - The value of requirements to stakeholder (maximize) 
+    - The cost of implementation (minimize) 
+    - Time to market (to minimize)
+- Important to agree on requirements granularity
+    - E.g., user stories, features, detailed requirements...
+
+## 1st Technique: Prioritization Scales
+
+- Determine criteria, granularity, scale dimensions
+- Frequently used:
+        - Urgency
+        - High (mission critical requirement; required for next release)
+        - Medium (supports necessary system operations; required eventually but could wait until a later release if necessary)
+        - Low (a functional or quality enhancement; would be nice to have someday if resources permit)
+    - Importance
+        - Essential (product unacceptable unless these requirements are satisfied)
+        - Conditional (would enhance the product, but the product is acceptable if absent)
+        - Optional (functions that may or may not be worthwhile)
+- Similar to your project deliverable #1... Valid and scalable?
+
+### Prioritization Based on Cost and Value
+
+- Calculate return on investment by
+    - Assessing the value of each requirement
+    - Assessing the cost of each requirement
+    - Calculating the cost-value trade-offs
+- Difficulties
+    - Hard to calculate absolute value and cost figures, in $$$ 
+        - Relative value/cost figures are easier to obtain
+    - Interdependent requirements difficult to treat individually
+
+## 2nd Technique: Wiegers' Prioritization
+
+- Semi-quantitative analytical approach to requirements prioritization based on value, cost, and risk
+- Relies on estimation of relative priorities of requirements
+    - Dimensions
+        - Relative benefit (for having requirement)
+        - Relative penalty to stakeholder (if requirement is not included)
+        - Relative cost (to implement requirement)
+        - Relative risk (technical and other risks)
+    - Each dimension is given a value on a scale (e.g., 0..9)
+    - Dimensions have relative weights
+- Formula used to derive overall priority, e.g.:
+    - value(i) % = (2 \* benefit(i) + penalty(i)) / 2\*benefit(i) + penalty(i)) 
+    - priority = (value%) / ((cost% * cost weight) + (risk% * risk weight))
+- Still limited by ability to properly estimate
+    - Requires adaptation and calibration
+
+### Risk
+
+- risk = the effect of the uncertainty on objectives
+- Not just a “chance or probability of loss” now a risk refers to positive or negative possibilities
+- Identify, characterize uncertainty (threats / opportunities)
+- Assess susceptibility of critical assets to specific threats / opportunities
+- Determine risks (i.e., potential damage|gain x probability of occurrence)
+- Identify ways to reduce negative risks (mitigation)
+- Prioritize risk reduction measures based on a strategy
+- Product or process-related risks
+
+## 3rd Technique: Kano Surveys
+
+- The Kano Model is a method for grouping requirements based on customer perception, in order to select the requirements that deliver the greatest customer satisfaction
+    - Basic: requirements that the customer takes for granted
+    - Excitement: requirements that the customer does not request or expect
+    - Performance: requirements that the customer specifically asked for
+    - Indifferent: requirements that the customer does not care about
+    - Reverse: “requirements” that the customer hates
+
+### Questions and Answers in Kano Surveys
+
+- Ask customers what their reaction would be if the requirement were included in the product (i.e., functional question)
+- Ask customers what their reaction would be if the requirement were NOT included in the product (i.e., dysfunctional question)
+- The possible answers (for each) are:
+    - I like it 
+    - I expect it
+    - I am neutral
+    - I can tolerate it
+    - I dislike it
+
+## 4th Technique: Analytic Hierarchy Process (AHP)
+
+
+- Developed by Karlsson and Ryan (1997) based on work by Saaty (early 1970) 
+    - see also http://en.wikipedia.org/wiki/Analytic_Hierarchy_Process
+- Solves the problem of having to deal with relative values and weights
+    - Everything could be “important” to someone...
+- Forces ranking through pairwise comparisons
+    - Which requirement (A or B) is more important: A << <=> >> B
+- Can be used for requirements, features, stories... in terms of value but also in terms of costs
+
+### Steps:
+1. Requirements engineers check individual requirements for ambiguities, completeness. ..
+2. Apply AHP’s pairwise comparison to estimate the relative value of candidate requirements
+3. Experienced software engineers use AHP’s pairwise comparison to estimate the cost of candidate requirements
+4. Plot these values on a cost-value diagram
+5. Stakeholders use this diagram for analysis and to make trade-off
+
+### Pairwise Comparisons: Problems and Solutions
+
+- Large number of pairs: pairwise comparison can be tedious
+    - Solved using transitivity and other tricks!
+    - Mathematical optimization of the number of pairs to be considered (no need to cover all)
+    - If A>>B and B>>C, do we have to ask about A compared to C?
+    - Partial sampling (according to time/budget) can help 
+- Many dependencies between requirements
+    - Can actually be used to further reduce the # of pairs
+    - E.g., group many requirements as features, use cases, services..
+- Complexity handled by grouping requirements per feature
+    - Fewer pairs to check; if we go from 100 requirements to compare to 10 features to compare, is this much faster?
+- Complexity handled by targeting questions per stakeholder
+    - Not all stakeholders are interested in all requirements!
+
+### AHP: Stakeholders
+
+- Each client is unique!
+- Each stakeholder group may have a different weight
+    - For example, the European and Japanese markets may have different preferences and offer different opportunities
+- Example 
+    - Stakeholders M1 to M10 are different markets
+    - A to P are different features
+- Important conflicts here might lead to a family of products, with one product per relevant market...
