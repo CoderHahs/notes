@@ -1,0 +1,265 @@
+---
+title: "Tactics"
+metaTitle: "Tactics"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+# Goal of Design
+
+Derive a solution for requirements
+- Functionality
+- Constraints
+- Qualities
+
+# Qualiy Attributes
+
+- Availiablity
+- Modifiability
+- Security
+- Utilisability
+- Interoperability
+- Performance
+- Testability
+
+## Availiablity
+
+Software there and ready to carry out its task when its needed
+- Fault --> Failure
+- Reliability: Mean Time between Failures
+- Recovery: Mean Time to Repair
+
+Scenario:
+- Source: Heartbeat monitor
+- Stimulus: Server unresponsive
+- Artifact: Process, Environment: Normal Operation
+- Response: Inform operator continue to operate
+- Response Measure: No downtime
+
+### Tactics for Availability
+
+- prevent/mitigate failures from faults
+- fault --> tactics to control availability 
+
+![Image] (https://www.researchgate.net/profile/Hazem_El-Bakry/publication/316692413/figure/fig1/AS:490738124365824@1494012494685/Hierarchy-of-availability-tactics_Q640.jpg)
+
+#### Detect Faults
+- Monitor
+    - monitors components state of health
+- Ping/echo
+    - Asynchronous request/response message exchange
+- Heartbeat
+    - periodic notification
+- Timestamp
+- Condition Monitoring
+- Exception Detection
+- Sanity Checking
+- Voting
+- Self-test
+
+#### Recover from Faults
+- Redundancy
+    - Active Redundancy (Hot Spare)
+        - all components receive and process identical inputs in parallel
+    - Passive Redundancy (Warm Spare)
+        - only active member process the input
+        - the active member provides spares with periodic state updates
+    - Spare (Cold Spare)
+        - switches to spare when active member fails 
+        - power-on-reset procedure
+- Preparation & Repair
+    - Exception Handling
+    - Software Upgrade
+    - Ignore Faulty Behavior
+    - Reconfiguration
+    - Rollback
+    - Retry
+    - Degradation
+- Reintroduction
+    - Shadow
+    - State Resunchronization
+    - Escalating Restart
+    - Non-stop Forwarding
+
+#### Prevent Faults
+
+- Removal from service
+- Predictive Model
+- Transactions
+- Exception Prevention
+- Increase competence set
+
+## Interoperability
+
+Degree to which parties can usefully exchange meaningful information
+- Locate each other
+- Understand each other
+
+Scenario:
+- Source of Stimulus: Our vehicle information system
+- Stimulus: Current location sent
+- Artifact: Traffic monitoring system, Environment: systems known prior to run-time
+- Response: Traffic monitor, combines current location with other information, overlays on google maps and broadcasts
+- Response Measure: Our information included correctly 99.9% of the time
+
+### Tactics for Interoperability
+
+- Allow correct handling of Information exchange
+    - Information Exchange Request --> Tactics to control Interoperability --> request correctly handled
+
+![Image](https://bohutskyi.com/images/interoperability_tactics.png)
+
+- Adapter Pattern
+    - provides expected interface
+
+## Modifiability
+
+- cost and risk of making changes
+    - what can change
+    - likelihood of the change
+    - when change is made
+    - who makes it
+
+Scenario:
+- Source: developer
+- Stimulus: wishs to change the UI
+- Artifact: Code, Environment: Design time
+- Response: Change Made and Unit Tested
+- Response Measure: in 3 hours
+
+### Modifiability Tactics
+
+- control complexity (time, cost) of changes
+- change arrives --> tactics to control Modifiability --> change made within Time and Budget
+
+![Image](https://slideplayer.com/slide/12765814/77/images/8/Modifiability+Tactics.jpg)
+
+- Reduce Coupling
+    - Encapsulate
+        - Introduces interface: hides internals (e.g. Facade)
+    - Intermediary
+        - Breaks dependency
+    - Restrict Dependencies
+        - constraints interactions (e.g. Layering)
+    - Refactor
+    - Abstract Common Services
+- Defer Binding
+    - Later binding better modifiability
+        - compile/build time, build script or aspects
+        - deployment time, configuration-time binding
+        - startup/initailization time, resource files
+        - run-time, dependecny injection, dynmamic lookup of services, message brokers, plug-ins.
+
+## Performance
+
+Ability to meet timing requirements
+- time to respond to events
+- which events occurs
+- time-based response
+
+Scenario:
+- Source: Users
+- Stimulus: Initate Transactions,
+- Artifact: System, Environment: Normal Operation
+- Responses: transactions are processed
+- Response Measure: average latency of two seconds
+
+### Performance Tactics
+
+- Generate a response to an event arriving at the system within some time-based constraint
+- Event arrives --> tactis to control performance --> response generated within time constraints
+
+![Image](https://bohutskyi.com/images/performace_tactics.png)
+
+- Control Resource Demand
+    - Manage sampling rate
+    - Limit Event response
+    - Prioritize events
+    - Reduce Overhead
+    - Bound Execution times
+    - increase resource efficiency
+- Manage resources
+    - increase resources
+    - maintain multiple copies of computations
+    - bound queue sizes
+    - increase concurrency
+    - maintain multiple copies of Data
+    - schedule resources
+
+## Security
+- ability to protect data and information from attacks
+    - unauthorized access to data/services
+    - denial of access
+- characteristcs
+    - confidentiality
+    - integrity
+    - availability
+    - authentication
+    - non-repudiation 
+    - authorization
+
+Scenario:
+- source: disgruntled employee from remote location
+- Stimulus: attempts to modify pay rate
+- Artifact: data within the system, Environment: Normal operations
+- Response: System maintains audit trail
+- Response Measure: correct data is restored within a day and source of tampering and identified
+
+### Security Tactics
+
+![Image](https://d3i71xaburhd42.cloudfront.net/974b93b7d0ed5e8ab5c6035dc447a1c8c78e0459/2-Figure1-1.png)
+
+## Testability
+
+- Ease to have software demonstrate its faults
+    - ability to reveal faults
+    - control inputs/state
+    - observe inputs/state
+    - complexity
+
+Scenario:
+- source: unit tester
+- stimulus: code unit completed
+- artifact: code unit, Environment: development
+- response: results captured
+- response measure: 85% path coverage in thress hours
+
+### Testability Tactics
+
+![Image](https://silvrback.s3.amazonaws.com/uploads/54855d9e-f882-4a42-86c4-b9ea266264d1/Testability%20Tactics%20-%20Bass_large.png)
+
+## Usability
+
+Degree to which users easily, effectively, efficiently, and satisfactorily perform their tasks
+- learning system features
+- using a system efficiently
+- minimizing the impact of erros
+- adapting the system to user needs
+- increasing confidence and satisfaction
+
+Scenario:
+- source: user
+- stimulus: donwloads a new application
+- artifact: system, environment: runtime
+- response: user uses application productivity
+- response measure: within two minutes of experimentation
+
+### Usability Tactics
+
+![Image](https://bohutskyi.com/images/usability_tactics.png)
+
+# Architectural Tactics
+
+- Fundamental design technique
+    - controls a specific quality attribute
+    - stimulus --> tactis to control response --> response
+
+# Design Decision Categories
+
+- Allocation of responsibilities
+- Data model
+- Mapping among architectural elements
+- Coordination model
+- Management of resources
+- Binding time decisions
+- Choice of technology
+
