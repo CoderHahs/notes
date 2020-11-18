@@ -13,7 +13,7 @@ Derive a solution for requirements
 
 # Qualiy Attributes
 
-- Availiablity
+- Availability
 - Modifiability
 - Security
 - Utilisability
@@ -21,7 +21,7 @@ Derive a solution for requirements
 - Performance
 - Testability
 
-## Availiablity
+# Availability
 
 Software there and ready to carry out its task when its needed
 - Fault --> Failure
@@ -35,14 +35,14 @@ Scenario:
 - Response: Inform operator continue to operate
 - Response Measure: No downtime
 
-### Tactics for Availability
+## Tactics for Availability
 
 - prevent/mitigate failures from faults
 - fault --> tactics to control availability 
 
-![Image] (https://www.researchgate.net/profile/Hazem_El-Bakry/publication/316692413/figure/fig1/AS:490738124365824@1494012494685/Hierarchy-of-availability-tactics_Q640.jpg)
+![Image](https://www.researchgate.net/profile/Hazem_El-Bakry/publication/316692413/figure/fig1/AS:490738124365824@1494012494685/Hierarchy-of-availability-tactics_Q640.jpg)
 
-#### Detect Faults
+### Detect Faults
 - Monitor
     - monitors components state of health
 - Ping/echo
@@ -56,7 +56,7 @@ Scenario:
 - Voting
 - Self-test
 
-#### Recover from Faults
+### Recover from Faults
 - Redundancy
     - Active Redundancy (Hot Spare)
         - all components receive and process identical inputs in parallel
@@ -80,7 +80,7 @@ Scenario:
     - Escalating Restart
     - Non-stop Forwarding
 
-#### Prevent Faults
+### Prevent Faults
 
 - Removal from service
 - Predictive Model
@@ -88,7 +88,7 @@ Scenario:
 - Exception Prevention
 - Increase competence set
 
-## Interoperability
+# Interoperability
 
 Degree to which parties can usefully exchange meaningful information
 - Locate each other
@@ -101,7 +101,7 @@ Scenario:
 - Response: Traffic monitor, combines current location with other information, overlays on google maps and broadcasts
 - Response Measure: Our information included correctly 99.9% of the time
 
-### Tactics for Interoperability
+## Tactics for Interoperability
 
 - Allow correct handling of Information exchange
     - Information Exchange Request --> Tactics to control Interoperability --> request correctly handled
@@ -111,7 +111,7 @@ Scenario:
 - Adapter Pattern
     - provides expected interface
 
-## Modifiability
+# Modifiability
 
 - cost and risk of making changes
     - what can change
@@ -126,7 +126,7 @@ Scenario:
 - Response: Change Made and Unit Tested
 - Response Measure: in 3 hours
 
-### Modifiability Tactics
+## Modifiability Tactics
 
 - control complexity (time, cost) of changes
 - change arrives --> tactics to control Modifiability --> change made within Time and Budget
@@ -146,8 +146,8 @@ Scenario:
     - Later binding better modifiability
         - compile/build time, build script or aspects
         - deployment time, configuration-time binding
-        - startup/initailization time, resource files
-        - run-time, dependecny injection, dynmamic lookup of services, message brokers, plug-ins.
+        - startup/initialization time, resource files
+        - run-time, dependency injection, dynamic lookup of services, message brokers, plug-ins.
 
 ## Performance
 
@@ -158,7 +158,7 @@ Ability to meet timing requirements
 
 Scenario:
 - Source: Users
-- Stimulus: Initate Transactions,
+- Stimulus: Initiate Transactions,
 - Artifact: System, Environment: Normal Operation
 - Responses: transactions are processed
 - Response Measure: average latency of two seconds
@@ -166,7 +166,7 @@ Scenario:
 ### Performance Tactics
 
 - Generate a response to an event arriving at the system within some time-based constraint
-- Event arrives --> tactis to control performance --> response generated within time constraints
+- Event arrives --> tactics to control performance --> response generated within time constraints
 
 ![Image](https://bohutskyi.com/images/performace_tactics.png)
 
