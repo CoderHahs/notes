@@ -53,7 +53,7 @@ Total time: $O(n log(n))$
 
 # Minimum Spanning Tree
 
-We are given edge $G = (V, E)$ that is undirected and connected. Each edge ${u, v} \in \E$ has a weight $wt (u, v)$. 
+We are given edge $G = (V, E)$ that is undirected and connected. Each edge ${u, v} \in E$ has a weight $wt (u, v)$. 
 
 We want a compute a subgraph $G' of G$ such that:
 - The vertex set of $G' is V$, 
@@ -65,15 +65,15 @@ $G'$ is called a **Minimum Spanning Tree** of G (MST of G).
 
 ## Lemma
 
-Let $G = (V, E) be an undirected and connected graph, where each edge ${u,v} \in E$ has a weight $wt(u,v)$.
+Let $G = (V, E)$ be an undirected and connected graph, where each edge ${u,v} \in E$ has a weight $wt(u,v)$.
 
 Split $V$ into $A$ and $B$. Let ${u,v} \in E$ be a shortest edge connecting $A$ and $B$. then there is an MST of $G$ that contains ${u,v}$.
 
 From the previous lemma, any algorithm that follows this greedy scheme is guaranteed to work:
 1. X = {}
 2. Repeat until $|X| = |V| - 1$
-    - Pick a set $S$ such that $X$ has no edge between $S$ and $V\S$.
-    - Let $e \in E$ be a minimum-weight edge between $S$ and $V\S$.
+    - Pick a set $S$ such that $X$ has no edge between $S$ and $V/S$.
+    - Let $e \in E$ be a minimum-weight edge between $S$ and $V/S$.
     - $X = X \cup {e}$
 
 ## Union-Find Data Structure
@@ -156,7 +156,7 @@ def Kruskal(G):
 Start:
 - $A$ is a set consisting of one (arbitrary) vertex of $V$
 - $T$ is an empty set of edges.
-- $Q = V\A$
+- $Q = V/A$
 
 One Iteration:
 - Take an edge ${u, v}$ of minimum weight such that $u \in A$ and $v \in Q$

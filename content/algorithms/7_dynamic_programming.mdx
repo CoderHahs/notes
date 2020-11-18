@@ -33,7 +33,7 @@ Since we don't know the index $i$, the length of the shortest path from $s$ to $
 
 ## Step 2: Set up a Recurrence for the Optimal Solution
 
-For $j = 1,2,..., n$, define $d(v_j) = $ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$. 
+For $j = 1,2,..., n$, define $d(v_j) =$ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$. 
 
 Recurrence:
 - $d(v_1) = 0$
@@ -160,7 +160,7 @@ Recurrence:
 
 ## Step 3: Solve the recurrence "Bottom-Up"
 
-Fill in the matrices $c (i, j) for 0 \leq i \leq m and 0 \leq j \leq n$.
+Fill in the matrices $c (i, j)$ for $0 \leq i \leq m$ and $0 \leq j \leq n$.
 
 - First row:
     - $c(0, 0) = c(0, 1) = ... = c(0, n) = 0$
