@@ -59,12 +59,12 @@ Not known if this problem is in $P$!
 # Proving
 
 For each of the 4 previous problems
-    - Not know if it can be solved in polynomial time
-    - If the answer to the question is YES, then
-        - there is a "short" proof for this
-            - "short" means the length of the proof is "polynomial in the length of the input"
-        - if someones gives us such a short proof, then we can "easily" verify this proof
-            - here "easily" means "in polynomial time"
+- Not know if it can be solved in polynomial time
+- If the answer to the question is YES, then
+    - there is a "short" proof for this
+        - "short" means the length of the proof is "polynomial in the length of the input"
+    - if someones gives us such a short proof, then we can "easily" verify this proof
+        - here "easily" means "in polynomial time"
 
 How to check if proof is correct?
 
@@ -73,36 +73,36 @@ How to check if proof is correct?
 proof/solution: sequence $v_1, ..., v_k$ of vertices
 
 verification: 
-    - $k=n$?
-    - no duplicates in $v_1, ..., v_k$
-    - For each $1 \leq i < k-1, {v_i, v_{i+1}$ is an edge?
-    - ${v_k, v_1} is an edge?
+- $k=n$?
+- no duplicates in $v_1, ..., v_k$
+- For each $1 \leq i < k-1, {v_i, v_{i+1}$ is an edge?
+- ${v_k, v_1} is an edge?
 
 ## TSP
 
 proof/solution: sequence $v_1, ..., v_k$ of vertices
 
 verification: 
-    - $k=n$?
-    - no duplicates in $v_1, ..., v_k$
-    - Do we have $\sum_{i=1}^{k-1} wt(v_i, v_{i+1}) + wt (v_k, v_1) \leq K$?
+- $k=n$?
+- no duplicates in $v_1, ..., v_k$
+- Do we have $\sum_{i=1}^{k-1} wt(v_i, v_{i+1}) + wt (v_k, v_1) \leq K$?
 
 ## Subset-sum
 
 proof/solution: A set $S'$
 
 verification: 
-    - is $S'$ a subset of S? 
-    - Do we have sum of subset $=t$?
+- is $S'$ a subset of S? 
+- Do we have sum of subset $=t$?
 
 ## Clique
 
 proof/solution: A set $V'$
 
 verification:
-    - is $V'$ a subset of V?
-    - Do we have $|V'| = K$?
-    - For each $u,v \in V'$ such that $u \neq v$, is ${u,v}$ an edge in $E$?
+- is $V'$ a subset of V?
+- Do we have $|V'| = K$?
+- For each $u,v \in V'$ such that $u \neq v$, is ${u,v}$ an edge in $E$?
 
 # Complexity Class NP
 
