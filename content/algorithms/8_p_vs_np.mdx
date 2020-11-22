@@ -112,3 +112,14 @@ A decision problem $A$ is in $NP$ if
     - in polynomial time, we can verify that $C$ is a correct proof for the fact that $A(I)$ = YES
 
 $NP$ stands for Nondeterministic Polynomial 
+
+# Formal P vs. NP
+
+## Language of a Decision Problem
+
+The *language* of a decision problem is the set of all inputs (encoded as finite strings) for which the answer is YES.
+
+Examples:
+- HAM-CYCLE = {$G$ | $G$ is a graph that contains a Hamiltonian cycle}
+- TSP = {($G, K$) | $G$ is a complete directed graph $G = (V,E)$, where each edge $(u,v) \in E$ has a weight $wt(u,v) > 0$, $K$ is an integer and $G$ contains a Hamiltonian cycle with total weight at most $K$.}
+- SUBSET-SUM = {$(S, t) | S$ is a set of integers, $t$ is an integer and $\exists S' \subseteq S$ such that $\sum_{x \in S'} x = t$}
