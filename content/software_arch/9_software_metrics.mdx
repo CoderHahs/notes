@@ -1,0 +1,147 @@
+---
+title: "Software Metrics"
+metaTitle: "Software Metrics"
+metaDescription: "Topics in Software Design and Architecture"
+---
+
+# Software Metrics
+
+- Measure aspects of process, project, product
+    - Indicators
+    - Provide insights
+- Design Metrics
+    - Design assessment tools
+
+## Design Metrics
+
+- evaluate design quality
+- evaluate reused implementation
+- concentrate testing effort
+- select design
+
+# Fan-in
+
+- incoming dependencies
+    - Number of external modules that depend on an internal modules
+- Afferent Coupling
+    - Degree of responsibility
+    - the higher the more responsible it is
+
+# Fan-out
+
+- Outgoing dependencies
+    - Number of internal modules that depend on an external module
+- Efferent Coupling
+    - Degree of dependence
+    - the higher the more dependent it is
+
+# Instability Factor
+
+- degree of stability of a module
+- Instability Factor = Efferent Coupling / (Efferent Coupling + Afferent Coupling)
+    - 0 = totally stable
+    - 1 = totally unstable
+
+# Stable Dependencies Principle (SDP)
+
+The dependencies between components in a design should be in the direction of stability. A component should only depend upon components that are more stable than it is. Depend only upon components whose Instability metric is lower than yours.
+
+# Abstraction
+
+Degree of abstractness of a module
+- Number of abstract classes / number of classes
+- 0 = no abstract classes, 1 = all abstract classes
+
+# Open-Closed Principle (OCP)
+
+- A module should be open for extension, but closed for modification
+    - Behavior change possible
+    - NO modification to module implementation
+
+- Violation of OCP
+    - needs to change DataLogger to modify behavior
+- satisfies of OCP
+    - no change to DataLogger needed to modify behavior
+
+# Stable Abstractions Principle
+
+The abstraction of a package should be proportional to its stability!
+- Packages that are maximally stable should be maximally abstract
+- Instable packages should be concrete 
+- Dependencies in the direction of abstraction
+
+# Main Sequence
+
+Instability should increase as abstraction decreases.
+
+## Distance
+
+- Distance from Main Sequence
+    - Balance between Stability and abstractness
+        - D = |A + I - 1|
+        - 0 = good Balance, 1 is opposite
+
+## Zones of Exclusion
+
+- Zone of pain
+    - Highly stable and concrete
+    - responsible can't be extended
+- Zone of Exclusion
+    - Highly instable and abstract
+    - No dependents
+
+# Cyclomatic Complexity
+
+- Logical complexity of a routine
+    - E number of edges, N number of nodes, P number of predicates
+    - C = E-N + 2
+    - C = P+1
+
+## Weighted Methods per Class (WMC)
+
+WMC = sum of ci, ci = cyclomatic complexity of each method
+- Effort for development, maintenance
+- Impact on children 
+- Reusability
+
+## Response for a Class (RFC)
+
+- Number of methods potentially executed in a response to a message
+
+RFC = number of methods + number of distinct methods invoked
+- Complexity
+- Testing effort
+
+## Lack of Cohesion of Methods (LCOM)
+
+- Degree of cohesion and methods in a class
+    - Ik set of instance variables used by method k
+    - P = {(Ik, Ij)} such that Ik and Ij do not intersect
+    - Q = {(Ik, Ij)} such that Ik and Ij do intersect
+    - if |P| > |Q| then LCOM = |P| - |Q|
+    - else LCOM = 0
+
+- How well methods are related
+    - Internal cohesion
+    - LCOM > 0 means lack of cohesion
+
+# Coupling Between Object Classes (CBO)
+
+Degree of Class Coupling
+- Uses (C) = |distinct classes that use C|
+- Used-by(C) = |distinct classes that C use|
+- CBO(C) = Uses(C) + Used-by(C)
+
+# Depth of Inheritance Tree (DIT)
+
+- max length from root to a class
+    - Complexity
+    - understandability
+    - reuse
+
+## Number of children
+
+- number immediate subclasses as a class
+    - reuse
+    - misuse of sub-classing
+    - testing
