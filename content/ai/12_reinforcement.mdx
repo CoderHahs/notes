@@ -1,0 +1,148 @@
+---
+title: "Reinforcement Learning"
+metaTitle: "Reinforcement Learning"
+metaDescription: "Topics in Artificial Intelligence"
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Problem Definition
+
+![Image](https://patducjacquet.files.wordpress.com/2017/06/t100.png?w=640)
+
+## Simple Scenario Conditioned Response
+
+![Image](https://www.kdnuggets.com/images/mathworks-reinforcement-learning-fig1-543.jpg)
+
+![Image](https://cdn-gcp.marutitech.com/wp-media/2017/04/RL1.jpg)
+
+## Reinforcement Learning
+
+Goal: Learning how to perform a sequence of actions to maximize a global reward made of immediate and future rewards.
+
+### Architecture
+
+![Image](https://www.kdnuggets.com/images/reinforcement-learning-fig1-700.jpg)
+
+- Agent: an agent takes actions within an environment
+- Action(A): A is the set of all possible moves (steps/operations) the agent can make.
+- Environment: The world through which the agent moves and which responds to the agent. For the environment, the agent's current state and action are inputs, and the outputs are the following state and the reward.
+- State(S): a state is a concrete situation the agent finds itself in.
+- Reward(R): A reward is the feedback by which we measure success or failure of the agent's action at a particular state.
+
+## Applications
+
+- Navigating a video game
+    - Actions: running, jumping, standing still, crouching, etc
+    - States: game configurations
+    - Rewards: gains/losses which are dependent on the game
+- Flying a drone
+    - Actions: velocities and acceleration in a 3D space
+    - States: drone position in space and position of the goal (e.g. for delivery)
+    - Rewards: positive (getting to goal), negative (crashing)
+- Financial domain (stock market)
+    - actions: buying, selling, holding
+    - States: price of diverse stocks in the market
+    - Rewards: immediate gain/loss from buy/sell
+- robotic manipulations
+- self-driving cars
+
+# Strategy and Q-Value
+
+A strategy, called a policy ($\pi$), tells the agent what to do.
+
+Evaluation of a policy should be an *average* over many episodes
+- average reward
+- average number of failed attempts
+
+## Searching for an optimal strategy
+
+The goal of reinforcement learning is to find a policy that will optimize the long-term gain.
+
+The gain is not necessarily immediate. An action taken at time $t$ may have an impact on the gain at time $t+n$.
+
+We would like to discover (learn) a strategy that would tell the agent what action to do in each state. If this strategy leads to the maximum long-term gain, then we would have an optimal strategy ($\pi *$). This strategy wil rely on the **Q-value**, the estimated long term reward.
+
+## Defining Q-Value
+
+Q-value (Q) is the long-term expected reward, in opposition to R which is the immediate reward.
+
+Q$(s,a)$ refers to the expected long term return of taking action $a$ in the state $s$
+
+Q*$(s,a)$ refers to the MAXIMUM expected long term return of taking action $a$ in the state $s$.
+
+The best value of Q in one state depends on teh best value of Q in the next state. The value Q is expressed using the discount factor $\gamma$ on future rewards.
+
+> $Q*(s,a) = r_0 + \gamma max_{a'} Q*(s',a')$
+
+## Greedy Policy
+
+In terms of policy $(\pi *)$, what action should the agent take?
+> $\pi*(s) = argmax_a Q*(s,a)$
+
+# Q-Learning
+
+Q-learning is the idea to learn better and better approximations of the Q* values by playing again and again and again!
+
+Q-learning comprises of two components, a reward table and a Q table. The reward table remains fixed whereas the Q table is constantly updated.
+
+## Algorithm
+
+Initialization
+- Build Reward table
+- Initialize Q-Table with values at random
+
+Learning - Play multiple episodes
+
+- Start in a state S
+- Repeat
+    - for all possible actions form the state (S) select the one A with the highest Q-value
+    - Update Q-table value Q(S,A)
+    - Travel to the next state (S') as a result of that action Action
+    - If S' is the goal state, then end
+    - else set S as S' (next state becomes current state)
+
+Updating the Q-table:
+- Q(state, action) <-- (1-$\alpha$)Q(state, action) + $\alpha$ (reward + $\gamma$ max Q*(next state, all actions))
+- $\alpha$ is the learning factor
+- $\gamma$ is the discount factor
+
+## Exploration
+
+During learning, our optimal $\hat{\pi}*$ policy is not at its best ... as we are in the process of learning it. The agent should continue a bit of exploration, and use an $\epsilon$-greedy strategy.
+
+Proportions ($\epsilon$) can change to more exploitation and less exploration as the Q-table contains better approximations.
+
+# Deep Q-Learning
+
+Limitations of Q-Learning arise when we factor in several different constraints or states that an agent could be in. For complex problems Q-Learning doesn't help.
+
+With deep Q-Learning, the idea is to learn the function Q* with a neural network. The inputs to the neural net are states, with DQN hidden layers and an output for each action.
+
+## Building a Game Memory
+
+1. Initialization
+    - Play with random actions for a few games (until the goal is reached, or crash/loss). Fill the memory M of size N, with the transitions in these games. Here N is the number of games that occurred. 
+    - initialize two networks: player network (R1), learning network (R2). R1 is a copy of R2 in this initial stage.
+2. Learning
+    - Repeat until done:
+    - Train
+        - Use the game memory to train network (R2)
+    - Play
+        - Repeat for X games
+            - Play using strategy $\hat{\pi}*$ that will be $\epsilon$-greedy using the maximum values Q\*(s, a) as predicted by the R2 network.
+    - Update
+        - Fille the game memory with the new games. As the memory has a limited size, always replace the oldest games of memory with the new games.
+        - Copy network R2 to network R1
+3. Train
+    - For each example,$i$, of the memory $e_i = (s_i, a_i, s'_i, r_i)$
+        - Forward pass: predict $q_i = \hat{Q} (s, a)$ with network R2, using state $s_i$ as input. Note, a single output node is of interest at this point, the node corresponding to the action $a$. We will look at propagating the error from that node.
+        - Obtain the target $t_i = r_0 + \gamma max_{a'} Q*(s',a')$, using network R1 with a forward pass prediction using state $s_i'$ as input. Take maximum on output prediction
+        - Calculate L2 error between the target and the prediction, and propagate this error to adjust the weights of the R2 network. $E_i = 1/2(t_i - q_i)^2$
+
+$\pi$ (deep-learning): for each $s$, do ($\epsilon$-greedy) the action corresponding to the highest value of $Q*(s,a)$ as predicted by the network when we put $s$ at its input.
