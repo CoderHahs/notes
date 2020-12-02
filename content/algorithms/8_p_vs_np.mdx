@@ -204,3 +204,102 @@ Let $L$ and $L'$ be two languages. We say that $L$ is a *polynomial-time reducib
 
 Notation: $L \leq_P L'$
 
+## Theorem
+
+If $L \leq_P L'$ and $L' \in P$, then $L \in P$.
+
+Intuition:
+- $L' \in P$ means "$L'$ is easy"
+- $L \leq_P L'$ means "$L$ is easer than $L'$".
+- So $L$ is easy, $L \in P$.
+
+Consider the following algorithm $A$: on input $x$,
+- Compute $f(x)$
+- Run $A'(f(x))$
+
+We have $x \in L$
+- $\iff f(x) \in L'$ by definition of reduction
+- $\iff A'(f(x))$ returns YES by definition of $A'$
+- $\iff A(x)$ returns YES by definition of $A$
+
+The running time of $A$ is polynomial in the length of $x$. So $L \in P$.
+
+## About 3SAT
+
+Consider a Boolean formula $\phi$ with variables $x_1, x_2, ..., x_n$ of the form $\phi = C_1 \land C_2 \land ... \land C_m$, where each $C_i$ is of the form $C_i = l_1^i \lor l^i_2 \lor l^i_3$. Each $l^i_j$ is a variable or the negation of a variable. $C_i$ is called a *clause* and $l_j^i$ is called a *literal*. 
+
+> $phi = (x_1 \lor \neg x_1 \lor \neg x_2) \land (x_2 \lor x_3 \lor x_4) \land (x_1 \lor x_3 \lor \neg x_4) \land (\neg x_1 \lor x_3 \lor \neg x_4)$
+
+We say that $\phi$ is *satisfiable* if there exists a truth value for each $x_1, x_2, ..., x_n$ such that $\phi$ is true.
+
+> 3SAT = ${\phi | \phi is of the form above and \phi is satisfiable}$
+
+We want to show that 3SAT $\leq_P$ INDEP - SET
+
+Let $\phi$ be an input for 3SAT, $\phi = C_1 \land C_2 \land ... \land C_m$, each clause $C_i$ is the disjunction $(V)$ of 3 literals.
+
+$(G;K)$ is obtained as follows:
+- $K=m$(number of clauses)
+- $G$ has $3m$ vertices, one vertex for each literal. 
+    - For each clause, the literals in this clause form a triangle in $G$.
+    - Additionally, there is an edge between any pair of opposite literals.
+
+## Theorem
+
+The relation $\leq_P$ is transitive: $L \leq_P L'$ and $L' \leq_P L'' \r\Rightarrow L \leq_P L''$ 
+
+# NP-Hard and NP-Complete
+
+The language $L$ is $NP$-Hard if
+- for all $L' \in NP$, $L' \leq_P L$
+
+The language $L$ of a decision problem is $NP$-Complete if
+- $L \in NP$
+- and for all $L' \in NP$, $L' \leq_P L$
+
+It is not clear if a $NP$-Complete problem exists.
+
+Intuitively, this means that $L$ belongs to the most difficult problems in $NP$. This what we were looking for in **Formal P vs. NP**.
+
+## Theorem 
+
+Assume that $L$ is $NP$-Complete. Then $L \in P \iff P = NP$.
+
+Intuition:
+- If $L \in P, L$ is easy
+- $L$ is $NP$-Complete, so $L$ belongs to the most difficult problems in $NP$.
+- If the most difficult problem in $NP$ turns out to be easy, then all problems in $NP$ are easy! 
+
+## Theorem
+
+$L$ is $NP$-Complete, $L \leq_P L'$, $L' \in NP \Rightarrow L'$ is $NP$-Complete.
+
+Intuition:
+- $L$ is $NP$-Complete, so $L$ belongs to the most difficult problems in $NP$.
+- $L'$ is at least as difficult as $L$
+- Then $L'$ also belongs to the most difficult problems in $NP$
+
+Here is how to use this theorem; to show that $L'$ is $NP$-Complete,
+- Show that $L' \in NP$
+- Look for a problem $L$ that is "similar" to $L'$ and that is *known to be* $NP$-Complete
+- Show that $L \leq_P L'$.
+
+## CIRCUIT-SAT
+
+input: A Boolean circuit
+- Directed acyclic graph, where vertices are gates
+- AND-gates and OR-gates have indegree 2
+- NOT-gates have indegree 1
+- Known input gats have indegree 0 and are labeled TRUE or FALSE
+- Unknown gates have indegree 0 and are labeled "?"
+- There is one output gate (whose outdegree is 0)
+
+question: is it possible to assign a truth-value to each unknown input gate, such that the output of the circuit is TRUE?
+
+CIRCUIT-SAT = {$B$ | $B$ is a Boolean circuit for which there exist truth values for the unknown input gates such that the output of $B$ is TRUE}
+
+To show that CIRCUIT-SAT is $NP$-Complete, we have to show two things:
+1. CIRCUIT-SAT is in $NP$
+    - *Certificate:* sequence of truth values for the unknown input gates
+    - *Verification:* evaluate the circuit (in topological order)
+2. Show that for all $L$ in $NP$, $L \leq_P$ CIRCUIT-SAT
