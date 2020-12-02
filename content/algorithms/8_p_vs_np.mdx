@@ -303,3 +303,24 @@ To show that CIRCUIT-SAT is $NP$-Complete, we have to show two things:
     - *Certificate:* sequence of truth values for the unknown input gates
     - *Verification:* evaluate the circuit (in topological order)
 2. Show that for all $L$ in $NP$, $L \leq_P$ CIRCUIT-SAT
+    - Let $L \in NP$. We need a function $f$ such that
+        1. $f$ takes any input $x$ for $L$ and produces an input $B = f(x)$ for CIRCUIT-SAT
+        2. $x \in L \iff B \in$ CIRCUIT-SAT
+        3. The time to compute $B$ is polynomial in the length of $x$
+
+We know that $L \in NP$. So there is a verification algorithm $V$ such that
+- the input to $V$ is $(x,y)$, where $x$ is an input for $L$ and $y$ is a certificate
+- For every input $x$ to $L$,
+    - $x \in L \iff$ there exists a certificate $y$ such that
+        - $|y| \leq |x|^c$
+        - $V(x,y)$ returns YES
+        - and the running time of $V(x,y)$ is at most $|x|^c$
+
+We now define the function $f$. Let $x$ be an input for $L$. Define a new algorithm $V_x$:
+- input is a string $y$ of length at most $|x|^c$
+- $V_x(y)$ runs $V(x,y)$
+- If $V(x,y)$ terminates in at most most $|x|^c'$ steps, then $V_x(y)$ terminates and returns the output of $V(x,y)$
+- If $V(x,y)$ has not terminated after $|x|^c'$ steps, then $V_x(y)$ terminates and returns NO.
+
+Observe:
+- Running time of algorithm $V_x$ is at most $|x|^c'$
