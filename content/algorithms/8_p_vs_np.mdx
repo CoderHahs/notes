@@ -75,7 +75,7 @@ proof/solution: sequence $v_1, ..., v_k$ of vertices
 verification: 
 - $k=n$?
 - no duplicates in $v_1, ..., v_k$
-- For each $1 \leq i < k-1, {v_i, v_{i+1}$ is an edge?
+- For each $1 \leq i < k-1, {v_i, v_{i+1}}$ is an edge?
 - ${v_k, v_1} is an edge?
 
 ## TSP
@@ -142,7 +142,7 @@ Observe that $V$ is a verification algorithm. It has 2 input parameters.
 
 ### Example: Hamiltonian Cycle
 
-> ${G : G$ is a graph that has a Hamiltonian cycle} is in NP
+> {$G : G$ is a graph that has a Hamiltonian cycle} is in NP
 
 Verification algorithm V takes as input
 - graph $G = (V,E)$, where $n = |v|$
@@ -183,9 +183,9 @@ Therefore $L$ is in NP.
 
 ## Big Question
 
-Is $P=NP$ or $P\neqNP$? Most people believe the latter.
+Is $P=NP$ or $P \neq NP$? Most people believe the latter.
 
-If we want to prove that $P\neqNP$, then we have to show that there exists a language $L$ (of a decision problem) such that
+If we want to prove that $P \neq NP$, then we have to show that there exists a language $L$ (of a decision problem) such that
 - $L \in NP$
 - $L \not\in P$.
 
@@ -246,7 +246,7 @@ $(G;K)$ is obtained as follows:
 
 ## Theorem
 
-The relation $\leq_P$ is transitive: $L \leq_P L'$ and $L' \leq_P L'' \r\Rightarrow L \leq_P L''$ 
+The relation $\leq_P$ is transitive: $L \leq_P L'$ and $L' \leq_P L'' \Rightarrow L \leq_P L''$ 
 
 # NP-Hard and NP-Complete
 
