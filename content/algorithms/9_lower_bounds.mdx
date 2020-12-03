@@ -1,0 +1,40 @@
+---
+title: "Lower Bounds"
+metaTitle: "Lower Bounds"
+metaDescription: "Topics in Algorithms"
+---
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Adversarial Arguments
+
+## Example 1
+
+We can find the maximum element in an unsorted array in $O(n)$ time. How can we argue that this is optimal?
+
+Idea: Show that any algorithm which executes a number of steps that is "too small" can be fooled by at least one input.
+
+We show that  with only $n-1$ steps, we cannot find the max in the array.
+
+Adversary strategy:
+1. When the algorithm asks for the number at position $i$ in $A$, we return 0.
+2. We tell the algo: now that you executed your $n-1$ steps, go ahead if you're so smart: tell us what is the max?
+
+So we cannot solve this in at most $n-1$ steps, we need $(n-1) + 1$ steps. Therefore $O(n)$ is optimal.
+
+## Example 2
+
+We can find the median in an array in O(n) time using the selection algorithm. Can we do better?
+
+We will prove that with at most $n-1$ steps no algo can compute the median.
+
+Adversary strategy:
+1. When the algo asks for the number at position $i$ in $A$, we return $A[i] = i$.
+2. Algo says $A[k]$ is median, but we say that missing value is such a value that $A[k]$ is different
+
+So it takes $\Omega ((n-1) + 1) steps to compute the median.
+
