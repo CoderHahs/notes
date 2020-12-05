@@ -38,3 +38,28 @@ Adversary strategy:
 
 So it takes $\Omega ((n-1) + 1) steps to compute the median.
 
+# Decision Trees
+
+## The Sorting Problem
+
+A **decision tree** is a binary tree $T$ defined as follows:
+- $T$ has a finite number of nodes
+- the label of each internal node of $T$ is of the form $A[i] : A[j]$
+- from each internal node of $T$, there are two outgoing edges:
+  - the label of the left outgoing edge is $\leq$
+  - the label of the right outgoing edge is $>$
+
+To each decision tree $T$ corresponds an algorithm $A_T$. Conversely, to each algorithm $A$ which uses only comparisons ($<, \leq, =, >, \geq$) corresponds a decision tree $T_A$.
+
+### Theorem
+
+In the decision tree model, sorting an array of $n$ numbers takes $\Omega(n \log n)$ time.
+
+## Find an Element in a Sorted Array
+
+In the decision tree mode, finding the position of an element $x$ in a sorted array $A[1..n]$ (or detecting that $x$ is not in $A$) takes $\Omega (\log n)$ time.
+
+## Merging Two Sorted Arrays
+
+Let $A[1..n]$ and $B[1..n]$ be two sorted arrays. We know how to merge $A$ and $B$ into one single sorted array in $O(n)$ time. 
+
