@@ -25,6 +25,7 @@ Sources of variability may arise from one of several types of non-random “caus
 ## Variability
 
 A production process is often subject to variability. There are 2 types:
+
 - variability due the effect of many small, essentially unavoidable causes (a process that only operates with such common causes is said to be **in (statistical) control)**
 - variability due to special causes, such as improperly adjusted machines, operator errors, defective materials, etc. (the variability is typically much larger than for common causes, and the process is said to be **out of (statistical) control)**
 
@@ -33,7 +34,7 @@ The aim of **statistical process monitoring** (SPM) is to identify occurrence of
 # Time Series
 
 So far, we have treated samples ${X_1, ... , X_n}$ as if they arose as a result of a random experiment, i.e. $X_i$ is drawn from some distribution with population mean $\mu$ and population variance $σ^2$, and we use $\overline{X}$ and $S^2$ as
-estimates of $µ$ and $σ^2$.
+estimates of $\mu$ and $σ^2$.
 
 In practice, the index $i$ is often a **time index**, which is to say that the $X_i$ are observed in sequence. In this case, we say that the sample is a **time series**.
 
@@ -46,11 +47,13 @@ To get a sense of what is going on, it is preferable to plot the data in the ord
 A **control chart** consists of observed values of a statistic, such as $\overline{x}$ or $s$, plotted as a time series.
 
 If the true mean $\mu$ and the true standard deviation $\sigma$ of the process are known, then the CLT implies that
+
 > $\overline{X}_i \sim N(\mu, \sigma^2/n)$ for all $i$
 
 and one would expect that the observed sample means $\overline{x}$ would lie in the interval
+
 > $\mathrm{LCL} = \mu - z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$  
-> $\mathrm{UCL} = \mu + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$ 
+> $\mathrm{UCL} = \mu + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}$
 
 roughly $100(1-\alpha)%$ of the time.
 
@@ -58,24 +61,26 @@ The **upper control limit** (UCL) is the upper end of the interval, the **lower 
 
 For such charts, if we observe $x_i > \mathrm{UCL}$ or $x_i < \mathrm{LCL}$, we have an indication that the process is instable and potentially out of (statistical) control.
 
-The parameter $α$ is again interpreted as the probability of a type I error: 
+The parameter $α$ is again interpreted as the probability of a type I error:
+
 > $α = P$(signal of instability | process is stable).
 
 Typically, we use $z_{α/2} = 3$, i.e. $α = 0.9973$. If $N ≤ 30$, that means that even one value outside the control limits is enough to make us suspect that something is off.
 
-In practice, however, $µ$ and $σ^2$ are not known. In that case, we estimate $µ$ by the observed grand mean $x$, $3\frac{\sigma}{\sqrt{n}}$
+In practice, however, $\mu$ and $σ^2$ are not known. In that case, we estimate $\mu$ by the observed grand mean $x$, $3\frac{\sigma}{\sqrt{n}}$
 with the help of the observed mean of standard deviations $\overline{s}$:
+
 > $\mu \approx \overline{x}, \ 3\frac{\sigma}{\sqrt{n}} \approx A_3(n)\overline{s}$
 
 In this case, the UCL, LCL, and CL are, respectively:
+
 > $\mathrm{UCL} = \overline{x} + A_3(n)\overline{s}, \ \mathrm{LCL} = \overline{x} - A_3(n)\overline{s}, \ \mathrm{CL} = \overline{x}$
 
 ## Reprise
 
 A control chart consists of:
+
 - points representing a sample statistic taken from the process at different times
 - the grand mean and the mean standard deviation of the sample statistic, which is computed using all observations, and is used to determine
   - the **center line**, which is draw at the value of the grand mean
   - the **upper and lower control limits** which indicate the threshold at the which the process output is considered statistically unlikely (typically three standard deviations away from the central line).
-
-

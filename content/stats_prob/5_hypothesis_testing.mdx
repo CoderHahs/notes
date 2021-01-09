@@ -17,37 +17,39 @@ The "claim" is called the **null hypothesis** and denoted $H_0$.
 
 The "suspicion" is called **alternative hypothesis** and denoted $H_1$ or $H_A$.
 
-The (random) quantity we use to measure evidence is called a *test statistic*. We need to know its sampling distribution when $H_0$ is true. 
+The (random) quantity we use to measure evidence is called a _test statistic_. We need to know its sampling distribution when $H_0$ is true.
 
-The *$p$-value* quantifies "the evidence against $H_0$". A smaller $p$-value means more evidence against claim.
+The _$p$-value_ quantifies "the evidence against $H_0$". A smaller $p$-value means more evidence against claim.
 
 ## How small does the p-value need to be?
 
 - $p$-value $\leq \alpha$ then we reject $H_0$
-- $p$-value $> \alpha$ then there is not enough evidence to rject $H_0$ 
+- $p$-value $> \alpha$ then there is not enough evidence to rject $H_0$
 
 By convention $\alpha = 0.01 or \alpha = 0.05$
 
 # Hypothesis Testing
 
-A **hypothesis** is a conjecture concerning the value of a problem parameter. 
+A **hypothesis** is a conjecture concerning the value of a problem parameter.
 
 Requires two competing hypotheses:
-- a *null hypothesis*, denoted by $H_0$
-- an *alternative hypothesis*, denoted by $H_1$ or $H_A$
+
+- a _null hypothesis_, denoted by $H_0$
+- an _alternative hypothesis_, denoted by $H_1$ or $H_A$
 
 The hypothesis is tested by evaluating experimental evidence:
-- we *reject* $H_0$ if the evidence against $H_0$ is *strong*
-- we *fail to reject* $H_0$ if the evidence against is $H_0$ is *insufficient*
+
+- we _reject_ $H_0$ if the evidence against $H_0$ is _strong_
+- we _fail to reject_ $H_0$ if the evidence against is $H_0$ is _insufficient_
 
 # Errors in Hypothesis Testing
 
-Two types of errors can be committed when testing $H_0$ against $H_1$. 
+Two types of errors can be committed when testing $H_0$ against $H_1$.
 
-|  	| Decision: reject $H_0$ 	| Decision: fail to reject $H_0$ 	|
-|-	|-	|-	|
-| Reality: $H_0$ is True 	| Type I Error 	| No Error 	|
-| Reality: $H_0$ is False 	| No Error 	| Type II Error 	|
+|                         | Decision: reject $H_0$ | Decision: fail to reject $H_0$ |
+| ----------------------- | ---------------------- | ------------------------------ |
+| Reality: $H_0$ is True  | Type I Error           | No Error                       |
+| Reality: $H_0$ is False | No Error               | Type II Error                  |
 
 If we reject $H_0$ when $H_0$ is true ⇒ we have committed a type I error.
 
@@ -55,22 +57,26 @@ If we fail to reject $H_0$ when $H_0$ is false ⇒ type II error
 
 ## Probability of Committing Errors and Power
 
-The probability of committing type I error is usually denoted by: 
+The probability of committing type I error is usually denoted by:
+
 > $\alpha = P(\mathrm{reject} \ H_0|H_0  \ \mathrm{is \ true})$.
 
-The probability of committing type II error is: 
+The probability of committing type II error is:
+
 > $\beta = P(\mathrm{fail \ to \ reject} \ H_0|H_0 \ \mathrm{is \ false})$.
 
-The **power of test** is the probability of correctly rejecting $H_0$: 
+The **power of test** is the probability of correctly rejecting $H_0$:
+
 > $\mathrm{Power} = P(\mathrm{reject} \ H_0|H_0 \ \mathrm{is \ false}) = 1 - \beta$
 
 Conventional values of $\alpha, \beta$ and Power are 0.05, 0.2, 0.8, respectively.
 
 # Type of Null and Alternative Hypothesis
 
-Let $\mu$ be the population parameter of interest. The hypotheses are expressed in terms of the values of this parameter. 
+Let $\mu$ be the population parameter of interest. The hypotheses are expressed in terms of the values of this parameter.
 
 The null hypotheses is a **simple hypothesis**, that is, it is of the form:
+
 > $H_0: \mu = \mu_0$
 
 where $\mu_0$ is some candidate value ("simple" means that it is assumed to be a single value.)
@@ -78,7 +84,9 @@ where $\mu_0$ is some candidate value ("simple" means that it is assumed to be a
 The alternative hypothesis $H_1$ is a **composite hypothesis**, i.e. it contains more than one candidate value.
 
 Depending on the context, hypothesis testing takes on one of the following three forms:
+
 > $H_0 : \mu = \mu_0$ where $\mu_0$ is a number.
+
 - against a **two-sided alternative**: $H_1 : \mu \neq \mu_0$
 - against a **left-sided alternative**: $H_1 : \mu < \mu_0$ or
 - against a **right-sided alternative**: $H_1 : \mu > \mu_0$
@@ -87,17 +95,19 @@ The formulation of the alternative hypothesis depends on our research hypothesis
 
 # Test Statistic and Critical Region
 
-To test a statistical hypothesis statistics we use a **test statistic**. A test statistic is a function of the random sample and the population parameter of interest. 
+To test a statistical hypothesis statistics we use a **test statistic**. A test statistic is a function of the random sample and the population parameter of interest.
 
-We reject $H_0$ if the value of the test statistic is in the **critical region** or **rejection area**. The critical region is a subset of the real numbers. 
+We reject $H_0$ if the value of the test statistic is in the **critical region** or **rejection area**. The critical region is a subset of the real numbers.
 
 The critical region is obtained using the definition of errors in hypothesis testing. We select the critical region so that
+
 > $\alpha = P(\mathrm{reject} \ H_0|H_0  \ \mathrm{is \ true})$.
-is equal to some pre-determined value, like 0.05 or 0.01.
+> is equal to some pre-determined value, like 0.05 or 0.01.
 
 # Test for a Mean with Known Variance
 
 Suppose $X_1, ..., X_n$ is a random sample from a population with mean $\mu$ and variance $\sigma^2$, let $\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i$ and denote the sample mean:
+
 - if the population is normal then $\overline{X}$ is exactly $N(\mu, \sigma^2/n)$
 - if the population is not normal, then as long as $n$ is large enough, we have $\overline{X}$ is\simimately $N (\mu, \sigma^2/n)$, according to the CLT.
 
@@ -106,19 +116,21 @@ In this section, we assume that the population variance $\sigma^2$ is known, and
 ## Explanation: Left-Sided Alternative
 
 Consider the unknown population mean $\mu$. Suppose that we would like to test:
+
 > $H_0 : \mu = \mu_0$ against $H_1 : \mu < \mu_0$
-where $\mu_0$ is some candidate value for $\mu$. 
+> where $\mu_0$ is some candidate value for $\mu$.
 
 To evaluate the evidence against $H_0$, we compare $\overline{X}$ to $\mu_0$: under $H_0$,
+
 > $Z_0 = \frac{\overline{X} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)$
 
-We say that $Z_0$ is the observed value of the **Z-test statistic** $Z_0$. If z_0 < 0, we have evidence that $\mu$ < $\mu_0$. However, we only reject $H_0$ in favour of $H_1$ if the evidence is *significant*.
+We say that $Z_0$ is the observed value of the **Z-test statistic** $Z_0$. If z_0 < 0, we have evidence that $\mu$ < $\mu_0$. However, we only reject $H_0$ in favour of $H_1$ if the evidence is _significant_.
 
-**Critical Region**: Let $\alpha$ be the level of significance. We reject $H_0$ in favour of $H_1$ only if $z_0 \leq -z_\alpha$. 
+**Critical Region**: Let $\alpha$ be the level of significance. We reject $H_0$ in favour of $H_1$ only if $z_0 \leq -z_\alpha$.
 
 The corresponding p-value for the test is the probability of observing evidence as or more extreme than our current evidence in favour of $H_1$, assuming that $H_0$ is true (that is, simply by chance). Even more extreme in this case means further to the left; so p-value $= P(Z \leq z_0) = \Phi (z_0)$, where $z_0$ is the observed value for the Z-test statistic.
 
-**Decision Rule**: if the p-value $\leq \alpha$, then we *reject* $H_0$ in favour of $H_1$. If the p-value $> \alpha$, we *fail to reject* $H_0$. 
+**Decision Rule**: if the p-value $\leq \alpha$, then we _reject_ $H_0$ in favour of $H_1$. If the p-value $> \alpha$, we _fail to reject_ $H_0$.
 
 ### Left-Sided Test
 
@@ -132,69 +144,72 @@ At significance $\alpha$, if $z_0 \leq -z_\alpha$, we reject $H_0$ in favour of 
 
 At significance $\alpha$, if $z_0 \geq -z_\alpha$, we reject $H_0$ in favour of $H_1$.
 
-### Two-Sided Test 
+### Two-Sided Test
 
 > $H_0 : \mu = \mu_0$ against $H_1 : \mu \neq \mu_0$
 
 At significance $\alpha$, if $|z_0| \geq -z_\alpha$, we reject $H_0$ in favour of $H_1$.
 
-## Procedure 
+## Procedure
 
 To test for $H_0 : \mu = \mu_0$, where $\mu_0$ is a constant.
 
 1. set $H_0 : \mu = \mu_0$
 2. select an alternative hypothesis $H_1$ (what we are trying to show using the data). Depending on context, we choose on of these alternatives:
-    - $H_1 : \mu < \mu_0$ (left-sided test)
-    - $H_1 : \mu > \mu_0$ (right-sided test)
-    - $H_1 : \mu \neq \mu_0$ (two-sided test)
-3. choose $\alpha = P (\mathrm{type  \ I  \ error})$: typically $\alpha = 0.01$ or $0.05$. 
+   - $H_1 : \mu < \mu_0$ (left-sided test)
+   - $H_1 : \mu > \mu_0$ (right-sided test)
+   - $H_1 : \mu \neq \mu_0$ (two-sided test)
+3. choose $\alpha = P (\mathrm{type  \ I  \ error})$: typically $\alpha = 0.01$ or $0.05$.
 4. for the observed sample ${x_1, . . . , x_n}$, compute the observed value of the test statistics $z_0$
 5. determine the critical region as follows:
 
-    | Alternative Hypothesis | Critical Region |
-    |- |- |
-    | $H_1 : \mu > \mu_0$ | $z_0 > z_\alpha$ |
-    | $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
-    | $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
+   | Alternative Hypothesis | Critical Region          |
+   | ---------------------- | ------------------------ |
+   | $H_1 : \mu > \mu_0$    | $z_0 > z_\alpha$         |
+   | $H_1 : \mu < \mu_0$    | $z_0 < -z_\alpha$        |
+   | $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ |
+
 6. compute the associated p-value as follows:
 
-    | Alternative Hypothesis | p-Value |
-    |- |- |
-    | $H_1 : \mu > \mu_0$ | $P(Z > z_0)$ |
-    | $H_1 : \mu < \mu_0$ | $P(Z < z_0)$ |
-    | $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ | 
+   | Alternative Hypothesis | p-Value                                          |
+   | ---------------------- | ------------------------------------------------ |
+   | $H_1 : \mu > \mu_0$    | $P(Z > z_0)$                                     |
+   | $H_1 : \mu < \mu_0$    | $P(Z < z_0)$                                     |
+   | $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ |
 
-**Decision Rule**: if the p-value $\leq \alpha$, then we *reject* $H_0$ in favour of $H_1$. If the p-value $> \alpha$, we *fail to reject* $H_0$.
+**Decision Rule**: if the p-value $\leq \alpha$, then we _reject_ $H_0$ in favour of $H_1$. If the p-value $> \alpha$, we _fail to reject_ $H_0$.
 
 # Test for a Mean with Unknown Variance
 
 If the data is normal and $\sigma$ is unknown, we can estimate it by the sample variance:
+
 > $S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(X_i-\overline{X}^2)}$
 
 As we have seen for confidence intervals, the test statistic follows a Student's $t$-distribution with $n-1$ degrees of freedom.
+
 > $T = \frac{\overline{X}-\mu}{S/\sqrt{n}} \sim t(n-1)$
 
 We can follow the same steps as for the test with known variance, with the modified critical regions and p-values:
 
-| Alternative Hypothesis | Critical Region |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $t_0 > t_\alpha (n-1)$ |
-| $H_1 : \mu < \mu_0$ | $t_0 < -t_\alpha (n-1)$ |
+| Alternative Hypothesis | Critical Region               |
+| ---------------------- | ----------------------------- |
+| $H_1 : \mu > \mu_0$    | $t_0 > t_\alpha (n-1)$        |
+| $H_1 : \mu < \mu_0$    | $t_0 < -t_\alpha (n-1)$       |
 | $H_1 : \mu \neq \mu_0$ | $\|t_0\| > t_{\alpha/2}(n-1)$ |
 
-where $t_0, t_\alpha (n-1)$ is the t-value satisfying $P(T > t_\alpha (n-1)) = \alpha$, and $T$ follows a Student's t-distribution with $n-1$ degrees of freedom. 
+where $t_0, t_\alpha (n-1)$ is the t-value satisfying $P(T > t_\alpha (n-1)) = \alpha$, and $T$ follows a Student's t-distribution with $n-1$ degrees of freedom.
 
-| Alternative Hypothesis | p-Value |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $P(T > t_0)$ |
-| $H_1 : \mu < \mu_0$ | $P(T < t_0)$ |
-| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ | 
+| Alternative Hypothesis | p-Value                                          |
+| ---------------------- | ------------------------------------------------ |
+| $H_1 : \mu > \mu_0$    | $P(T > t_0)$                                     |
+| $H_1 : \mu < \mu_0$    | $P(T < t_0)$                                     |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ |
 
 # Two-Sample Tests
 
 ## Unpaired
 
-Let $X_{1,1}, . . . , X_{1,n}$ be a random sample from a normal population with unknown mean $µ_1$ and variance $σ^2_1$; let $Y_{2,1}, . . . , Y_{2,m}$ be a random sample from a normal population with unknown mean $µ_2$ and variance $σ^2_2$, with both populations independent of one another. We want to test:
+Let $X_{1,1}, . . . , X_{1,n}$ be a random sample from a normal population with unknown mean $\mu_1$ and variance $σ^2_1$; let $Y_{2,1}, . . . , Y_{2,m}$ be a random sample from a normal population with unknown mean $\mu_2$ and variance $σ^2_2$, with both populations independent of one another. We want to test:
 
 > $H_0 : \mu_1 = \mu_2$ against $H_1 : \mu_1 \neq \mu_2$
 
@@ -202,48 +217,48 @@ Let $\overline{X} = \frac{1}{n}\sum_{i=1}^{n} X_i$, $\overline{Y} = \frac{1}{n}\
 
 ### Case 1: SD1 and SD2 are known
 
-| Alternative Hypothesis | Critical Region |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $z_0 > z_\alpha$ |
-| $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
-| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
+| Alternative Hypothesis | Critical Region          |
+| ---------------------- | ------------------------ |
+| $H_1 : \mu > \mu_0$    | $z_0 > z_\alpha$         |
+| $H_1 : \mu < \mu_0$    | $z_0 < -z_\alpha$        |
+| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ |
 
 where $z_0 = \frac{\overline{x} - \overline{y}}{\sqrt{\sigma^2_1/n+\sigma^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \sim N(0,1)$
 
-| Alternative Hypothesis | p-Value |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $P(Z > z_0)$ |
-| $H_1 : \mu < \mu_0$ | $P(Z < z_0)$ |
-| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ | 
+| Alternative Hypothesis | p-Value                                          |
+| ---------------------- | ------------------------------------------------ |
+| $H_1 : \mu > \mu_0$    | $P(Z > z_0)$                                     |
+| $H_1 : \mu < \mu_0$    | $P(Z < z_0)$                                     |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ |
 
 ### Case 2: SD1 and SD2 are Unknown (Small Samples)
 
-| Alternative Hypothesis | Critical Region |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $t_0 > t_\alpha (n+m-2)$ |
-| $H_1 : \mu < \mu_0$ | $t_0 < -t_\alpha (n+m-2)$ |
+| Alternative Hypothesis | Critical Region                 |
+| ---------------------- | ------------------------------- |
+| $H_1 : \mu > \mu_0$    | $t_0 > t_\alpha (n+m-2)$        |
+| $H_1 : \mu < \mu_0$    | $t_0 < -t_\alpha (n+m-2)$       |
 | $H_1 : \mu \neq \mu_0$ | $\|t_0\| > t_{\alpha/2}(n+m-2)$ |
 
 where $t_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_p/n+S^2_p/m}}, S^2_p = \frac{(n-1)S^2_1+(m-1)S^2_2}{n+m-2}, t_\alpha(n+m-2)$ satisfies $P(T > t_\alpha(n+m-2)) = \alpha$, and $T \sim t(n+m-2)$
 
-| Alternative Hypothesis | p-Value |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $P(T > t_0)$ |
-| $H_1 : \mu < \mu_0$ | $P(T < t_0)$ |
-| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ | 
+| Alternative Hypothesis | p-Value                                          |
+| ---------------------- | ------------------------------------------------ |
+| $H_1 : \mu > \mu_0$    | $P(T > t_0)$                                     |
+| $H_1 : \mu < \mu_0$    | $P(T < t_0)$                                     |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(T > t_0), P (T < t_0)\}$ |
 
 ### Case 3: SD1 and SD2 are Unknown (Large Samples)
 
-| Alternative Hypothesis | Critical Region |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $z_0 > z_\alpha$ |
-| $H_1 : \mu < \mu_0$ | $z_0 < -z_\alpha$ |
-| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ | 
+| Alternative Hypothesis | Critical Region          |
+| ---------------------- | ------------------------ |
+| $H_1 : \mu > \mu_0$    | $z_0 > z_\alpha$         |
+| $H_1 : \mu < \mu_0$    | $z_0 < -z_\alpha$        |
+| $H_1 : \mu \neq \mu_0$ | $\|z_0\| > z_{\alpha/2}$ |
 
 where $z_0 = \frac{\overline{X} - \overline{Y}}{\sqrt{S^2_1/n+S^2_2/m}}, z_\alpha$ satisfies $P(Z > z_\alpha) = \alpha$, and $Z \sim N(0,1)$
 
-| Alternative Hypothesis | p-Value |
-|- |- |
-| $H_1 : \mu > \mu_0$ | $P(Z > z_0)$ |
-| $H_1 : \mu < \mu_0$ | $P(Z < z_0)$ |
-| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ | 
+| Alternative Hypothesis | p-Value                                          |
+| ---------------------- | ------------------------------------------------ |
+| $H_1 : \mu > \mu_0$    | $P(Z > z_0)$                                     |
+| $H_1 : \mu < \mu_0$    | $P(Z < z_0)$                                     |
+| $H_1 : \mu \neq \mu_0$ | $2\cdot \mathrm{min}\{P(Z > z_0), P (Z < z_0)\}$ |

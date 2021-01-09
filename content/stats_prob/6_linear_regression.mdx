@@ -16,7 +16,8 @@ metaDescription: 'Stats & Probability - Linear Regression'
 ## Population Coefficient of Correlation
 
 For paired variables $(X, Y )$, the population correlation coefficient of $X$ and $Y$ is
-> $ρ_{XY} = \frac{\mathrm{E}(X − \mu_X)(Y − \mu_Y)}{\sqrt{E(X − \mu_X)^2E(Y − \mu_Y )^2}} = \frac{E(X − \mu_X)(Y − \mu_Y )}{\sigma_X\sigma_Y}$
+
+> $ρ_{XY} = \frac{\mathrm{E}(X - \mu_X)(Y - \mu_Y)}{\sqrt{E(X - \mu_X)^2E(Y - \mu_Y )^2}} = \frac{E(X - \mu_X)(Y - \mu_Y )}{\sigma_X\sigma_Y}$
 
 - $p_{XY}$ is unaffected by changes of scale or origin. Adding constants to $X$ or $Y$ will not change $p_{XY}$.
 - $p_{XY}$ is symmetric in $X$ and $Y$ (ie. $p_{XY} = p_{YX}$)
@@ -27,32 +28,38 @@ For paired variables $(X, Y )$, the population correlation coefficient of $X$ an
 ## Sample Coefficient of Correlation
 
 For paired variables $(x_i, y_i)$, the population correlation coefficient of $x$ and $y$ is
-> $r_{XY} = \frac{\sum(x_i − \overline{x})(y_i − \overline{y})}{\sqrt{\sum(x_i − \overline{x})^2\sum(y_i − \overline{y})^2}} = \frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$
+
+> $r_{XY} = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum(x_i - \overline{x})^2\sum(y_i - \overline{y})^2}} = \frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$
 
 - $r_{XY}$ is unaffected by changes of scale or origin. Adding constants to $X$ or $Y$ will not change $r_{XY}$.
 - $r_{XY}$ is symmetric in $X$ and $Y$ (ie. $r_{XY} = r_{YX}$)
 - $-1 \leq r_{XY} \leq 1$
 - if $ρ_{XY} = ±1$, then the observations $(x_i, y_i)$ all lie on a straight line with a positive (negative) slope
 - the sign $r_{XY}$ reflects the trend of the points
-- a high correlation coefficient value $|r_{XY}|$ does not necessarily imply a causal relationship between the two variables. A **causal relationship**  between two variables exists if the occurrence of the first causes the other. 
+- a high correlation coefficient value $|r_{XY}|$ does not necessarily imply a causal relationship between the two variables. A **causal relationship** between two variables exists if the occurrence of the first causes the other.
 
 # Simple Linear Regression
 
-**Regression analysis** can be used to describe the relationship between a *predictor variable* (or regressor) $X$ and a *response variable* $Y$. Assume that they are related through the model:
+**Regression analysis** can be used to describe the relationship between a _predictor variable_ (or regressor) $X$ and a _response variable_ $Y$. Assume that they are related through the model:
+
 > $Y = \beta_0 + \beta_1 X + \epsilon$
 
 where $ε$ is a random error and $\beta_0, \beta_1$ are the regression coefficients.
 
-It is assumed that E$[ε]$ = 0, and that the error’s variance $\sigma^2_\epsilon = \sigma^2$ is constant. Then the model can be re-written as 
+It is assumed that E$[ε]$ = 0, and that the error’s variance $\sigma^2_\epsilon = \sigma^2$ is constant. Then the model can be re-written as
+
 > $\mathrm{E}[Y|X] = \beta_0 + \beta_1X$.
 
 Suppose that we have observations $(x_i, y_i), i = 1, ... , n$ so that
+
 > $y_i = \beta_0 + \beta_1x_i + \epsilon_i , \ \ i = 1, ... , n$
 
 The aim is to find **estimators** $b_0, b_1$ of the unknown parameters $\beta_0, \beta_1$ in order to obtain the **estimated (fitted) regression line**
+
 > $\overline{y}_i = b_0 + b_1x_i$
 
 The **residual** or error in predicting $y_i$ using $\overline{y}$ is thus
+
 > $e_i = y_i-\overline{y}_i = y_i - b_0 - b_1x_i, \ i = 1, ..., n$
 
 ## Sum of Squared Errors (SSE)
@@ -62,25 +69,27 @@ The **residual** or error in predicting $y_i$ using $\overline{y}$ is thus
 The optimal values of $b_0$ and $b_1$ are those that minimize the SSE. As such solving:
 
 > $0 = \frac{dSSE}{db_0} = -2\sum (y_i - b_0 - b_1x_i) = -2n (\overline{y}-b_0-b_1\overline{x})$  
-> $\therefore b_0 = \overline{y} - b_1\overline{x}$  
+> $\therefore b_0 = \overline{y} - b_1\overline{x}$
 >
 > $0 = \frac{dSSE}{db_1} = -2\sum (y_i - b_0 - b_1x_i)x_i = -2(\sum x_iy_i - nb_0\overline{x} - b_1\sum x^2_i)$  
-> $\therefore b_1 = \frac{S_{xy}}{S_{xx}}$ 
+> $\therefore b_1 = \frac{S_{xy}}{S_{xx}}$
 
 ### Variance Decomposition in Regression
 
 > $S_{yy} = \sum_{i=1}^n (y_i-\overline{y})^2$  
 > $= b_1S_{xy} = \mathrm{SSE}$  
-> $= \mathrm{SSR} + \mathrm {SSE}$  
+> $= \mathrm{SSR} + \mathrm {SSE}$
 >
 > $\mathrm{SSE} = S_{yy} - b_1S_{xy}$
 
 ### Estimating Variance
 
 To estimate $\sigma^2$ we use:
+
 > $\mathrm{SSE} = \sum_{i=1}^{n} e^2_i = \sum^n_{i=1} (y_i - \overline{y}_i)^2$
 
 For the regression error, the unbiased estimator of $\sigma^2$ is in fact
+
 > $\overline{\sigma}^2 = \mathrm{MSE} = \frac{\mathrm{SSE}}{n-2} = \frac{S_{yy} - b_1S_{xy}}{n-2}$
 
 where the SSE has $n-2$ degrees of freedom, because 2 parameters had to be estimated in order to obtain $\overline{y}_i: b_0$ and $b_1$.
@@ -95,6 +104,7 @@ where the SSE has $n-2$ degrees of freedom, because 2 parameters had to be estim
 ### Standard Errors
 
 The **estimated standard errors** are:
+
 > $\mathrm{se}(b_0) = \sqrt{\overline{\sigma}^2[1/n + \overline{x}^2/S_{xx}]}$ and  
 > $\mathrm{se}(b_1) = \sqrt{\overline{\sigma}^2/S_{xx}}$
 
@@ -119,62 +129,68 @@ But $σ^2$ is not known, so the test statistic with $\overline{σ}^2 = \mathrm{M
 
 > $T_0 = \frac{b_1 - \beta_{1,0}}{\sqrt{\overline{\sigma}^2/S_{xx}}} \sim t (n-2)$
 
-follows a Student t−distribution with $n − 2$ degrees of freedom.
+follows a Student t-distribution with $n - 2$ degrees of freedom.
 
-| Alternative Hypothesis | Critical Region |
-|- |- |
-| $H_1 : \beta_1 > \beta_{1,0}$ | $t_0 > t_\alpha(n-2)$ |
-| $H_1 : \beta_1 < \beta_{1,0}$ | $t_0 < -t_\alpha(n-2)$ |
-| $H_1 : \beta_1 \neq \beta_{1,0}$ | $\|t_0\| > t_{\alpha/2}(n-2)$ | 
+| Alternative Hypothesis           | Critical Region               |
+| -------------------------------- | ----------------------------- |
+| $H_1 : \beta_1 > \beta_{1,0}$    | $t_0 > t_\alpha(n-2)$         |
+| $H_1 : \beta_1 < \beta_{1,0}$    | $t_0 < -t_\alpha(n-2)$        |
+| $H_1 : \beta_1 \neq \beta_{1,0}$ | $\|t_0\| > t_{\alpha/2}(n-2)$ |
 
 **Reject $H_0$ if $t_0$ in the critical region**.
 
 ## Significance of Regression
 
 Given a regression line, we may want to test whether it is significant. The test for **significance of the regression** is
+
 > $H_0 : \beta_1 = 0$ against $H_1 : \beta_1 \neq 0$
 
 # Confidence and Prediction Intervals for Linear Regression
 
 We can also build **confidence intervals** (C.I.) for the regression parameters and **prediction intervals** for the predicted values.
 
-1. find a point estimate $W$ for the parameter $\beta$ or the prediction $Y$ 
+1. find a point estimate $W$ for the parameter $\beta$ or the prediction $Y$
 2. find the appropriate standard error $\mathrm{se}(W)$
 3. select a confidence level $\alpha$ and find the appropriate critical value $k_{\alpha/2}$
-4. build the $100(1-\alpha)%$ interval $W \pm k_{\alpha/2}\mathrm{se}(W)$ 
+4. build the $100(1-\alpha)%$ interval $W \pm k_{\alpha/2}\mathrm{se}(W)$
 
 ## Confidence Interval for Intercept and slope
 
-The $100(1 − α)%$ C.I. for $\beta_0$ and $\beta_1$ are:
+The $100(1 - \alpha)%$ C.I. for $\beta_0$ and $\beta_1$ are:
+
 - $\beta_0 : b_0 \pm t_{\alpha/2}(n-2)\sqrt{\overline{\sigma}^2\frac{\sum x_i^2}{nS_{xx}}}$
 - $\beta_1 : b_1 \pm t_{\alpha/2}(n-2)\sqrt{\frac{\overline{\sigma}^2}{S_{xx}}}$
 
 ## Confidence Intervals for the Mean Response
 
-With the usual $t_{α/2}(n − 2)$, the $100(1 − α)%$ C.I. for the mean response $µ_{Y|x_0}$ (or for the line of regression) is
+With the usual $t_{\alpha/2}(n - 2)$, the $100(1 - \alpha)%$ C.I. for the mean response $\mu_{Y|x_0}$ (or for the line of regression) is
+
 > $\overline{\mu}_{Y|x_0} \pm t_{\alpha/2}(n-2)\sqrt{\overline{\sigma}^2[1/n +\frac{(x_0 - \overline{x})^2}{S_{xx}}]}$
 
 # Analysis of Variance
 
 The test for **significance of regression**,
+
 > $H_0 : \beta_1 = 0$ against $H_1 : \beta_1 \neq 0$
 
 can be restated in term of the **analysis-of-variance (ANOVA)**, given the following the table:
 
-| Source of Variation 	| Sum of Square 	| df 	| Mean Square 	| F* 	| p-Value 	|
-|-	|-	|-	|-	|-	|-	|
-| Regression 	| SSR 	| 1 	| MSR 	| $\frac{\mathrm{MSR}}{\mathrm{MSE}}$ 	| $P(F > F*)$ 	|
-| Error 	| SSE 	| $n-2$ 	| MSE 	| - 	| - 	|
-| Total  	| SST 	| $n-1$ 	| - 	| - 	| - 	|
+| Source of Variation | Sum of Square | df    | Mean Square | F\*                                 | p-Value     |
+| ------------------- | ------------- | ----- | ----------- | ----------------------------------- | ----------- |
+| Regression          | SSR           | 1     | MSR         | $\frac{\mathrm{MSR}}{\mathrm{MSE}}$ | $P(F > F*)$ |
+| Error               | SSE           | $n-2$ | MSE         | -                                   | -           |
+| Total               | SST           | $n-1$ | -           | -                                   | -           |
 
-The **rejection region** for the null hypothesis $H_0 : \beta_1 = 0$ is still given by: 
+The **rejection region** for the null hypothesis $H_0 : \beta_1 = 0$ is still given by:
+
 > $|\frac{b_1 - \beta_{1,0}}{\sqrt{\overline{\sigma}^2/S_{xx}}}| > t_{\alpha/2}(n-2)$
 
 # Coefficient of Determination
 
 For observations $(xi, yi), \ i = 1, ... , n$, we define the **coefficient of determination** as
+
 > $R^2 = 1 - \frac{SSE}{SST}$
 
-where SSE and SST are as in the ANOVA. 
+where SSE and SST are as in the ANOVA.
 
 The coefficient of determination is the proportion of the variability in the response that is explained by the fitted model. Note that $R^2$ always lies between $0$ and $1$; when $R2 ≈ 1$, the fit is considered to be very good.

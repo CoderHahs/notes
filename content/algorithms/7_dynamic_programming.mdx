@@ -1,8 +1,9 @@
 ---
-title: "Dynamic Programming"
-metaTitle: "Dynamic Programming"
-metaDescription: "Topics in Algorithms"
+title: 'Dynamic Programming'
+metaTitle: 'Dynamic Programming'
+metaDescription: 'Topics in Algorithms'
 ---
+
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
@@ -11,11 +12,12 @@ metaDescription: "Topics in Algorithms"
 />
 
 # Shortest Acyclic Path
-Let $G = (V,E)$ be a directed acyclic graph, where each edge $(u, v)$ has a weight $wt(u, v) > 0$. 
+
+Let $G = (V,E)$ be a directed acyclic graph, where each edge $(u, v)$ has a weight $wt(u, v) > 0$.
 
 Topological sorting: vertices are numbered $v_1, v_2, ..., v_n$ such that for each $(v_i, v_j)$, we have $i< j$.
 
-Let $s = v_1$ and $t = v_n$. 
+Let $s = v_1$ and $t = v_n$.
 
 How do we compute the shortest path from $s$ to $t$?
 
@@ -25,7 +27,7 @@ Can we do better than Dijkstra algorithm, using the topological ordering of $G$?
 
 Let $u_1, u_2, ..., u_k$ be all vertices that have an edge to $t$.
 
-The last edge of the shortest path from $s$ to $t$ is $(u_i, t)$ for some $1 \leq i \leq k$. 
+The last edge of the shortest path from $s$ to $t$ is $(u_i, t)$ for some $1 \leq i \leq k$.
 
 If we know this index $i$, then the shortest path from $s$ to $t$ is equal to **path from $s$ to $u_i$** followed by the edge $(u_i, t)$.
 
@@ -33,20 +35,23 @@ Since we don't know the index $i$, the length of the shortest path from $s$ to $
 
 ## Step 2: Set up a Recurrence for the Optimal Solution
 
-For $j = 1,2,..., n$, define $d(v_j) =$ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$. 
+For $j = 1,2,..., n$, define $d(v_j) =$ length of a shortest path from $s$ to $v_j$. Since $v_n = t$, we want to compute $d(v_n)$.
 
 Recurrence:
+
 - $d(v_1) = 0$
 - For $2 \leq j \leq n$, $d(v_j) = \mathrm{min}_{(v_i, v_j) \in E} {d(v_i) + wt(v_i, v_j)}$
 
 ## Step 3: Solve the Recurrence "Bottom-Up"
 
 **First idea:**
+
 - To compute $d(v_n) = d(t)$, take all edges $(u_1, t), (u_2, t), ..., (u_k, t)$, and recursively compute $d(u_1), d(u_2), ..., d(u_k)$. From this, compute $d(v_n)$ as $d(v_n) = \mathrm{min}_{1\leq i \leq k} {d(u_i) + wt(u_i, t)}$
 
 This is slow and takes $O(2^n)$.
 
 **Better approach:**
+
 ```py
 d(v1) = 0
 for i in range(2, n):
@@ -64,7 +69,8 @@ This running time here is $O(|V| + |E|)$.
 
 $A: p x q$ matrix, $B: q x r$ matrix, $C = A \cdot B: p x r$ matrix. $C$ has $pr$ entries, each of which can be computed in $O(q)$ time. So $C$ can be computed in $O(pqr)$ time. We define the cost of multiplying $A$ and $B$ to be $pqr$.
 
-In general, 
+In general,
+
 - $p_0, p_1, ..., p_n$: positive integers
 - $A_1, A_2, ..., A_n$: matrices such that $A_i$ has $p_{i-1}$ rows and $p_i$ columns.
 
@@ -72,7 +78,7 @@ Compute the best order to compute the product of the matrices by minimizing the 
 
 ## Step 1: Structure of the Optimal Solution
 
-Consider the best order to compute $A_iA_{i+1} \cdot ... \cdot A_j$. In the *last* step, we multiply: $(A_i \cdot ... \cdot A_k)$ and (A_{k+1} \cdot ... \cdot A_j), both of which are already computed.
+Consider the best order to compute $A_iA_{i+1} \cdot ... \cdot A_j$. In the _last_ step, we multiply: $(A_i \cdot ... \cdot A_k)$ and (A\_{k+1} \cdot ... \cdot A_j), both of which are already computed.
 
 ## Step 2: Set Up a Recurrence for the Optimal Solution
 
@@ -82,9 +88,10 @@ We want to compute $m(1,n)$.
 
 If we know $k$, then $m(i,j) = m(i,k) + m(k+1, j) + p_{i-1}p_kp_j$.
 
-But we do not know $k$, so try all values of $k$, $i \leq k \leq j-1$ and take the best one. 
+But we do not know $k$, so try all values of $k$, $i \leq k \leq j-1$ and take the best one.
 
 Recurrence:
+
 - For $1\leq i \leq n$: $m(i, i) = 0$.
 - For $1 \leq i < j \leq n$: $m(i,j) = \mathrm{min}_{i \leq k \leq j-1} m(i,k) + m(k+1, j) + p_{i-1}p_kp_j$
 
@@ -92,15 +99,14 @@ Recurrence:
 
 Compute, in this order,  
 $m(1, 1), m(2, 2), ..., m(n, n)$  
-$m(1, 2), m(2, 3), ..., m(n − 1, n)$  
-$m(1, 3), m(2, 4), ..., m(n − 2, n)$  
-$m(1, 4), m(2, 5), ..., m(n − 3, n)$  
+$m(1, 2), m(2, 3), ..., m(n - 1, n)$  
+$m(1, 3), m(2, 4), ..., m(n - 2, n)$  
+$m(1, 4), m(2, 5), ..., m(n - 3, n)$  
 .  
 .  
 .  
-$m(1, n − 1), m(2, n)$  
+$m(1, n - 1), m(2, n)$  
 $m(1, n)$
-
 
 ## Algorithms
 
@@ -108,14 +114,14 @@ $m(1, n)$
 for i = 1 to n do
     m(i, i) = 0
     for l = 2 to n do
-        // Compute m(1, l), m(2, l + 1), ..., m(n − l + 1, n)
-        for i = 1 to n − l + 1 do
-            // Compute m(i, i + l − 1)
-            j = i + l − 1
+        // Compute m(1, l), m(2, l + 1), ..., m(n - l + 1, n)
+        for i = 1 to n - l + 1 do
+            // Compute m(i, i + l - 1)
+            j = i + l - 1
             // Compute m(i, j) using the recurrence
             m(i, j) = ∞
-            for k = i to j − 1 do
-                m(i, j) = min {m(i, j), m(i, k) + m(k + 1, j) + pi−1*pk*pj}
+            for k = i to j - 1 do
+                m(i, j) = min {m(i, j), m(i, k) + m(k + 1, j) + pi-1*pk*pj}
 return m(1, n)
 ```
 
@@ -124,28 +130,29 @@ Running time is $\Theta(n^3)$
 # Longest Common Subsequence
 
 We have two sequences:
+
 - $X = (a,b,c,b,d,a,b)$
 - $Y = (b,d,c,a,b,a)$
 
 The sequence $Z = (b,c,d,b)$ is a subsequence of $X$ but not of $Y$.
 
-*LCS($X$, $Y$)* is the longest subsequence of $X$ and $Y$: $(b,c,b,a)$ or $(b,d,a,b)$
+_LCS($X$, $Y$)_ is the longest subsequence of $X$ and $Y$: $(b,c,b,a)$ or $(b,d,a,b)$
 
 ## Step 1: Structure of the Optimal Solution
 
-$X = (x_1, x_2, ..., x_m)$ $Y = (y_1, y_2, ..., y_n)$ 
+$X = (x_1, x_2, ..., x_m)$ $Y = (y_1, y_2, ..., y_n)$
 
-$Z = (z_1, z_2, ..., z_k) =$ *LCS($X$, $Y$)*. Therefore $k \leq m, k \leq n$
+$Z = (z_1, z_2, ..., z_k) =$ _LCS($X$, $Y$)_. Therefore $k \leq m, k \leq n$
 
 - **Case 1:**
-    - $z_k = x_m = y_n$ and $(z_1, z_2, ..., z_{k-1}) = \mathrm{LCS}(x_1x_2 ... x_{m-1}, y_1y_2 ... y_{n-1})$
+  - $z_k = x_m = y_n$ and $(z_1, z_2, ..., z_{k-1}) = \mathrm{LCS}(x_1x_2 ... x_{m-1}, y_1y_2 ... y_{n-1})$
 - **Case 2:**
-    - $x_m \neq y_n$
-    - **Case 2a)**: $z_k \neq x_m$
-        - $(z_1, z_2, ..., z_{k}) = \mathrm{LCS}(x_1x_2 ... x_{m-1}, y_1y_2 ... y_{n})$
-    - **Case 2b)**: $z_k \neq y_n$
-        - $(z_1, z_2, ..., z_{k}) = \mathrm{LCS}(x_1x_2 ... x_{m}, y_1y_2 ... y_{n-1})$
-    - We compute both 2a and 2b as we don't know which case we fall under
+  - $x_m \neq y_n$
+  - **Case 2a)**: $z_k \neq x_m$
+    - $(z_1, z_2, ..., z_{k}) = \mathrm{LCS}(x_1x_2 ... x_{m-1}, y_1y_2 ... y_{n})$
+  - **Case 2b)**: $z_k \neq y_n$
+    - $(z_1, z_2, ..., z_{k}) = \mathrm{LCS}(x_1x_2 ... x_{m}, y_1y_2 ... y_{n-1})$
+  - We compute both 2a and 2b as we don't know which case we fall under
 
 ## Step 2: Set up a recurrence for the Optimal Solution
 
@@ -154,6 +161,7 @@ For $0 \leq i \leq m$ and $0 \leq j \leq n$ define $c(i,j) =$ length of $\mathrm
 We want to compute $c(m,n)$
 
 Recurrence:
+
 - If $i=0$ or $j=0$, $c(i,j) = 0$
 - If $i\geq 1, j \geq 1$ and $x_i = y_j$, $c(i,j) = 1 + c(i-1, j-1)$
 - If $i\geq 1, j \geq 1$ and $x_i \neq y_j$, $c(i,j) = max{c(i-1,j), c(i, j-1)}$
@@ -163,9 +171,9 @@ Recurrence:
 Fill in the matrices $c (i, j)$ for $0 \leq i \leq m$ and $0 \leq j \leq n$.
 
 - First row:
-    - $c(0, 0) = c(0, 1) = ... = c(0, n) = 0$
+  - $c(0, 0) = c(0, 1) = ... = c(0, n) = 0$
 - First column:
-    - $c(0, 0) = c(1, 0) = ... = c(m, 0) = 0$
+  - $c(0, 0) = c(1, 0) = ... = c(m, 0) = 0$
 
 Then fill in the matrix, row by row, in each row from left to right.
 
@@ -180,9 +188,9 @@ for j = 0 to n do
 for i = 1 to m do
     for j = 1 to n do
         if xi = yj then
-            c(i, j) = 1 + c(i − 1, j − 1)
+            c(i, j) = 1 + c(i - 1, j - 1)
         else
-            c(i, j) = max {c(i − 1, j), c(i, j − 1)}}
+            c(i, j) = max {c(i - 1, j), c(i, j - 1)}}
 return c(m, n)
 ```
 
@@ -196,12 +204,13 @@ But if we only want to compute $C(m, n)$, we only need the current row and the p
 
 In general, when we solve a problem using dynamic programming, we go
 through the following steps:
+
 1. Understand the structure of the optimal solution. Show that there is an optimal substructure: an optimal solution “contains” optimal solutions for subproblems (which are
-smaller problems).
+   smaller problems).
 2. Set up a recurrence for the optimal solution. We know from Step 1 that an optimal solution can be obtained from optimal solutions for subproblems. Use this to derive
-recurrence relations.
+   recurrence relations.
 3. Solve the recurrence bottom-up. First solve the smallest subproblems (usually the base case of the recurrence). Then solve the second smallest subproblems. Then solve the third
-smallest subproblems, etc.
+   smallest subproblems, etc.
 
 Do **not** use a recursive algorithm!
 
@@ -214,16 +223,18 @@ For all $i$ and $j$, compute the weight of a shortest path in $G$ from $i$ to $j
 ## Step 1: Structure of the Optimal Solution
 
 Consider the shortest path from $i$ to $j$, and assume this path has at least one interior vertex. Let $k$ be the largest interior vertex.
+
 - shortest path from $i$ to $k$, all interior vertices are $\leq k-1$
 - shortest path from $k$ to $j$, all interior vertices are $\leq k-1$
 
-## Step 2: Set up a recurrence for the Optimal Solution 
+## Step 2: Set up a recurrence for the Optimal Solution
 
 For $i \leq i \leq n$, $1 \leq j \leq n$, $0 \leq k \leq n$, be the length of the shortest path from $i$ to $j$, all of whose interior vertices are vertices are $\leq k$.
 
 We want to compute $dist(i,j,n) = \gamma_G (i,j)$ for all $1 \leq i \leq n, 1 \leq j \leq n$.
 
 Recurrence:
+
 - For $1 \leq i \leq n, \mathrm{dist}(i,i, 0) = 0$
 - For $1 \leq i \leq n, 1 \leq j \leq n, i \neq j$
 - $dist (i,j,0) = {wt(i,j) if (i,j) is an edge, \infty otherwise}$
@@ -244,7 +255,7 @@ for all edges (i, j) do
 for k = 1 to n do
     for i = 1 to n do
         for j = 1 to n do
-            dist(i, j, k) = min {dist(i, j, k − 1), dist(i, k, k − 1) + dist(k, j, k − 1)}
+            dist(i, j, k) = min {dist(i, j, k - 1), dist(i, k, k - 1) + dist(k, j, k - 1)}
 ```
 
 $O(n^3)$
