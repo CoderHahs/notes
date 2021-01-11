@@ -1,0 +1,108 @@
+---
+title: 'Software Process Models'
+metaTitle: 'Software Process Models'
+metaDescription: 'Topics in Software Construction'
+---
+
+Process models stem from the the problem that occurs with organization of code in a large organization. Software development is easy to manage in small teams, but very hard at scale. Hence, process models were created. The first problems were noticed during the NASA Apollo Missions.
+
+- Lifecycle
+  - domain analysis
+  - requirements gathering and modeling
+  - architecture design and specification
+  - coding and testing
+  - delivery and deployment
+  - maintenance and evolution
+  - retirement
+
+Process models should describe the length of time and how to do each part of the Software Lifecycle.
+
+# Black Box
+
+This was a very informal approach that had a lot of problems:
+
+- the assumption is that requirements can be fully understood prior to development
+- Unfortunately the assumption almost never holds
+- Interaction with the customer occurs only at the beginning (requirements) and end (after delivery)
+
+# White Box
+
+Observe and get feedback multiple times during the development of software.
+
+This had many advantages:
+
+- reduces risk by improving visibility
+- allows project changes as the project progresses
+
+The model simply affects the flow among the development cycle.
+
+# Waterfall Models
+
+![Image](https://miro.medium.com/max/2800/0*aD7UeMSSQ-aEJYBN)
+
+- Strengths
+  - organize activities in a sequential flow
+  - easy to understand and use
+  - provides structure to inexperience staff
+  - milestones are well understood
+  - sets requirements stability
+- Weaknesses
+  - All requirements must be known upfront
+  - Deliverables are inflexible
+  - Can give false impression of progress
+  - does not reflect problem-solving nature of software development
+  - integration is one _big bang_ at the end
+  - little opportunities to get stakeholder input
+  - suffers from **Late Design Breakage** since integration happens at the end
+
+## Variants
+
+**Waterfall Model** with Feedback has a feedback path that is used for error correction.
+
+**Rapid Prototyping** helps developers make multiple iterations to software without starting from scratch each time.
+
+# Iterative Development Model
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Iterative_development_model.svg/1200px-Iterative_development_model.svg.png)
+
+The system is developed through multiple iterations, each cycle is responsible for a small portion of the software.
+
+# AGILE
+
+## Methods
+
+- Focus on the code rather than the design
+- Are based on an iterative approach to software development
+- Are intended to deliver working software quickly
+
+Problems:
+
+- it can difficult to keep the stakeholder involved the development process
+- team members may not be suited for intense Involvement
+- prioritizing changes can be difficult with multiple stakeholders
+- barely any documentation
+
+## Manifesto
+
+- Individuals and interactions over processes and tools
+- Working software over comprehensive documentation
+- Customer collaboration over contract negotiation
+- Responding to change over following a plan
+- Maintain simplicity
+
+## Principles
+
+- Customer Involvement
+  - Customers should be involved in the development process.
+- Incremental delivery
+  - Software is developed in increments with the customer specifying the requirements at each increments
+- People not process
+  - Skills of the development team should be recognized and exploited
+- Embrace change
+  - Expect the system requirements to change, so design accordingly
+- Maintain simplicity
+  - Focus on simplicity in code and development process
+
+# SCRUM
+
+![Image](https://www.tuleap.org/wp-content/uploads/2020/06/Scrum-process-schema-EN-small.png)
