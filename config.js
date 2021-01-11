@@ -41,6 +41,8 @@ const config = {
       '/programming_with_cpp',
       '/software_arch',
       '/software_requirements',
+      '/data_communication_networking',
+      '/software_construction',
     ],
     links: [{ text: 'Portfolio', link: 'https://hrithikshah.com' }],
     frontline: false,
