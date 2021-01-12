@@ -1,0 +1,66 @@
+---
+title: 'Physical Layer'
+metaTitle: 'Physical Layer'
+metaDescription: 'Topics in Introduction to Data Communications and Networking'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Elements
+
+- The most basic form of communication is between a transmitter and a receiver. Here are some elements in the communication:
+  - Source, DTE
+  - Transmitter, DCE
+  - Transmission, Medium
+  - Receiver, DCE
+  - Destination, DTE
+- DTE is **Data Terminating Equipment(DTE)** and DCE is **Data Circuit Terminating Equipment**
+
+# Continuous signal vs discrete signal
+
+Continuous signal (e.g. speech) which contains various levels of amplitude, also known as a analog signal.
+
+Discrete signal (e.g. binary) contains only specific levels of amplitude, also known as a digital signal.
+
+## Periodic signal
+
+A signal $s(t)$ is periodic if an only if $s(t+T) = s(t)$. Basically if a signal repeats over a fixed period then it is periodic
+
+Example: sine wave,
+
+$s(t) = A \sin (2\pi ft+ \phi)$
+
+where $A$ is amplitude, $f$ is frequency and $\phi$ is phase.
+
+You can use constructive and destructive interference between signals to find different frequency.
+
+## Fourier Series
+
+You can use the following formula to reconstruct a signal between a certain time $T_0$.
+
+> $g(t) = a_0 + \sum_{n=1}^{\infty} a_n \cos(n\omega_0t+\phi_n)$
+>
+> $\omega_0 = 2\pi/T_0$
+
+# Spectrum of signal
+
+- **Spectrum of a signal** is the range of frequencies where it has energy/power content
+- **Absolute Bandwidth** is the width of its spectrum
+- **Band-limited Signal** is a signal with finite absolute bandwidth
+- All band-limited signals expand from negative infinity to positive infinity.
+- **Effective Bandwidth** is the area of a spectrum where _most_ of the signal is contained
+
+# Channel capacity
+
+## Nyquist formula
+
+$C = 2W\log_2 (M)$ where
+
+- W = bandwidth in hertz
+- M = number of discrete signal levels
+- C = theoretical maximum capacity in bits per second
