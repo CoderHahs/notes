@@ -64,3 +64,46 @@ $C = 2W\log_2 (M)$ where
 - W = bandwidth in hertz
 - M = number of discrete signal levels
 - C = theoretical maximum capacity in bits per second
+
+# Signal Impairments
+
+As a signal propagates along a transmission path there is loss, attenuation of signal strength. The solution to this is to compensate the attenuation, we can use devices inserted at various points to "boost" signal's strength (amplifiers).
+
+Impact:
+
+- degrade the signal quality for analog signals
+- introduce errors in digital signals (i.e. 0 may be changed to 1 and vice-versa)
+
+Types:
+
+- signal attenuation
+- delay distortion
+- noise
+
+## Attenuation
+
+- The amplitude of signal decreases with distance over transmission medium. Repeaters and amplifiers are used to restore the signal to its original level
+- Attenuation is an increasing function of frequency
+- measured in Decibels (dB)
+
+### Decibel
+
+- Gains and losses are expressed in decibels (dB)
+  > $N_{dB} = 10 \log_{10} \frac{P_r}{P_t}$
+  > where:
+- $N_{dB}$ = number of decibels
+- $P_r$ = power at destination
+- $P_t$ = power at source
+- $\log_10$ = logarithm base 10
+
+The decibel is a measure of relative, not absolute difference. For example a loss from 1000 W to 500 W is a loss of 3 dB. Similarly a loss from 10 mW to 5 mW is also a loss of 3 db. A loss of 3 db halves the strength where as a gain of 3 db doubles the strength.
+
+Decibels are useful to determine overall gain or loss in a system. This can be done through addition and subtraction.
+
+# Amplifiers and Repeaters
+
+**Amplify** the received signals (this includes useful signal plus noise). **Repeaters** recover the digital information and retransmit it.
+
+Amplifiers can be used with analog and digital communication systems.
+
+Repeaters can be used with digital communication systems. They make decisions on received signals and decide how to transmit the original signal. Sort of like broken telephone (but these are more accurate).
