@@ -133,3 +133,21 @@ Unwanted coupling between signal paths. Example: more than one conversation hear
 ## Impulsive noise
 
 Non-continuous noise consisting of irregular pulses or noise spikes of short duration and of relatively high amplitude. This can be caused by external electromagnetic disturbances and faults in the communication system.
+
+# Delay distortion
+
+The speed of propagation of a sinusoidal signal along a transmission line varies with the frequency. For a signal with multiple frequencies, the arrival at the receiver is different.
+
+The effect of delay distortion tends to increase with the size of the signal bandwidth (=> it increases with an increase in transmission rate). The pulses become distorted, spread in time and can spill over to neighboring pulses, make their detection difficult. **Inter-symbol Interference** is the incorrect interpretation of the received signal.
+
+# Atmospheric absorption
+
+Strength of signal falls off because the atmosphere absorbs some of its energy.
+
+Attenuation and delay are greater at higher frequencies, causing distortion.
+
+# Inter-symbol Interference
+
+Inter-symbol interference (ISI) occurs when a pulse spreads out in such a way that it interferes with adjacent at the sample instant.
+
+Example: assume polar NRZ line code. The channel outputs are shown as "smeared" (width $T_b$ becomes $2T_b$) pulses (spreading due to bandlimited channel). Basically the signal doesn't seem that accurate.
