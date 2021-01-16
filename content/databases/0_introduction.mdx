@@ -1,0 +1,219 @@
+---
+title: 'Intro to Databases'
+metaTitle: 'Databases'
+metaDescription: 'Topics in Databases'
+---
+
+# Basic Notions
+
+- **Data**: known facts that have a meaning and that can be stored.
+- **Database (DB)**: collection of interrelated data.
+- Universe: part of real world about which the data stored in the DB relates to.
+- **Database Management System (DMBS)**: software that allows to create and manipulate a database.
+- **Database System**: collection of interrelated data and a set of programs that allow users to access and modify these data
+
+# Purpose
+
+Problems that occurred:
+
+- data redundancy and inconsistency
+- difficulty accessing data
+- data isolation
+- integrity Problems
+- atomicity of updates
+- concurrent access by multiple users
+- security
+
+Database systems offer solutions to all the above problems.
+
+# Data Models
+
+Data models provide a way to describe the design of a database at the physical, logical, and view levels (think schemas).
+
+Categories:
+
+- Relational model
+- Entity-Relationship data model
+- Object-based data models
+- Semi-structured data model
+- Network and Hierarchical model
+
+## Relation Models
+
+- all the data is stored in various tables (or relations)
+- use primary keys (ids)
+
+# Levels of abstraction
+
+Database systems try to provide users with an abstract view of the data, the system hides certain details of how the data is stored and maintained.
+
+## Physical Level
+
+- describes how a record is stored
+
+## Logical Level
+
+- describes data stored in database, and the relationships among the data
+- describes the entire database in terms of a small number of simple structures
+
+## View Level
+
+- application programs hide details of data types. Views also hide secure information
+
+# Instances and Schemas
+
+**Instances** - actual content of the database at a particular point in time. _Analogous to the value of a variable_
+
+**Schema** - overall design of the database.
+
+- **Logical Schema**: the overall logical structure of the database. _Analogous_ to type information of a variable in a program
+- **Physical Schema**: the overall physical structure of the database.
+
+# Data Independence
+
+## Logical Data Independence
+
+- protection from changes in the logical structure of data
+- can modify the logical schema without changing the external schema or application programs
+- addition or removal of certain relationships
+
+## Physical Data Independence
+
+- protection from changes in the physical structure of data
+- can modify the physical schema without changing the logical schema
+- possible changes:
+  - using new storage device
+  - using different data structures
+  - changing the access method
+  - using different file organization / changing indexes
+- Applications depend o the logical schema
+- In general, the interfaces between the various levels and components should be well defined so that changes in some parts do not seriously influence others
+
+# Database Languages
+
+A database system provides:
+
+- a **data-definition language (DDL)** to specify the database schema
+- a **data-manipulation language (DML)** to express database queries andupdates.
+
+## Data-Manipulation Language (DML)
+
+Two classes of language:
+
+- **Pure**
+  - used for proving properties about computational power
+  - relational algebra
+  - tuple relational calculus
+  - domain relational calculus
+- **Commercial**
+  - SQL is the most widely used commercial language
+
+There are two types of DMLs:
+
+- **Procedural DML**
+  - require a user to specify data needed and how to get it
+- **Declarative DML**
+  - require a user to specify what data are needed without specifying how to get it
+  - easier to learn and use
+  - a.k.a non-procedural DMLs
+  - the portion of a DML that involves information retrieval is called a query language
+
+### SQL Query Language
+
+- non-procedural
+- application programs generally access databases through one of:
+  - language extensions to allow embedded SQL
+  - application program interface (ODBC/JDBC) which allow SQL queries to be sent to a database
+- SQL is not as powerful as a universal Turing machine
+- SQL does not support actions such as input from users, output to displays or communication over the network
+
+# Database Design
+
+- **Logical design**: deciding on a database schema requires business and computer science inputs
+- **Physical design**: deciding on the physical layout
+
+# Database Engine
+
+A database system is partitioned into modules that deal with each of the responsibilities of the overall system
+
+contains:
+
+- storage manager
+- query processor
+- transaction manager
+
+## Storage Manager
+
+- a program module that provides the interface between the low-level data stored in the database and the application programs and queries submitted to the system
+- responsible for:
+  - interaction with the OS file Manager
+  - efficient store, retrieving and updating of data
+- storage manager components include:
+  - authorization and integrity manager
+  - transaction manager
+  - file manager
+  - buffer manager
+
+implements:
+
+- **Data files** which store the database itself
+- **Data dictionary** stores metadata about the structure of the database, in particular the schema of the database
+- **Indices** provide fast access to data items
+
+## Query Processor
+
+- DDL interpreter: interprets DDL statements and records the definitions in the data dictionary
+- DML compiler: translates DML statements in a query language into an evaluation plan consisting of low-level instructions that the query evaluation engine understands
+- Query evaluation engine: executes low-level instructions generated by the DML compiler
+
+### Procedure
+
+1. Parsing and translation
+2. Optimization
+3. Evaluation
+
+## Transaction Management
+
+- a **transaction** is a collection of operations that performs a single logical function in a database application
+- **Transaction-management** component ensures that the database remains in a consistent (correct) state despite system and transaction failures
+- **Concurrency-control manager** controls the interaction among the concurrent transactions, to ensure the consistency of the database
+
+# Database Architecture
+
+- Centralized databases
+  - one to a few cores, shared memory
+- Client-server
+  - one server machine executes work on behalf of multiple client machines
+- Parallel databases
+  - many core shared memory
+  - shared disk
+  - shared nothing
+- Distributed databases
+  - geographical distribution
+  - schema/data heterogeneity
+
+# Database Applications
+
+![Image](https://i2.wp.com/3.bp.blogspot.com/-5IYf6nhD5L4/VwQar9OpuQI/AAAAAAAAEbg/xXlzllw0Gfwjeud20Gjv7rzWOrnU7JM1A/s1600/two%2Btier%2Band%2Bthree%2Btier%2Barchitecture%2Bdbms%2Btanmayonrun.PNG)
+
+- two-tier
+  - the application resides at the client machine, where it invokes database system functionality at the server machine
+- three-tier
+  - the client machine acts as a front end and does not contain any direct database calls
+  - client end communicates with an application server
+  - application server in turn communicates with a database system to access data
+
+# Database Users and Administrator
+
+1. Native users: users who interact with the system by invoking one of the application programs that have been written previously
+2. Application programmers: are computer professionals who write application programs
+3. Sophisticated users: use a database query language or use tools such as data analysis software
+4. Specialized users: write specialized database applications that do not fit into the traditional data-processing framework
+
+Administrator has central control over the system and has functions:
+
+- schema definition
+- storage structure and access-method definition
+- schema and physical-organization modification
+- granting and authorization for data access
+- routine maintenance
