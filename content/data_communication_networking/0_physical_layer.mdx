@@ -153,3 +153,161 @@ Inter-symbol interference (ISI) occurs when a pulse spreads out in such a way th
 Example: assume polar NRZ line code. The channel outputs are shown as "smeared" (width $T_b$ becomes $2T_b$) pulses (spreading due to bandlimited channel). Basically the signal doesn't seem that accurate.
 
 ## Causes of Impairments
+
+- Reflection, occurs when signal encounters a surface that is large relative to the wavelength of the signal
+- Diffraction, occurs at the edge of an impenetrable body that is large compared to wavelength of radio wave
+- Scattering, occurs when incoming signal hits an object whose size in the order of the wavelength of the signal or less
+
+# Multipath propagation
+
+- Obstacles reflect signals so that multiples copies of a signal may arrive at the receiver at different and therefore with different phases
+- If phases add destructively the signal level declines and vice versa
+- even movement of short distances (in the order of $\lambda$) the signal can vary greatly
+- also produces ISI
+
+## Solution: Equalizers
+
+Devices that take the original signal and they themselves distort it, and try to correct the signal to the original signal.
+
+# Adaptive Equalization
+
+- Used to compensate the distortion introduced by the channel
+- Tries to reverse the unequal response of the channel, both in amplitude and phase, to the frequency components of the transmitted signal
+- commonly adaptive in the sense that the channel response is periodically estimated and the equalizer adapts accordingly
+- useful to combat ISI
+- involves sophisticated digital signal processing algorithms
+
+## Channel capacity without noise
+
+Nyquist formula
+
+> $C = 2W\log_2 M$
+
+where
+
+- $W$ = bandwidth in hertz
+- $M$ = number of discrete signal levels
+- $C$ = capacity in bits per second
+
+## Channel capacity with noise
+
+Shannon-Hartley formula
+
+> $C = W \log_2 (1+S/N)$
+
+where
+
+- $W$ = bandwidth in hertz
+- $S/N$ = signal-to-noise ratio
+- $C$ = max theoretical capacity in bits/second
+
+# Digital vs. Analog Transmission
+
+- Digital technology
+  - VLSI product became "low cost"
+- Data integrity
+  - Ex. the use of repeaters guarantees the integrity of the data being transmitted
+- Capacity utilization
+  - links can be shared (multiplexed effectively)
+- Security and privacy
+  - encryption techniques can be applied easily to digital data
+
+# Bit rate and baud rate
+
+- Bit rate: number of bits transmitted per second
+- Baud rate: number of signal changes per second
+
+Relation:
+
+> bit rate = baud rate $*n$  
+> where $n=$ number of bits per change
+
+# Transmission media
+
+Guided transmission media
+
+- Twisted pair
+- coaxial cable
+- optical fiber
+
+Wireless transmission
+
+- microwave
+- radio
+- infrared and millimeter waves
+- light-wave transmission
+
+## Twister pair
+
+![Image](https://1.bp.blogspot.com/-iS-aFsQ9-Ks/WFkmbn1vfoI/AAAAAAAACac/gUs_XhBRoikfpE-uyaN4TqTO-cqO1e-RwCEw/s1600/A%2BTypical%2BTwinax%2BCable.png)
+
+- widely used in telephone network
+- used for either analog or digital transmission
+- attenuation very strong with frequency
+  - analog: amplifiers every 5-6 km
+  - digital: repeater every 2-3 km
+- low noise immunity
+  - crosstalk is a problem
+  - poor channel characteristics
+- easy to install, repair
+- low cost
+
+## Coaxial cable
+
+![Image](https://blog.pasternack.com/wp-content/uploads/2017/02/COAX_STRIPPED-1024x949.jpg)
+
+- Baseband commonly used for digital transmission
+  - one channel
+- Broadband commonly used for analog
+  - multiple channels
+  - two types
+    - dual cable system
+    - single cable system
+- attenuation linear with frequency
+- better noise immunity
+- error rate:
+  - baseband: $10^{-7}$
+  - broadband: $10^{-9}$
+- 1 km baseband cable = up to 2 Gbps
+- 100 km broadband cable = 300-450 MHz
+- Moderate cost
+
+## Optical fiber
+
+- thin (2 to 125 $\mu$m), flexible medium capable of conducting an optical ray
+- three concentric: the core, the cladding and the jacket
+- idea: refraction principle
+- utilization: light trapped by total internal reflection when...
+
+Three components:
+
+- light source (LED or laser diode)
+- transmission medium (fiber)
+- detector (photodiode)
+
+Two major types of fiber:
+
+- multi-mode fiber (largely used)
+- single mode fiber (expensive but can be used for long distances)
+
+- attenuation very low
+- high noise immunity
+- error rate: $10_{-15}$
+- 100 km = ~2 Gbps
+- Unfamiliar technology: high skills required
+- Lightweight and expensive
+
+- Wavelength Division Multiplexing (WDM)
+  - send more than one wavelengths through the same fiber
+  - allows re-use of fiber
+
+# Radio Transmission
+
+- Radio waves
+  - easy to generate, can travel long distances, penetrate buildings at lower part of spectrum, omnidirectional (all directions from the source)
+  - widely used for indoor and outdoor communication
+- Low noise immunity
+  - interference from electrical equipment
+  - multipath interference
+  - co/adjacent-channel interference
+- Attenuation increases with distance "fast"
