@@ -1,0 +1,102 @@
+---
+title: 'Database Design using the E-R Model'
+metaTitle: 'Database Design using the E-R Model'
+metaDescription: 'Topics in Databases'
+---
+
+# Design Phases
+
+- Initial phase: characterize fully the data needs of the prospective database users. Feedback from domain experts and users.
+- Second phase: conceptual design
+  - applying the concepts of the chosen data model
+  - translating these requirements into a conceptual schema of the database
+  - a fully developed conceptual schema indicates the _functional requirements_ of the enterprise
+    - describe the operations that will be performed
+- Final phase: Moving from an abstract data model to the implementation of the database
+  - Logical design: deciding on the database schema. Database design requires that we find a "good" collection of relation schemas
+    - Business decision - what attributes?
+    - Computer science decision - what relation schemas should we have and how should the attributes be distributed among the various relation schemas?
+  - Physical design - deciding physical layout
+
+## Alternatives
+
+- Two pitfalls
+  - Redundancy: a bad design may result in repeat information, and data inconsistency
+  - Incompleteness: a bad design may make somethings impossible to model
+
+# Entity Relationship Model (E-R Model)
+
+- Models an enterprise as a collection of _entities_ and _relationships_
+  - Entity: a "thing" or "object" in the enterprise that is distinguishable from other objects
+    - Described by a set of attributes
+  - Relationship: an association among entities
+- Represented diagrammatically by an _entity-relationship diagram_
+
+## Database Modelling
+
+The ER data model specifies an **enterprise schema** that represents the overall logical structure of a database.
+
+The ER model employs three concepts:
+
+- entity sets
+- relationship sets
+- attributes
+
+Also has an associated diagram representation, **the ER diagram** which expresses the logical structure.
+
+![Image](https://i.stack.imgur.com/ajEiz.jpg)
+
+## Entity Sets
+
+- An entity is an object, ex. specific person/company
+- An entity set is a set of entities of the same type
+- An entity is represented by a set of attributes
+  - ex _instructor = (ID, name, salary)_
+- A subset of the attributes form a _primary key_ of the dataset
+
+## Relationship Sets
+
+A relationship is an association among several entities. For example:
+
+```
+44553 (Peltier) -     *advisor*   -  22222 (Einstein)
+student entity - relationship set -  instructor entity
+```
+
+A relationship set is a mathematical relation among $n \geq 2$ entities, each taken from entity sets.
+
+An attribute can also be associated with a relationship set.
+
+### Roles
+
+Entity sets of a relationship need not be distinct, you can have a 'role' in the relationship
+
+### Degree of a Relationship Set
+
+- Binary relationship
+  - involves two entities
+  - most relationships in a DB are Binary
+- more than two are rare, but do occur in certain scenarios
+
+## Complex attributes
+
+- **Simple** and **Composite**
+  - Composite attributes can be divided into sub parts.
+- **singe-valued** and **multivalued** (phone_numbers)
+- **Derived** attributes
+- **Domain** - the set of permitted values for each attribute
+
+## Mapping Cardinality Constraints
+
+- One to one
+- One to many
+- Many to one
+- Many to many
+
+In diagrams, arrow for one, and no arrow for many.
+
+## Total and Partial Participation
+
+Total participation is when every entity in the entity set participates in at least one relationship set.
+
+Partial participation is where some entities may not participate in the relationship set.
