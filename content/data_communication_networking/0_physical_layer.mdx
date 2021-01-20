@@ -311,3 +311,149 @@ Two major types of fiber:
   - multipath interference
   - co/adjacent-channel interference
 - Attenuation increases with distance "fast"
+
+# Wireless Transmission patterns
+
+- directional
+  - the transmitting antenna puts out a focused electromagnetic beam
+- omnidirectional
+  - transmitted signal spreads out in all directions
+
+## Microwave Transmission
+
+- Widely used
+- directional
+- repeaters are needed
+- Higher signal to noise ratio
+- They do not penetrate through buildings
+- Multipath fading can occur
+
+### Terrestrial Microwave
+
+- parabolic dish
+- 10 feet in diameter
+- line-of-sight transmission
+- max distance between 2 antennas \$d =3.57(\sqrt{Kh_1}+\sqrt{Kh_2}) where
+  - $h_1$ = height of antenna one
+  - $h_2$ = heigh of antenna two
+  - $K=4/3$ (adjustment factor)
+
+Applications:
+
+- long-haul communications
+- TV and voice communications
+- transmission in small regions
+
+Characteristics:
+
+- attenuation is the major source of loss
+  - $L = 10\log{\frac{4\pid}{\lambda}}^2 dB$
+  - $d$ is distance, $\lambda$ is wavelength, expressed in the same units
+- loss varies as the square of the distance
+
+### Satellite Microwave
+
+A satellite is a **microwave relay station** used to link 2 or more ground-based microwave transmitters/receivers.
+
+A single orbiting satellite will operate on a number of frequency bands, called **transponder** channels.
+
+Satellites are **Geostationary** (stays in position over the earth).
+
+Applications:
+
+- television distribution
+- long-distance telephone
+- private business networks
+
+Transmission characteristics:
+
+- 4 GHz / 6 GHz, 12 GHz / 14 GHz, 15 GHz / 17 GHz
+  - below 1 GHz there is significant noise from natural sources, including galactic solar and atmospheric noise
+- 20 GHz to 30 GHz
+  - Personal Satellite Communication systems
+  - High-Definition TV (around 23 GHz)
+
+## Infrared, Optical and millimeter waves
+
+- Used for short-range communication
+- relatively directional
+- don pass-through solid object
+- mmWave and Visual Optical proposed for 5G networks
+
+### Free Space Lightwave Transmission
+
+An application that connects two LANs in two buildings via lasers
+
+- high bandwidth, very low cost and easy to install
+- laser cannot penetrate rain or thick following
+- work well on sunny days
+
+# Digital Data/Digital signals
+
+- Modulation rate: rate at which signal level is changed
+- Digital signaling rate/data rate: signal rate (bits/sec) that data is transmitted
+- Duration of length of a bit is the amount of time it takes for the transmitter to emit a bit. The bit duration,$t_B$, for a data rate, $R$ is $1/R$
+
+## Data Rate vs. Modulation Rate
+
+- data rate $R = 1/t_B$
+
+# Digital Data/Digital signals
+
+- Unipolar signal: same algebraic sign
+- Bipolar signaling: one logic state is represented by a positive voltage level, and the other by a negative voltage level
+
+## Encoding Schemes
+
+Five evaluation factors:
+
+1. Signal spectrum
+
+- lack of high-frequency components means that less bandwidth is required for transmission
+
+2. Clocking
+
+- every bit being received needs to be identified
+
+3. Error detection
+
+- useful to be able to detect errors at the physical level
+
+4. Signal interference and noise immunity
+5. Cost and complexity
+
+3 main techniques:
+
+1. Nonreturn to Zero (NRZ)
+
+- maintains a constant value for the duration of a bit time
+- the data is encoded as the presence or absence of a signal transition at the beginning of the bit time.
+- this type is called differential encoding (the signal is
+  decoded by comparing the polarity of adjacent signal elements)
+- Advantage: make efficient use of bandwidth
+- Disadvantage: presence of a dc component and lack of synchronization
+
+2. Multilevel Binary
+
+- uses more than 2 signal levels, bipolar AMI (binary 1 pulses alternate in polarity, pseudo-ternary (the binary 0 pulses alternate in polarity)
+- Advantages: no net DC components, pulse alternation provides error detection
+- Disadvantage: loss of synchronization, long string of 0/1 occurs for bipolar AMI/pseudo-ternary
+
+3. Biphase
+
+- there is a transition at the middle of each bit period
+- Advantages: synchronization, error detection, no DC component
+- Disadvantage: higher modulate rate than NRZ, higher BW
+
+### Evaluation
+
+- NRZ
+  - lack of synchronization capability; widely used for digital magnetic recording but not for signal transmission
+- Multilevel binary
+  - long string of 0s (Bipolar‐AMI) and 1s (pseudoternary) cause
+    synchronization problems (scrambling techniques are used to
+    address this deficiency);
+  - it is easy to detect isolated errors; it is not as efficient as NRZ (three signal levels are used instead of 2 levels used in NRZ)
+- Biphase
+  - no synchronization problems; good error detection; more
+    bandwidth is needed (as many as two transitions per bit time)
