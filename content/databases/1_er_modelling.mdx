@@ -4,6 +4,13 @@ metaTitle: 'Database Design using the E-R Model'
 metaDescription: 'Topics in Databases'
 ---
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
 # Design Phases
 
 - Initial phase: characterize fully the data needs of the prospective database users. Feedback from domain experts and users.
@@ -32,7 +39,7 @@ metaDescription: 'Topics in Databases'
   - Relationship: an association among entities
 - Represented diagrammatically by an _entity-relationship diagram_
 
-## Database Modelling
+# Database Modelling
 
 The ER data model specifies an **enterprise schema** that represents the overall logical structure of a database.
 
@@ -100,3 +107,99 @@ In diagrams, arrow for one, and no arrow for many.
 Total participation is when every entity in the entity set participates in at least one relationship set.
 
 Partial participation is where some entities may not participate in the relationship set.
+
+## Keys
+
+- Superkeys: a set of one ore more attributes that, taken collectively allow us to identify uniquely a tuple in the relation (table)
+- Candidate keys: superkeys for which no proper subset is a superkey
+- Primary keys: a candidate key that is chose by the database designer as the principal means by identifying tuples within a relation (table)
+
+### Primary Key
+
+Primary keys provide a way to specify how entities and relations are distinguished.
+
+#### Entity Sets
+
+No two entities in an entity set are allowed to have exactly the same value for all attributes. A key for an entity is a set of attributes that suffice to distinguish entities from each other.
+
+#### Relationship Sets
+
+To distinguish among the various relationships of a relationship set we use the individual primary keys of the entities in the relationship set.
+
+- Let R be a relationship set involving entity sets $E_1, E_2, ... E_n$
+- The primary key for R consists of the union of the primary keys of entity sets $E_1, E_2, ... E_n$, $PK(R)= PK(E_1) \union PK(E_2) \union ... PK(E_n)$
+- if the relationship set $R$ has attributes $a_1, a_2, ..., a_m$ associated with it, then the primary key $R$ also includes those attributes.
+
+#### Choice of Primary key for Binary Relationship
+
+- Many-to-Many relationships: the union of the primary keys is chosen as the primary key
+- One-to-Many/Many-to-One relationship: the primary key of the "Many" side is used as the primary key
+- One-to-One relationships: the primary key of either one of the participating entity sets can be chosen as the primary key
+
+## Weak Entity Sets
+
+A weak entity set is one whose existence is dependent on another entity, called its identifying entity. Instead of associating a primary key with a week entity, we use the identifying entity, along with extra attributes called _discriminator_ to uniquely identifying a weak entity.
+
+An entity set that is not a weak entity set is termed a **strong entity set**.
+
+Every weak entity must be associated with an identifying entity. In other words the weak entity set is said to be _existence dependent_ on the identifying entity set.
+
+The identifying entity set is said to own the weak entity set that it identifies. The relationship associating the weak entity set with the identifying set is called the _identifying relationship_.
+
+# Extended E-R features
+
+## Specialization
+
+- Top-down design process; we designate sub-groupings within an entity set
+  that are distinctive from other entities in the set.
+- These sub-groupings become lower-level entity sets that have attributes or
+  participate in relationships that do not apply to the higher-level entity set.
+- Depicted by a hollow arrow-head pointing from the specialized entity to the
+  other entity
+- We refer to this relationship as the ISA relationship (which stands for “is a”)
+- **Attribute inheritance**: a lower-level entity set inherits all the attributes and
+  relationship participation of the higher-level entity set to which it is linked.
+- Higher- and lower-level entity sets also may be designated by the terms
+  _superclass_ and _subclass_, respectively.
+- _Overlapping_: entity may belong to more than one lower-level entity set
+- _Disjoint_: an entity belongs to no more than one lower-level entity set
+
+## Generalization
+
+- A bottom-up design process – combine a number of entity sets that
+  share the same features into a higher-level entity set.
+- Specialization and generalization are simple inversions of each other;
+  they are represented in an E-R diagram in the same way.
+- The terms specialization and generalization are used interchangeably.
+
+## Completeness Constraints
+
+- specifies whether or not an entity in the higher-level entity set must belong to at least one of the lower-level entity sets within a generalization or specialization
+  - total: an entity must belong to one of the lower-level entity sets
+  - partial: an entity need not belong to one of the lower-level entity sets
+- Partial generalization is the default.
+- We can specify total generalization in an ER diagram by adding the keyword total in the diagram and drawing a dashed line from the keyword to the corresponding hollow arrow-head to which it applies (for a total generalization), or to the set of hollow arrow-heads to which it applies (for an overlapping generalization)
+
+## Aggregation
+
+You can eliminate some redundancy via Aggregation
+
+- treat relationship as an abstract entity
+- allows relationships between relationships
+- abstraction relationship into new entity
+
+# Design Decisions
+
+- The use of an attribute or entity set to represent an object.
+- Whether a real-world concept is best expressed by an entity set or a
+  relationship set.
+- The use of a ternary relationship versus a pair of binary relationships.
+- The use of a strong or weak entity set.
+- The use of specialization/generalization – contributes to modularity in the
+  design.
+- The use of aggregation – can treat the aggregate entity set as a single
+  unit without concern for the details of its internal structure.
+
+# Symbols and Notation
+
+![Image](https://www.conceptdraw.com/How-To-Guide/picture/Entity-Relationship-Diagram-Symbols.png)
