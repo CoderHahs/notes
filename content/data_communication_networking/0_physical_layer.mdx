@@ -450,10 +450,93 @@ Five evaluation factors:
 - NRZ
   - lack of synchronization capability; widely used for digital magnetic recording but not for signal transmission
 - Multilevel binary
-  - long string of 0s (Bipolar‐AMI) and 1s (pseudoternary) cause
+  - long string of 0s (Bipolar‐AMI) and 1s (pseudo-ternary) cause
     synchronization problems (scrambling techniques are used to
     address this deficiency);
   - it is easy to detect isolated errors; it is not as efficient as NRZ (three signal levels are used instead of 2 levels used in NRZ)
 - Biphase
   - no synchronization problems; good error detection; more
     bandwidth is needed (as many as two transitions per bit time)
+
+# Data Encoding
+
+Encoding is done using modulation onto an analog signal.
+
+## Modulation techniques
+
+- Amplitude modulation
+  > $S(t) = [1+n_aX(t)]\cos{2\pi}f_ct$,
+  - where the $\cos$ term is the carrier and $x(t)$ is the input signal, $n_a$ is the modulation index (ratio of the amplitude to $x(t)$ to the carrier).
+  - simplest form of modulation
+- Angle modulation
+  > $S(t)=A\cos[2\pif_ct+\phi(t)]$
+  - phase modulation: $\phi(t)=n_pm(t)$ where $n_p$ is the phase modulation index
+  - frequency modulation: $d\phi(t)/dt=n_fm(t)$ where $n_f$ is the frequency modulation index
+
+# Multiplexing
+
+- Objective: share a link between several users
+- Two basic techniques: FDM (Frequency Division Multiplexing) and TDM (Time Division Multiplexing)
+
+## Frequency Division Multiplexing
+
+![Image](https://networkencyclopedia.com/wp-content/uploads/2019/08/FDM-frequency-division-multiplexing.png)
+
+Problems:
+
+- Crosstalk
+  - guard bands should be carefully chosen
+  - a voice signal has an effective bandwidth of 3.1 kHz; a channel of 4kHz is adequate to avoid cross talk
+- Intermodulation noise
+  - nonlinear effects of amplifiers on a signal in one channel can produce undesirable frequency components in other channels
+- More challenging and expensive RF technology (narrow filters; large)
+- Inefficiency
+  - channels might be allocated to sources that are not using them all the time
+
+### Nonlinear Effects in FDM
+
+- Received signal is sum of multiple carriers
+- Receiver power amplifiers are operated _nonlinearly_ (near saturation) for maximum efficiency
+- The nonlinearities cause _intermodulation_ (IM) frequencies to appear in the amplifier output
+- IM components can interfere with other channels in the FDMA system
+
+## Time Division Multiple Access
+
+- TDMA systems divide the radio spectrum into time slots.
+- Only one user can transmit or receive during a one time slots
+- Usually, each user may occupy the channel once during a time frame, where one frame comprises $N$ time slots
+- TDMA systems transmit data in a buffer and
+  burst method.
+- The transmission is non‐continuous.
+- Unlike FDMA systems which can transmit
+  analog signals, TDMA must transmit data
+  and digital modulation must be used
+
+![Image](https://slideplayer.com/slide/7264159/24/images/3/Time+Division+Multiplexing.jpg)
+
+Featured:
+
+- Only one carrier, no Intermodulation
+- Number of time slots per frame depends on bandwidth, desired date rate, modulation technique
+- Receiver must synchronize to each time slot, thus more synchronization bits are required in TDMA compared to FDMA
+- It is possible to allocate more than one time slot per frame - bandwidth on demand
+
+Problems:
+
+- Frame synchronization
+  - use an identifiable pattern of bits at the beginning of each frame
+- Pulse stuffing
+  - If user does not have data, the assigned slot needs to be staffed with dummy bit
+- Inefficiency
+  - many of the time slots are wasted; slots are allocated to inputs even these
+    input are not sending any data
+- High Pick Transmission power
+
+### Statistical TDM
+
+- in Synch TDM many slots are wasted
+- Statistical TDM allocates time slots dynamically based on demand
+- multiplexer scans input lines and collects data until frame full
+- line data rate lower than aggregate input line rates
+- may have problems during peak periods
+  - must buffer inputs
