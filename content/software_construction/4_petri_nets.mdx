@@ -1,0 +1,28 @@
+---
+title: 'Petri Nets'
+metaTitle: 'Petri Nets'
+metaDescription: 'Topics in Software Construction'
+---
+
+# Introduction
+
+- Introduced by Carl Adam in 1962
+- A diagrammatic tool to model concurrency and synchronization in systems
+- Fairly similar to UML state Machines
+- based on strong mathematical foundation
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/d/d7/Animated_Petri_net_commons.gif)
+
+# Components
+
+- **Places** represent possible states of the system
+- **Transitions** are vents or actions which cause the change of state
+- Every **arc** simply connects a place with a transition or a transition with a place.
+
+## Change of State
+
+A change of state is denoted by a movement of _tokens_ from place to place. This is caused by the _firing_ of a transition. The firing represents an occurrence of the event or an action taken. The firing is subject to the input conditions, denoted by token availability. A transition is _firable_ or _enabled_ when there are sufficient tokens in its input places. After firing, tokens will be transferred from the input places (old state) to the output places, denoting the new state.
+
+## Multiple Local States
+
+Petri nets can be modelled to handle concurrent events.
