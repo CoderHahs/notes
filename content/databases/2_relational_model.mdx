@@ -1,0 +1,136 @@
+---
+title: 'Relational Model'
+metaTitle: 'Relational Model'
+metaDescription: 'Topics in Databases'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Relational Model
+
+- introduced in 1970 by Ted Codd from IBM Research
+- A **relational database** is a collection of tables, each of which is assigned a unique name
+- the term **relation** is used to refer to a **table**
+- the term **tuple** is used to refer to a row
+- the term **attribute** refers to a column of a table
+- the term **relation instance** to refer to a specific instance of a relation, i.e, contained a specific set of rows
+
+# Relation Schema and Instance
+
+- $A_1, A_2, ..., A_n$ are attributes
+- $R(A_1, A_2, ..., A_n)$ is a relation schema
+- A relation instance $r$ defined over schema $R$ is denoted by $r(R)$
+- The current values of a relation are specified by a table
+- An element $t$ of relation $r$ is called a _tuple_ and is represented by a _row_ in a table.
+
+## Attributes
+
+- The set of allowed values for each attribute is called the _domain_ of the attribute
+- Attribute values are (normally) required to be **atomic**; that is, indivisible
+- The special value _null_ is a member of every domain. Indicated that the value is "unknown"
+- The null value causes complications in the definition of many operations
+
+## Relationship
+
+- Relations are unordered
+  - order of tuples is irrelevant
+- Arity of a relation
+  - number of attributes
+- Cardinality of a relation
+  - number of lines
+
+# Database Schema
+
+The schema represents the logical structure of the database. **Database instance** is a snapshot of the data in the database at a given instant in time
+
+## Keys
+
+- Let $K \subseteq R$
+- $K$ is a **superkey** of $R$ if values for $K$ are sufficient to identify a unique tuple of each possible relation $r(R)$
+- Superkey $K$ is a **candidate key** if $K$ is minimal
+- One of the candidate keys is selected to be the **primary key**
+
+### Foreign Key Constraint
+
+A relation may include among its attributes the primary key of another relation
+
+- _Referencing relation_
+- _Referenced relation_
+- In a database instance, given any tuple $t_a$, there must be some tuple, $t_b$, such that the value of the attribute of $t_a$ is the same as the value of the primary key of $t_b$
+
+# Types of Integrity Constraints
+
+A referential integrity constraint requires that the values appearing in specified attributes of any tuple in the referencing relation also appear in specified attributes of at least one tuple in the reference relation.
+
+- Domain integrity
+  - the values of an attribute must belong to the attribute domain
+- Entity (or key) integrity
+  - the primary key cannot be null
+  - there cannot exist instances with repeated Primary Key
+- Referential integrity
+  - the foreign key is either NULL or it matches a Primary Key
+- User-defined integrity
+  - other rules specified by a user, which do not belong to the entity domain and referential integrity categories
+    - Functional dependency constraints
+    - State constraints
+    - Transition constraints
+
+# Relation Schema
+
+- entity sets and relationship sets can be expressed uniformly as relation schemas that represent the contents of the database
+- A database which conforms to an E-R diagram can be represented by a collection of schemas
+- there is a unique schema for each entity set and relationship set
+- each schema has a number of columns with unique names
+
+## Representing Entity Sets
+
+- Strong
+  - A strong entity set reduces to a schema with the same attributes.
+- Weak
+  - A weak entity set becomes a table that includes a column for the primary key of the identifying strong entity set, and all its own attributes.
+- Composite Attributes
+  - Composite attributes are flattened out by creating a separate attribute for each component attribute.
+- Multivalued Attributes
+  - A multivalued attribute $M$ of an entity $E$ is represented by a separate schema $EM$
+  - Schema $EM$ has attributes corresponding to the primary key of $E$ and an attribute corresponding to multivalued attribute $M$
+
+## Representing Relationship Sets
+
+- A many-to-many relationship set is represented as a schema with attributes for the primary key of the two participating entity sets, and any descriptive attributes of the relationship set.
+
+## Redundancy of schemas
+
+- Many-to-one and one-to-many relationship sets that are total on the many-side can be represented by adding an extra attribute to the "many" side, containing the primary key of the "one" side
+- If participation is partial on the "many" side, replacing a schema by an extra attribute in the schema corresponding to the "many" side could result in null values
+- the schema corresponding to a relationship set linking a weak entity set to its identifying strong entity set is redundant
+
+## Representing Roles
+
+- The role indicators associated with the relationship are used as attribute names
+
+# Extending E-R features in the relational schema
+
+## Representing Specialization via schemas
+
+Method 1:
+
+- Form a schema for the higher-level entity
+- Form a schema for each lower-level entity set, include primary set, include primary key of higher-level entity set and local attributes
+- **Drawback**: getting information about an attribute requires accessing two relations, the one corresponding to the low-level schema and the one corresponding to the low-level schema and the one corresponding to the high-level schema
+
+Method 2:
+
+- Form a schema for each entity set with all local and inherited attributes
+- **Drawback**: some attributes may be stored redundantly
+
+## Reduction of aggregation to Relational Schemas
+
+- To represent aggregation, create a schema containing
+  - primary key of the aggregated relationship
+  - the primary key of the associated entity set
+  - any descriptive attributes

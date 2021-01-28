@@ -15,6 +15,8 @@ metaDescription: 'Topics in Software Construction'
 
 # Components
 
+![Image](https://www.researchgate.net/profile/Annegret_Wagler/publication/51495799/figure/fig1/AS:214373386723329@1428122006347/Petri-net-elements-and-the-representation-of-a-chemical-reaction-in-the-form-of-a-Petri.png)
+
 - **Places** represent possible states of the system
 - **Transitions** are vents or actions which cause the change of state
 - Every **arc** simply connects a place with a transition or a transition with a place.
@@ -26,3 +28,16 @@ A change of state is denoted by a movement of _tokens_ from place to place. This
 ## Multiple Local States
 
 Petri nets can be modelled to handle concurrent events.
+
+## Behavioral Properties
+
+- Reachability
+  - "can we reach one particular state from another"
+- Boundedness
+  - can the number of tokens in a place increase infinitely
+  - A Petri net is said to be _k-bounded_ or simply _bounded_ if the number of tokens in each place does not exceed a finite number $k$ for any marking reachable from M0
+- Liveness
+  - will the system die in a particular state
+  - A Petri net with initial marking M0 is _live_ if, no matter what marking has been reached from M0, it is possible to ultimately fire _at least a single_ transition by progressing through some further firing sequence.
+  - A live Petri net guarantees _deadlock-free_ operation, no matter what firing sequence is chosen.
+  - A transition is _dead_ if it can never be fired in any firing sequence

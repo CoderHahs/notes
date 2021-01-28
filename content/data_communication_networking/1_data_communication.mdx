@@ -1,0 +1,99 @@
+title: 'Digital Data Communication Techniques'
+metaTitle: 'Digital Data Communication Techniques'
+metaDescription: 'Topics in Introduction to Data Communications and Networking'
+
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Synchronization
+
+Loss of synchronization:
+
+- in practice two data/digital signals are not equal. The result is that the timing of the receiver may slowly drift relative to the received signal.
+
+Solution:
+
+- data is sent in bit sequences called frames
+- the receiving clock is started at the beginning of each bit sequence
+
+Example:
+
+- a frame consists of 11 bits
+- assume that the synchronization at the start of the first bit is late at most 10% of $T_B$
+
+Fulfill the following 2 conditions:
+
+$(10+1/2) * T_S + 0.1 * T_B$ and $(10+1/2) * T_S > 10 * T_B$
+
+These are satisfied if: $|\frac{T_S-T_B}{T_B}| < 3.8%$
+
+# Asynchronous Transmission
+
+- timing or synchronization must only be maintained within each character; the receiver has the opportunity to resynchronize at the beginning of each new character
+- timing requirements are modest, sender and receiver are synchronized at the beginning of every character (8 bits if ASCII)
+  - high overhead
+  - overhead $= \mathrm{control_bits}/\mathrm{total_bits}$
+
+# Synchronization Transmission
+
+- In this mode, blocks of characters or bits are transmitted. Each block begins with a preamble and ends with a postamble
+- 2 types:
+
+  - character-oriented
+  - bit-oriented
+
+- Character-oriented
+  - the frame consists of a sequence of characters
+  - SYN is a unique bit pattern that signals the receiver the beginning of a book
+  - the receiver having detected the beginning of the block reads the information till it finds the postamble
+  - the receiver having received the preamble, looks fo extra information regarding the length of the frame
+- Bit oriented
+  - in this mode, the frame treated as a sequence of bits. Neither data nor control information is interpreted in units of x-bit characters
+  - a special bit pattern indicates the beginning of a frame
+  - the receiver looks for the occurrence of the flag
+
+## Dealing with presence of errors
+
+- Detect presence of errors (error detection)
+- Try to correct them (error correction)
+- If no correction have the mechanism to request retransmission (use of Automatic Repeat Request)
+
+# Random Errors
+
+- An error occurs when a bit is altered between transmission and reception
+- Random, statistically uniformly spread errors
+  - occurrence of an error does not increase the probability that other bits, close to the one in error, while be in error
+  - white noise is producing such errors
+- For low BER and frames of "reasonable" length, most framers would experience no error or 1 error at most
+  - example: BER = $10^6$ and length of frame = 8000 bits
+  - probability of receiving a frame correctly > 0.992
+  - probability of a frame having a single error = 0.007873
+  - probability of having more than 1 error < 0.000127
+
+# Burst Errors
+
+- occurrence of an error having occurred in the sequence, means bits preceding/following the one in error have higher probability than the average bit error probability to be in error
+- error strings (clusters of error bits closely located in the sequence) form
+- some channel related impairments producing error bursts
+  - impulsive noise
+  - "slow" fading/shadowing in wireless (relevance of bit rate to average time/distribution channel attenuation remains below certain level)
+  - effect greater at higher data rates
+
+# Error detection and control
+
+The objective is to detect and correct errors that occur in the transmission of frames.
+
+## Types of errors
+
+- Lost frame
+  - a frame that the receiver does not receive (e.g., because starting/clock extraction is not achieved due to excessive signal attenuation, increased levels of noise..)
+- damaged frame
+  - a frame that receiver receives, but some of its bits are in error
+
+## Impact of error location
