@@ -96,4 +96,41 @@ The objective is to detect and correct errors that occur in the transmission of 
 - damaged frame
   - a frame that receiver receives, but some of its bits are in error
 
-## Impact of error location
+# Error detection
+
+- adds redundancy to transmitted message
+- can deduce original despite some errors
+- Example: block error correction code
+  - map $k$ bit input onto an $n$ bit codeword
+  - each distinctly different
+  - if get error assume codeword sent was closest to that received
+- means have reduced effective data rate
+- most of the work concerning error correction & detection is making use of Galois field algebra
+
+# Code rate & minimum distance
+
+Code rate $r$ = # of information bits in a block / # of total bits in a block = $k/n$.
+
+The bandwidth expansion $1/r = n/k$.
+
+The energy per channel bit $(E_c)$ is related to energy per information bit ($E_b$) through $E_c = rE_b$.
+
+Minimum distance ($d_min$): minimum number of positions in which any 2 codewords differ.
+
+# Correctable and detectable errors
+
+- A block code can _correct at least $\mu$ errors_ if $d_{min} >= 2\mu +1$, $=> if d_{min}=3$, then $\mu = 1$. If there is only one error in the block, it can be corrected.
+- A block code can _detect_ any error pattern if the _received $n$ bits_ do not correspond to a codeword.
+- If there are $\lambda$ errors in the n-bits codeword, the existence of errors is detected with certainty if $\lambda < d_{min}$
+- However, even when $\lambda >= d_{min}$, many of the corrupted blocks can still be detected
+- Out of the $2^n$ possible $n$-bit combinations, only $2^k$ codewords can be generated, thus, there are $2^n-2^k=2^k(2^{n-k}-1)$ prohibited combinations
+- Above statement applies when no error correction is used
+
+# Parity Check
+
+- value of parity bit is such that character has even (even parity) or odd(odd parity number of ones)
+- even number of bit errors goes undetected
+
+# Longitudinal Redundancy Checks
+
+![Image](https://t4planet.tripod.com/lrc4.GIF)
