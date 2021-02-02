@@ -1,0 +1,134 @@
+---
+title: 'Compilers'
+metaTitle: 'Compilers'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# What is a compiler?
+
+A program that translates an executable program in one language into an executable program in another language.
+
+The structure of a compiler:
+
+- Lexical Analysis
+- Syntax Analysis or Parsing
+- Semantic Analysis
+- Optimization
+- Code Generation
+
+Requirements:
+
+- produce correct code (byte code in the case of Java)
+- run fast
+- output must run fast
+- achieve a compile time proportional to the size of the program
+- work well with debuggers (absolute must)
+- good diagnostics for lexical and syntax errors
+- support for cross language calls (checkout Java Native interface if you are interested)
+
+# Natural Language Basics
+
+In a natural language:
+
+- a sentence is a sequence of words
+- a word (also called lexeme or lexical unit) is a sequence of characters (possibly a single one)
+
+# Analysis of Sentences:
+
+## Lexical Analysis
+
+Identification of words made up of characters:
+
+- words are classified into several categories
+  - articles
+  - nouns
+  - verbs
+  - adjectives
+  - prepositions
+  - pronouns
+
+First step:
+
+- recognize words
+- smallest unit above letters
+
+## Syntax Analysis
+
+- Rules for combining words to form Sentences
+- once words are understood, the next step is to understand sentence structure
+
+## Analysis of Meaning
+
+- Difficult to formalize
+  - Easily done by humans
+  - gives machines a hard time
+
+# Computer Language Processing
+
+In computer (or programming) languages, one speaks about a program (corresponding to a long sentence or paragraph)
+
+- sequence of lexical units or lexemes
+- lexical units are sequences or characters
+
+Lexical rules of the language determine what the valid lexical units of the language are:
+
+- there are various lexical categories
+  - identifier
+  - number
+  - character string
+  - operator
+- lexical categories are also known as tokens
+
+## Lexical Analysis Computer Programs
+
+- Lexical analyzer divided program text into "words" or "tokens"
+
+## Parsing Computer Programs
+
+- syntax rules of the language determine what sequences of lexemes are well-formed programs
+
+- parsing = diagramming sentences
+
+![Image](https://media.npr.org/assets/img/2014/08/20/gregor2_wide-715197ccdc92ebe03d02d0422617a2a0888835b3.jpg?s=1400)
+
+- parsing program expressions are the same
+
+## Semantic Analysis Computer Programs
+
+- meaning of a well-formed program is also called its semantics
+- a program can be well-formed but its statements are nonsensical
+- once sentence structure is understood, we can try to understand meaning
+- but meaning is too hard for compilers
+- compilers perform limited analysis to catch inconsistencies
+- programming languages define strict rules to avoid such ambiguities
+- compilers perform many semantic checks besides variable bindings
+
+Compilers should catch and complain about lexical and syntax errors. Compilers might complain about common semantic errors.
+
+# Abstract View of Compilers
+
+A compiler does the translation in several steps.
+
+1. Source Program
+2. Lexical Analyser
+3. Syntax Analyser
+4. Semantic Analyser
+5. Intermediate Code Generator
+6. Code Optimizer
+7. Code Generator
+8. Machine Code
+
+# Formal languages
+
+$\Sigma$: alphabet is a finite set of consisting of all input characters or symbols
+
+$\Sigma*$: closure of the alphabet is the set of all possible strings in $\Sigma$, including the empty string $\epsilon$
+
+A formal language is some specified subset of $\Sigma*$
