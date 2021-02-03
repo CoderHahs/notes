@@ -10,3 +10,61 @@ metaDescription: 'Topics in Databases'
   integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
   crossOrigin="anonymous"
 />
+
+# Relational Query Languages
+
+Query language: language in which a user requests information from the database. They are imperative, functional or declarative. Functional languages use relational algebra, declarative languages use tuple relational calculus as well as domain relational language. These are also known as "pure" languages. They all use the same computing power.
+
+# Relational Algebra
+
+![Image](https://images.slideplayer.com/18/6178146/slides/slide_2.jpg)
+
+A procedural language consisting of a set of operations that take one or two relations as input and produce a new relation as their result.
+
+# Operations
+
+## Select
+
+The **select** operation selects tuples that satisfy a given predicate.
+
+Notation: $\sigma_p (r)$
+
+$p$ is called the **selection predicate**
+
+Result: a subset of tuples with the same attributes of the relation $r$.
+
+We allow comparisons using $=, \neq, >, \geq, <, \leq$
+
+## Project
+
+A unary operation that returns its argument relation, with certain attributes left out.
+
+Notation: $\PI_{A_1, A_2, A_3, ..., A_k} (r)$, where $A_1, A_2, ..., A_k$ are attribute names and $r$ is a relation name.
+
+## Join (Cartesian-Product)
+
+The Cartesian-Product operation (denoted by X) allows us to combine information from any two relations.
+
+The **join** operation allows us to combine a select operation and a Cartesian-Product operation into a single operation.
+
+Consider relations $r (R)$ and $s (S)$. Let "theta" ($\theta$) be a predicate on attributes in the schema $R$ "union" $S$. The join operation is defined as follows: $r \bowtie_{\theta} s = \sigma_{\theta} (r x s)$
+
+## Union
+
+The union operation allows us to combine two relations. Exactly like the normal union for sets.
+
+## Set-Intersection
+
+The set-intersection operation allows us to find tuples that are in both input relations. Exactly like the normal intersection for sets.
+
+## Set Difference
+
+The set-difference operation allows us to find tuples that are in one relation but are not in another. Exactly like the difference of sets.
+
+## Assignment Operation
+
+It is also possible to assign parts of an expression to temporary relation variables using the $\leftarrow$
+
+## Rename Operation
+
+The results of relational-algebra expressions do not have a name that we can use to refer to them. The rename operator, $\rho$ is used for that purpose.
