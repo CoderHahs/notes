@@ -134,3 +134,106 @@ Minimum distance ($d_min$): minimum number of positions in which any 2 codewords
 # Longitudinal Redundancy Checks
 
 ![Image](https://media.geeksforgeeks.org/wp-content/uploads/20200908121730/burst.png)
+
+# Cyclic Redundancy Check
+
+- Based on cyclic error-correcting codes
+- For a block of $k$-bits the transmitter generates $n$ bit sequence
+- $n$ insert redundancy in the codeword
+- Transmitter transmits the $k+n$ bits
+- Receiver uses error detection process to decide if there were errors in the received sequence or otherwise.
+
+## Cyclic codes
+
+- cyclic code is a block code, where the circular shifts of each codeword gives another codeword that belongs to the code
+- they are error-correcting codes having algebraic properties that are convenient for efficient error correction & detection
+
+## Fundamentals CRC coding
+
+- CRC codes treat bit strings as representations of polynomials with coefficients of 0 and 1 only (modulo 2 arithmetic)
+  - $11001 = 1 * x^4 + 1*x^3+ 0*x^2 + 0* x^1 + 1\*x^0 = x^4 + x^3 + 1$
+- Polynomial arithmetic is done modulo 2
+  - subtraction and addition are similar to XOR
+  - division is similar to the one in decimal except the subtraction is done modulo 2
+- Make sure you are familiar with mod2 arithmetic/algebra
+
+### Basic idea:
+
+- the sender and receiver agree upon "a generator polynomial", $G(x)$, in advance
+- the sender appends a checksum (corresponds to the $n$ redundancy bits) to the end of the (only data) frame, represented by the $M(x)$ polynomial, in a way that the polynomial $T(x)$, representing the {data + checksum bits} frame, is divisible by $G(x)$
+- Upon receipt of the frame, the receiver (generates and) divides $H(x)$ by $G(x)$ using mod 2 division
+- $H(x)$ is the polynomial corresponding to the received sequence
+- if there is a remainder, there has been transmission error
+
+## How to compute the checksum
+
+- if $n-1$ is the degree of $G(x)$, then append $n$ zero to the low order end of the frame; the resulting frame corresponds to the polynomial $X^n M(x)$.
+- Divide $G(x)$ into $X^n M(x)$ using mod 2 division
+  - $\frac{X^n M(X)}{G(X)} \Rightarrow D(X); R(X)$
+- $D(X)$: divisor; $R(X)$: remainder
+  - $X^n M(X) = G(X) \otimes D(X) \oplus R(X)$
+- Subtract the remainder from $X^n M(x)$ using mod 2 subtraction/addition
+- The result is the checksumed frame's polynomial, T(x)
+  - $T(x) = X^n M(X) \oplus R(X)$
+
+![Image](https://www.computing.dcu.ie/~humphrys/Notes/Networks/tanenbaum/3-08.jpg)
+
+## CRC Error Detection
+
+- let us assume that some transmission errors occur
+- instead of receiving $T(x)$, the receiver will receive $H(x)= T(x) \oplus E(x)$.
+- If there are k "1" bits in $E(x)$, then k bit errors have occurred (probably)
+- the receiver computes $T(x) \oplus E(x) / G(x)=E(x)/G(x)$
+- if $G(x)$ contains two or more terms, (i.e. $n>1$) all single errors will be detected
+- single-bit error means $E(X) = X^{m-1}$, where $0 < m \leq n + k$
+
+# Single error
+
+- $H(X) = T(X)\oplus E(X)$ where
+  - $E(X) = 0$ if no bit errors occur
+  - $E(X) = X^{m-1}$ if only the $m$-th bit of the $[k+n]$-bit long frame is reversed $(0 < m \leq n + k)$; the large the value of $m$ is, the more significant the location of the bit within the frame is)
+- $E(X) = L(X) \otimes G(X) \oplus F(X)$
+- $H(X) - T(X) \oplus E(X) - T(X) \oplus L(X) \otimes G(X) \oplus F(X)$
+- $\frac{H(X)}{G(X)} = D(X) \oplus L(X) \oplus \frac{F(X)}{G(X)}$
+- Error will be detected if $\frac{F(X)}{G(X)} \neq 0$
+- For $m-1>=n$, $L(X) = X^{m-n-1}$ and $\frac{F(X)}{G(X)} = 0$ Error is not detected
+- For $m-1<n$, $L(X) = 0$ and $\frac{F(X)}{G(X)} \neq 0$ Error is detected
+
+# Line Configuration
+
+- Topology
+  - refers to physical arrangement of stations on the medium
+  - two topologies are commonly used
+    - point-to-point
+    - multi-point
+
+## Point-to-point
+
+- two stations
+- traditionally mainframe computer and terminals
+- between two routers / computers
+- separate transmission line from the computer to each terminal
+- the computer must have an I/O port for each terminal
+
+![Image](http://mucins.weebly.com/uploads/7/5/5/4/7554390/6295029.png?524)
+
+## Multi-point
+
+- typically, a local area network (LAN)
+- a single "line" is needed
+- the computer needs only single I/O port
+  - eg. Ethernet, Token Ring, WiFi
+
+![Image](http://mucins.weebly.com/uploads/7/5/5/4/7554390/5816424.png?510)
+
+## Duplex
+
+- classify data exchange as half or full Duplex
+- half duplex (two-way alternate)
+  - only one station may transmit at a time
+  - requires one data path
+- full duplex (two way simultaneous)
+  - simultaneous transmission and reception between two stations
+  - requires two data paths
+    - separate media or frequencies used for each direction
+  - or echo canceling
