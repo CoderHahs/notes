@@ -1,0 +1,105 @@
+---
+title: 'Data Link Control'
+metaTitle: 'Data Link Control'
+metaDescription: 'Topics in Introduction to Data Communications and Networking'
+---
+
+# Flow Control
+
+- flow control is a technique for assuring that a transmitting station does not overwhelm a receiving station with data
+- two flow control mechanisms
+  - stop-and-wait
+    - also referred as "alternating bit" or "send and wait"
+  - sliding window
+
+## Stop and Wait
+
+- source transmits frame
+- destination receives frame and replies with acknowledgement (ACK)
+- source waits for ACK before sending next
+- destination can stop flow by not send ACK
+- works well for a few large frames
+- stop and wait becomes inadequate if large block of data is split into small frames
+
+![Image](https://slideplayer.com/slide/14667336/90/images/6/Stop-and-Wait+ARQ%2C+damaged+frame.jpg)
+
+![Image](https://d3i71xaburhd42.cloudfront.net/b96755ef6d6af6bb2f6edb3e311d95a1e9102d98/2-Figure1-1.png)
+
+![Image](https://s3.ap-south-1.amazonaws.com/afteracademy-server-uploads/what-is-stop-and-wait-protocol-ack-lost-example-2defd16c2171787e.jpg)
+
+### Pros and Cons
+
+- simple
+- inefficient use of resources (low utilization, especially for systems with long propagation delays)
+
+## Sliding window
+
+- allows multiple numbered frames to be in transit
+- receiver has buffer W long
+- transmitter sends up to W frames without ACK
+- ACK includes number of next frame expected
+- sequence number is bounded by size of field (k)
+  - frames are numbered modulo $2^k$
+  - giving max window size of up to $2^k - 1$
+- receiver can ACK frames without permitting further transmission (Receive Not Ready)
+- must send a normal acknowledge to resume
+- if have full-duplex link, can piggyback ACKs
+
+![Image](https://media.geeksforgeeks.org/wp-content/uploads/Sliding-Window-Protocol.jpg)
+
+## Go back N
+
+- based on sliding window
+- if no error, ACK as usual, indicating next frame expected
+- use window to control number of outstanding frames
+- if error, reply with rejection
+  - discard that frame and all future frames until error frame received correctly
+  - transmitter must go back and retransmitted that frame and all subsequent frames
+
+![Image](https://image.slidesharecdn.com/module15-130302233912-phpapp02/95/module15-sliding-windows-protocol-and-error-control-36-638.jpg?cb=1362267692)
+
+- Receiver detects error in frame $i$
+- Receiver sens rejection$-i (RRi)$
+- Transmitter gets rejection-$i$
+- Transmitter transmits frame $i$ and all subsequent frames
+
+![Image](https://image.slidesharecdn.com/module15-130302233912-phpapp02/95/module15-sliding-windows-protocol-and-error-control-26-638.jpg?cb=1362267692)
+
+- Frame $i$ lost and no additional frame sent
+- Receiver gets nothing and returns neither acknowledgement nor rejection
+- Transmitter times out and sends acknowledgement frame with $P$ bit set to 1
+- Receiver interprets this as command which it acknowledgement with the number of the next frame it expects (frame $i$)
+- Transmitter then retransmits frame $i$
+
+![Image](https://image.slidesharecdn.com/module15-130302233912-phpapp02/95/module15-sliding-windows-protocol-and-error-control-27-638.jpg?cb=1362267692)
+
+- Receiver gets frame $i$ and sends acknowledgement ($i + 1$) which is lost
+- Acknowledgements are cumulative, so next acknowledgement ($i+n$) may arrive before transmitter times out on frame $i$
+- if transmitter times out, it sends acknowledgement with $P$ bit set as before
+- this can be repeated a number of times before a reset procedure is initiated
+- NOTE: either damaged or lost, for sender is the same since it can't reconstruct the acknowledgement frame to be able to "read" it
+
+# Error Control
+
+- error control techniques use some or all of these mechanisms
+  - Automatic repeat request
+    - error detection
+    - positive acknowledge
+    - retransmission after timeout
+    - negative acknowledgement and retransmission
+- Some versions of ARQ
+  - Stop-and-Wait ARQ
+  - Go-back-N ARQ
+  - Selective-reject ARQ
+
+# Selective Reject
+
+- also called selective retransmission
+- only rejected frames are retransmitted
+- subsequent frames are accepted by the receiver and buffered
+- minimizes retransmission
+- receiver must maintain large enough buffer
+- more complex logic in transmitter
+- hence less widely used
+- saves bandwidth
+- useful for satellite links with long propagation delays
