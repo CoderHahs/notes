@@ -1,0 +1,74 @@
+---
+title: 'Data Communication & Networking Basics'
+metaTitle: 'Data Communication & Networking Basics'
+metaDescription: 'Topics in Introduction to Data Communications and Networking'
+---
+
+# Why we need computer networks
+
+| Application Type       | Example                                          |
+| ---------------------- | ------------------------------------------------ |
+| Business-to-consumer   | Ordering books on-line                           |
+| Business-to-business   | Car manufacturer ordering tires from supplier    |
+| Government-to-consumer | Government distributing tax forms electronically |
+| Consumer-to-consumer   | Auctioning second-hand products on-line          |
+| Peer-to-peer           | File sharing                                     |
+
+# Fundamental Problem of Communication
+
+- Reproduce at one point - either exactly or approximately - a message produced at another point
+- Father of Communication Theory: Claude Shannon (MIT Professor)
+
+# Computer networks
+
+- Number of links required
+  - Unidirectional links: $n (n-1)$
+  - Bidirectional links: $n (n-1) / 2$
+  - $n$: number of devices
+- need switching nodes
+
+# Communication Tasks
+
+- Transmission system utilization
+  - to make efficient use of transmission facilities
+- Interfacing
+  - compatible physical and electrical characteristics
+- Signal Generation
+  - generate signals capable of propagating through the transmission medium
+- Synchronization
+  - receiver should be to determine when a signal begins to arrive and when it ends
+- Exchange management
+  - establishment of a connection, communication types, amount of data to be sent at one time
+- Error detection and correction
+  - procedures to make the communication reliable
+- Flow control
+  - mechanisms required to assure that the source does not overwhelm the destination
+- Addressing
+  - each computer must be identified
+- Routing
+  - mechanisms to determine the route to use when transferring data from one point to another
+- Recovery
+  - mechanisms to recover from fatal errors
+- Message Formatting
+  - form of the data to be exchanged or transmitted
+- Security
+  - protect the confidentiality of the transferred information
+- Network management
+  - oversee the operation of the network
+
+# Types of Communication Networks
+
+Classification according to the way the "information flows" are transported to the users
+
+- Switching Network
+  - data are transferred from source to destination through a series of intermediate nodes
+- Broadcast Networks
+  - there are no intermediate switching nodes
+  - all users are connected on the same medium
+
+# Local Area Networks (LANs)
+
+- It expands over small geographic areas (within a building or close-by buildings)
+- It is usually owned by the same organization
+- the internal data rates are typically much greater than those of WANs
+- typically, they make use of broadcast rather than switching
