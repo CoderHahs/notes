@@ -1,0 +1,106 @@
+---
+title: 'Lexical Analysis'
+metaTitle: 'Lexical Analysis'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Lexical Analyzer
+
+Lexical analyzer is the first phase of a compiler
+
+- task: read input characters and produce a sequence of tokens that the parser uses for syntax analysis
+- remove white spaces
+
+You separate the analysis phase of compiling into lexical and syntax analysis because:
+
+- simpler (layered) design
+- compiler efficiency
+
+Specialized tools have been designed to help automate the construction of both separately
+
+# Lexemes
+
+- sequence of characters in the source program that matched by the pattern for a token
+
+  - a lexeme is a basic lexical unit of a language
+  - lexemes of a programming language include its
+
+- Identifiers
+  - name of variables, methods, classes, packages and interfaces
+- Literals
+  - fixed values (e.g. "1", "17.56", "0xFFE")
+- Operators
+  - for Maths, Boolean and logical operations
+- Special words: keywords (e.g. "if", "for", "public")
+
+# Tokens, Patterns, Lexemes
+
+Token: category of lexemes
+
+A pattern is a rule describing the set of lexemes that can represent a particular token in source program
+
+# Lexical Errors
+
+- Few errors are discernible at the lexical level alone
+  - lexical analyzer has a very localized view of a source program
+- Let some other phrase of compiler handle any error
+
+# Specification of Tokens
+
+We need a powerful notation to specify the patterns for the tokens
+
+- regular expressions to the rescue
+
+In the process of studying regular expressions, we will discuss:
+
+- operations on languages
+- regular definitions
+- notational shorthands
+
+# Operations on languages
+
+- Union between languages: the set of strings that belong to at least one of both languages
+- Concatenation: the set of all strings that contain substrings from the languages being concatenated
+- Intersection: set of all strings from both languages
+- Kleene closure: set of all strings that are concatenations of _0 or more_ strings from the original language
+- Positive closure: set of all strings that are concatenations of _1 or more_ strings from the original language
+
+# Regular expressions
+
+A compact notation for describing a string. Typically an identifier is a letter followed by zero or more letters or digits (letter (letter | digit)_) where | = or and _ = zero or more instances
+
+## Rules
+
+$\epsilon$ is a regular that denotes ${\epsilon}$, the set containing empty string.
+
+If $a$ is a symbol in $\Sigma$ then $a$ is a regular expression that denotes ${a}$, the set containing the string $a$.
+
+Suppose $r$ and $s$ are regular expressions denoting the languages $L$ and $M$, then:
+
+- $(r) | (s)$ is a regular expression denoting $L \union M$
+- $(r)(s)$ denotes $LM$
+- $(r) \*$ is a regular expression denoting $(L)\*$
+
+# Regular definitions
+
+If $\Sigma$ is an alphabet of basic symbols, then a **regular definition** is a sequence of definitions of the form:
+
+> $d_1 \Rightarrow r_1$ > $d_2 \Rightarrow r_2$
+> ...
+> $d_n \Rightarrow r_n$
+
+where each $d_i$ is a distinct name, and each $r_i$ is a regular expression over the symbols in $\Sigma \union {d_1, d_2, ..., d_{i-1}}$
+
+# Notational shorthands
+
+1. One or more instances: a+ denotes the set of all strings of one or more a's
+2. Zero or more instances: a\* denotes all strings of zero or more a's
+3. Character classes: the notation [abc] where a, b and c denotes the regular expression $a | b | c$
+4. Abbreviated character classes: the notation [a-z] denotes the regular expression $a | b | ... | z$
