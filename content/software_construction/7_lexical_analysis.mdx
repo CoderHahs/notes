@@ -104,3 +104,25 @@ where each $d_i$ is a distinct name, and each $r_i$ is a regular expression over
 2. Zero or more instances: a\* denotes all strings of zero or more a's
 3. Character classes: the notation [abc] where a, b and c denotes the regular expression $a | b | c$
 4. Abbreviated character classes: the notation [a-z] denotes the regular expression $a | b | ... | z$
+
+# Finite State Automata
+
+You can use state machines to tell if a string follows a regular expression. These states machines are used in a program called a _Recognizer_. A \*recognizer for a language is a program that takes as input a string $x$ and answers
+
+- "yes" if $x$ is a lexeme of the language
+- "no" otherwise
+
+**Finite automation** compiles a regular expression into a recognizer by constructing a generalized transition diagram. It can be deterministic or nondeterministic.
+
+- Nondeterministic mean thats on transition out of state may be possible on the same input symbol
+
+## Nondeterministic Finite Automata (NFA)
+
+A set of states $S$. A set input symbols that belong to alphabet $\Sigma$. A set of transitions that are triggered by the processing of a character. A **single** state $s_0$ that is distinguished as the start (initial state). A **set** of states $F$ distinguished as accepting (final) states.
+
+## Deterministic Finite Automata (DFA)
+
+A DFA is a special case of NFA in which
+
+- no state has an $\epsilon$-transition
+- for each state $s$ and input symbol $a$, there is at most one edge labeled $a$ leaving $s$
