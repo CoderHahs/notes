@@ -1,0 +1,109 @@
+---
+title: 'Finite State Automata'
+metaTitle: 'Finite State Automata'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Creating Deterministic Finite Automata (DFA)
+
+In order to create a DFA, we have to perform the following:
+
+- create a non-deterministic Finite Automata (NFA) out of the regular expression
+- convert the NFA into a DFA
+
+## NFA Creation Rules
+
+- $A | B$ -> Parallel Circuit
+- $AB$ -> Series Circuit
+- $A\*$ -> Cycle
+
+## Conversion of an NFA into DFA
+
+NFA is very easy to build but hard to interpret by a computer.
+
+- We need to convert NFA to a DFA
+- Subset construction is the algorithm that achieves this conversion
+
+In the transition table of an NFA, each entry is a set of states. In the transition table of a DFA, each entry is at most one state. General idea behind the NFA-to-DFA conversion: each DFA state corresponds to a set of NFA states.
+
+# Subset Construction Algorithm
+
+**Algorithm:** Subset Construction - USed to construct a DFA from an NFA
+
+**Input:** An NFA "N"
+
+**Output:** A DFA "D" accepting the same language
+
+## Method
+
+Let $s$ be a state in $N$ and $T$ be a set of states, using the following operations.
+
+- $\epsilon$-closure($s$): set of NFA states reachable from NFA state $s$ on $\epsilon$-transitions alone
+- $\epsilon$-closure($T$): set of NFA states reachable from some NFA state $s$ in $T$ on $\epsilon$-transitions alone
+- move($T$, $a$): set of NFA states to which there is a transition on input symbol $a$ from some NFA state $s$ in $T$
+
+## Algorithm (MAIN)
+
+```
+add state T = Epsilon-closure(s0) unmarked to *Dstates*
+while exists unmarked state $T$ in *Dstates*
+  mark T
+  for each input symbol a
+    U = Epsilon-closure(move(T, a))
+    if U does not exist *Dstates* then add U to *Dstates* unmarked
+      *Dtrans[T, a]* = U
+```
+
+$\epsilon$-closure($s_0$) is the start state of $D$. A state of $D$ is accepting if it contains at least one accepting state in $N$.
+
+## Algorithm (E-closure computation)
+
+```
+push all states in T onto stack
+initialize Epsilon-closure(T) to T
+while stack is not empty
+  pop t, the top element off the stack
+  for each state u with an edge form t to u labeled E
+    if u is not in Epsilon-closure(T)
+      add u to Epsilon-closure(T)
+      push u onto stack
+```
+
+# Minimizing the number of states in DFA
+
+Minimize the number of states of a DFA by finding all groups of states that can be distinguished by some input string. Each group of states that cannot be distinguished is then merged into a single state.
+
+**Algorithm**: minimizing the number of states of a DFA.
+
+**Input**: A DFA $D$ with a set of states $S$
+
+**Output**: A DFA $M$ accepting the same language as $D$ yet having as few states as possible
+
+## Method
+
+1. Construct an initial partition $\Pi$ of the set of states with two groups:
+
+- The accepting (i.e. final) states group
+- All other states group
+
+2. Partition $\Pi$ to $\Pi_{\mathrm{new}}$
+3. If $\Pi_{\mathrm{new}}$ != $\Pi$, then $\Pi$ = $\Pi_{\mathrm{new}}$ and repeat step 2. Otherwise go to step 4
+4. Create a single _DFA M_ state from every group in $\Pi$
+5. Specify the accepting (i.e. final) states of _DFA M_. An accepting states in _DFA M_ corresponds to a group in $\Pi$ that contains an accepting state in _DFA D_
+6. Specify the initial state of _DFA M_. An initial state in _DFA M_ corresponds to a group to a group in $\Pi$ that contains an initial state in _DFA D_
+
+## Construct New Partition Procedure
+
+For each group G of $\Pi$ do begin. Partition G into subgroups such that two states S and T of G are in the same subgroup if and only if for each symbol $a$ in $\Sigma$:
+
+1. both \$ and T do not have transitions on \$a\$
+2. both S and T have transitions on $a$ to states in the same group
+
+Replace G in $\Pi_{\mathrm{new}}$ by the set of all subgroups formed.
