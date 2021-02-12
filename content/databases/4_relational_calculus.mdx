@@ -20,3 +20,38 @@ Query languages:
 - imperative
 - functional
 - declarative
+
+Pure languages:
+
+- relational algebra (functional)
+- tuple relational calculus (declarative)
+- domain relational calculus (declarative)
+
+# Tuple Relational Calculus
+
+Each query is of the form ${t | P(t)}$. It is the set of all tuples $t$ such that predicate $P$ is true for $t$. $t$ is a _tuple variable_. $t[A]$ denotes the value of tuple $t$ on attribute $A$. $t \in r$ denotes that tuple $t$ is in relation $r$. $P$ is a formula similar to that of the predicate calculus.
+
+# Predicate Calculus formula
+
+- Set of attributes and constants
+- Set of comparison operators
+- set of connectives
+- Implication, if-then
+- Set of quantifiers, (there exists, for all)
+
+# Safety of Expressions
+
+It is possible to write tuple calculus expressions that generate infinite relations. For example, ${t | \neg t \in r}$ results in an infinite relation if the domain of any attribute of relation $r$ is infinite. To guard against the problem, we restrict the set of allowable expressions to safe expressions. An expression {t|P(t)} in the tuple relational calculus is _safe_ if every component of $t$ appears in one of the relations, tuples or constants that appear in $P$.
+
+The expression ${ < x_1, x_2, ..., x_n > | P (x_1, x_2, ..., x_n)}$ is safe if all of the following hold:
+
+1. All values that appear in tuples of the expression are values from **dom**($P$)
+2. For every "there exists" sub formula of the form $\exists x (P_1 (x))$, the subformula is true if and only if there is a value of $x$ in **dom**($P_1$) such that $P_1(x)$ is true.
+3. For every "for all" subformula of the form $\forall_x (P_1 (x))$, the subformula is true if and only if $P_1(x)$ is true for all values $x$ from **dom**($P_1$)
+
+# Domain Relational Calculus
+
+- a nonprocedural query language equivalent in power to the tuple relational calculus
+- Each query in an expression of the form: ${ < x_1, x_2, ..., x_n > | P (x_1, x_2, ..., x_n)}$
+  - $x_i$ represents domain variables
+  - $P$ represents a formula similar to that of the predicate calculus
