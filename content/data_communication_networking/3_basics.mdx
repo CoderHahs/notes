@@ -72,3 +72,92 @@ Classification according to the way the "information flows" are transported to t
 - It is usually owned by the same organization
 - the internal data rates are typically much greater than those of WANs
 - typically, they make use of broadcast rather than switching
+
+Examples:
+
+- Ethernet
+- Token Ring
+- ATM LANs
+- IEEE 802.11
+- HYPERLAN
+- Home RF
+
+# Wide Area Networks (WANs)
+
+- Traditionally, WANs have been implemented using of two technologies
+- Circuit Switching
+- Packet Switching
+  - Datagram
+  - Virtual Circuit
+
+# Internetworking
+
+- interconnecting multiple networks of different technologies in a seamless manner
+- Uses both hardware and software
+  - Extra hardware positioned between networks
+  - Software on each attached computer
+- System of interconnected networks is called an Internetwork or Internet
+
+# Autonomous System (AS)
+
+- AS is a set of routers and networks managed by a single organization
+- AS consists of a group of routers exchanging information via a common routing protocol
+- Claiming that an AS is "connected", means that there is always a path between any pair of nodes
+
+# Protocols
+
+- computer networks pass useful information between (two or more entities).
+- the information is produced by "applications"
+- In order for the end-systems and networks to pass the information intelligibly, definition of a set of rules governing the exchange of data between two "entities" is needed
+- these rules constitute the protocols
+
+- set of mutually acceptable conventions between the communicating entities
+
+- 3 key elements
+- syntax: data formats and signals levels (formats, fields, order)
+- semantics: control information for coordination and error handling (meaning of things)
+- timing: speed matching and sequencing
+
+## Architecture
+
+A structured set of modules that implements the communication function. Provides a flexible, modular structure, developed such that a change in one of the elements within the communications system will require minimal changes in the other elements.
+
+A protocol architecture is accomplished through developing a layered architecture. The upper layer performs some tasks of its own, exchanges data and requests some service from the lower layer. The formatting of the data is independent of the actual implementation, and is not concerned how the lower layer is performing its part.
+
+Example: Three-layer modules
+
+Communications involve three agents:
+
+- Applications (Application Layer): contains logic needed to support the various user applications
+- Computer (Transport Layer): concerned with the reliable delivery of data
+- Network (Network Access Layer): concerned with the exchange of data between computer and network
+
+## Protocol issues
+
+- Error control: making a channel more reliable, and handling
+  lost or out of sequence messages.
+- Flow control: avoid flooding a slower peer entity.
+- Resource allocation: mediating contention for physical (e.g.
+  buffers) or logical (e.g. data structures) resources
+- Fragmentation (Segmentation): dividing chunks of data into
+  smaller pieces, and subsequent reassembly
+- Multiplexing: combining several higher layer sessions
+- Connection setup: initiating logical communication with
+  peer entity
+- Addressing / naming: managing identifiers
+- Compression: reducing data rate
+- Encryption: provide data security
+- Timer management: bookkeeping and error recovery
+
+# Service and Parameters
+
+![Image](https://www.csee.umbc.edu/~chettri/cs481/chapter01/img026.gif)
+
+![Image])(https://3.bp.blogspot.com/-8mB4Jf021XY/VkQfkd9bw6I/AAAAAAAABPw/1MJsXQJcnIo/s1600/Service%2BPrimitives%2Band%2BParameters.png)
+
+1. Source (N) entity invokes its (N –1) entity with a request primitive including needed parameters, such as the data to be transmitted and the destination address.
+2. The source (N –1) entity prepares an (N –1) PDU to be sent to its peer (N –1) entity.
+3. The destination (N –1) entity delivers the data to the appropriate destination (N) entity via an indication primitive, which includes the data and source address as parameters.
+4. If an ack needed, destination (N) entity issues a response primitive to its (N –1) entity.
+5. The (N –1) entity conveys the acknowledgment in an (N –1) PDU.
+6. The acknowledgment is delivered to the (N) entity as a confirm primitive.
