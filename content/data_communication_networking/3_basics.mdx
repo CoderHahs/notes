@@ -161,3 +161,77 @@ Communications involve three agents:
 4. If an ack needed, destination (N) entity issues a response primitive to its (N –1) entity.
 5. The (N –1) entity conveys the acknowledgment in an (N –1) PDU.
 6. The acknowledgment is delivered to the (N) entity as a confirm primitive.
+
+# Open System Interconnection (OSI)
+
+- A reference model developed by the International Organization for Standardization (ISO)
+- Has become the standard model for classifying communication functions
+- has seven layers
+- it is a "theoretical" system delivered too late
+- it has not dominated, TCP / IP is the de facto standard
+- Several reasons:
+  - TCP/IP appeared earlier
+  - Internet "won" the game
+  - OSI has a "complex" structure that could result in "heavy processing"
+
+The OSI reference model is composed of several layers:
+
+- **Application**: access to the (File transfer, e-mail, r-login)
+- **Presentation**: data representation (syntax) (eg. ASCII)
+- **Session**: control structure between applications. Establish/manage connection
+- **Transport**: reliable, transparent transport of data between end-points. End-to-end error recovery and error control
+- **Network**: Responsible for establishing, maintaining, terminating connections (routing, addressing, congestion control, ...)
+- **Data link**: Reliable transfer of information across physical link
+- **Physical**: how to transmit a signal (access of the transmission medium; copper, fiber, radio, etc), deals with network hardware, bit encoding.
+
+## Pros and Cons
+
+- bad timing (too much detailed concept before actual applications)
+  - it tries to design the "perfect world", which is either difficult or impractical
+  - technology and human understanding of how things work (or should work changes)
+- more modular but more processing intensive
+- provides a good architecture for detailed modeling of processes
+
+# TCP/IP Protocol Architecture
+
+- there is no official model as of yet, but there is a working one
+- has 5 layers (compared to 7 for OSI)
+- most used on the Internet
+
+## Physical layer
+
+- concerned with physical interface between computer and network
+- concerned with issues like:
+  - characteristics of transmission medium
+  - signal levels
+  - data rates
+  - other related matters
+
+## Network Access Layer
+
+- exchange of data between an system and attached network
+- concerned with issues like:
+  - destination address provision
+  - invoking specific services like priority
+  - access to & routing data across a network link between two attached systems
+- allows layers above to ignore link specifics
+
+## Internet Layer (IP)
+
+- routing functions across multiple networks
+- for systems attached to different networks
+- using IP protocol
+- implemented in end systems and routers
+- routers connect two networks and relay data between them
+
+## Host-to-host / Transport Layer
+
+- common layer shared by all applications
+- provides reliable delivery of data
+- in same order as sent
+- commonly uses TCP
+
+## Application Layer
+
+- Provides support user applications
+- needs a separate module for each type of application
