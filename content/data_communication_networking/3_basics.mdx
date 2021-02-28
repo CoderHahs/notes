@@ -235,3 +235,67 @@ The OSI reference model is composed of several layers:
 
 - Provides support user applications
 - needs a separate module for each type of application
+
+## Internet Protocol (IP) v4
+
+- part of TCP/IP
+- two parts
+  - specification of interface with a higher layer (e.g. TCP)
+  - specification of actual protocol format and mechanisms
+- is gradually replaced by IPv6
+
+### Header fields
+
+- Version
+  - currently IPv4
+  - latter IPv6
+- Internet Header Length
+  - multiple of 32-bit words (including options)
+- DS/ECN (type of service)
+- Total length of datagram (in octets)
+- Identification
+  - sequence number that together with the source address, destination address, and user protocol, identifies a datagram uniquely
+- Flags
+  - only 2 of the bits are currently defined
+  - "More" bit indicates there are more segments of the packet coming
+  - "Don't fragment" bit prohibits packet fragmentation when set
+- Fragmentation offset
+  - indicates where in the original datagram this fragment belongs
+- Time to live
+  - specifies how long a datagram is allowed to remain in the Internet
+- Protocol
+  - next higher layer to receive data field at destination
+- Header checksum
+  - re-verified and recomputed at each router
+  - 16 bit ones complement sum of all 16 bit words in header
+- Source Address
+- Destination address
+- Options
+  - encodes the options requested by the sending user
+- Padding
+  - to fill to multiple of 32 bits
+
+## IPv6
+
+- address space exhaustion
+  - two-level addressing (network and host) wastes space
+  - network addresses used even if not connected
+  - growth of networks and the Internet
+  - extended use of TCP/IP
+  - single address per host
+- requirements for new types of service
+
+### Header fields
+
+- Version (4 bits): IP version number
+- DS/ECN (8 bits) As in IPv4
+- Flow label (20 bits): Labels packets that require special handling by routers within a network
+- Payload length (16 bits): Length of remainder of packet following header
+- Next Header (8 bits): Identifies type of header immediately following IPv6 header
+- Hop Limit (8 bits): Remaining number of allowable hops for this packet
+- Source Address (128 bits): address of originator of the packet
+- Destination Address (128 bits): address of intended recipient of the packet
+- IPv6 header:
+  - longer than the mandatory portion of IPv4 header (40 octets versus 20 octets)
+  - contains fewer fields (8 vs 12)
+  - routers have less processing to do per header (speeds up routing)
