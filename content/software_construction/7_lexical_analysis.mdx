@@ -126,3 +126,23 @@ A DFA is a special case of NFA in which
 
 - no state has an $\epsilon$-transition
 - for each state $s$ and input symbol $a$, there is at most one edge labeled $a$ leaving $s$
+
+# Practical Regular expressions
+
+To match a single digit, we use: [0-9]. We can also use `\d`. The slash is an escape character used to distinguish it from letter d. Similar to match a non-digit character, we can use the notation `\D`.
+
+To match an alphanumeric character, we can use ths notation: `[a-zA-Z0-9]`. Or we can use `\w`. Similarly, we can use `\W` for non-alphanumeric characters.
+
+You can use `\p{L}` to show the English alphabet plus more letter characters defined in Unicode.
+
+A wildcard can be used to match any character you can use `\.`.
+
+To match everything except a set of character, in other terms exclusion, we can use `[^abc]`.
+
+To specify a range of how many times a character can be repeated we use `a {x,y}`, where _a_ is any string and _x,y_ are integer ranges.
+
+We can use `?` to represent optional character. An underscore represents whitespace or `\s` and `\S` for no whitespace.
+
+To match the beginning of a line use `^` while `$` to match the end. To match a whole line use both.
+
+Lastly, `\b` is used to match the start/end of a string and `\B` to do the opposite.
