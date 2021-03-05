@@ -1,6 +1,6 @@
 ---
-title: 'SQL Basics'
-metaTitle: 'SQL Basics'
+title: 'Structured Query Language'
+metaTitle: 'Structured Query Language'
 metaDescription: 'Topics in Databases'
 ---
 
@@ -33,3 +33,28 @@ The SQL data-definition language (DDL) allows the specification of relations and
 - the set of indices to be maintained for each relation
 - security and authorization information for each relation
 - the physical storage structure of each relation on disk
+
+# Views
+
+A view is defined as:
+
+```SQL
+create view v as < query expression >
+```
+
+Once a view is defined, the view name can be used to refer to the virtual relation that the view generates. This is not the same as creating a new relation by evaluating the query expression.
+
+You can use views in the expression defining another view.
+
+Certain database systems allow view relations to be physically stored. A physical copy is created when the view is defined.
+
+# Transactions
+
+A **transaction** consists of a sequence of query and/or update statements and is a "unit" of work. The SQL standard specifies that a transaction begins implicitly when an SQL statement is executed.
+
+- the transaction must end with one of the following statements:
+  - **Commit work**: the updates performed by the transaction become permanent in the database
+  - **Rollback work**: All the updates performed by the SQL statements in the transaction are undone.
+- Atomic transaction (indivisible)
+  - either fully executed or rolled back as if never occurred
+- Isolation from concurrent transactions
