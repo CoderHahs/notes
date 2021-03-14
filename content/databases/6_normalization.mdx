@@ -60,7 +60,7 @@ Let $R$ be a relation schema $\alpha \subseteq R$ and $\beta \subseteq R$. The f
 
 ### Closure of a Set of Functional Dependencies
 
-- Given a set $F$ of functional dependencies, there are certain other functinoal dependencies that are logically implied by $F$. The set of all functional dependencies logically implied by $F$ is the closure of $F$. We denote the closure of $F$ by $F*$.
+- Given a set $F$ of functional dependencies, there are certain other functinoal dependencies that are logically implied by $F$. The set of all functional dependencies logically implied by $F$ is the closure of $F$. We denote the closure of $F$ by $F+$.
 
 ### Keys and Functional Dependencies
 
@@ -77,7 +77,7 @@ We use functional dependencies to:
 - to specify constraints on the set of legal relations
   - we say that $F$ holds on $R$ if all legal relations on $R$ satisfy the set of functional dependencies
 
-A functional dependency is **trivial** if it is satisfied by all instances of a relation. In general $\alpha \to \beta$ is trivial if $\beta \supseteq \alpha$.
+A functional dependency is **trivial** if it is satisfied by all instances of a relation. In general $\alpha \to \beta$ is trivial if $\beta \subseteq \alpha$.
 
 # Dependency Preservation
 
@@ -87,11 +87,17 @@ A functional dependency is **trivial** if it is satisfied by all instances of a 
 - When decomposing a relation it is possible that it is no longer possible to do the testing without having the perform a Cartesian Product
 - A decomposition that makes it computationally hard to enforce functional dependency is said to be NOT dependency preserving.
 
+Let $F_i$ be the set of dependencies in $F+$ that include only attributes in $R_i$
+
+- A decomposition is dependency preserving if $(F_1 U F_2 U ... U F_n)+ = F+$
+
+With the above definition, testing for dependency preservation takes exponential time.
+
 # Normal Forms
 
 ## Boyce-Codd Normal Form
 
-- A relation schema $R$ is in BCNF with respect to a set $F$ of functional dependencies if for all functional dependencies in $F*$ of the form $\alpha \to \beta$ where $\alpha \subseteq R$ and $\beta \subseteq R$, at least one of the following holds:
+- A relation schema $R$ is in BCNF with respect to a set $F$ of functional dependencies if for all functional dependencies in $F+$ of the form $\alpha \to \beta$ where $\alpha \subseteq R$ and $\beta \subseteq R$, at least one of the following holds:
 - $\alpha \to \beta$ is trivial
 - $\alpha$ is a superkey for $R$
 
@@ -104,16 +110,67 @@ We decompose $R$ into:
 - (\alpha \cup \beta)
 - ($R$ - (\beta - \alpha))
 
+### BCNF Decomposition Algorithm
+
+```py
+result = {R}
+done = False
+compute F+
+while (not done):
+  if (there is a schema R_i, in result that is not in BCNF):
+    let a -> B be a nontrivial functional dependency that holds on R_i such that a -> R_i is not in F+ and a intersection B = empty set
+  else:
+    done = True
+```
+
 ## Third Normal Form
 
 - A relation schema $R$ is in **third normal form (3NF)** if for all:
-  - $\alpha \to \beta$ in $F*$
+  - $\alpha \to \beta$ in $F+$
   - at least one of the following holds:
     - $\alpha \to \beta$ is trivial
     - $\alpha$ is superkey for $R$
     - Each attribute $A$ in $\beta - \alpha$ is contained in a candidate key for $R$
 - if a relation is in BCNF it is in 3NF (since in BCNF one of the first two conditions above must hold)
 - third condition is a minimal relaxation of BCNF to ensure dependency preservation (will see why later)
+
+There are some situations where
+
+- BCNF is not dependency preserving
+- efficient checking for FD violation on updates is important
+
+Solution: define a weaker normal form, called Third Normal Form (3NF)
+
+- allows some redundancy (with resultant)
+- but functional dependencies can be checked on individual relations without computing a join
+- there is always a lossless-join, dependency-preserving decomposition into 3NF
+
+### 3NF Decomposition Algorithm
+
+```py
+Let Fc be a canonical cover for F;
+i := 0;
+for each functional dependency a -> B in Fc do:
+  if none of the schemas Rj, 1 <= j <= i contains a B:
+    i := i + 1;
+    Ri := a B
+if none of the schemas Rj, 1 <= j <= i contains a candidate key for R:
+  i := i + 1;
+  Ri := any candidate key for R;
+  /* Optionally, remove redundant relations */
+repeat
+if any schema Rj is contained in another schema Rk
+  /* delete Rj */
+  Rj = R;;
+  i=i-1;
+return (R1, R2, ..., Ri)
+```
+
+Above algorithm ensures
+
+- each relation schema $R_j$ is in 3NF
+- decomposition is dependency preserving and lossless-join
+- proof of correctness
 
 ## Comparison of BCNF and 3NF
 
@@ -131,3 +188,134 @@ We decompose $R$ into:
   - each relation scheme is in good form
   - the decomposition is a lossless decomposition
   - preferably, the decomposition should be dependency preserving
+
+# Functional-Dependency Theory Roadmap
+
+- formal theory that tells us which dependencies are implied logically by a given set of functional dependencies
+- algorithms to generate lossless decompositions into BCNF and 3NF
+- algorithms to test if a decomposition is a dependency-preserving
+
+## Closure of a Set of Functional Dependencies
+
+We can compute $F+$, the closure of $F$, by repeatedly applying **Armstrong's Axioms**:
+
+- **reflexive rule**: if $\beta \subseteq \alpha$, then $\alpha \to \beta$
+- **augmentation rule**: if $\alpha \to \beta$, then $\gamma \alpha \to \gamma \beta$
+- **transitivity rule**: if $\alpha \to \beta$, and $\beta \to \gamma$, then $\alpha \to \gamma$
+- These rules are:
+  - **Sound**: generate only functional dependencies that actually hold
+  - **Complete**: generate all functional dependencies that hold
+  - **Union**: if $\alpha \to \beta$ and $\alpha \to \gamma$ holds, then $\alpha \to \beta \gamma$ holds.
+  - **Decomposition**: if $\alpha \to \beta \gamma$ holds, then $\alpha \to \beta$ holds and $\alpha \to \gamma$ holds
+  - **Pseudotransitivity**: if $\alpha \to \beta$ holds and $\gamma \beta \to \sigma$ holds, then $\alpha \gamma \to \sigma$ holds.
+- The above rules can be inferred from Armstrong's axioms
+
+## Procedure for Computing F+
+
+- To compute the closure of a set of functional dependencies $F$:
+
+```py
+F+ = F
+while F+ does not change any further
+  for each functional dependency f in F+:
+    apply reflexivity and augmentation rules on F
+    add the resulting functional dependencies to F+
+  for each pair of functional dependencies f1 and f2 in F+:
+    if f1 and f2 can be combined using transitivity:
+      add the resulting functional dependency to F+
+```
+
+## Closure of Attribute Sets
+
+- Given a set of attributes $\alpha$, the closure of $\alpha$ under $F$ (denoted by $\alpha+$) is the set of attributes that are functionally determined by $\alpha$ under $F$
+- Algorithm to compute $\alpha+$, the closure of $\alpha$ under $F$
+
+```py
+result = a
+while (changes to result):
+  for each beta in gamma in F:
+    if beta is a super set of result:
+      result = result union gamma
+```
+
+### Uses of Attribute Closure
+
+There are several uses of the attribute closure algorithm:
+
+- Testing for superkey
+  - to test if $\alpha$ is a superkey, we compute $\alpha+$ and check if $alpha+$ contains all attribute of $R$
+- Testing functional dependencies
+  - to check if a functional dependency $\alpha \to \beta$ holds, check if $\beta \subseteq \alpha+$
+  - we compute $\alpha+$ by using attribute closure, and then check if it contains $\beta$
+  - this is a simple and cheap test, and very useful
+- computing closure of $F$
+  - for each $\gamma \subseteq R$, we find the closure $\gamma+$, and for each $S \subseteq \gamma+$, we output a functional dependency $\gamma \to S$
+
+# Canonical Cover
+
+- Suppose that we have a set of functional dependencies $F$ on a relation
+  schema. Whenever a user performs an update on the relation, the
+  database system must ensure that the update does not violate any
+  functional dependencies; that is, all the functional dependencies in $F$
+  are satisfied in the new database state.
+- If an update violates any functional dependencies in the set $F$, the system
+  must roll back the update.
+- We can reduce the effort spent in checking for violations by testing a
+  simplified set of functional dependencies that has the same closure as
+  the given set.
+- This simplified set is termed the canonical cover
+- To define canonical cover we must first define extraneous attributes.
+- An attribute of a functional dependency in $F$ is extraneous if we can
+  remove it without changing $F+$
+
+To compute a canonical cover for $F$:
+
+```
+repeat
+  Use the union rule to replace any dependencies in F
+  Find a functional dependency in F with an extraneous attribute either in a or in B
+  If an extraneous attribute is found, delete it from a -> B
+until F not change
+```
+
+A canonical cover for $F$ is a set of dependencies $F_c$ such that:
+
+- $F$ logically implies all dependencies in $F_c$
+- $F_c$ logically implies all dependencies in $F$
+- No functional dependency in $F_c$ contains an extraneous attribute
+- Each left side of functional dependency in $F_c$ is unique. There are no two dependencies in $F_c$
+
+# Extraneous attributes
+
+- Removing an attribute from the left side of a functional dependency could make it a stronger constraint. Depending on what our set $F$ of functional dependencies happens to be, we may be able to remove $B$ from $AB \to C$ safely.
+- Removing an attribute from the right side of a functional dependency could make it a weaker constraint. Depending on what our set $F$ of functional dependencies happens to be, we may able to remove $C$ from $AB \to CD$ safely
+
+An attribute of a functional dependency in $F$ is **extraneous** if we can remove it without changing $F+$
+
+## Testing if an Attribute is Extraneous
+
+Let $R$ be a relation schema and let $F$ be a set of functional dependencies that hold on $R$. Consider an attribute in the functional dependency $\alpha \to \beta$
+
+- To test if $A \in \beta$ is extraneous in $\beta$
+  - Consider the set:
+    - \$F' = (F - {\alpha \to \beta}) \cup {\alpha \to (\beta - A)}
+    - check that $\alpha+$ contains $A$ under $F'$; if it does, A is extraneous in $\beta$
+- To test if $A \in alpha$ is extraneous in $\alpha$
+  - Let $\gamma = \alpha - {A}$. Check if $\gamma \to \beta$ can be inferred from $F$
+    - Compute $\gamma+$ using the dependencies in $F$
+    - IF $\gamma+$ includes all attributes in $\beta$ then, A is extraneous in $\alpha$
+
+# Design Goals
+
+- Goal for a relational database design is:
+  - BCNF.
+  - Lossless join.
+  - Dependency preservation.
+- If we cannot achieve this, we accept one of
+  - Lack of dependency preservation
+  - Redundancy due to use of 3NF
+- Interestingly, SQL does not provide a direct way of specifying functional
+  dependencies other than superkeys. Can specify FDs using assertions, but they are expensive to test, (and currently not supported by any of the widely used databases!)
+- Even if we had a dependency preserving decomposition, using SQL we
+  would not be able to efficiently test a functional dependency whose left
+  hand side is not a key.
