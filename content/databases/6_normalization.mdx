@@ -12,3 +12,122 @@ metaDescription: 'Topics in Databases'
 />
 
 # Features of Good Relational Design
+
+## Decomposition
+
+The only way to avoid the repitition-of-information problem is to decompose schemas.
+Not all decompositions are good. If we decompose a schema into two, we can lose information. This is known as **lossy decomposition**.
+
+![Image](https://practice.geeksforgeeks.org/ckeditor/images/uploads/1496553051_l8-design1-8-638.jpg)
+
+### Lossless Decomposition
+
+We say that the decomposition is a **lossless decomposition** if there is no loss of information by replacing a schema with two relation schemas.
+
+# Normalization Theory
+
+- Decide whether a particular relation $R$ is in "good" form.
+- In the case that a relation $R$ is not in "good" form, decompose it into set of relations ($R_1, R_2, ..., R_n$) such that
+  - each relation is in good form
+  - the decomposition is a lossless composition
+- Our theory is based on:
+  - **Functional Dependencies**
+  - **Multivalued Dependencies**
+
+# Functional Dependencies
+
+There are usually a variety of constraints (rules) on the data in the real
+world.
+
+- For example, some of the constraints that are expected to hold in a
+  university database are:
+- Students and instructors are uniquely identified by their ID.
+- Each student and instructor has only one name.
+- Each instructor and student is (primarily) associated with only one
+  department.
+- Each department has only one value for its budget, and only one
+  associated building.
+
+An instance of a relation that satisfies all such real-world constraints is called a **legal instance of the relation**. A **legal instance of a database** is one where all the relation instances are legal instances.
+
+- A **superkey** is a set of attributes that uniquely identifies an entire tuple
+- A **functional dependency** requires that the value for a certain set of attributes determines uniquely the value for another set of attributes.
+- A functional dependency is a generalization of the notion of a key.
+
+## Definition
+
+Let $R$ be a relation schema $\alpha \subseteq R$ and $\beta \subseteq R$. The functional dependency $\alpha \to \beta$ hold on $R$ iff and only if for any legal relations $r(R)$, whenever any two tuples $t_1 and t_2$ of $r$ agree on the attributes $\alpha$, they also agree on the attributes $\beta$.
+
+### Closure of a Set of Functional Dependencies
+
+- Given a set $F$ of functional dependencies, there are certain other functinoal dependencies that are logically implied by $F$. The set of all functional dependencies logically implied by $F$ is the closure of $F$. We denote the closure of $F$ by $F*$.
+
+### Keys and Functional Dependencies
+
+$K$ is a superkey for relation schema $R$ if and only if $K \to R$ and for no $\alpha \subset K, \alpha \to R$.
+
+Functional dependencies allow us to express constraints that cannot be expressed using superkeys.
+
+## Use of Functional Dependencies
+
+We use functional dependencies to:
+
+- To test relations to see if they are legal under a given set of functional dependencies.
+  - if a relation $r$ is legal under a set $F$ of functional dependencies, we say that $r$ **satisfies** $F$
+- to specify constraints on the set of legal relations
+  - we say that $F$ holds on $R$ if all legal relations on $R$ satisfy the set of functional dependencies
+
+A functional dependency is **trivial** if it is satisfied by all instances of a relation. In general $\alpha \to \beta$ is trivial if $\beta \supseteq \alpha$.
+
+# Dependency Preservation
+
+- Testing functional dependency constraints each time the database is updated can be costly
+- It is useful to design the database in a way that constraints can be tested efficiently
+- If testing a functional dependency can be done by considering just one relation, then the cost of testing this constraint is low
+- When decomposing a relation it is possible that it is no longer possible to do the testing without having the perform a Cartesian Product
+- A decomposition that makes it computationally hard to enforce functional dependency is said to be NOT dependency preserving.
+
+# Normal Forms
+
+## Boyce-Codd Normal Form
+
+- A relation schema $R$ is in BCNF with respect to a set $F$ of functional dependencies if for all functional dependencies in $F*$ of the form $\alpha \to \beta$ where $\alpha \subseteq R$ and $\beta \subseteq R$, at least one of the following holds:
+- $\alpha \to \beta$ is trivial
+- $\alpha$ is a superkey for $R$
+
+### Decomposing a Schema into BCNF
+
+Let $R$ be a schema $R$ that is not in BCNF. Let $\alpha \to \beta$ be the FD that causes a violation of BCNF.
+
+We decompose $R$ into:
+
+- (\alpha \cup \beta)
+- ($R$ - (\beta - \alpha))
+
+## Third Normal Form
+
+- A relation schema $R$ is in **third normal form (3NF)** if for all:
+  - $\alpha \to \beta$ in $F*$
+  - at least one of the following holds:
+    - $\alpha \to \beta$ is trivial
+    - $\alpha$ is superkey for $R$
+    - Each attribute $A$ in $\beta - \alpha$ is contained in a candidate key for $R$
+- if a relation is in BCNF it is in 3NF (since in BCNF one of the first two conditions above must hold)
+- third condition is a minimal relaxation of BCNF to ensure dependency preservation (will see why later)
+
+## Comparison of BCNF and 3NF
+
+- Advantages to 3NF over BCNF. It is always possible to obtain a 3NF design without sacrificing losslessness or dependency preservation.
+
+- Disadvantages to 3NF
+  - We may have to use null values to represent some of the possible meaningful relationships among data items
+  - there is the problem of repetition of information
+
+## Goals of Normalization
+
+- Let $R$ be a relation scheme with a set $F$ of functional dependencies
+- Decide whether a relation scheme $R$ is in "good" form
+- In the case that a relation scheme $R$ is not in "good" form, need to decompose it into a set of relation scheme $R_1, R_2, ..., R_n$ such that:
+  - each relation scheme is in good form
+  - the decomposition is a lossless decomposition
+  - preferably, the decomposition should be dependency preserving
