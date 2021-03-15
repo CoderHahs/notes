@@ -105,6 +105,61 @@ In order to implement an LL(1) parser, we need to use the following data structu
 - stack (contains the derivations)
 - list (that will contain the token input stream)
 
-```
+# LL(1) Error Recovery
+
+What happens when the parser discovers an error?
+
+- Approach 1: stop all parsing activity and return an error message
+- Approach 2: try to continue parsing (is possible) and see if there are more errors along the way
+
+Which approach does your compiler take?
+
+An error is detected when:
+
+- the terminal on top of the stack does not match the next input token
+- the parsing table cell from which we are supposed to pull the next production is empty
+
+What does the parser do?
+
+- It enters the panic-mode error Recovery
+- Based on the idea of skipping symbols on the input until a token in the SYNCH set appears
+
+Let $S$ be a set of tokens called a synchronization set (SYNCH). Let $s \in S, s$ is called a synchronization token.
+
+Place all symbols in FOLLOW(A) into the SYNCH(A) set for non-terminal A. If we skip tokens until an element of SYNCH(A) is seen and we pop A from the stack, it's likely that parsing can continue.
+
+The panic-mode error recovery can be implemented using the SYNCH set(s) as follows:
+
+- **Scenario 1**: If there is a non-terminal at the top of the stack, discard input tokens until you find a synch token, then pop the non-terminal
+- **Scenario 2**: If there is a terminal at the top of the stack, we could try popping it to see whether we can continue. Assume that the input string is actually missing that terminal
+
+# A NON LL(1) Grammar
+
+Consider the grammar:
 
 ```
+<stmt> ::= if <expr> then <stmt>
+        | if <expr> then <stmt> else <stmt>
+```
+
+Needs left factoring, which gives:
+
+```<stmt> ::= if <expr> then <stmt><stmt’>
+<stmt’> ::= else <stmt> | ε
+```
+
+Let’s get the FIRST and FOLLOW sets
+
+```
+FIRST(stmt) = {if}
+FIRST(stmt’)={else, ε}
+FOLLOW(stmt) = {$, else}
+FOLLOW(stmt’)={$, else}
+```
+
+The problem arises because for an input token else and stack top of stmt’, we do not know which production to choose:
+
+- `<stmt’> else <stmt>`
+- `<stmt’> ε`
+
+Therefore, this is not an LL(1) grammar
