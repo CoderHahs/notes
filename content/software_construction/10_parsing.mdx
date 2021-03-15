@@ -1,0 +1,110 @@
+---
+title: 'Parsing'
+metaTitle: 'Parsing'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+We saw that top-down parsers may need to backtrack when they select the wrong production. We want to avoid backtracking.
+
+This is where predictive parsers come in useful
+
+- LL(1): left to right scan, left-most derivation, 1-token look ahead
+- LR(1): left to right scan, right-most derivation, 1-token look ahead
+
+# LL(1) Grammar
+
+In order to use LL(1) parsers, the context-free grammar has to be:
+
+- unambiguous
+- without left recursion
+- left factored
+
+# Eliminating Left Recursion
+
+Consider the grammar fragment:
+
+```
+<foo> ::= <foo>A
+        | B
+```
+
+where A and B do not start with `<foo>`. We can re-write this as:
+
+```
+<foo> ::= B<bar>
+<bar> ::= A<bar>
+        | epsilon
+```
+
+where `<bar>` is a new non-terminal. This fragment contains no left recursion.
+
+# Left Factoring
+
+For any two productions, we would like a distinct way of choosing the correct production to expand.
+
+We define FIRST (A) as the set of terminals that appear first in some string derived from A.
+
+For a terminal _w_, we can say: $w \in FIRST(A) \iff A \Rightarrow wz$
+
+Now going back to our two productions, we do FIRST(production 1) $\cap$ FIRST(production 2) $=\phi$. This would allow the parser to make a correct choice with a look ahead of only one symbol.
+
+# FIRST and FOLLOW sets
+
+## FIRST Set Calculation
+
+Rules to calculate the FIRST set:
+
+1. FIRST(terminal) is (terminal)
+2. If $A ::= a$, and a is a terminal:
+
+- ${a} \in FIRST (A)$
+
+3. If $A ::= B$ and rule B does not exist in grammar:
+
+- $FIRST(B) \in FIRST(A)$
+
+4. If $A ::= B$ and rule B does exist in the grammar:
+
+- ${(FIRST(B) - \epsilon) \cup FIRST(a)} \in FIRST (A)$
+
+## FOLLOW Set Calculation
+
+The follow set of non-terminal $A$ contains all the terminals that appear **after** $A$ in any string generate by the grammar $G$.
+
+Rules to calculate the FOLLOW set:
+
+1. {\$} $\in$ FOLLOW(S)
+2. If $A ::= aB$
+
+- FOLLOW(A) $\in$ FOLLOW (B)
+
+3. If $A ::= aBy$ and $y$ does not exist in the grammar
+
+- FIRST(y) $\in$ FOLLOW(B)
+
+4. If $A ::= aBy$ and $y$ does exist in the grammar:
+
+- ${(FIRST(y)-\epsilon)} \cup FOLLOW(A)} \in FOLLOW(B)$
+
+# Parsing tables
+
+![Image](https://image2.slideserve.com/4500434/how-to-construct-an-ll-1-parsing-table-n.jpg)
+
+# LL(1) Parsing
+
+In order to implement an LL(1) parser, we need to use the following data structures:
+
+- parse table (2D array)
+- stack (contains the derivations)
+- list (that will contain the token input stream)
+
+```
+
+```
