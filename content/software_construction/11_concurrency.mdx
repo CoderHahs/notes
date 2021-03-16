@@ -1,0 +1,73 @@
+---
+title: 'Concurrency'
+metaTitle: 'Concurrency'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Subprogram-Level Concurrency
+
+A task is a unit of program that can be executed concurrently with other units of the same program. Each task in a program can provide one thread of control.
+
+# Synchronization
+
+A mechanism to control the order in which tasks execute. **Cooperation synchronization** is required between task A and task B when:
+
+- Task A must wait for task B to complete some specific activity before task A can continue execution
+- Recall the producer-consumer petri net problem
+
+**Competition synchronization** is required between two tasks when:
+
+- both require the use of some resource that cannot be simultaneously used
+
+# Critical Section
+
+A segment of code, in which the thread may be:
+
+- Changing common variables
+- updating a table
+- writing to a file
+- updating any shared resource
+
+The executions of critical sections by the threads is mutually exclusive in time.
+
+# Task (Thread) States
+
+- New: it has been created, but has not yet begun its execution
+- Runnable or ready: it is currently running or is ready to run
+- Blocked: it has been running, but its execution was interrupted by one of several different events
+- Dead: no longer active in any sense
+
+# Semaphores
+
+**Semaphore** is a technique used to control access to a common resource for multiple tasks.
+
+- it is an object consisting of an integer (counter) and a queue that stores task descriptors
+
+A task that requires access to a critical section needs to "acquire" the semaphore
+
+Two operations are always associated with semaphores. Operation **proberen** is used to acquire a semaphore (meaning to test and decrement the integer), and **verhogen** is used to release it (meaning to increment). Alternatively these operations are called **wait** and **release**.
+
+The value of the counter of a **counting semaphore** can range over an unrestricted domain. The value of the counter for a **binary semaphore** can range only between 0 and 1.
+
+# Deadlock Conditions
+
+- Mutual exclusion: the act of allowing only one task to have access to a dedicated resource
+- Hold-and-wait: there must be a task holding at least one resource and waiting to acquire additional ones that are currently being held by other tasks
+- No preemption: the lack of temporary reallocation of resources. Ressources can be released only voluntarily
+- Circular waiting: each task involved in the impasse is waiting for another to voluntarily release the resource
+
+## Strategy for handling deadlocks
+
+- Prevention: eliminate one of the necessary conditions
+- Avoidance: avoid if the system knows ahead of time the sequence of resource requests associated with each active tasks
+- Detection: detect by building directed resource graphs and looking for circles
+- Recovery: once detected, it must be untangles and the system returned to normal as quickly as possible
+  - task termination
+  - resource preemption

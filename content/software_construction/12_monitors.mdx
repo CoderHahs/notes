@@ -1,0 +1,73 @@
+---
+title: 'Monitor'
+metaTitle: 'Monitor'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Monitor
+
+A monitor is a set of routines which are protected by a mutual exclusion lock. None of the routines in the monitor can be executed by a thread until that thread acquires the lock.
+
+ANy other threads must wait for the thread that is currently executing to give up control of the lock.
+
+When a monitor is used, the competition synchronization code is added by the compiler.
+
+A thread can actually suspend itself inside a monitor and then wait for an event to occur. If this happens, then another thread is given the opportunity to enter the monitor.
+
+Usually, a thread suspends itself while waiting for a condition.
+
+- During the wait, the thread temporarily gives up its exclusive access
+- It must require it after the condition been met
+
+# Monitor vs Semaphore
+
+A semaphore is simpler construct than a monitor because it's just a lock that protects a shared resource. Not a set of routines like a monitor.
+
+A task must acquire (or wait for) a semaphore before accessing a shared resource.
+
+A task must simply call a routine (or procedure) in the monitor in order access a shared resource.
+
+- when done, you do not have to release anything
+- remember you have to release semaphores (if you forgot deadlock)
+
+# Competition Synchronization
+
+One of the most important features of monitors is that shared data is resident in the monitor. All synchronization code is centralized in one location. This is in contrast to being in the competing tasks.
+
+The monitor guarantees synchronization by allowing access to only one task at a time. Remember that using counting semaphores, we are able to allow multiple tasks access, not necessarily only one.
+
+Calls to monitor procedures are implicitly queued if the monitor is busy at the time of the call.
+
+# Cooperation Synchronization
+
+Although mutually exclusive access to shared data is intrinsic with a monitor. Cooperation between tasks is still the responsibility of the programmer.
+
+# Condition variables
+
+Condition variables provide a mechanism to wait for events. Condition variables support three operations:
+
+- wait: release monitor lock and wait for condition variable to be signaled
+- signal: wakeup one waiting thread
+- broadcast: wakeup all waiting threads
+
+Each condition variable has a queue associated with it. A task waiting on that condition is blocked and its descriptor is stored in the queue.
+
+Condition variables are not equivalent to semaphores. Although operations have similar names, they have different semantics.
+
+For monitors' condition variables:
+
+- access to monitor is controlled by a lock
+- wait() blocks the calling thread, and gives up the lock. To call wait(), the thread has to be in the monitor.
+- signal() causes a waiting thread to wake up. If there is no waiting thread, the signal is ignored.
+
+For semaphores:
+
+- wait() just blocks the thread if the critical section is occupied
+- release() increases the semaphore counter (unless it's a binary semaphore, in with case, it sets it to '1')
