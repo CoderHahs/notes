@@ -1,0 +1,127 @@
+---
+title: 'Physical Storage'
+metaTitle: 'Physical Storage'
+metaDescription: 'Topics in Databases'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Classification of Physical Storage Media
+
+- volatile storage: loses contents when power is switched off
+- non-volatile:
+  - contents persist even when power is off
+  - includes secondary/tertiary storage, as well as batter-backed up main-memory
+
+Factors affecting choice of storage media include:
+
+- speed with which data can be accessed
+- cost per unit of data
+- reliability
+
+# Storage Hierarchy
+
+- **Primary**: fastest media but volatile (**cache, main memory**)
+- **Secondary**: next level in hierarchy, non-volatile, moderately fast access time
+  - Also called on-line storage
+  - E.g., flash memory, magnetic disks
+- **Tertiary**: lowest level in hierarchy, non-volatile, slow access time
+  - also called **off-line storage** and used for **archival storage**
+  - e.g., magnetic tape, optical storage
+  - Magnetic tape
+    - Sequential access 1 to 12 TB capacity
+    - A few drives with many tapes
+    - Juke boxes with petabytes (1000s of TB) of storage.
+
+# Storage Interfaces
+
+Disk interface standards families:
+
+- SATA (Serial ATA)
+  - SATA 3 supports data transfer speeds of up to 6 gigabits/sec
+- SAS (Serial Attached SCSI)
+  - SAS Version 3 supports 12 gigabits/sec
+- NVMe (Non-Volatile Memory Express) interface
+  - works with PCIe connectors to support lower latency and higher transfer rates
+  - supports data transfer rates of up to 24 gigabits/sec
+
+Disks usually connected directly to computer system.
+
+In a **Storage Area Networks (SAN)**, a large number of disks are connected by a high-speed network to a number of servers. In a **Network Attached Storage (NAS)** networked storage provides a file system interface using networked file system protocol, instead of providing a disk system interface.
+
+# Magnetic Disks
+
+- Read-write head
+- Surface of platter divided into circular **tracks**
+  - Over 50K-100K tracts per platter on typical hard disks
+- Each track is divided into **sectors**
+  - A sector is the smallest unit of data that can be read or written
+  - Sector size typically 512 bytes
+  - Typical sectors per tracks: 500 to 1000 on inner tracks, to 1000 to 2000 on outer tracks
+- To read/write a sector
+  - disk arm swings to position head on right track
+  - platter spins continually; data is read/written as sector passes under head
+- Head-disk assemblies
+  - multiple disk platters on a single spindle (1 to 5 usually)
+  - one head per platter, mounted on a common arm
+- **Cylinder** $i$ consists of $i^{th}$ track of all the platters
+- **Disk controller**: interfaces between the computer system and the disk drive hardware
+  - accepts high-level commands to read or write a sector
+  - initiates actions such as moving the disk arm to the right track and actually reading or writing the data
+  - computes and attaches **checksums** to each sector to verify that data is read back correctly
+    - if data is corrupted, with very high probability stored checksum won't match recomputed checksum
+  - ensures successful writing by reading back sector after writing it
+  - performs remapping of bad sectors
+
+# Performance Measures of Disks
+
+**Access time** is the time it takes from when a read or write request is issued to when data transfer begins. Consists of:
+
+- **Seek time**, the time it takes to reposition the arm over the correct track
+  - Average seek time is 1/2, also is worst case
+  - 4-10 ms on typical disks
+- **Rotational latency**, the time it takes for the sector to be accessed to appear under the head
+  - 4-11 ms on typical disks (5400 to 15000 r.p.m)
+  - Average latency is 1/2 of the above latency
+- Overall latency is 5 to 20 ms depending on the disk model
+
+**Data transfer rate**, the rate at which data can be retrieved from or stored to the disk.
+
+- 25 to 200 MB/s max rate
+
+**Disk block** is a logical unit for storage allocation and retrieval. Typically 4-16 kB.
+
+- Smaller blocks have more transfers from disk
+- Larger blocks have more space wasted due to partially filled blocks
+
+**Sequential access pattern** uses success requests for successive disk blocks. Disk seek required only for first block.
+
+**Random access pattern** uses successive requests for blocks that can be anywhere on disk. Each access requires a seek. Transfer rates are low since a lot of time is wasted in seeks.
+
+**I/O operations per seconds (IOPS)** is the number of random block reads that a disk can support per second. 50 to 200 IOPS on current generation magnetic disks.
+
+**Mean time to failure (MTTF)**, the average time the disk is expected to
+run continuously without any failure.
+
+- Typically 3 to 5 years
+- Probability of failure of new disks is quite low, corresponding to a “theoretical MTTF” of 500,000 to 1,200,000 hours for a new disk
+  - E.g., an MTTF of 1,200,000 hours for a new disk means that given 1000 relatively new disks, on an average one will fail every 1200
+    hours
+- MTTF decreases as disk ages
+
+# RAID
+
+**Redundant Arrays of Independent Disks** is the disk organization techniques that manage a large number of disks, providing a view of a single disk of
+
+- **high capability** and **high speed** by using multiple disks in parallel
+- **high reliability** by storing data redundantly, so that data can be recovered even if a disk fails
+
+The chance that some disk out of a set of $N$ disks will fail is much higher than the chance that a specific single disk will fail.
+
+- E.g., a system with 100 disks, each with MTTF of 100,000 hours will have a system of MTTF of 1000 hours
+- Techniques for using redundancy to avoid data loss are critical with large numbers of disks
