@@ -125,3 +125,33 @@ The chance that some disk out of a set of $N$ disks will fail is much higher tha
 
 - E.g., a system with 100 disks, each with MTTF of 100,000 hours will have a system of MTTF of 1000 hours
 - Techniques for using redundancy to avoid data loss are critical with large numbers of disks
+
+# Improvement of Reliability via Redundancy
+
+- **Redundancy**: store extra information that can be used to rebuild information lost in a disk failure
+- **Mirroring** (shadowing)
+  - duplicate every disk, logical disk consists of two physical disks
+  - every write is carried out on both disks
+    - reads can take place from either disk
+  - if one disk in a pair fails, data still available in the other
+    - data loss would occur only if a disk fails, and its mirror disk also fails before the system is repaired
+      - probability of combined event is very small, except for dependent failure modes such as fire or building collapse or electrical power surges
+- Mean time to data loss depends on mean time to failure, and mean time to repair
+  - MTTF of 100,000 hours, mean time to repair of 10 hours gives mean
+    time to data loss of $500\*10^6$ hours (or 57,000 years) for a mirrored pair of disks (ignoring dependent failure modes)
+
+# Improvement in Performance via Parallelism
+
+- Two main goals of parallelism in a disk system:
+  1. Load balance multiple small accesses to increase throughput
+  2. Parallelize large accesses to reduce response time
+- Improve transfer rate by striping data across multiple disks
+- Bit-level striping, split the bits of each byte across multiple disks
+  - in an array of eight disks, write bit $i$ of each byte to disk $i$
+  - each access can read data at eight times the rate of a single disk
+  - but seek/access time worse than for a single disk
+    - bit level striping is not used much any more
+- Block-level striping – with $n$ disks, block $i$ of a file goes to disk ($i mod n) + 1$
+  - Requests for different blocks can run in parallel if the blocks reside on
+    different disks
+  - A request for a long sequence of blocks can utilize all disks in parallel
