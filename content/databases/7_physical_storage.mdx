@@ -126,7 +126,7 @@ The chance that some disk out of a set of $N$ disks will fail is much higher tha
 - E.g., a system with 100 disks, each with MTTF of 100,000 hours will have a system of MTTF of 1000 hours
 - Techniques for using redundancy to avoid data loss are critical with large numbers of disks
 
-# Improvement of Reliability via Redundancy
+## Improvement of Reliability via Redundancy
 
 - **Redundancy**: store extra information that can be used to rebuild information lost in a disk failure
 - **Mirroring** (shadowing)
@@ -140,7 +140,7 @@ The chance that some disk out of a set of $N$ disks will fail is much higher tha
   - MTTF of 100,000 hours, mean time to repair of 10 hours gives mean
     time to data loss of $500\*10^6$ hours (or 57,000 years) for a mirrored pair of disks (ignoring dependent failure modes)
 
-# Improvement in Performance via Parallelism
+## Improvement in Performance via Parallelism
 
 - Two main goals of parallelism in a disk system:
   1. Load balance multiple small accesses to increase throughput
@@ -155,3 +155,5 @@ The chance that some disk out of a set of $N$ disks will fail is much higher tha
   - Requests for different blocks can run in parallel if the blocks reside on
     different disks
   - A request for a long sequence of blocks can utilize all disks in parallel
+
+## RAID Levels
