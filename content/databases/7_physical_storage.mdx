@@ -157,3 +157,86 @@ The chance that some disk out of a set of $N$ disks will fail is much higher tha
   - A request for a long sequence of blocks can utilize all disks in parallel
 
 ## RAID Levels
+
+Schemes to provide redundancy at lower cost by using disk striping combine with parity bits. Different RAID organizations, or RAID levels, have differing cost, performance and reliability characteristics.
+
+- RAID level 0:
+  - Block striping; non-redundant
+  - Used in high-performance applications where data loss is not critical
+- RAID level 1:
+  - Offers best write performance
+  - Popular for applications such as storing log files in a database system
+- Parity blocks
+  - parity block $j$ stores XOR of bits from block $j$ if each disk
+  - when writing data to a block $j$, parity block $j$ must also be computed and written to disk
+    - can be done by using old parity block, old value of current block and new value of current block (2 block reads + 2 block writes)
+    - or by recomputing the parity value using the new values using the new values of blocks corresponding to the parity block
+    - more efficiently for writing large amounts of data sequentially
+  - to recover data for block, compute XOR of bits from all other blocks in the set including the parity block
+- RAID level 5:
+  - block-interleaved distributed parity
+  - partitions data and parity among all $N+1$ disks, rather than storing data in $N$ disks and parity in 1 disk
+  - block writes occur in parallel if the blocks and their parity blocks on different disks
+- RAID level 6:
+  - $P+Q$ redundancy
+  - similar to level 5, but stores two error correction blocks (P,Q) instead a single parity block to guard against multiple disk failures
+    - better reliability than Level 5 at a higher cost
+      - becoming more important as storage sizes increase
+- Other levels
+  - RAID Level 2: Memory-Style Error-Correcting-Codes (ECC) with bit
+    striping.
+  - RAID Level 3: Bit-Interleaved Parity
+  - RAID Level 4: Block-Interleaved Parity; uses block-level striping, and keeps a parity block on a separate parity disk for corresponding blocks from $N$ other disks.
+    - RAID 5 is better than RAID 4, since with RAID 4 with random writes, parity disk gets much higher write load than other disks and becomes a bottleneck
+- Factors choosing RAID level
+  - Monetary cost
+  - Performance: Number of I/O operations per second, and bandwidth during normal operations
+  - Performance during failure
+  - Performance during rebuild of failed disk
+    - including time taken to rebuild failed disk
+- RAID 0 is used only when data safety is not important
+  - e.g. data can be recovered quickly from other sources
+
+## Choice of RAID Level
+
+- Level 1 provides much better write performance than level 5
+  - Level 5 requires at least 2 block reads and 2 block writes to write a
+    single block, whereas Level 1 only requires 2 block writes
+- Level 1 had higher storage cost than level 5
+- Level 5 is preferred for applications where writes are sequential and large
+  (many blocks), and need large amounts of data storage
+- RAID 1 is preferred for applications with many random/small updates
+- Level 6 gives better data protection than RAID 5 since it can tolerate two
+  disk (or disk block) failures
+  - Increasing in importance since latent block failures on one disk,
+    coupled with a failure of another disk can result in data loss with RAID
+    1 and RAID 5
+
+# Hardware Issues
+
+- Software RAID: RAID implementations done entirely in software, with
+  no special hardware support
+- Hardware RAID: RAID implementations with special hardware
+  - Use non-volatile RAM to record writes that are being executed
+  - Beware: power failure during write can result in corrupted disk
+    - E.g., failure after writing one block but before writing the second in a mirrored system
+    - Such corrupted data must be detected when power is restored
+    - Recovery from corruption is similar to recovery from failed disk
+    - NV-RAM helps to efficiently detected potentially corrupted blocks
+    - Otherwise all blocks of disk must be read and compared with mirror/parity block
+- Latent failures: data successfully written earlier gets damaged
+  - can result in data loss even if only one disk fails
+- Data scrubbing:
+  - continually scan for latent failures, and recover from copy/parity
+- Hot swapping: replacement of disk while system is running, without power
+  down
+  - Supported by some hardware RAID systems,
+  - reduces time to recovery, and improves availability greatly
+- Many systems maintain spare disks which are kept online, and used as
+  replacements for failed disks immediately on detection of failure
+  - Reduces time to recovery greatly
+- Many hardware RAID systems ensure that a single point of failure will not
+  stop the functioning of the system by using
+  - Redundant power supplies with battery backup
+  - Multiple controllers and multiple interconnections to guard against
+    controller/interconnection failures
