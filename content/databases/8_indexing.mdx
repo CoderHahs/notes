@@ -10,3 +10,102 @@ metaDescription: 'Topics in Databases'
   integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
   crossOrigin="anonymous"
 />
+
+# Basic Concepts
+
+Indexing mechanisms used to speed up access to desired data such as author catalog in library.
+
+Uses **search key** which is an attribute or set of attributes used to look up records in a file. An index file consists of records (called index entries) of the form (search-key, pointer).
+
+Index files are typically much smaller than the original file. We will consider several indexing techniques. No one technique is the best. Each technique is best suited for a particular database application.
+
+There are two basic kinds of indices:
+
+- Ordered indices that are search keys are stored in sorted order
+- Hash indices that are search keys distributed uniformly across "buckets". The buckets to which a value is assigned is determined by a function, called a hash function.
+
+# Types of Indexes
+
+- Ordered index
+  - entries are stored sorted on the search key value
+  - uses a primary index or clustering index
+- Dense index
+  - index record appears for every search key value
+  - contains search key value and a pointer to the actual record
+- Sparse index
+  - contains index records for only some search-key values
+  - applicable when records are sequentially ordered on search-key
+  - To locate a record with search key value $K$ we:
+    - Find index record with largest search-key value $leq K$
+    - Search file sequentially starting at the record to which the index record points
+  - less space and less maintenance overhead for insertions and deletions when compared with dense index
+- Multilevel Index
+  - a sparse index of the basic index
+  - basic index file
+  - this solves the problem where index size may still grow too large
+
+## Updating Index
+
+Single-level index entry deletion:
+
+- Dense indices, deletion of search-key is similar to file record deletion
+- Sparse indices
+  - if an entry for the search key exists in the index, it is deleted by replacing the entry in the index with the next search-key value in the file (in search-key order)
+  - if the next search-key value already has an index entry, the entry is deleted instead of being replaced
+
+Single-level index insertion:
+
+- perform a lookup using the search-key value of the record to be inserted
+- dense indices, if the search-key value does not appear in the index, insert it
+  - indices are maintained as sequential files
+  - need to create space for new entry, overflow blocks may be required
+- sparse indices, if index stores an entry for each block of the file, no change needs to be made to the index unless a new block is created
+  - if a new block is created, the first search-key value appearing in the new block is inserted into the index
+
+Multilevel insertion and deletion:
+
+- algorithms are simple extensions of the single-level algorithms
+
+## Clustering vs Nonclustering indices
+
+Indices offer substantial benefits when searching for records. However, they impose overhead on database modification because when a record is inserted or deleted every index on the relation must be updated. Also when a record is updated, any index on an updated attribute must be updated.
+
+Sequential scan using clustering index is efficient, but a sequential scan using a secondary (non clustering) index is expensive on magnetic disk. Each record access may fetch a new block from disk. Each block fetch on magnetic disk requires about 5 to 10 ms.
+
+## Indices on Multiple keys
+
+- In general, a search key can have more than one attribute
+- Composite search key: search key containing more than one attribute
+
+# B+ Trees
+
+- Disadvantage of indexed-sequential files organization:
+  - Performance degrades as file grows, since many overflow blocks get
+    created.
+  - Periodic reorganization of entire file is required: costly.
+- Advantage of B+-tree index files:
+  - Automatically reorganizes itself with small, local, changes, in the
+    face of insertions and deletions.
+  - Reorganization of entire file is not required to maintain performance.
+- (Minor) disadvantage of B+-trees:
+  - Extra insertion and deletion overhead, space overhead.
+- Advantages of B+-trees outweigh disadvantages
+  - B+-trees are used extensively
+
+A neat [visualization tool](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html) for B+ Trees.
+
+A B+-tree is a rooted tree satisfying the following properties:
+
+- all paths from root to leaf are of the same length
+- each node that is not a root or a leaf has between $n/2$ to $n$ children
+- a leaf node has between $[(n-1)/2]$ and $n-1$ values
+- Special cases:
+  - if the root is not a leaf, it has at least 2 children
+  - if the root is a leaf (that is, there are no other nodes in the tree), it can have between $0$ and $(n-1)$ values
+
+A typical nodes has
+
+- search key values
+- pointers to children for non-leaf nodes
+- pointers to records or buckets of records for leaf nodes
+- the search keys are ordered
