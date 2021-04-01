@@ -120,7 +120,7 @@ Properties of a leaf node:
 Properties of non-leaf nodes:
 
 - Form a multilevel sparse index on the leaf nodes
-- All the search keys in the subtree to which \\\$P_1\\\$ points are less than K_1\$
+- All the search keys in the subtree to which $P_1$ points are less than $K_1$
 - For $2 \leq i \leq n-1$, all the search keays in the subtree to which $P_i$ points have values greater than or equal to $K_{i-1}$ and less than $K_i$
 - All the search keys in the subtree to which $P_n$ points have values greater than or equal to $K_{n-1}$
 
@@ -157,3 +157,174 @@ function find(v):
 - Range queries: find all records with search key values in a given range
   - See book for details of functions findRange() which returns set of all such records
   - Real implementations usually provide an iterator interface to fetch matching records one at a time, using a next() function
+- if there are K search key values in the file, the height of the tree is no more than $[\log_{n/2}(K)]$
+- a node is generally the same size as a disk block, typically 4 kB and $n$ is typically around 100 (40 B per index entry)
+- with 1 million search key values and $n=100$ at most $\log_{50}(1000000) = 4$ nodes are accessed in a lookup traversal from root to leaf
+- contrast this with a balanced binary tree with 1 million search key values around 20 nodes are accessed in a lookup, above difference is significant since every node access may need a disk I/O, costing around 20 ms
+
+## Non-Unique Keys
+
+- if a search key $a_i$ is not unique, create instead an index on a composite key $(a_i, A_p)$, which is unique, $A_p$ could be a primary key, record ID, or any other attribute that guarantees uniqueness
+
+## Updates on B+ Trees: Insertion
+
+Assume record already added to the file. Let
+
+- pr be pointer to the record, and let
+- v be the search key value of the record
+
+Find the leaf node in which the search-key value would appear
+
+1. If there is room in the leaf node, insert (v, pr) pair in the leaf node
+2. Otherwise, split the node (along with the new (v, pr) entry) as
+   discussed in the next slide, and propagate updates to parent nodes.
+
+Splitting a leaf node:
+
+- take the $n$ (search-key value, pointer) pairs including the one being inserted in sorted order. Place the first $n/2$ in the original node, and the rest in a new node
+- let the new bye $p$, and let $k$ be the least key value in $p$. Insert $(k,p)$ in the parent of the node being split
+- if the parent is full, split and propagate the split further up.
+
+Splitting of nodes proceeds upwards till a node that is not full is found
+
+- in the worst case the root node may be split increasing the height of the tree by 1
+
+## Updates on B+ Trees: Deletion
+
+Assume record already deleted from file. Let $V$ be the search key value of the
+record, and $Pr$ be the pointer to the record.
+
+- Remove $(Pr, V)$ from the leaf node
+- If the node has too few entries due to the removal, and the entries in the
+  node and a sibling fit into a single node, then merge siblings:
+  - Insert all the search-key values in the two nodes into a single node (the
+    one on the left), and delete the other node.
+  - Delete the pair (Ki–1, Pi), where Pi is the pointer to the deleted node,
+    from its parent, recursively using the above procedure
+- Otherwise, if the node has too few entries due to the removal, but the
+  entries in the node and a sibling do not fit into a single node, then
+  redistribute pointers:
+  - Redistribute the pointers between the node and a sibling such that
+    both have more than the minimum number of entries.
+  - Update the corresponding search-key value in the parent of the node.
+- The node deletions may cascade upwards till a node which has n/2 or
+  more pointers is found.
+- If the root node has only one pointer after deletion, it is deleted and the
+  sole child becomes the root.
+
+# Complexity of Updates
+
+- Cost (in terms of number of I/O operations) of insertion and deletion of a
+  single entry proportional to height of the tree
+  - With K entries and maximum fanout of n, worst case complexity of
+    insert/delete of an entry is $O(\log_{(n/2)}(K))$
+- In practice, number of I/O operations is less:
+  - Internal nodes tend to be in buffer
+  - Splits/merges are rare, most insert/delete operations only affect a leaf
+    node
+- Average node occupancy depends on insertion order
+  - 2/3rds with random, $1/2$ with insertion in sorted order
+
+## B+ Tree File Organization
+
+- Leaf nodes in a B+ tree file organization store records, instead of pointers
+- Helps keep data records clustered even when there are insertions/deletions/updates
+- Leaf nodes are still required to be half full
+  - Since records are larger than pointers, the maximum number of records that can be stored in a leaf node is less than the number of pointers in a nonleaf node.
+- Insertion and deletion are handled in the same way as insertion and deletion of entries in a B+ tree index
+- Good space utilization important since records use more space than
+  pointers.
+- To improve space utilization, involve more sibling nodes in redistribution
+  during splits and merges
+  - Involving 2 siblings in redistribution (to avoid split / merge where
+    possible) results in each node having at least $2/3$ entries
+
+## Other issues
+
+Record relocation and secondary indices
+
+- If a record moves, all secondary indices that store record pointers
+  have to be updated
+- Node splits in B+-tree file organizations become very expensive
+- Solution: use search key of B+-tree file organization instead of record
+  pointer in secondary index
+  - Add record-id if B+-tree file organization search key is non-unique
+  - Extra traversal of file organization to locate record
+- Higher cost for queries, but node splits are cheap
+
+# Indexing Strings
+
+- Variable length strings as keys
+  - Variable fanout
+  - Use space utilization as criterion for splitting, not number of pointers
+- Prefix compression
+  - Key values at internal nodes can be prefixes of full key
+    - Keep enough characters to distinguish entries in the subtrees
+      separated by the key value
+      - E.g., “Silas” and “Silberschatz” can be separated by “Silb”
+  - Keys in leaf node can be compressed by sharing common prefixes
+
+# Bulk Loading and Bottom-Up Build
+
+- Inserting entries one-at-a-time into a B+-tree requires  1 IO per entry
+  - assuming leaf level does not fit in memory
+  - can be very inefficient for loading a large number of entries at a time
+    (bulk loading)
+- Efficient alternative 1:
+  - sort entries first (using efficient external-memory sort algorithms
+    discussed later in Section 12.4)
+  - insert in sorted order
+    - insertion will go to existing page (or cause a split)
+    - much improved IO performance, but most leaf nodes half full
+- Efficient alternative 2: Bottom-up B+-tree construction
+  - As before sort entries
+  - And then create tree layer-by-layer, starting with leaf level
+    - details as an exercise
+  - Implemented as part of bulk-load utility by most database systems
+
+# B Tree Index files
+
+- Similar to B+-tree, but B-tree allows search-key values to appear only once;
+  eliminates redundant storage of search keys.
+- Search keys in nonleaf nodes appear nowhere else in the B-tree; an additional
+  pointer field for each search key in a nonleaf node must be included.
+- Nonleaf node – pointers Bi are the bucket or file record pointers.
+
+Advantages of B-Tree indices:
+
+- May use less tree nodes than a corresponding B+
+  -Tree.
+- Sometimes possible to find search-key value before reaching leaf
+  node.
+
+Disadvantages of B-Tree indices:
+
+- Only small fraction of all search-key values are found early
+- Non-leaf nodes are larger, so fan-out is reduced. Thus, B-Trees
+  typically have greater depth than corresponding B+-Tree
+- Insertion and deletion more complicated than in B+-Trees
+- Implementation is harder than B+-Trees.
+  - Typically, advantages of B-Trees do not out weigh disadvantages
+
+# Indexing on Flash
+
+- Random I/O cost much lower on flash
+  - 20 to 100 microseconds for read/write
+- Writes are not in-place, and (eventually) require a more expensive erase
+- Optimum page size therefore much smaller
+- Bulk-loading still useful since it minimizes page erases
+- Write-optimized tree structures (discussed later) have been adapted to
+  minimize page writes for flash-optimized search trees
+
+# Indexing in Main Memory
+
+- Random access in memory
+  - Much cheaper than on disk/flash
+  - But still expensive compared to cache read
+  - Data structures that make best use of cache preferable
+  - Binary search for a key value within a large B+-tree node results in
+    many cache misses
+- B+-trees with small nodes that fit in cache line are preferable to reduce
+  cache misses
+- Key idea: use large node size to optimize disk access, but structure data
+  within a node using a tree with small node size, instead of using an array
