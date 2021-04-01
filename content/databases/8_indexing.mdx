@@ -109,3 +109,51 @@ A typical nodes has
 - pointers to children for non-leaf nodes
 - pointers to records or buckets of records for leaf nodes
 - the search keys are ordered
+
+Properties of a leaf node:
+
+- For $i = 1, 2, . . ., n–1$, pointer $P_i$
+  points to a file record with search-key value $K_i$,
+- If $L_i, L_j$ are leaf nodes and $i < j$, $L_i$’s search-key values are less than or equal to $L_j$’s search-key values
+- $P_n$ points to next leaf node in search-key order
+
+Properties of non-leaf nodes:
+
+- Form a multilevel sparse index on the leaf nodes
+- All the search keys in the subtree to which \\\$P_1\\\$ points are less than K_1\$
+- For $2 \leq i \leq n-1$, all the search keays in the subtree to which $P_i$ points have values greater than or equal to $K_{i-1}$ and less than $K_i$
+- All the search keys in the subtree to which $P_n$ points have values greater than or equal to $K_{n-1}$
+
+## Observations about B+ trees
+
+- Since the inter-node connections are done by pointers, "logically" close blocks need not be "physically" close
+- The non-leaf levels of the B+ tree form a hierarchy of sparse indices
+- The B+ tree contains a relatively small of levels
+  - Level below root has at least $2*(n/2)$ values
+  - Next level has at least $2*(n/2) * (n/2)$ values
+  - and so on ..
+  - If there are $K$ search key values in the file, the tree height is no more than $\log_{n/2}(K)$ thus searches can be conducted efficiently
+- insertions and deletions to the main file can be handled efficiently, as the index can be restructured in logarithmic time.
+
+## Queries on B+ Trees
+
+```
+function find(v):
+  C=root
+  while (C is not a leaf node):
+    Let i be least number s.t. v <= Ki
+    if there is no such number i:
+      Set C = last non null pointer in Clustering
+    elif (v = C.Ki):
+      Set C = P(i+1)
+    else
+      Set C = C.P_i
+  if for some i, Ki = v:
+    return P_i
+  else
+    return null
+```
+
+- Range queries: find all records with search key values in a given range
+  - See book for details of functions findRange() which returns set of all such records
+  - Real implementations usually provide an iterator interface to fetch matching records one at a time, using a next() function
