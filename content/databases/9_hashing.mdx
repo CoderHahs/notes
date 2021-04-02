@@ -152,5 +152,5 @@ Counting number of 1s can be done fast by a trick:
 
 - Bitmaps can be used instead of Tuple-ID lists at leaf levels of
   B+-trees, for values that have a large number of matching records
-- Worthwhile if > 1/64 of the records have that value, assuming a tupleid is 64 bits
+- Worthwhile if > 1/64 of the records have that value, assuming a tuple id is 64 bits
 - Above technique merges benefits of bitmap and B+-tree indices

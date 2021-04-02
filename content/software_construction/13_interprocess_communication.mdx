@@ -1,0 +1,93 @@
+---
+title: 'Interprocess Communication'
+metaTitle: 'Interprocess Communication'
+metaDescription: 'Topics in Software Construction'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Introduction to Inter-Process Communication
+
+This is the exchange of data between two or more separate, independent processes/threads.
+
+Operating systems provide various mechanisms for inter-process communications (IPC):
+
+- Queues
+- Semaphores
+- Shared memory
+
+# Unicast vs Multicast
+
+Distributed computing involves two or more processes engaging in IPC. They use a pre-agreed upon protocol.
+
+A process may act as a sender at some point and a receiver at another.
+
+**Unicast**: communication between two processes, such as socket communication.
+
+**Multicast**: communication between on process and a group of processes, such as publish/subscribe message model.
+
+## Typical operations
+
+```
+Receive ( [sender],  message storage object)
+Send ( [receiver],  message)
+Connect (sender address, receiver address), for connection-oriented communication
+Disconnect  (connection identifier), for connection-oriented communication
+```
+
+# Message Passing (Synchronous vs Asynchronous)
+
+Message passing means that one process sends a message to another process and then continues its local processing. The message may take some time to get to the other process. The message may be stored in the input queue of the destination process. If the latter is not immediately ready to receive the message
+
+## Asynchronous
+
+### Blocking send and receive operations
+
+A receiver will be blocked if it arrives at the point where it may receive messages and no message is waiting. A sender may get blocked if there is no room in the message queue between the sender and the receiver. However in many cases one assumes arbitrary long queues, which means that the sender will almost never be blocked.
+
+### Non-blocking send and receiver operations
+
+Send and receive operations always return immediately. They return a status value which could indicate that no message has arrived at the receiver. The receiver may test whether a message is waiting and possibly do some other processing. It may optionally be notified by the system when a message is received.
+
+## Synchronous
+
+One assumes that sending and receiving takes place at the same time. There is often no need for an intermediate buffer. This is also called rendezvous and implies closer synchronization. The combined send-and-receive operation can only occur if both parties are ready to do their part. The sending process may have to wait for the receiving process, or the receiving process may have to wait for the sending one.
+
+## Indefinite Blocking and Timeouts
+
+Connect and receive operations can result in indefinite blocking. E.g. a blocking connect request can result in the requesting process to be suspended indefinitely if the connection cannot be made.
+
+Indefinite blocking can be avoided by using timeout. Indefinite blocking may also be caused by a deadlock.
+
+# Communicated Data Representation
+
+Data transmitted on the network is a binary stream. Computers may have different internal storage format for the same data type an external representation of data may be necessary. This is known as a standard format.
+
+Data marshalling is the process of flattening a data structure, and converting the data to an external representation.
+
+Some well known external data representation schemes are:
+
+- External Data Representation (XDR)
+- ASN.1 (Abstract Syntax Notation One)
+- XML (Extensible Markup Language)
+- JSON (JavaScript Object Notation)
+
+# Communication Protocols
+
+In a distributed application, two processes perform IPC in a mutually agreed upon protocol. The specification of a protocol should include:
+
+- The sequence of data exchanged, which can be described using a Message Sequence Chart (MSC)
+- The format of the data exchanged at each step
+
+## HTTP
+
+- Network protocol used to deliver files and other data (calledresources) on the World Wide Web
+  - Resources can be HTML files, image files, query results...
+- A resource is a chunk of information that can be identified by a URL
+  - Most common kind of resource is a file
+- A resource can be dynamically generated (as a result to a query)
