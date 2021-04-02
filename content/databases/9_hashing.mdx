@@ -1,0 +1,117 @@
+---
+title: 'Hashing'
+metaTitle: 'Hashing'
+metaDescription: 'Topics in Databases'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Static Hashing
+
+- A **bucket** is a unit of storage containing one or more entries (a bucket
+  is typically a disk block).
+  - we obtain the bucket of an entry from its search-key value using a
+    **hash function**
+- Hash function h is a function from the set of all search-key values K to
+  the set of all bucket addresses B.
+- Hash function is used to locate entries for access, insertion as well as
+  deletion.
+- Entries with different search-key values may be mapped to the same
+  bucket; thus entire bucket has to be searched sequentially to locate an
+  entry.
+- In a **hash index**, buckets store entries with pointers to records
+- In a **hash file-organization** buckets store records
+
+# Hash Functions
+
+- A good hash function gives an average-case lookup that is a small constant,
+  independent of the number of search keys.
+- We hope records are distributed uniformly among the buckets.
+- The worst hash function maps all keys to the same bucket, while the best
+  hash function maps all keys to distinct addresses.
+- Ideally, distribution of keys to addresses is uniform and random.
+- Suppose we have 26 buckets, and map names beginning with ith letter of the
+  alphabet to the ith bucket.
+  - Problem: this does not give uniform distribution.
+  - Many more names will be mapped to A than to X.
+  - Typical hash functions perform some operation on the internal binary
+    machine representations of characters in a key.
+
+# Handling of Bucket Overflows
+
+- Bucket overflow can occur because of
+  - insufficient buckets
+  - skew in distribution of records
+    - multiple records have same search-key value
+    - chosen hash function produces non-uniform distribution of key values
+- Although the probability of bucket overflow can be reduced, it cannot be eliminated; it is handled by using **overflow buckets**
+- **Overflowing chaining** is the overflow buckets of a given bucket are chained together in a linked list
+- Above scheme is also called **closed addressing** (or open hashing depending on the book you use)
+  - Alternative: open addressing (also called open hashing or closed hashing)
+  - it does not use overflow buckets, and is not suitable for database applications because it does not support deletes efficiently
+
+# Deficiencies of Static Hashing
+
+In static hashing, function $h$ maps search key values to a fixed set of $B$ bucket addresses. Databases grow or shrink with time.
+
+- If initial number of buckets is too small, and file grows, performance will degrade due to too much Overflows
+- if space is allocated for anticipated growth, a significant amount of space will be wasted initially (and buckets will be underfull)
+- if database shrinks again space will be wasted
+
+One solution: periodic re-organization of the file with a new hash function
+
+- expensive, disrupts normal operations
+
+Better solution: allow the number of buckets to be modified dynamically
+
+# Dynamic Hashing
+
+- Periodic rehashing
+  - If number of entries in a hash table becomes (say) 1.5 times size of
+    hash table,
+- create new hash table of size (say) 2 times the size of the
+  previous hash table
+- Rehash all entries to new table
+- Linear Hashing
+  - Do rehashing in an incremental manner
+- Extendable Hashing
+  - Tailored to disk based hashing, with buckets shared by multiple hash
+    values
+  - Doubling of # of entries in hash table, without doubling $#$ of buckets
+
+# Comparison of Ordered Indexing and Hashing
+
+- Cost of periodic re-organization
+- Relative frequency of insertions and deletions
+- Is it desirable to optimize average access time at the expense of worstcase access time?
+- Expected type of queries:
+  - Hashing is generally better at retrieving records having a specified
+    value of the key.
+  - If range queries are common, ordered indices are to be preferred
+- In practice:
+  - PostgreSQL supports hash indices, but discourages use due to poor
+    performance
+  - Oracle supports static hash organization, but not hash indices
+  - SQLServer supports only B+-trees
+
+# Multiple-Key access
+
+- Composite search keys are search keys containing more than one
+  attribute
+  - E.g., (dept_name, salary)
+- Lexicographic ordering: (a1, a2) < (b1, b2) if either
+  - a1 < b1, or
+  - a1=b1 and a2 < b2
+
+# Creation of Indices
+
+Most database systems allow specification of type of index, and clustering. Indices on primary key created automatically by all databases. When a tuple is inserted the index can be used to check that the primary key is not violated.
+
+Some databases also create indices on foreign key attributes.
+
+Indices can greatly speed up lookups, but impose cost on updates. Index tuning assistants/wizards supported on several databases to help choose indices, based on query and update workload.
