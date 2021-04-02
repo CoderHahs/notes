@@ -115,3 +115,42 @@ Most database systems allow specification of type of index, and clustering. Indi
 Some databases also create indices on foreign key attributes.
 
 Indices can greatly speed up lookups, but impose cost on updates. Index tuning assistants/wizards supported on several databases to help choose indices, based on query and update workload.
+
+# Write Optimized Indices
+
+- Performance of B+-trees can be poor for write-intensive workloads
+  - One I/O per leaf, assuming all internal nodes are in memory
+  - With magnetic disks, < 100 inserts per second per disk
+  - With flash memory, one page overwrite per insert
+- Two approaches to reducing cost of writes
+  - Log-structured merge tree
+  - Buffer tree
+
+# Bitmap Indices
+
+Bitmap indices are a special type of index designed for efficient querying on multiple keys. Records in a relation are assumed to be numbered sequentially. Given a number it must be easy to retrieve records.
+
+Applicable on attributes that take on a relatively small number of distinct values.
+
+A bitmap is simply an array of bits.
+
+In its simplest form a bitmap index on an attribute has a bitmap for each value of the attribute. Bitmap has as many bits as records. In a bitmap for value $v$, the bit for a record is 1 if the record has the value $v$ for the attribute, and is 0 otherwise.
+
+They are useful for queries on multiple attributes. Queries are answered using bitmap operations. Each operation takes two bitmaps of the same size and applies the operation on corresponding bits to get the result bitmap.
+
+Bitmap indices are generally very small when compared with relation size.
+
+## Efficient Implementation of Bitmap operations
+
+Counting number of 1s can be done fast by a trick:
+
+- Use each byte to index into a precomputed array of 256 elements
+  each storing the count of 1s in the binary representation
+  - Can use pairs of bytes to speed up further at a higher memory
+    cost
+- Add up the retrieved counts
+
+- Bitmaps can be used instead of Tuple-ID lists at leaf levels of
+  B+-trees, for values that have a large number of matching records
+- Worthwhile if > 1/64 of the records have that value, assuming a tupleid is 64 bits
+- Above technique merges benefits of bitmap and B+-tree indices
