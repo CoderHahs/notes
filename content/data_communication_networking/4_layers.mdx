@@ -1,0 +1,115 @@
+---
+title: 'Layers'
+metaTitle: 'Layers'
+metaDescription: 'Topics in Introduction to Data Communications and Networking'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+# Communications Model
+
+Source -> Transmitter -> Transmission System -> Receiver -> Destination
+
+- Point to point communication is not usually practical
+  - devices are too far apart
+  - large set of devices needed
+- Solution is a communications network
+
+# Wide Area Network
+
+- Large geographical area
+- Rely in part on common carrier circuits
+- Enabling technologies
+  - Circuit switching
+    - dedicated communications path established for duration of the conversation
+  - Packet switching
+    - data sent out of sequence
+    - small chunks of data at a time
+
+# Data Flow
+
+- Simplex, unidirectional
+- Half-duplex, bidirectional one-at-a-time
+- Full-duplex, bidirectional all the time
+
+# Host vs Node
+
+Every single device that has an IP address and that is able to consume or produce data in the network is called a **host**.
+
+Every device is a node but **intermediate nodes** allow you to transfer and manage data, ex. router, switch, hub, bridge.
+
+# Line configuration
+
+- Point-to-point: physical connections between two hosts shared by two devices only
+- Multipoint: physical connections between two or more devices.
+
+# Network Topologies
+
+The arrangement of the elements (links, nodes, etc.) of a communication network.
+
+4 main types: mesh, star, bus, ring.
+
+# Classification of Computer Networks
+
+## Local Area Networks
+
+- smaller scope, building or small campus
+- usually owned by same organization as attached devices
+- data rates are high
+- usually broadcast systems
+- Wireless LAN
+- uses Bus or Ring broadcast networks
+
+## Metropolitan Area Network (MAN)
+
+- uses Junction box, and multiple wires connected to houses in neighborhood
+
+## Wide Area Networks (WAN)
+
+- relations between hosts on LANs and the subnet
+
+# Protocol Architecture
+
+- Protocol: a set of technical rules about how information should be transmitted and received using computers
+- task broken into subtasks
+- implemented separately in layers in stack
+- functions needed in both systems
+- peer layers communicate
+- two standards
+  - OSI reference Model
+  - TCP/IP
+
+## Key elements of a Protocol
+
+- Syntax
+  - data formats
+  - signal levels
+- Semantics
+  - control information
+  - error handling
+- Timing
+  - speed matching
+  - sequencing
+
+## OSI - The Model
+
+- a layer Model
+- each layer performs a subset of the required communication functions
+- each layer relies on the lower layer to perform more primitive functions
+- each layer provides services to the next higher layer
+- changes in one layer should not require changes in other layers
+
+## TCP/IP
+
+Has Application, Transport, Network/Internet, Data link and Physical layers
+
+- Physical layer: controls the transmission, encodes data into signals
+- Data link: responsible for communication inside the local area network, also responsible for error control
+- Network: routing plus sending packets to other networks
+- Transport: reliable delivery of data (TCP only)
+- Application: suports all the different user applications, ex. HTTPS, MTP, FTP, SSH
