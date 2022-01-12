@@ -23,7 +23,7 @@ const config = {
     },
   },
   sidebar: {
-    forcedNavOrder: [],
+    forcedNavOrder: ['/ai', '/astronomy', '/computer_science', '/math', '/software_engineering'],
     collapsedNav: [
       // add trailing slash if enabled above
       '/ai',
@@ -42,7 +42,7 @@ const config = {
       '/math/stats_prob',
       '/math/discrete_math',
       '/software_engineering',
-      '/software_engineering/analysis_design_ui',
+      '/software_engineering/ui',
       '/software_engineering/quality_assurance',
       '/software_engineering/software_arch',
       '/software_engineering/software_construction',
