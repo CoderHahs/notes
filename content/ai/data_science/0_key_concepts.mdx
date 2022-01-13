@@ -1,0 +1,42 @@
+---
+title: 'Key Concepts and Definitions'
+metaTitle: 'Key Concepts and Definitions'
+metaDescription: 'Topics in Data Science'
+---
+
+## Online Transaction Processing (OLTP)
+
+Operations/Transactions:
+
+- INSERT
+- DELETE
+- UPDATE
+- QUERY
+
+DBMS:
+
+- Concurrency control
+- Recovery
+- Security
+
+## Online Analytic Processing (OLAP)
+
+- Data uploaded periodically
+- Queries consist of aggregates (_SUM, COUNT, MIN, etc_) and are used for trends and icebergs
+
+## Data Cubes
+
+A data warehouse is based on a multidimensional data model which views data in the form of a **data cube**.
+
+# Data Warehouse
+
+A data warehouse is a subject-oriented, integrated, time-variant, and nonvolatile collection of data. Data warehousing is the process of constructing and using data warehouses.
+
+## Benefits of a separate data warehouse
+
+- High performance for both systems
+  - DBMS is best for OLTP, access methods, indexing, concurrency control and recovery
+  - Warehouse is best for OLAP: complex OLAP queries, multidimensional view, consolidation
+- supports historical data (no missing data)
+- data consolidation
+- data quality, different sources typically use inconsistent data representations, codes and formats which have to be reconciled
