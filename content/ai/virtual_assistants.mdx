@@ -3,3 +3,149 @@ title: 'Virtual Assistants'
 metaTitle: 'Virtual Assistants'
 metaDescription: 'Topics in Virtual Assistants'
 ---
+
+# Intelligent Personal Assistants vs. Chatbots
+
+An **intelligent personal assistant** is software that can assist people with basic tasks, usually using natural language. They can perform several tasks such as internal commands, web access. Either text or voice can trigger an action.
+
+A **voice assistant** is an intelligent personal assistant that uses voice recognition, speech synthesis, and natural language processing to provide a service through a particular application.
+
+A **chatbot** also known as a conversational agent is the main way to get assistance from a chatbot. Chatbots can simulate a conversation with a human user. Many companies use them in the customer service sector to answer basic questions and connect with a live person if necessary.
+
+Intelligent Personal Assistant:
+
+- Simple dialog (linear/slot filling)
+- Adaptable to owner
+
+Chatbot:
+
+- Often associated with a company
+- usually replaces a customer service support person
+- more complex dialog with multiple speech turns
+
+# Wake word detection
+
+The wake word is what wakes the assistant. For example with the Google Assistant the wake word is "Hey Google".
+
+# Automatic Speech recognition
+
+Current approaches for ASR are machine learning to learn words from speech signals. Frequency analysis is performed on each little slice of audio to learn the corresponding letters
+
+## Speech recognition
+
+1. Speaker
+
+- Speaker's characteristics
+  - Age, gender, anatomy (vocal chords)
+- Current state
+  - level of stress, emotional state
+- Language and culture
+
+2. Utterance
+
+- Utterance method
+  - Isolated words vs connected words
+- Utterance context
+  - continuous speech vs spontaneous speech
+- Production characteristics
+  - whisper vs normal voice vs scream
+
+3. Discourse Content
+
+- domain
+  - the smaller the domain, the better the system performance
+  - larger domain -> more homophones
+- vocabulary
+  - larger the vocab the more understanding
+
+4. Environment
+
+- surrounding sounds
+- transducer
+  - phone, headset, smart Speaker
+- channel variability
+  - signal distortion
+  - echo
+
+# Intent detection
+
+**Intent detection** is a problem of understanding the language (NLU).
+
+NLU is very complex because the language is full of ambiguity.
+
+## Types of dialogs
+
+Linear dialogs is a process of collecting all the necessary information to complete an action. This is used by intelligent personal assistants.
+
+Non-linear dialogs are closer to "real" conversation with branches, twists and turns, based on changes to context. This is used by a conversational agent (chatbot). They are very complex to build, and can quickly become unmanageable.
+
+# Action
+
+For a chatbot or a intelligent personal assistants to execute a desired action, it could require:
+
+- Access to internal commands
+- access to external suppliers
+- access to knowledge based
+- access to search engines
+
+## Access to internal commands
+
+- access to "standard" or added applications
+- internal commands like "set timer"
+- other behavior
+  - "tell me a joke"
+
+## Access to external suppliers
+
+- simple tasks requiring a service provider
+- complex task requiring exchange of information with a service provider
+
+## Access to knowledge base
+
+- Factual Q/A
+
+## Access to search engines
+
+- web searches
+
+# Answer Generation
+
+Types of answers:
+
+- Answers that are pre-recorded
+- answer templates with variables
+
+# Speech Synthesis
+
+**Speech synthesis** is a form of output where a computer or other machine reads words to you out loud in a real or simulated voice played through a loudspeaker; the technology is often called **text-to-speech (TTS)**.
+
+Steps for speech synthesis include: preprocessing for disambiguation, words to phonemes, phonemes to sounds, modulation for intonation, volume.
+
+# Preprocessing
+
+Preprocessing involves going through the text and cleaning it up so the computer makes fewer mistakes when it actually reads the words aloud.
+
+Things like numbers, dates, times, abbreviations, acronyms, and special characters need to be turned into words.
+
+# Words to phonemes
+
+These are the sound parts of word.
+
+Five -> f-ay-v
+One -> w-ah-n
+
+# Phonemes to sounds
+
+Speech synthesizers that use recorded human voices have to be preloaded with little snippets of human sound they can rearrange.
+
+In other words, a programmer has to record lots of examples of a person saying different things, break the spoken sentences into words and the words into phonemes.
+
+If there are enough speech samples, the computer can rearrange the bits in any number of different ways to create entirely new words and sentences.
+
+# Modulation
+
+As any good actor can demonstrate, a sentence can be read in
+different ways depending on the meaning of the text, the person
+speaking and the emotions it wishes to express.
+
+In linguistics, this idea is known as **prosody** and is one of the most difficult problems for voice synthesizers.
