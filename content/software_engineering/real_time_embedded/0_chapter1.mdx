@@ -1,0 +1,31 @@
+---
+title: 'Introduction'
+metaTitle: 'Introduction'
+metaDescription: 'Topics in Real-Time Embedded Systems'
+---
+
+# Real-Time Systems
+
+- the notion of a "system" is central to software engineering
+- a system for engineers is an assembly of things interacting together according to a precise relationship for transforming a set of functions called inputs into a set of functions called outputs
+- there is no system without interactions, and there is no system with outputs happening before the inputs are manifested
+- every real world entity, whether organic or synthetic, can be modeled as a system the condition of transforming inputs in outputs
+- in computing systems, the inputs represent digital data collected from hardware devices called **sensors**
+- the application has modules which acquire and process the data produced by the input hardware, and deliver it to output devices called **actuators**
+- the actuators deliver the output to the process
+
+Example:
+
+- The objective: building a controlled Robot
+- requires the design of a computer application whose server,
+  runs on a multi threaded CPU under an RTOS (Linux);
+- collects data from the robot sensors and stores it (some apps
+  use a database), and at the same time calculates the next
+  step to be made (by the Robot).
+- Sensors:
+  - two rotation speed sensors,
+  - a GPS sensor
+  - two collision sensors (one in the front and one at the back of
+    the robot)
+  - a real-time streaming camera which sends images to the CPU
+    of the robot
