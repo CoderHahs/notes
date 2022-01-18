@@ -14,6 +14,8 @@ metaDescription: 'Topics in Real-Time Embedded Systems'
 - the application has modules which acquire and process the data produced by the input hardware, and deliver it to output devices called **actuators**
 - the actuators deliver the output to the process
 
+![Image](https://www.researchgate.net/profile/Mario-Zenha-Rela/publication/221246624/figure/fig2/AS:667611582971911@1536182413254/Block-diagram-of-a-periodic-real-time-control-system.png)
+
 Example:
 
 - The objective: building a controlled Robot
@@ -29,3 +31,80 @@ Example:
     the robot)
   - a real-time streaming camera which sends images to the CPU
     of the robot
+
+# Block Diagrams and Basic Blocks
+
+A block diagram, and the block itself is a conventional representation of a system, system components, and system elements.
+
+![Image](https://1.bp.blogspot.com/_U3umjVzCXTA/TJ2qDnhANMI/AAAAAAAAAPk/AHIC2YGuO1U/w1200-h630-p-k-no-nu/I-O-block+diagram.gif)
+
+Every real world entity can be modeled as a system.
+
+## Basic Functional Blocks of RTS
+
+![Image](https://media.geeksforgeeks.org/wp-content/uploads/20200430120324/Untitled-Diagram-717.png)
+
+# Input and Output Data: Devices
+
+## Example sensors
+
+- Temperature
+- RFID
+- Barcode
+- Proximity
+- Vision
+- Gyroscope
+- Compass
+- Tilt/Acceleration
+
+## Input and Output Devices
+
+Input/Output (I/O) devices usually have some analog or non-electronic component.
+
+Digital logic is used to interact with the CPU.
+
+Devices have different registers to store information.
+
+- Status register: read-only register holding information about current state of the I/O device
+- Data register: Read/write register with most recent data passed between CPU and I/O device
+
+![Image](https://image.slidesharecdn.com/accessingio-130308111901-phpapp01/95/accessing-io-devices-5-638.jpg?cb=1362741728)
+
+## Busy-Wait I/O
+
+It may be necessary to interact with a device frequently to retrieve or send information.
+
+Most basic ways to use devices is busy-wait I/O.
+
+- continuously accessing the I/O device until certain conditions have been met
+- continuously checking status register is **polling**
+
+This is necessary when devices are slower than CPU. To avoid inefficient use of processor time, interrupts are used as an alternative.
+
+## Stimuli to Real-Time Systems
+
+### Periodic Stimuli
+
+- inputs which occur at periodic time intervals
+- ex. timed events and synchronous communication, a temp. sensor may be polled 10 times per second, consequence: the computer or the OS has to trigger time events in order to poll the transducers
+
+### Aperiodic Stimuli
+
+- inputs which occur at unpredictable times
+- ex. asynchronous communication, interrupts and exceptions. A system power failure may trigger an interrupt which must be processed by the system, consequence: the computer or the OS has to react to event and trigger tasks for processing these events.
+
+#### Events
+
+- atomic, non-incorruptible occurrence
+- based on communication, time, change of attribute
+
+#### Interrupts
+
+- Signal (or event) used to get immediate attention of processor
+- Handled by an interrupt service handler implemented for the specific event that occurred (and potentially others)
+
+#### Exceptions
+
+- occurrence of an error
+- exceptions are raised when errors occur and handled by the system accordingly
+- e.g. exception handlers (Java)
