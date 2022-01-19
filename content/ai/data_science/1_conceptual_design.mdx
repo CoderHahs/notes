@@ -1,0 +1,52 @@
+---
+title: 'Conceptual Design'
+metaTitle: 'Conceptual Design'
+metaDescription: 'Topics in Data Science'
+---
+
+Steps to create a Data Mart
+
+# Dimensional Model
+
+## Components
+
+- **FACT table**: Primary table where numeric performance measures for a business process are stored
+  - Composite PK from many FKs
+  - Facts/measures: A business measure (numeric, additive)
+- **Dimensional tables**
+  - contains textual description of business
+  - many, many, many dimensional attributes
+  - used to specify query constraints
+
+# Designing an Individual Dimensional Model
+
+## Step 1: Choose the Business Process to Model
+
+- Almost always something to do with the "Sales" and/or "Productivity"
+  - Retail
+  - Healthcare
+  - Insurance
+  - Telecoms
+- Motivated using \$\$\$\$ saved (or gained)
+
+## Step 2: Declare the Gain
+
+- Answer question: _"How do you describe a single row in the fact table"_
+- General guiding principle:
+  - we choose the _lowest meaningful (and feasible) grain_ of each dimension
+- Why:
+  - we want to see all those details
+  - we can always aggregate (sum, count, average) later
+
+## Step 3: Choose the Dimensions
+
+- Answer question: "How does the business describe the data that results from the business process?"
+- This is determined by grain of fact table
+- add all possibly relevant dimensions and many, many descriptive attribute values
+
+## Step 4: Choose the Facts/Measures
+
+- Answer question: "What are we measuring?"
+- Specific to grain of fact table
+- Store additive values
+- Percentages and ratios, also store numerator + denominator
