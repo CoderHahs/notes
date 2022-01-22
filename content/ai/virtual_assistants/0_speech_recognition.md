@@ -4,6 +4,13 @@ metaTitle: 'Speech Recognition'
 metaDescription: 'Topics in Virtual Assistants'
 ---
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
 # Human Voice
 
 ## Voice Production
@@ -144,3 +151,60 @@ Estimating the probability of each word:
 ![Image](https://miro.medium.com/max/700/1*QxpJV7dzjvjeEvrpf7FXBQ.jpeg)
 
 This is known as the Viterbi algorithm. It tries to find the most likely path for a word.
+
+# Neural Network End-to-End Models
+
+![Image](./images/end-to-end-NN.png)
+
+# Evaluation
+
+## Output Examples
+
+**Target:** To illustrate the point a prominent middle east analist in washington recounts a call from one campaign
+
+**Output:** Two alstrait the point a prominent midille east analyst im washington recouncacall from one campaign
+
+**Target:** T.W.A. also plans to hang its boutique shingle in airports at Lambert Saint
+
+**Output:** T.W.A. also plans tohing its bootik single in airports at Lambert Saint
+
+**Target:** All the equity raising in Milan gave that stock market indigestion last year
+
+**Output:** All the equity raison in Mulong gave the that stackr market in to justian last
+year
+
+## Word Error Rate
+
+$WER = \frac{S+D+I}{N}$
+
+where:
+
+- $S$, substitutions
+- $I$, insertions
+- $D$, deletions
+- $N$, number of words in the reference
+
+## Evaluation Strategy
+
+1. Choose a test sample
+2. Create reference transcripts
+3. Run a test
+4. Create ASR hypothesis transcripts
+5. Calculate WER
+6. Make an assessment
+
+Attention to results provided. WER does not tell you what caused the problems ... and might be very OPTIMISTIC.
+
+> Were those results obtained in conditions that match YOUR intended use?
+
+- Speaker
+  - Who is speaking?
+  - Which languages?
+- Utterance
+  - Text reading (continuous) or Spontaneous
+- Discourse Content
+  - Commands?
+  - Specific domain?
+- Environment
+  - Noise conditions
+  - Channel (microphone, phone)
