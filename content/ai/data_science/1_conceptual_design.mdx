@@ -50,3 +50,75 @@ Steps to create a Data Mart
 - Specific to grain of fact table
 - Store additive values
 - Percentages and ratios, also store numerator + denominator
+
+# Types of Dimensions
+
+- Causal: promotion, contract, deal
+- Degenerate: ticket number, order number
+- Status: account status, shipment status
+- Audit: data quality and record lineage
+- Junk: indicators and flags
+- role-playing: one dimension acting in many "views" of the data
+
+## Role-playing dimensions
+
+- keys with different roles showing the same data
+- you can implement a role-playing dimension using a SQL View
+
+## Modelling multiple units of measure
+
+To make sure there is no confusion, we have units of measure in the data schema design. For example if a product has a length field, then we also store a length-unit field.
+
+We could also design our schema to store the length in all units of measure, so a length-cm field or length-inches.
+
+## Modelling multiple currencies
+
+We keep a local currency price as well as a field for equivalent currencies in our schema.
+
+### When do we measure the conversation rate?
+
+We convert the local currency based on where the data mart is located. We would use the data mart's local time.
+
+## Modelling many-to-many Dimensions
+
+- 0, 1 M: exact number unknown before creating dimensional model
+- use a bridge entity
+- useful for easy querying
+- dimensional model won't be a star anymore
+- use with caution
+- implemented during data staging
+
+## Monster Dimension
+
+A monster dimension changes frequently, leading to an excessive number of rows.
+
+Use banding as a solution. Think of banding like a range. Leads to better analytics and better data mining, both occur sometimes.
+
+## Slowly changing dimension
+
+Let some fields be overwritten if incorrect data is inputted.
+
+# Alternative Designs
+
+## Stars vs Snowflakes
+
+- snowflaking happens when we choose to normalise a dimension.
+- the golden rule: avoid as far as possible.
+- why? recall cost of joining tables
+
+![Image](./images/snowflake_diagram.png)
+
+## Galaxies or Fact Constellations
+
+These are data marts share dimensions.
+
+![Image](./images/fact_constellation_diagram.png)
+
+### Implementation issues
+
+- conformed dimensions
+- conformed measures
+- conformed: exactly the same, or a rollup / drill down
+
+- aim: avoid stovepipes
+- golden rule: when we aggregate (sum or count), we get the same totals
