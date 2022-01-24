@@ -340,8 +340,8 @@ Standard approach: n-gram models
 - quickly update to follow trends in traffic
 - fast lookups inside decoding algorithms
 
-Given a word-based LM of form \\\\\\\\\\\$P(w\\\\\\\\\\\_{t+1}|w\\\\\\\\\\\_{1:t}), optimize:
-\\\\\\\\\\\$\mathrm{arg max} P(w|x)P(w)^{\alpha}[length(w)]^{\beta}\$
+Given a word-based LM of form \\\\\\\\\\\\$P(w\\\\\\\\\\\\_{t+1}|w\\\\\\\\\\\\_{1:t}), optimize:
+\\\\\\\\\\\\$\mathrm{arg max} P(w|x)P(w)^{\alpha}[length(w)]^{\beta}\$
 
 $P(w|x) = P(y|x)$ for characters that make up $w$.
 
@@ -419,5 +419,11 @@ Computation takes a lot of time and lots of computing power. Solution is to use 
 
 So far:
 
-- train acoustic + languge models
+- train acoustic + language models
 - scale them up
+
+How to serve users?
+
+- accuracy is only one measure of performance
+- user care about latency
+- need to serve economically
