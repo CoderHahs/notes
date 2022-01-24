@@ -208,3 +208,216 @@ Attention to results provided. WER does not tell you what caused the problems ..
 - Environment
   - Noise conditions
   - Channel (microphone, phone)
+
+# Deep Learning
+
+Many components make up a complete speech application:
+
+- speech transcription
+- word spotting / trigger word
+- speaker identification / verification
+
+## Traditional ASR
+
+Traditional ASR components:
+
+- audio wave
+- feature representation
+- decoder
+
+  - acoustic model
+  - language model
+  - pronunciation model
+
+- Traditional pipeline is highly tweak-able, but
+  also hard to get working well.
+- Historically, each part of system has own set
+  of challenges.
+  - E.g., choosing feature representation.
+
+## DL speech pipeline walkthrough
+
+Starter code: [github.com/baidu-research/ba-dls-deepspeech](github.com/baidu-research/ba-dls-deepspeech)
+
+### Preprocessing
+
+Raw audio can be broken down into a 1D vector.
+
+Two ways to start:
+
+- minimally pre-process (simple spectrogram)
+- Train model from raw audio wave
+
+#### Spectrograms
+
+- Take a small window (e.g. 20 ms) of Waveform
+  - compute FFT and take magnitude
+  - describes frequency content in local window
+- concatenate frames from adjacent windows to form "spectrogram"
+
+#### Acoustic Model
+
+Goal: create a neural network (DNN/RNN) from which we can extract transcription, y.
+
+- Train from labeled (x,y\*)
+
+Main issue: length (x) != length(y)
+
+- Don't know how symbols in y map to frames of audio.
+
+Multiple ways to resolve:
+
+- use attention, sequence to sequence models
+- use Connectionist Temporal Classification (CTC)
+
+### CTC
+
+Basic idea:
+
+1. RNN output neurons $c$ encode distribution over symbols. Note length(c) == length(x)
+
+- For phoneme-based model: $c \in {AA, AE, AX, ..., ER1,\mathrm{blank}}$
+- - For grapheme-based model: $c \in {A, B, C, D, ..., Z,\mathrm{blank, space}}$
+
+Output neurons define distribution over whole character sequences $c$ assuming independence: $P(c|x) \equiv \Pi^{N}_{i=1} P(c_i | x)$
+
+2. Define a mapping $\beta (c) \Rightarrow y$
+
+Given a specific character sequence $c$, squeeze out duplicates + blanks to yield transcription
+
+3. Maximize likelihood of $y*$ under this model
+
+Update network parameters $\theta$ to maximize likelihood of correct label $y*$
+
+> $\theta* = \mathrm{arg max} \sigma_{i} \mathrm{log} \sigma_{c:\beta(c)=y^{*(i)}} P(c|x^{(i)})$
+
+Use usual gradient descent methods to optimize.
+Tune entire network with backpropagation.
+
+### Training
+
+Getting RNN to train well is tricky.
+
+Two tricks:
+
+- "SortaGrad": order utterances by length during first epoch
+- Batch normalization
+
+### Decoding & language models
+
+Network outputs $P(c|x)$. How do we find most likely transcription from $P(y|x)$?
+
+Using approximation is a bad solution, but a useful diagnostic to "eyeball" models.
+
+No efficient solution in general. Resort to search!
+
+#### Language models
+
+Even with better decoding, CTC model tends to make spelling + linguistic errors.
+
+$P(y|x)$ modeled directly from audio.
+
+- but not enough audio data to learn complicated spelling and grammatical structure
+- only supports small vocabulary
+- for grapheme models: "Tchaikovsky" problem
+
+Two solutions:
+
+- fuse acoustic model with language model
+- incorporate linguistic data
+  - predict phonemes + pronunciation lexicon + LM
+
+Possible to train language model from massive text corpora
+
+- learn spelling + grammar
+- greatly expand vocabulary
+- elevate likely cases over unlikely cases
+
+Standard approach: n-gram models
+
+- simple n-gram models are common and well supported
+- train easily from huge corpora
+- quickly update to follow trends in traffic
+- fast lookups inside decoding algorithms
+
+Given a word-based LM of form \\\\\\\\\\\$P(w\\\\\\\\\\\_{t+1}|w\\\\\\\\\\\_{1:t}), optimize:
+\\\\\\\\\\\$\mathrm{arg max} P(w|x)P(w)^{\alpha}[length(w)]^{\beta}\$
+
+$P(w|x) = P(y|x)$ for characters that make up $w$.
+
+$\alpha$ and $\beta$ are tunable parameters to govern weight of LM and bonus/penalty for each word.
+
+Basic strategy, use beam search to maximize $\mathrm{arg max} P(w|x)P(w)^{\alpha}[length(w)]^{\beta}\$.
+
+Start with set of candidate transcript prefixes, A={}.
+
+<!-- prettier-ignore-start -->
+```
+For t=1..T:
+  For each candidate in A, consider:
+    1. Add blank: don't change prefix; update probability using AM
+    2. Add space to prefix; update probability using LM
+    3. Add a character to prefix; update probability using AM
+    Add new candidates with updated probabilities to $A_{new}$.
+  A := most probable prefixes in $A_{new}$
+```
+<!-- prettier-ignore-end -->
+
+#### Rescoring
+
+Another place to plug in DL algorithms:
+
+- System usually produce N-best list.
+- Use fancier models to "rescore" this list
+
+## Scaling up
+
+Transcribing speech data isn't cheap, but not prohibitive:
+
+- roughly 50 cents to \$1 per minute
+
+Typical speech benchmarks offer 100s to few 1000s of hours.
+
+### Types of speech data
+
+Application matters, we want to find data that matches our goals
+
+- Styles of speech
+  - read
+  - conversational
+  - spontaneous
+  - command/control
+- issues
+  - Disfluency / stuttering
+  - Noise
+  - Mic quality / #channels
+  - Far field
+  - Reverb / echo
+  - Lombard effect
+  - Speaker accents
+- applications
+  - dictation
+  - meeting transcription
+  - call centers
+  - device control
+  - mobile texting
+  - home/IoT/Cars
+
+Read speech is inexpensive way to get more data, but isn't that effective.
+
+### Augmentation
+
+You can use a sound processor to simulate different environments and get different types of speech data.
+
+Its easier to engineer data pipeline than to engineer recognition pipeline.
+
+### Computation
+
+Computation takes a lot of time and lots of computing power. Solution is to use more GPUs with data parallelism.
+
+## Production
+
+So far:
+
+- train acoustic + languge models
+- scale them up
