@@ -108,3 +108,49 @@ This is necessary when devices are slower than CPU. To avoid inefficient use of 
 - occurrence of an error
 - exceptions are raised when errors occur and handled by the system accordingly
 - e.g. exception handlers (Java)
+
+## Architecture of RTS software
+
+- consists of an operator (human or machine), computer system, and an external object (plant) being controlled
+- instrumentation interface: mechanisms used by the system to control the plant
+- man machine interface: mechanisms used by the user to interact with the system
+
+# Definition of Real-Time Systems
+
+Many different definitions with similar descriptions
+
+A computer (or processor) based information processing system with the following attributes
+
+1. Must respond to externally generated input within a finite and specified period of time
+2. Responses are computer generated signals or actions which commands the external device(s) connected to the computer
+3. The correctness of a response depends on the logical result and the time it was delivered a time constraint which not fulfilled leads to severe consequences, including failure.
+
+- Failure for a real-time system to respond on time is as bad as not responding at all
+
+## Definition of Embedded Systems
+
+- Special purpose computer system
+- Completely encapsulated by the device it controls
+- Specific requirements and performs pre-defined tasks (unlike
+  general purpose PC)
+- Programmed hardware device
+- Combination of hardware and software
+  - Facilitates mass production and variety of applications
+- Significant growth market
+
+## Domain of Real-Time and Embedded Systems
+
+- discipline where computers are used to control external processes
+- RTS automate processes using computer systems
+- Processes controlled in timely manner
+- Computers act as control devices instead of humans
+- Controlling an external process is the feature which distinguished a general computer from a Real-Time or Embedded Processors
+
+## Control and Real-Time Systems
+
+- Real-time systems are used to control external processes (also called a plant or controlled object)
+- Closed-loop (feedback) operation is common with real-time systems
+- The system has to keep a response (output) signal as close as possible to a desired value (input or prescribed value)
+- the system output is brought back to the input, compared with the input and the result (the error signal or simple the error) is used to make a decision about the next appropriate action. This action is called the feedback operation
+- The control system will often use the error signal to make a decision about how to manipulate the output
+- the error signal is a measure of the difference between the system response as determined by a sensor or transducer (the feedback signal) and the desired response
