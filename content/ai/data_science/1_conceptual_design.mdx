@@ -122,3 +122,68 @@ These are data marts share dimensions.
 
 - aim: avoid stovepipes
 - golden rule: when we aggregate (sum or count), we get the same totals
+
+# Fact constellations revisited
+
+Galaxies data integration issues
+
+- conflicting dimensional attribute meaning
+- conflicting measure meaning
+- our aim conformed, exactly the same or a rollup (concept hierarchies)
+- golden rule:
+  - when we aggregate, we get the same dimensions
+
+## Conformed dimensions
+
+- Attributes in separate dimensional tables (associated with different have same names and domains)
+- Goal: Analytic consistency
+- Same key values, same data definitions, same attribute values
+
+### Productivity
+
+Problem: conflicts during data integration
+
+Dimensions should match exactly between two sources
+
+Approach: find common ground - (intersection)
+
+### Granularity
+
+Conflicts during data integration, missing details
+
+Solution: add more detail, refine granularity
+
+## Conformed measures
+
+Technical definition should be exactly the same, if they are going to be compared or aggregated
+
+# Handling multiple grains
+
+Demographic data is aggregated data used to describe a population
+
+- used for customer segmentation
+- use Outrigging for low cardinality attributes
+- Why? different grain, different load cycles avoid monster dimensions
+
+## Outrigging
+
+![Image](./images/outrigging.png)
+
+## Downwards allocation
+
+When you have multiple grains the general idea is to allocate line items using a standard approach
+
+# Modeling mistakes
+
+Don'ts:
+
+1. Place text attributes in the Fact table
+2. Limit verbose descriptions to save space
+3. Avoid snowflaking. Normalize to save space (leads to slower queries)
+4. Ignoring the need to track changes
+5. Add new hardware to solve all query performance issues
+6. Use operational keys as primary keys
+7. Neglect to declare and comply with grain
+8. Neglect a detailed design
+9. Expect users to query normalized data
+10. Fail to conform Facts and Dimensions
