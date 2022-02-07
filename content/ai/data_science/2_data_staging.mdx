@@ -58,4 +58,47 @@ Create a very high-level, one-page schematic of the source-to-target flow
 
 ## Developing One-Time Historic Load
 
-1. Build
+1. Build and test dimensions load
+2. Build and test fact table load (develop surrogate key pipeline)
+
+### Step B1: Populate Dimension tables
+
+- Static, offline dimension extract
+- Creating and moving the result set
+  - Data compression
+  - Data encryption
+- Transformations
+  - Simple data transformations, change of data
+    types
+  - Handling NULLS, how
+  - Consolidation and deduplications
+- Surrogate key assignment
+  - Use integer “autonumbers”, increasing by 1
+  - Maintain a lookup table with the production_key to
+    surrogate_key matches in data staging area
+- Validating one-to-one and one-to-many relationships
+  - Constraint: Only one model per product
+
+### Step B2: Populate dimensions - database considerations
+
+- Load
+  - Turn off logging
+  - Pre-sort the file
+  - Transform with caution
+  - Use the bulk loader
+
+## Changes to historic data
+
+For simple scenarios where only one or two columns (attributes of a dimension) change then we can simply choose to overwrite it.
+
+Or we can keep track of history, by adding a new entry to the table and changing the primary key.
+
+### Step B2: Populating the historic fact table
+
+- Decide how to handle NULL values in
+  your measures, if any
+- Remember the important row, NULL
+  - in relevant dimensions
+    - E.g., no Promotion during Sales
+- Make absolutely sure your Ref.
+  Integrity is solid
