@@ -37,3 +37,25 @@ Create a very high-level, one-page schematic of the source-to-target flow
 - Include placeholders for sources yet to be determined
 - Label targets
 - Add notes about known problems
+
+### Step A2: Detailed planning by table
+
+- Drill down by target table, graphically sketching any complex data restructuring or transformations
+- Identify attribute hierarchies (normalize the source)
+
+  - A hierarchy is a relationship between attributes where
+    the data rolls up into higher levels of summarization in
+    a series of strict many-to-one relationships. Hierarchies
+    are reflected by additional columns in a dimensional
+    table.
+  - The inverse of a roll up is a drill down
+  - Data staging issue, make sure hierarchies are clean (e.g., products in a store)
+
+- Graphically illustrate the surrogate-key generation process
+- Develop a preliminary job sequencing
+
+# Initial and incremental loads
+
+## Developing One-Time Historic Load
+
+1. Build
