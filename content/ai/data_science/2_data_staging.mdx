@@ -54,9 +54,7 @@ Create a very high-level, one-page schematic of the source-to-target flow
 - Graphically illustrate the surrogate-key generation process
 - Develop a preliminary job sequencing
 
-# Initial and incremental loads
-
-## Developing One-Time Historic Load
+# Developing One-Time Historic Load
 
 1. Build and test dimensions load
 2. Build and test fact table load (develop surrogate key pipeline)
@@ -87,7 +85,7 @@ Create a very high-level, one-page schematic of the source-to-target flow
   - Transform with caution
   - Use the bulk loader
 
-## Changes to historic data
+#### Changes to historic data
 
 For simple scenarios where only one or two columns (attributes of a dimension) change then we can simply choose to overwrite it.
 
@@ -102,3 +100,56 @@ Or we can keep track of history, by adding a new entry to the table and changing
     - E.g., no Promotion during Sales
 - Make absolutely sure your Ref.
   Integrity is solid
+
+# Develop Incremental Load
+
+## Step 1: Record dimensional records
+
+Identify the changed dimension rows, and compare differences & apply policy decisions.
+
+## Step 2: Incremental slowly changing dimensions
+
+Handling change for slowly changing dimensions:
+
+- Type 1: overwrite
+- Type 2A: add new row
+- Type 2B: add new row & flag
+- Type 2C: add new row & dates
+- Type 3: Add new attributes
+- Type 4: Add mini dimensions
+- Type 5 to 7: Hybrid and complex to code
+
+## Step 3: Incremental fact table staging
+
+Add new transactions like a smaller unit of measurement.
+
+For late arriving measures/facts, identify the correct surrogate keys to link to.
+
+For performance:
+
+- Speeding up the load cycle
+- More frequent loading
+- Partitioned files and indexes
+- Parallel processing
+
+## Step 4: Aggregate Table and OLAP Loads
+
+- Build aggregates
+- Maintain aggregates
+- Prepare OLAP loads (if any)
+  - Cube-like structure based on dimensional model
+  - MOLAP engines build own optimized aggregates
+
+## Last step: Automation
+
+- Typical operational functions
+  - Job definition: flow and dependency
+  - Job scheduling: time and event based
+  - Monitoring and Notification
+  - Exception and Error handling
+- Determine job control approach
+- Record extract metadata
+- Record operations metadata
+- Ensure data quality
+- Set up archiving in the data staging area
+- Develop data management procedures
