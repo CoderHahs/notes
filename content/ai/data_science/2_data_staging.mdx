@@ -153,3 +153,41 @@ For performance:
 - Ensure data quality
 - Set up archiving in the data staging area
 - Develop data management procedures
+
+# Data Quality
+
+Assessing the quality of data:
+
+- flag normal, abnormal, out of bounds or impossible facts
+- recognize random or noise values from context and mask out
+- apply a uniform treatment to NULL values
+
+## Steps to transform data
+
+1. Data cleaning
+2. Data integration and transformation
+3. Data reduction
+
+Design decision: done during data staging or by user applications (or at both ends)
+
+The above steps all depend on domain, organization culture, end user needs and skills
+
+## Tasks to clean data
+
+- fill in missing values
+  - fill manually
+  - use default value
+  - use mean value
+  - use mean value of class or grouping
+  - use most probable value
+- identify outliers and smooth out noisy data
+  - binning
+    - sort data and partition into equal frequency bins
+    - use bin means, or bin median or bin boundaries
+  - regression
+    - fit the data to a function using linear or multiple linear regression
+  - clustering
+    - useful for finding outliers
+  - should involve human inspection
+- correct inconsistent data
+- resolve redundancy caused by data integration
