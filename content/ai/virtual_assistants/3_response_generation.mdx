@@ -107,3 +107,68 @@ Applications of Natural Language Generation:
 Sequence-to-Sequence Models (SEQ2SEQ models)
 
 ![Image](./images/seq2seq.png)
+
+![Image](./images/nmt_seq2seq.png)
+
+# Evaluation
+
+## NLG: Structure Data to Text
+
+Input:
+
+- Mona Lisa, is-in, Louvre
+
+Output:
+
+- Mona Lisa is located in le Louvre
+- Le Louvre is home to the Mona Lisa
+- The Mona Lisa can be found in Le Louvre
+- Le Louvre contains the Mona Lisa
+
+- Metrics (automatic evaluation)
+  - Comparison between some references and the predictions
+  - Zero-cost beyond the gathering of train-dev-test data
+- Human evaluation
+  - Analysis of predictions
+  - Very costly
+  - Requires InterAnnotator Agreement analysis as well
+
+### Word-Based Metrics
+
+- TER, BLEU, ROUGE, NIST, LEPOR, CIDER, METEOR
+- Grammar-Based metrics
+  - Readability
+    - Word per sentence, syllables per sentence
+  - Grammaticality
+    - Mispellings, parsing score
+
+### Human Evaluation
+
+- Informativeness
+  - Does the utterance provide all the useful information from the meaning representation?
+- Naturalness
+  - Could the utterance have been produced by a native speaker?
+- Quality
+  - How do you judge the overall quality of the utterance in terms of its grammatical correctness and fluency?
+
+### Virtual Assistants
+
+Virtual Assistant (or Conversational Agent)
+
+- It's capacity (what it can do)
+- It's perceived value by customers/users
+
+- Engagement
+  - How the user is interested in the conversation?
+- Coherence
+  - A coherent response indicates a comprehensible and relevant
+    response to a user's request.
+  - Measure number of incoherent responses/total utterances
+- Domain Coverage
+  - Coverage of agent within a domain
+  - Goal-oriented (chatbots)
+  - General domain (VAs) - average on different domains
+- Conversational Depth
+  - Number of turns that are possible (on same topic)
+- Topical Diversity / Conversational Breadth
+  - For general domain agents, how the agent is able to chat on various domains
