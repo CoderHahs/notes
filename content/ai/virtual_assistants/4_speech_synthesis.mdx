@@ -1,0 +1,54 @@
+---
+title: 'Speech Synthesis'
+metaTitle: 'Speech Synthesis'
+metaDescription: 'Topics in Virtual Assistants'
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css"
+  integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG"
+  crossOrigin="anonymous"
+/>
+
+**Speech synthesis** is the artificial production of human speech.
+
+## Accessibility
+
+Speech synthesis helps people with disabilities to communicate with their devices.
+
+## Industries
+
+- Travel and Tourism
+  - Help get from point A to point B
+- Automotive Manufacturing
+  - Read-aloud reports (emails, texts)
+- E-Learning
+  - Bring static content like ebooks, pdf or other documents "to life"
+- Customer support
+  - Interactive Voice Response System, offers customized messaging to customers
+- Virtual Assistants
+  - Voice interactions
+
+# Traditional Architecture
+
+## Steps
+
+1. Pre-processing / Text Normalization
+
+- Preprocessing involves going through the text and cleaning it up so the computer makes fewer mistakes when it actually reads the words aloud.
+- Use statistical approach (language models) or neural networks to arrive at the most likely normalized form.
+- Preprocessing also has to tackle homographs, words pronounced in different ways according to what they mean.
+
+2. Words to phonemes
+3. Phonemes to sounds
+
+- Concatenative TTS relies on high-quality audio clips recordings, which are combined together to form the speech.
+- At the first step voice actors are recorded saying a range of speech units, from whole sentences to syllables that are further labeled and segmented by linguistic units from phones to phrases and sentences forming a huge database.
+- During speech synthesis, a Text-to-Speech engine searches such database for speech units that match the input text, concatenates them together and produces an audio file
+
+4. Modulation for intonation and volume
+
+- As any good actor can demonstrate, a sentence can be read in different
+  ways depending on the meaning of the text, the person speaking and
+  the emotions it wishes to express. In linguistics, this idea is known as prosody and is one of the most difficult problems for voice synthesizers.
