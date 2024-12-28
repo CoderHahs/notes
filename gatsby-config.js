@@ -7,8 +7,8 @@ const plugins = [
   {
     resolve: `gatsby-plugin-google-analytics`,
     options: {
-      // replace "G-XXXXXXXXX" with your own Tracking ID
-      trackingId: "G-VZNSEVHR48",
+      // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+      trackingId: 'G-MRF0H099GW',
     },
   },
   {
