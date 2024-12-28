@@ -2,7 +2,7 @@ const config = {
   gatsby: {
     pathPrefix: '/',
     siteUrl: 'https://hrithiks-notes.netlify.app',
-    gaTrackingId: 'UA-165545273-1',
+    gaTrackingId: 'G-VZNSEVHR48',
     trailingSlash: false,
   },
   header: {
