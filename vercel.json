@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "framework": "gatsby",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "installCommand": "npm install --legacy-peer-deps",
+  "build": {
+    "env": {
+      "NODE_VERSION": "16",
+      "GATSBY_ALGOLIA_APP_ID": "@gatsby_algolia_app_id",
+      "GATSBY_ALGOLIA_SEARCH_KEY": "@gatsby_algolia_search_key",
+      "ALGOLIA_ADMIN_KEY": "@algolia_admin_key"
+    }
+  },
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,9 @@
 const config = {
   gatsby: {
     pathPrefix: '/',
-    siteUrl: 'https://hrithiks-notes.netlify.app',
+    siteUrl: process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : process.env.URL || 'https://hrithiks-notes.netlify.app',
     gaTrackingId: 'G-MRF0H099GW',
     trailingSlash: false,
   },
