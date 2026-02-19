@@ -1,3 +1,11 @@
 [build]
   publish = "public"
-  command = "npm run build"
+  command = "npm install --legacy-peer-deps && npm run build"
+
+[build.environment]
+  NODE_VERSION = "16"
+  NPM_FLAGS = "--legacy-peer-deps"
+  CI = "true"
+
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
