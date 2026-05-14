@@ -34,6 +34,7 @@ const plugins = [
           resolve: 'gatsby-remark-katex',
           options: {
             strict: 'ignore',
+            throwOnError: false,
           },
         },
         {
