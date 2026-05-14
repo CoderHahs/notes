@@ -29,6 +29,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-mdx',
     options: {
+      remarkPlugins: [require('remark-math')],
       gatsbyRemarkPlugins: [
         {
           resolve: 'gatsby-remark-katex',
