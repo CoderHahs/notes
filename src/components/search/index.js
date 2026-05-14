@@ -121,6 +121,10 @@ export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
 
   const [focus, setFocus] = useState(false);
 
+  if (!config.header.search.algoliaAppId || !config.header.search.algoliaSearchKey) {
+    return null;
+  }
+
   const searchClient = algoliasearch(
     config.header.search.algoliaAppId,
     config.header.search.algoliaSearchKey
