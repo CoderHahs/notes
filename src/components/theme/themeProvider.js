@@ -36,13 +36,15 @@ class ThemeProvider extends React.Component {
 
     return (
       <div>
-        <Global styles={baseStyles} />
-        <Header
-          location={location}
-          isDarkThemeActive={isDarkThemeActive}
-          toggleActiveTheme={this.toggleActiveTheme}
-        />
-        <EmotionThemeProvider theme={currentActiveTheme}>{children}</EmotionThemeProvider>
+        <EmotionThemeProvider theme={currentActiveTheme}>
+          <Global styles={baseStyles} />
+          <Header
+            location={location}
+            isDarkThemeActive={isDarkThemeActive}
+            toggleActiveTheme={this.toggleActiveTheme}
+          />
+          {children}
+        </EmotionThemeProvider>
       </div>
     );
   }
